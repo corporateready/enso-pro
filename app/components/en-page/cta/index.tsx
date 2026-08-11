@@ -52,7 +52,7 @@ export default function CTA() {
         </button>
         <a
           className={`${styles.action} ${styles.directAction}`}
-          href="tel:+37368969689"
+          href="tel:+37368969688"
         >
           Call us directly
         </a>
