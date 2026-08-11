@@ -1,0 +1,284 @@
+@media screen and (max-width: 640px) {
+  .section {
+    position: relative;
+    width: 390rem;
+    height: 1037rem;
+    flex: 0 0 1037rem;
+    margin-top: 60rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .inner {
+    position: relative;
+    width: 390rem;
+    height: 1037rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .header {
+    display: contents;
+  }
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 17rem;
+    width: 346rem;
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    position: absolute;
+    top: 94rem;
+    left: 16rem;
+    width: 359rem;
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .buildingVisual {
+    position: absolute;
+    top: 208rem;
+    left: 27rem;
+    width: 337rem;
+    height: 203rem;
+    overflow: hidden;
+  }
+
+  .sourceImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  .tabs {
+    --first-tab-width: 142.286rem;
+    --second-tab-width: 146.714rem;
+    position: absolute;
+    z-index: 3;
+    top: 422rem;
+    left: 16rem;
+    display: grid;
+    width: 289rem;
+    height: 34.679rem;
+    box-sizing: border-box;
+    grid-template-columns: var(--first-tab-width) var(--second-tab-width);
+    padding: 0;
+    border: 0.884rem solid #000;
+    border-radius: 17.679rem;
+    background: #fff;
+  }
+
+  .tabIndicator {
+    position: absolute;
+    z-index: 0;
+    top: -0.884rem;
+    left: -0.884rem;
+    width: var(--first-tab-width);
+    height: 34.679rem;
+    border-radius: 17.679rem;
+    background: #000;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tabIndicatorBuyers {
+    width: var(--second-tab-width);
+    transform: translateX(var(--first-tab-width));
+  }
+
+  .tabButton {
+    position: relative;
+    z-index: 1;
+    padding: 0;
+    border: 0;
+    color: #000;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 14.143rem;
+    font-weight: 400;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: color 220ms ease;
+  }
+
+  .tabButtonActive {
+    color: #fff;
+  }
+
+  .tabButton:focus-visible {
+    border-radius: 17.679rem;
+    outline: 2rem solid #2864d7;
+    outline-offset: 3rem;
+  }
+
+  .cardsArea {
+    position: absolute;
+    top: 476rem;
+    left: 0;
+    width: 390rem;
+    height: 561rem;
+  }
+
+  .cards {
+    display: grid;
+    width: 358rem;
+    margin-left: 16rem;
+    gap: 15rem;
+    animation: panel-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .card {
+    position: relative;
+    width: 358rem;
+    height: 157rem;
+    background: #fff;
+    box-shadow: 0 10rem 40rem rgb(113 113 113 / 20%);
+    animation: card-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .card:nth-child(2) {
+    animation-delay: 45ms;
+  }
+
+  .card:nth-child(3) {
+    animation-delay: 90ms;
+  }
+
+  .cardMeta {
+    position: absolute;
+    top: 17rem;
+    right: 19rem;
+    left: 20rem;
+    display: flex;
+    height: 20rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cardNumber {
+    color: #d9d9d9;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .badge {
+    display: flex;
+    width: 116.841rem;
+    height: 20rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16rem;
+    color: #0e3477;
+    background: #e3eaf9;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 12rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(1) .badge {
+    width: 131rem;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(3) .badge {
+    width: 133rem;
+  }
+
+  .card h3,
+  .card p {
+    position: absolute;
+    left: 20.694rem;
+    width: 316.872rem;
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 14rem;
+    line-height: 1.2;
+  }
+
+  .card h3 {
+    top: 59rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .card p {
+    top: 88rem;
+    font-weight: 400;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(2) h3 {
+    top: 74rem;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(2) p {
+    top: 103rem;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(3) h3 {
+    top: 73rem;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(3) p {
+    top: 103rem;
+  }
+
+  .cardsArea[data-active-tab="buyers"] .card h3 {
+    top: 70rem;
+  }
+
+  .cardsArea[data-active-tab="buyers"] .card p {
+    top: 99rem;
+  }
+
+  @keyframes panel-enter {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes card-enter {
+    from {
+      opacity: 0;
+      transform: translateY(12rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media screen and (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .tabIndicator,
+  .tabButton {
+    transition: none;
+  }
+
+  .cards,
+  .card {
+    animation: none;
+  }
+}

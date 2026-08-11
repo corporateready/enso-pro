@@ -1,0 +1,11 @@
+@media screen and (max-width: 640px) {
+.dialog {
+  width: min(390rem, 100%);
+  padding-right: 21rem;
+  padding-left: 21rem;
+}
+
+.closeButton {
+  right: 22rem;
+}
+}

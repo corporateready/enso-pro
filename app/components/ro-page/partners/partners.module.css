@@ -1,0 +1,160 @@
+@media screen and (max-width: 640px) {
+  .section {
+    width: 390rem;
+    height: 396rem;
+    flex: 0 0 396rem;
+    padding-top: 60rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .header {
+    height: 90rem;
+    padding: 0 15rem;
+  }
+
+  .title {
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 36rem;
+    font-weight: 600;
+    line-height: 43rem;
+    letter-spacing: -1.3rem;
+    white-space: nowrap;
+  }
+
+  .subtitle {
+    width: 350rem;
+    margin: 9rem 0 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 19rem;
+  }
+
+  .subtitleLine {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .viewport {
+    width: 390rem;
+    height: 246rem;
+    padding: 29rem 0 51rem 16rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    animation: partners-marquee 30s linear infinite;
+    will-change: transform;
+  }
+
+  .group {
+    display: flex;
+    gap: 25rem;
+    padding-right: 25rem;
+  }
+
+  .card {
+    width: 279rem;
+    height: 166rem;
+    flex: 0 0 279rem;
+    padding: 20rem;
+    background: #fff;
+    box-shadow: 0 0 30rem 0 #36629b;
+  }
+
+  .logoVisual {
+    position: relative;
+    width: 239rem;
+    height: 65rem;
+    overflow: hidden;
+  }
+
+  .sourceImage {
+    position: absolute;
+    max-width: none;
+    object-fit: contain;
+  }
+
+  .archimatikaImage {
+    top: 17rem;
+    left: 26rem;
+    width: 190rem;
+    height: 27rem;
+  }
+
+  .inamstroImage {
+    top: 21rem;
+    left: 40rem;
+    width: 167rem;
+    height: 28rem;
+  }
+
+  .aclaImage {
+    top: 18rem;
+    left: 73rem;
+    width: 94rem;
+    height: 32rem;
+  }
+
+  .arutinImage {
+    top: 28rem;
+    left: 28rem;
+    width: 183rem;
+    height: 17rem;
+  }
+
+  .estateImage {
+    top: 9rem;
+    left: 57rem;
+    width: 125rem;
+    height: 46rem;
+  }
+
+  .card p {
+    margin: 14rem 0 0;
+    color: #5d5d5d;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 14rem;
+    font-weight: 400;
+    line-height: 17rem;
+  }
+
+  .visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @keyframes partners-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@media screen and (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .viewport {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .duplicate {
+    display: none;
+  }
+}

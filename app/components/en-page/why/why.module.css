@@ -1,0 +1,153 @@
+@media screen and (max-width: 640px) {
+  .section {
+    position: relative;
+    left: 0;
+    width: 394rem;
+    height: 740rem;
+    overflow: hidden;
+    background: #171a31;
+    transform: translateX(-4rem);
+  }
+
+  .inner {
+    position: relative;
+    width: 394rem;
+    height: 734rem;
+    overflow: hidden;
+  }
+
+  .image {
+    object-fit: cover;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    color: #fff;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .title {
+    position: absolute;
+    top: 60rem;
+    left: 15rem;
+    width: 343rem;
+    margin: 0;
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .award {
+    position: absolute;
+    top: 437rem;
+    left: 59.899rem;
+    width: 271.015rem;
+    height: 122.873rem;
+  }
+
+  .decor {
+    position: absolute;
+    top: 4.228rem;
+    left: 0;
+    width: 271.015rem;
+    height: 118.645rem;
+  }
+
+  .awardText {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .awardText p {
+    position: absolute;
+    left: 50.376%;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .awardKicker {
+    top: 0;
+    font-size: 24rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .awardTitle {
+    top: 28.936rem;
+    font-size: 27.651rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .awardLocation {
+    top: 60rem;
+    font-size: 24rem;
+    font-weight: 400;
+  }
+
+  .metrics {
+    position: absolute;
+    top: 597rem;
+    left: 0;
+    width: 394rem;
+    height: 78rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .metrics li {
+    position: absolute;
+    top: 0;
+    min-width: 0;
+  }
+
+  .metrics li:nth-child(1) {
+    left: 17rem;
+    width: 142.302rem;
+  }
+
+  .metrics li:nth-child(2) {
+    left: 175rem;
+    width: 108.667rem;
+  }
+
+  .metrics li:nth-child(3) {
+    left: 302rem;
+    width: 83.115rem;
+  }
+
+  .metrics strong,
+  .metrics span {
+    display: block;
+  }
+
+  .metrics strong {
+    font-size: 36rem;
+    font-weight: 500;
+    line-height: 0.9;
+    white-space: nowrap;
+  }
+
+  .metrics span {
+    margin-top: 7.6rem;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .metrics sup {
+    position: relative;
+    top: -0.35em;
+    font-size: 10.32rem;
+    line-height: 0;
+  }
+}

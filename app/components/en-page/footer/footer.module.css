@@ -1,0 +1,203 @@
+.footer {
+  width: 100%;
+  color: #f6f6f6;
+  background: #818181;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  max-width: 390rem;
+  height: 362rem;
+  margin: 0 auto;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.column {
+  position: absolute;
+  top: 24rem;
+  padding-left: 10rem;
+  border-left: 1rem solid rgb(255 255 255 / 82%);
+}
+
+.menu {
+  left: 15rem;
+}
+
+.projects {
+  left: 172rem;
+}
+
+.columnTitle {
+  margin: 0;
+  color: #dedede;
+  font-size: 10rem;
+  font-weight: 400;
+  line-height: 13rem;
+}
+
+.column ul {
+  display: grid;
+  gap: 12rem;
+  margin: 27rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.column a {
+  display: block;
+  color: inherit;
+  font-size: 10rem;
+  font-weight: 400;
+  line-height: 13rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.column a:hover,
+.legalLinks a:hover {
+  text-decoration: underline;
+}
+
+.socials {
+  position: absolute;
+  top: 214rem;
+  left: 172rem;
+  display: grid;
+  grid-template-columns: repeat(4, 32rem);
+  grid-template-rows: repeat(2, 32rem);
+  gap: 8rem 12rem;
+}
+
+.socialLink {
+  display: grid;
+  width: 32rem;
+  height: 32rem;
+  place-items: center;
+  border: 1.5rem solid #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.socialLink:hover {
+  background: #fff;
+  transform: translateY(-2rem);
+}
+
+.socialLink:focus-visible,
+.backToTop:focus-visible {
+  outline: 2rem solid #fff;
+  outline-offset: 3rem;
+}
+
+.socialIcon {
+  display: block;
+  transition: filter 160ms ease;
+}
+
+/* Assets ship white-filled, so recolor them to the footer grey on the filled hover state. */
+.socialLink:hover .socialIcon {
+  filter: invert(49%);
+}
+
+.tiktok {
+  grid-area: 1 / 1;
+}
+
+.x {
+  grid-area: 1 / 2;
+}
+
+.instagram {
+  grid-area: 2 / 1;
+}
+
+.facebook {
+  grid-area: 2 / 2;
+}
+
+.youtube {
+  grid-area: 2 / 3;
+}
+
+.linkedin {
+  grid-area: 2 / 4;
+}
+
+.brand {
+  position: absolute;
+  /* left keeps the logo mark on the same centre as the 20rem block it replaces. */
+  top: 318rem;
+  left: 16.5rem;
+  width: 24rem;
+  height: 30rem;
+}
+
+.copyright {
+  position: absolute;
+  top: 321rem;
+  left: 52rem;
+  margin: 0;
+  color: #dedede;
+  font-size: 10rem;
+  font-weight: 400;
+  line-height: 13rem;
+}
+
+.legalLinks {
+  position: absolute;
+  top: 341rem;
+  left: 52rem;
+  display: flex;
+  gap: 36rem;
+}
+
+.legalLinks a {
+  color: #dedede;
+  font-size: 10rem;
+  font-weight: 400;
+  line-height: 13rem;
+}
+
+.backToTop {
+  position: absolute;
+  top: 318rem;
+  right: 57rem;
+  display: grid;
+  width: 31rem;
+  height: 31rem;
+  place-items: center;
+  border: 1rem solid #fff;
+  border-radius: 50%;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.backToTop:hover {
+  background: #fff;
+  transform: translateY(-2rem);
+}
+
+.backToTopIcon {
+  display: block;
+  width: 9rem;
+  height: 17rem;
+  transition: filter 160ms ease;
+}
+
+.backToTop:hover .backToTopIcon {
+  filter: invert(49%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialLink,
+  .socialIcon,
+  .backToTop,
+  .backToTopIcon {
+    transition: none;
+  }
+}

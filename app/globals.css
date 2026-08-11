@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: "Mignon";
+  src: url("/fonts/Mignon-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  display: "swap";
+}
+@font-face {
+  font-family: "Mignon";
+  src: url("/fonts/Mignon-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  display: "swap";
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+html {
+  @apply w-full h-full relative;
+  scroll-behavior: smooth;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  font-size: calc(100vw / (390 * 1));
+
+  @media screen and (min-width: 641px) {
+    font-size: calc(100vw / (1920 * 1));
   }
 }
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply w-full min-h-full relative mx-auto p-0 m-0 overflow-x-hidden;
+
+  @supports (height: 100dvh) {
+    :root {
+      --app-height: 100dvh;
+    }
+  }
 }

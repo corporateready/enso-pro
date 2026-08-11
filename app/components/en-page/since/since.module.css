@@ -1,0 +1,206 @@
+@media screen and (max-width: 640px) {
+.section {
+  width: 100%;
+  height: 490rem;
+  overflow: hidden;
+  color: #0d0d0d;
+  background: #fff;
+  padding-top: 56rem;
+}
+
+.inner {
+  width: 100%;
+  max-width: 394rem;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 0 15rem;
+}
+
+.title {
+  margin: 0 0 0 2rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 34rem;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -1.2rem;
+  white-space: nowrap;
+}
+
+.intro {
+  width: 359rem;
+  max-width: 100%;
+  margin: 10rem 0 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 16rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.timeline {
+  --timeline-line-position: 145rem;
+  position: relative;
+  height: 290rem;
+  margin-top: 39rem;
+}
+
+.viewport {
+  width: 100%;
+  height: 300rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: none;
+  scroll-behavior: smooth;
+  scroll-padding-left: 19rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.viewport:focus-visible {
+  outline: 2rem solid #2864d7;
+  outline-offset: -2rem;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+  height: 290rem;
+  margin: 0;
+  padding: 0 245rem 0 19rem;
+  list-style: none;
+}
+
+.track::before {
+  position: absolute;
+  top: var(--timeline-line-position);
+  right: 0;
+  left: 19rem;
+  height: 1rem;
+  background: #727272;
+  content: "";
+}
+
+.milestone {
+  position: relative;
+  width: var(--milestone-width);
+  height: 290rem;
+  flex: 0 0 var(--milestone-width);
+  scroll-snap-align: start;
+}
+
+.stem {
+  position: absolute;
+  left: 0;
+  width: 1rem;
+  background: #727272;
+}
+
+.milestoneTop .stem {
+  top: 6rem;
+  height: 139rem;
+}
+
+.milestoneBottom .stem {
+  top: var(--timeline-line-position);
+  height: 145rem;
+}
+
+.dot {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--timeline-line-position) - 3rem);
+  left: -3rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: #111;
+}
+
+.milestoneContent {
+  position: absolute;
+  left: 10rem;
+  width: var(--content-width);
+  font-family: var(--font-inter), sans-serif;
+}
+
+.milestoneTop .milestoneContent {
+  top: 6rem;
+}
+
+.milestoneBottom .milestoneContent {
+  top: 185rem;
+}
+
+.milestoneContent h3 {
+  margin: 0;
+  font-size: 24rem;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.5rem;
+}
+
+.milestoneContent p {
+  margin: 4rem 0 0;
+  font-size: 16rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.milestoneContent strong {
+  font-weight: 700;
+}
+
+.arrowButton {
+  position: absolute;
+  z-index: 3;
+  top: var(--timeline-line-position);
+  right: 23rem;
+  width: 57rem;
+  height: 49rem;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.arrowIcon {
+  position: absolute;
+  top: -6rem;
+  left: -4rem;
+  width: 65rem;
+  height: 57rem;
+  max-width: none;
+}
+
+.arrowButton:focus-visible {
+  border-radius: 50%;
+  outline: 2rem solid #2864d7;
+  outline-offset: 2rem;
+}
+
+.arrowLeft {
+  right: auto;
+  left: 23rem;
+}
+
+.arrowLeft .arrowIcon {
+  transform: rotate(180deg);
+}
+}
+
+@media screen and (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .viewport {
+    scroll-behavior: auto;
+  }
+}

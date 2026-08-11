@@ -1,0 +1,39 @@
+.page {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.mobileCanvas {
+  position: relative;
+  width: 390rem;
+  height: 8630rem;
+  flex: 0 0 390rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.sourceImage {
+  position: absolute;
+  top: 0;
+  left: -25rem;
+  width: 1934rem;
+  max-width: none;
+  height: 8630rem;
+  object-fit: fill;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

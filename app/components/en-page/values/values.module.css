@@ -1,0 +1,72 @@
+@media screen and (max-width: 640px) {
+  .section {
+    position: relative;
+    width: 394rem;
+    height: 613rem;
+    flex: 0 0 613rem;
+    overflow: hidden;
+    background: #11120f;
+  }
+
+  .inner {
+    position: relative;
+    width: 394rem;
+    height: 613rem;
+    overflow: hidden;
+  }
+
+  .background {
+    position: absolute;
+    top: -109rem;
+    left: -51rem;
+    width: 781rem;
+    height: 722rem;
+  }
+
+  .image {
+    position: absolute;
+    top: 0;
+    left: 42.33rem;
+    width: 510.774rem;
+    height: 722.505rem;
+    max-width: none;
+  }
+
+  .shade {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 50%);
+    mix-blend-mode: darken;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    color: #fff;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .title {
+    position: absolute;
+    top: 60rem;
+    left: 16rem;
+    margin: 0;
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 0.9;
+    white-space: nowrap;
+  }
+
+  .description {
+    position: absolute;
+    top: 379rem;
+    left: 19rem;
+    width: 361rem;
+    margin: 0;
+    font-size: 24rem;
+    font-weight: 400;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,175 @@
+@media screen and (max-width: 640px) {
+  .section {
+    position: relative;
+    left: -4rem;
+    width: 394rem;
+    height: 766rem;
+    flex: 0 0 766rem;
+    margin-top: 10rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .inner {
+    position: relative;
+    width: 394rem;
+    height: 766rem;
+    overflow: hidden;
+  }
+
+  .background {
+    position: absolute;
+    top: 118rem;
+    left: 0;
+    display: block;
+    width: 394rem;
+    height: 648rem;
+    max-width: none;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    color: #111;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .title {
+    position: absolute;
+    top: 60rem;
+    left: 16rem;
+    margin: 0;
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.6rem;
+    white-space: nowrap;
+  }
+
+  .intro {
+    position: absolute;
+    top: 111rem;
+    left: 16rem;
+    width: 358rem;
+    margin: 0;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.05rem;
+    white-space: nowrap;
+  }
+
+  .features {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .feature {
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    height: 52rem;
+    align-items: center;
+    gap: 16rem;
+    padding: 0 16rem;
+    background: #fff;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 20rem;
+    white-space: nowrap;
+  }
+
+  .feature::after {
+    position: absolute;
+    bottom: -14rem;
+    left: var(--pointer-left);
+    width: 26rem;
+    height: 16rem;
+    background: #fff;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    content: "";
+    filter: drop-shadow(0 1rem 1rem rgb(0 0 0 / 8%));
+    transform: translateX(-50%);
+  }
+
+  .featureIcon {
+    display: block;
+    flex: 0 0 auto;
+    object-fit: contain;
+  }
+
+  .featureOne {
+    --pointer-left: 114rem;
+
+    top: 262rem;
+    left: 21rem;
+    width: 162rem;
+  }
+
+  .featureTwo {
+    --pointer-left: 140rem;
+
+    top: 346rem;
+    left: 86rem;
+    width: 292rem;
+    letter-spacing: -0.3rem;
+  }
+
+  .featureThree {
+    --pointer-left: 147rem;
+
+    top: 429rem;
+    left: 21rem;
+    width: 296rem;
+    letter-spacing: -0.15rem;
+  }
+
+  .featureFour {
+    --pointer-left: 43rem;
+
+    top: 512rem;
+    left: 153rem;
+    width: 225rem;
+    gap: 9rem;
+    padding-left: 9rem;
+  }
+
+  .featureFour .featureIcon {
+    margin: 0;
+  }
+
+  .accountLink {
+    position: absolute;
+    z-index: 2;
+    top: 656rem;
+    left: 18rem;
+    display: flex;
+    box-sizing: border-box;
+    width: 358rem;
+    height: 50rem;
+    align-items: center;
+    justify-content: center;
+    border: 1rem solid #111;
+    border-radius: 999rem;
+    color: #050505;
+    background: #fff;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 20rem;
+    font-weight: 700;
+    line-height: 24rem;
+    text-decoration: none;
+  }
+
+  .accountLink:focus-visible {
+    outline: 3rem solid #2864d7;
+    outline-offset: 3rem;
+  }
+
+  .accountLink:hover {
+    background: #f4f4f4;
+  }
+}

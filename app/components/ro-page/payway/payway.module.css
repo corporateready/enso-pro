@@ -1,0 +1,198 @@
+@media screen and (max-width: 640px) {
+  .section {
+  width: 394rem;
+  height: 789rem;
+  color: #0d0d0d;
+  background: #fdfdfd;
+}
+
+.inner {
+  width: 394rem;
+  margin: 0 auto;
+}
+
+.title {
+  position: relative;
+  top: -4rem;
+  height: 86rem;
+  margin: 0 0 0 15rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 34rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1.5rem;
+}
+
+.featuredCard,
+.benefitCard {
+  position: relative;
+  overflow: hidden;
+}
+
+.featuredCard {
+  width: 364rem;
+  height: 190rem;
+  margin: 0 0 0 15rem;
+  padding: 21rem;
+  color: #fff;
+  background: #40854e;
+}
+
+.featuredCard h3,
+.featuredCard p,
+.benefitCard h3,
+.benefitCard p {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.featuredCard h3 {
+  margin: 0;
+  font-size: 36rem;
+  font-weight: 700;
+  line-height: 43rem;
+  letter-spacing: -1.1rem;
+}
+
+.featuredCard p {
+  margin: 34rem 0 0;
+  font-size: 20rem;
+  font-weight: 400;
+  line-height: 24rem;
+}
+
+.benefits {
+  display: grid;
+  width: 364rem;
+  gap: 15rem;
+  margin: 15rem 0 0 15rem;
+}
+
+.benefitCard {
+  height: 125rem;
+  padding: 20rem;
+  background: #fff;
+  box-shadow: 0 10rem 20rem rgb(113 113 113 / 20%);
+}
+
+.benefitCard h3 {
+  margin: 0;
+  font-size: 20rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.35rem;
+}
+
+.benefitCard p {
+  width: 218rem;
+  margin: 23rem 0 0;
+  font-size: 16rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.visual {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sourceImage {
+  position: absolute;
+  width: 394rem;
+  max-width: none;
+  height: 732rem;
+  object-fit: fill;
+}
+
+.interestVisual {
+  right: 0;
+  bottom: 0;
+  width: 128rem;
+  height: 167rem;
+}
+
+.interestImage {
+  top: -81rem;
+  left: -252rem;
+}
+
+.downPaymentVisual {
+  top: 25rem;
+  right: 0;
+  width: 118rem;
+  height: 100rem;
+}
+
+.downPaymentImage {
+  top: -287rem;
+  left: -264rem;
+}
+
+.installmentsVisual {
+  top: 16rem;
+  right: 0;
+  width: 117rem;
+  height: 109rem;
+}
+
+.installmentsImage {
+  top: -418rem;
+  left: -265rem;
+}
+
+.feesVisual {
+  top: 26rem;
+  right: 0;
+  width: 112rem;
+  height: 99rem;
+}
+
+.feesImage {
+  top: -568rem;
+  left: -268rem;
+}
+
+.requestButton {
+  display: flex;
+  width: 358rem;
+  height: 50rem;
+  align-items: center;
+  justify-content: center;
+  margin: 15rem 0 0 18rem;
+  border: 1rem solid #000;
+  border-radius: 999rem;
+  color: #000;
+  background: #fff;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 20rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.requestButton:hover {
+  color: #fff;
+  background: #111;
+  transform: translateY(-2rem);
+}
+
+.requestButton:focus-visible {
+  outline: 2rem solid #2864d7;
+  outline-offset: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .requestButton {
+    transition: none;
+  }
+}
+
+}
