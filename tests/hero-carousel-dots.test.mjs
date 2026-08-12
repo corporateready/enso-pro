@@ -42,7 +42,11 @@ for (const [locale, relativePath, componentPath] of carouselStyles) {
       /touch-action:\s*pan-y pinch-zoom\s*;/,
     );
     assert.match(component, /watchDrag: \(api, event\) =>[\s\S]*?api\.canScrollNext\(\)/);
-    assert.doesNotMatch(component, /onTouchStart=|onTouchEnd=|TouchEvent as ReactTouchEvent/);
+    assert.match(component, /const RETURN_TO_PREVIOUS_SWIPE_THRESHOLD = 40;/);
+    assert.match(component, /onTouchStart=\{handleLastSlideTouchStart\}/);
+    assert.match(component, /onTouchEnd=\{handleLastSlideTouchEnd\}/);
+    assert.match(component, /verticalDistance >= RETURN_TO_PREVIOUS_SWIPE_THRESHOLD/);
+    assert.match(component, /emblaApi\.scrollPrev\(\)/);
   });
 
   test(`${locale} hero dot keeps progress visible`, async () => {
