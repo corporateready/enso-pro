@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type TouchEvent as ReactTouchEvent,
 } from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -19,6 +20,7 @@ import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
 const SLIDE_PROGRESS_DURATION = 5000;
+const TOUCH_SWIPE_THRESHOLD = 40;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
@@ -79,6 +81,10 @@ export type HeroCarouselProps = {
 const DEFAULT_OPTIONS: HeroCarouselOptions = {
   axis: "y",
   containScroll: "trimSnaps",
+  // The final slide hands an upward touch gesture to the page before Embla
+  // begins a drag. This prevents the carousel's boundary clamp from tugging.
+  watchDrag: (api, event) =>
+    event.type !== "touchstart" || api.canScrollNext(),
 };
 
 function getSlideKey(slide: HeroCarouselSlide, index: number) {
@@ -130,6 +136,7 @@ function LazyLoadImage({
 }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const hasAnimatedBackground = Boolean(slide.animatedBackground);
+  const shouldRenderImage = inView || index === 0;
   const hasTextContent = Boolean(
     slide.eyebrow ||
       slide.title ||
@@ -167,7 +174,7 @@ function LazyLoadImage({
 
         {hasAnimatedBackground ? (
           <AnimatedSlideBackground active={isActive} />
-        ) : inView ? (
+        ) : shouldRenderImage ? (
           <Image
             className={mergeClassNames(
               styles.image,
@@ -176,6 +183,7 @@ function LazyLoadImage({
             src={slide.src}
             alt={slide.alt}
             fill
+            loading={index === 0 ? "eager" : "lazy"}
             sizes={slide.sizes ?? "100vw"}
             style={{
               ...slide.styles?.image,
@@ -321,10 +329,13 @@ export function HeroCarousel({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const isLastSlide =
+    scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
   const progressRemainingRef = useRef(SLIDE_PROGRESS_DURATION);
   const progressStartedAtRef = useRef<number | null>(null);
   const progressTimeoutRef = useRef<number | null>(null);
   const progressSlideIndexRef = useRef(0);
+  const lastSlideTouchStartYRef = useRef<number | null>(null);
 
   const updateSlidesInView = useCallback((api: EmblaApi) => {
     setSlidesInView((currentSlides) => {
@@ -365,6 +376,39 @@ export function HeroCarousel({
     clampDragToCarouselBounds(api);
     setIsDragging(false);
   }, []);
+
+  const finishLastSlideTouch = useCallback(() => {
+    lastSlideTouchStartYRef.current = null;
+    setIsDragging(false);
+  }, []);
+
+  const handleLastSlideTouchStart = useCallback(
+    (event: ReactTouchEvent<HTMLDivElement>) => {
+      if (!isLastSlide || event.touches.length !== 1) return;
+
+      lastSlideTouchStartYRef.current = event.touches[0].clientY;
+      pauseProgressTimer();
+      setIsDragging(true);
+    },
+    [isLastSlide, pauseProgressTimer],
+  );
+
+  const handleLastSlideTouchEnd = useCallback(
+    (event: ReactTouchEvent<HTMLDivElement>) => {
+      const touchStartY = lastSlideTouchStartYRef.current;
+      const touchEnd = event.changedTouches[0];
+
+      finishLastSlideTouch();
+
+      if (!emblaApi || touchStartY === null || !touchEnd) return;
+
+      const verticalDistance = touchEnd.clientY - touchStartY;
+      if (verticalDistance >= TOUCH_SWIPE_THRESHOLD) {
+        emblaApi.scrollPrev();
+      }
+    },
+    [emblaApi, finishLastSlideTouch],
+  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -435,8 +479,6 @@ export function HeroCarousel({
   ]);
 
   if (slides.length === 0) return null;
-  const isLastSlide =
-    scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
 
   return (
     <section
@@ -451,6 +493,9 @@ export function HeroCarousel({
           isLastSlide && styles.viewportAtEnd,
         )}
         ref={emblaRef}
+        onTouchStart={handleLastSlideTouchStart}
+        onTouchEnd={handleLastSlideTouchEnd}
+        onTouchCancel={finishLastSlideTouch}
       >
         <div
           className={mergeClassNames(

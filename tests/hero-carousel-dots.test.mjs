@@ -24,6 +24,31 @@ function readRule(css, selector) {
 }
 
 for (const [locale, relativePath, componentPath] of carouselStyles) {
+  test(`${locale} hero eagerly renders its LCP image`, async () => {
+    const component = await readFile(new URL(componentPath, import.meta.url), "utf8");
+
+    assert.match(component, /const shouldRenderImage = inView \|\| index === 0;/);
+    assert.match(component, /loading=\{index === 0 \? "eager" : "lazy"\}/);
+  });
+
+  test(`${locale} hero releases the final slide's upward swipe to the page`, async () => {
+    const [css, component] = await Promise.all([
+      readFile(new URL(relativePath, import.meta.url), "utf8"),
+      readFile(new URL(componentPath, import.meta.url), "utf8"),
+    ]);
+
+    assert.match(
+      readRule(css, ".containerAtEnd"),
+      /touch-action:\s*pan-up pinch-zoom\s*;/,
+    );
+    assert.match(component, /watchDrag: \(api, event\) =>[\s\S]*?api\.canScrollNext\(\)/);
+    assert.match(component, /const TOUCH_SWIPE_THRESHOLD = 40;/);
+    assert.match(component, /onTouchStart=\{handleLastSlideTouchStart\}/);
+    assert.match(component, /onTouchEnd=\{handleLastSlideTouchEnd\}/);
+    assert.match(component, /verticalDistance >= TOUCH_SWIPE_THRESHOLD/);
+    assert.match(component, /emblaApi\.scrollPrev\(\)/);
+  });
+
   test(`${locale} hero dot keeps progress visible`, async () => {
     const css = await readFile(new URL(relativePath, import.meta.url), "utf8");
 
