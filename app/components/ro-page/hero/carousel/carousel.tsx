@@ -400,6 +400,12 @@ export function HeroCarousel({
       const verticalDistance = touchEnd.clientY - touchStartY;
       if (Math.abs(verticalDistance) < TOUCH_SWIPE_THRESHOLD) return;
 
+      const atBoundary =
+        verticalDistance < 0
+          ? !emblaApi.canScrollNext()
+          : !emblaApi.canScrollPrev();
+      if (atBoundary) return;
+
       event.preventDefault();
 
       if (verticalDistance < 0) {
@@ -480,6 +486,11 @@ export function HeroCarousel({
   ]);
 
   if (slides.length === 0) return null;
+  const isFirstSlide = selectedIndex === 0;
+  const isLastSlide =
+    scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
+  const isAtCarouselBoundary = isFirstSlide || isLastSlide;
+
   return (
     <section
       className={`${styles.carousel} ${className ?? ""} relative z-0`}
@@ -488,13 +499,22 @@ export function HeroCarousel({
       aria-label={ariaLabel}
     >
       <div
-        className={styles.viewport}
+        className={mergeClassNames(
+          styles.viewport,
+          isAtCarouselBoundary && styles.viewportAtBoundary,
+        )}
         ref={emblaRef}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         onTouchCancel={endTouchGesture}
       >
-        <div className={styles.container}>
+        <div
+          className={mergeClassNames(
+            styles.container,
+            isFirstSlide && styles.containerAtStart,
+            isLastSlide && styles.containerAtEnd,
+          )}
+        >
           {slides.map((slide, index) => (
             
             <LazyLoadImage

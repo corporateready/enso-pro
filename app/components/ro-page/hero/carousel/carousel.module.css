@@ -23,6 +23,19 @@
   will-change: transform;
 }
 
+.viewportAtBoundary {
+  overscroll-behavior-y: auto;
+}
+
+/* At the boundaries, hand only the outward gesture to the page. */
+.containerAtStart {
+  touch-action: pan-down pinch-zoom;
+}
+
+.containerAtEnd {
+  touch-action: pan-up pinch-zoom;
+}
+
 .slide {
   position: relative;
   flex: 0 0 704rem;
