@@ -23,14 +23,6 @@
   will-change: transform;
 }
 
-.viewportAtEnd {
-  overscroll-behavior-y: auto;
-}
-
-.containerAtEnd {
-  touch-action: pan-up pinch-zoom;
-}
-
 .slide {
   position: relative;
   flex: 0 0 704rem;

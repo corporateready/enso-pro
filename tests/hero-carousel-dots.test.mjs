@@ -24,6 +24,27 @@ function readRule(css, selector) {
 }
 
 for (const [locale, relativePath, componentPath] of carouselStyles) {
+  test(`${locale} hero keeps touch swiping enabled on every slide`, async () => {
+    const [css, component] = await Promise.all([
+      readFile(new URL(relativePath, import.meta.url), "utf8"),
+      readFile(new URL(componentPath, import.meta.url), "utf8"),
+    ]);
+
+    assert.match(readRule(css, ".viewport"), /overscroll-behavior-y:\s*none\s*;/);
+    assert.match(
+      readRule(css, ".container"),
+      /touch-action:\s*pan-x pinch-zoom\s*;/,
+    );
+    assert.doesNotMatch(css, /\.viewportAtEnd|\.containerAtEnd/);
+    assert.doesNotMatch(component, /isLastSlide|viewportAtEnd|containerAtEnd/);
+    assert.match(component, /watchDrag:\s*\(_, event\) => event\.type !== "touchstart"/);
+    assert.match(component, /const TOUCH_SWIPE_THRESHOLD = 40;/);
+    assert.match(component, /onTouchStart=\{handleTouchStart\}/);
+    assert.match(component, /onTouchEnd=\{handleTouchEnd\}/);
+    assert.match(component, /emblaApi\.scrollNext\(\)/);
+    assert.match(component, /emblaApi\.scrollPrev\(\)/);
+  });
+
   test(`${locale} hero dot keeps progress visible`, async () => {
     const css = await readFile(new URL(relativePath, import.meta.url), "utf8");
 

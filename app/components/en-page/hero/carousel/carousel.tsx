@@ -8,15 +8,19 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type TouchEvent as ReactTouchEvent,
 } from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
 
+import { AnimatedSlideBackground } from "@/app/components/animated-slide-background/animated-slide-background";
+
 import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
 const SLIDE_PROGRESS_DURATION = 5000;
+const TOUCH_SWIPE_THRESHOLD = 40;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
@@ -62,6 +66,7 @@ export type HeroCarouselSlide = {
   primaryAction?: HeroCarouselAction;
   secondaryAction?: HeroCarouselAction;
   showControls?: boolean;
+  animatedBackground?: boolean;
   styles?: HeroCarouselSlideStyles;
   classNames?: HeroCarouselSlideClassNames;
 };
@@ -76,6 +81,9 @@ export type HeroCarouselProps = {
 const DEFAULT_OPTIONS: HeroCarouselOptions = {
   axis: "y",
   containScroll: "trimSnaps",
+  // Touch swipes are handled explicitly below so they work consistently over
+  // every slide and its interactive content. Keep native Embla dragging for a mouse.
+  watchDrag: (_, event) => event.type !== "touchstart",
 };
 
 function getSlideKey(slide: HeroCarouselSlide, index: number) {
@@ -115,15 +123,18 @@ function LazyLoadImage({
   index,
   slideCount,
   inView,
+  isActive,
   children,
 }: {
   slide: HeroCarouselSlide;
   index: number;
   slideCount: number;
   inView: boolean;
+  isActive: boolean;
   children?: React.ReactNode;
 }) {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const hasAnimatedBackground = Boolean(slide.animatedBackground);
   const hasTextContent = Boolean(
     slide.eyebrow ||
       slide.title ||
@@ -143,12 +154,12 @@ function LazyLoadImage({
       <div
         className={mergeClassNames(
           styles.lazyLoad,
-          hasLoaded && styles.lazyLoadLoaded,
+          (hasLoaded || hasAnimatedBackground) && styles.lazyLoadLoaded,
           slide.classNames?.media,
         )}
         style={slide.styles?.media}
       >
-        {!hasLoaded && (
+        {!hasAnimatedBackground && !hasLoaded && (
           <span
             className={mergeClassNames(
               styles.spinner,
@@ -159,7 +170,9 @@ function LazyLoadImage({
           />
         )}
 
-        {inView && (
+        {hasAnimatedBackground ? (
+          <AnimatedSlideBackground active={isActive} />
+        ) : inView ? (
           <Image
             className={mergeClassNames(
               styles.image,
@@ -177,7 +190,7 @@ function LazyLoadImage({
             }}
             onLoad={() => setHasLoaded(true)}
           />
-        )}
+        ) : null}
 
         <span
           className={mergeClassNames(
@@ -317,6 +330,7 @@ export function HeroCarousel({
   const progressStartedAtRef = useRef<number | null>(null);
   const progressTimeoutRef = useRef<number | null>(null);
   const progressSlideIndexRef = useRef(0);
+  const touchStartYRef = useRef<number | null>(null);
 
   const updateSlidesInView = useCallback((api: EmblaApi) => {
     setSlidesInView((currentSlides) => {
@@ -357,6 +371,45 @@ export function HeroCarousel({
     clampDragToCarouselBounds(api);
     setIsDragging(false);
   }, []);
+
+  const handleTouchStart = useCallback(
+    (event: ReactTouchEvent<HTMLDivElement>) => {
+      if (event.touches.length !== 1) return;
+
+      touchStartYRef.current = event.touches[0].clientY;
+      pauseProgressTimer();
+      setIsDragging(true);
+    },
+    [pauseProgressTimer],
+  );
+
+  const endTouchGesture = useCallback(() => {
+    touchStartYRef.current = null;
+    setIsDragging(false);
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (event: ReactTouchEvent<HTMLDivElement>) => {
+      const touchStartY = touchStartYRef.current;
+      const touchEnd = event.changedTouches[0];
+
+      endTouchGesture();
+
+      if (!emblaApi || touchStartY === null || !touchEnd) return;
+
+      const verticalDistance = touchEnd.clientY - touchStartY;
+      if (Math.abs(verticalDistance) < TOUCH_SWIPE_THRESHOLD) return;
+
+      event.preventDefault();
+
+      if (verticalDistance < 0) {
+        emblaApi.scrollNext();
+      } else {
+        emblaApi.scrollPrev();
+      }
+    },
+    [emblaApi, endTouchGesture],
+  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -427,9 +480,6 @@ export function HeroCarousel({
   ]);
 
   if (slides.length === 0) return null;
-  const isLastSlide =
-    scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
-
   return (
     <section
       className={`${styles.carousel} ${className ?? ""} relative z-0`}
@@ -438,18 +488,13 @@ export function HeroCarousel({
       aria-label={ariaLabel}
     >
       <div
-        className={mergeClassNames(
-          styles.viewport,
-          isLastSlide && styles.viewportAtEnd,
-        )}
+        className={styles.viewport}
         ref={emblaRef}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={endTouchGesture}
       >
-        <div
-          className={mergeClassNames(
-            styles.container,
-            isLastSlide && styles.containerAtEnd,
-          )}
-        >
+        <div className={styles.container}>
           {slides.map((slide, index) => (
             
             <LazyLoadImage
@@ -458,6 +503,7 @@ export function HeroCarousel({
               index={index}
               slideCount={slides.length}
               inView={slidesInView.includes(index)}
+              isActive={selectedIndex === index}
             />
           ))}
         </div>

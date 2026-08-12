@@ -163,6 +163,7 @@ const Index = () => {
     {
       id: "enso-development",
       src: "/hero-slide-3.webp",
+      animatedBackground: true,
       alt: "Enso Development blue visual identity",
       objectPosition: "center center",
       title: "0% INSTALMENT",
