@@ -15,7 +15,7 @@ const partners = [
   {
     name: "INAMSTRO",
     description:
-      "70 de clădiri rezidențiale livrate în 5 țări, în 20 de ani.",
+      "70 de clădiri rezidențiale livrate \nîn 5 țări, în 20 de ani.",
     logoSrc: "/inamstro.png",
     logoWidth: 666,
     logoHeight: 112,
@@ -33,7 +33,7 @@ const partners = [
   {
     name: "ARUTIN BUREAU",
     description:
-      "Interioare și finisaje realizate la standard premium.",
+      "Interioare și finisaje realizate \nla standard premium.",
     logoSrc: "/abureau.png",
     logoWidth: 731,
     logoHeight: 68,

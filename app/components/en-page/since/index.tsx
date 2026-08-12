@@ -50,7 +50,7 @@ const milestones: readonly Milestone[] = [
     year: "2024",
     description: (
       <>
-        Signed contracts for <strong>20 hectares</strong> in Chisinau and
+        Signed contracts for over <strong>20 hectares</strong> in Chisinau and
         started our <strong>first project in Brasov.</strong>
       </>
     ),

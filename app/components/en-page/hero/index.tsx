@@ -176,6 +176,9 @@ const Index = () => {
         href: "#projects",
         icon: "chevron-down",
       },
+      classNames: {
+        primaryAction: "paymentPlanAction",
+      },
       styles: {
         content: {
           top: "301rem",

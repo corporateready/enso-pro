@@ -28,7 +28,7 @@ const Index = () => {
       alt: "Carpathian View residential project",
       objectPosition: "center center",
       eyebrow: "ENSO LIVING",
-      title: "PREMIUM PROJECT\nCARPATHIAN VIEW",
+      title: "PROIECT PREMIUM CU \nVEDERE SPRE CARPAȚI",
       primaryAction: {
         label: "Solicită ofertă",
         href: "#request-offer",
@@ -50,9 +50,9 @@ const Index = () => {
           letterSpacing: "0rem",
         },
         title: {
-          maxWidth: "345rem",
+          width: "100%",
           fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "34rem",
+          fontSize: "30rem",
           fontWeight: 600,
           lineHeight: "39rem",
           letterSpacing: "-0.7rem",
@@ -97,7 +97,7 @@ const Index = () => {
       alt: "Contemporary Enso residential architecture",
       objectPosition: "center center",
       eyebrow: "ENSO ESTATE",
-      title: "A HIGHER STANDARD\nOF EVERYDAY",
+      title: "UN NOU STANDARD \nDE ZI CU ZI",
       primaryAction: {
         label: "Solicită ofertă",
         href: "#request-offer",
@@ -121,7 +121,7 @@ const Index = () => {
         title: {
           maxWidth: "345rem",
           fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "33rem",
+          fontSize: "34rem",
           fontWeight: 600,
           lineHeight: "41rem",
           letterSpacing: "-0.9rem",
@@ -165,16 +165,19 @@ const Index = () => {
       src: "/hero-slide-3.webp",
       alt: "Enso Development blue visual identity",
       objectPosition: "center center",
-      title: "0% INSTALMENT",
-      description: "Directly from the developer",
+      title: "RATE 0%",
+      description: "Direct de la dezvoltator",
       primaryAction: {
-        label: "Build my payment plan",
+        label: "Calculează-mi ratele",
         href: "#payment-plan",
       },
       secondaryAction: {
-        label: "View the projects",
+        label: "Vezi proiectele",
         href: "#projects",
         icon: "chevron-down",
+      },
+      classNames: {
+        primaryAction: "paymentPlanAction",
       },
       styles: {
         content: {

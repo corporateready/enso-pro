@@ -61,3 +61,53 @@ for (const [locale, relativePath, componentPath] of carouselStyles) {
     assert.doesNotMatch(component, /progressCycle/);
   });
 }
+
+test("RO third hero slide shows the red payment-plan marker", async () => {
+  const [hero, css] = await Promise.all([
+    readFile(
+      new URL("../app/components/ro-page/hero/index.tsx", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "../app/components/ro-page/hero/carousel/carousel.module.css",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(
+    hero,
+    /label: "Calculează-mi ratele",[\s\S]*?classNames: \{\s*primaryAction: "paymentPlanAction",\s*\}/,
+  );
+  assert.match(
+    css,
+    /:global\(\.paymentPlanAction\)::after\s*\{[\s\S]*?top: -7rem;[\s\S]*?right: -4rem;[\s\S]*?width: 20rem;[\s\S]*?height: 20rem;[\s\S]*?border-radius: 50%;[\s\S]*?background: #df332d;/,
+  );
+});
+
+test("EN third hero slide shows the red payment-plan marker", async () => {
+  const [hero, css] = await Promise.all([
+    readFile(
+      new URL("../app/components/en-page/hero/index.tsx", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "../app/components/en-page/hero/carousel/carousel.module.css",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(
+    hero,
+    /label: "Build my payment plan",[\s\S]*?classNames: \{\s*primaryAction: "paymentPlanAction",\s*\}/,
+  );
+  assert.match(
+    css,
+    /:global\(\.paymentPlanAction\)::after\s*\{[\s\S]*?top: -7rem;[\s\S]*?right: -4rem;[\s\S]*?width: 20rem;[\s\S]*?height: 20rem;[\s\S]*?border-radius: 50%;[\s\S]*?background: #df332d;/,
+  );
+});

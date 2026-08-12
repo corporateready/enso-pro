@@ -153,6 +153,18 @@
   background: white;
 }
 
+:global(.paymentPlanAction)::after {
+  position: absolute;
+  top: -7rem;
+  right: -4rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background: #df332d;
+  content: "";
+  pointer-events: none;
+}
+
 .secondaryAction {
   color: white;
   background: rgb(217 217 217 / 20%);
@@ -238,7 +250,7 @@
 
 .dot {
   position: relative;
-  width: 8rem;
+  width: 5rem;
   height: 50rem;
   padding: 0;
   overflow: hidden;
@@ -313,5 +325,6 @@
     animation: none;
     transform: scaleY(1);
   }
+
 }
 }

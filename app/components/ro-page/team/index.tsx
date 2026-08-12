@@ -109,11 +109,11 @@ export default function Team() {
             ECHIPA NOASTRĂ
           </h2>
           <p className={styles.intro}>
-            Gestionăm întregul parcurs in-house —
+            Gestionăm întregul parcurs in-house — teren,
             <br />
-            teren, proiectare, construcție, vânzări,
+             proiectare, construcție, vânzări, administrarea
             <br />
-            administrarea activelor.
+             activelor.
           </p>
           <p className={styles.introSecondary}>
             O singură echipă, un singur standard,

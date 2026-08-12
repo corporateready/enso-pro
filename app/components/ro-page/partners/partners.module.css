@@ -122,6 +122,7 @@
     font-size: 14rem;
     font-weight: 400;
     line-height: 17rem;
+    white-space: pre-line;
   }
 
   .visuallyHidden {
@@ -143,7 +144,7 @@
   }
 }
 
-@media screen and (max-width: 640px) and (prefers-reduced-motion: reduce) {
+@media screen and (prefers-reduced-motion: reduce) {
   .viewport {
     overflow-x: auto;
     scrollbar-width: thin;
