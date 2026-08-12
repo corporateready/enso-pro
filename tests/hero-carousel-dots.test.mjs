@@ -24,44 +24,6 @@ function readRule(css, selector) {
 }
 
 for (const [locale, relativePath, componentPath] of carouselStyles) {
-  test(`${locale} hero hands outward boundary swipes to the page`, async () => {
-    const [css, component] = await Promise.all([
-      readFile(new URL(relativePath, import.meta.url), "utf8"),
-      readFile(new URL(componentPath, import.meta.url), "utf8"),
-    ]);
-
-    assert.match(readRule(css, ".viewport"), /overscroll-behavior-y:\s*none\s*;/);
-    assert.match(
-      readRule(css, ".container"),
-      /touch-action:\s*pan-x pinch-zoom\s*;/,
-    );
-    assert.match(
-      readRule(css, ".viewportAtBoundary"),
-      /overscroll-behavior-y:\s*auto\s*;/,
-    );
-    assert.match(
-      readRule(css, ".containerAtStart"),
-      /touch-action:\s*pan-down pinch-zoom\s*;/,
-    );
-    assert.match(
-      readRule(css, ".containerAtEnd"),
-      /touch-action:\s*pan-up pinch-zoom\s*;/,
-    );
-    assert.match(component, /const isFirstSlide = selectedIndex === 0;/);
-    assert.match(component, /const isLastSlide =/);
-    assert.match(component, /isAtCarouselBoundary && styles\.viewportAtBoundary/);
-    assert.match(component, /isFirstSlide && styles\.containerAtStart/);
-    assert.match(component, /isLastSlide && styles\.containerAtEnd/);
-    assert.match(component, /watchDrag:\s*\(_, event\) => event\.type !== "touchstart"/);
-    assert.match(component, /const TOUCH_SWIPE_THRESHOLD = 40;/);
-    assert.match(component, /onTouchStart=\{handleTouchStart\}/);
-    assert.match(component, /onTouchEnd=\{handleTouchEnd\}/);
-    assert.match(component, /emblaApi\.scrollNext\(\)/);
-    assert.match(component, /emblaApi\.scrollPrev\(\)/);
-    assert.match(component, /\? !emblaApi\.canScrollNext\(\)/);
-    assert.match(component, /: !emblaApi\.canScrollPrev\(\)/);
-  });
-
   test(`${locale} hero dot keeps progress visible`, async () => {
     const css = await readFile(new URL(relativePath, import.meta.url), "utf8");
 

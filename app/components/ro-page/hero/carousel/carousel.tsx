@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type TouchEvent as ReactTouchEvent,
 } from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -20,7 +19,6 @@ import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
 const SLIDE_PROGRESS_DURATION = 5000;
-const TOUCH_SWIPE_THRESHOLD = 40;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
@@ -81,9 +79,6 @@ export type HeroCarouselProps = {
 const DEFAULT_OPTIONS: HeroCarouselOptions = {
   axis: "y",
   containScroll: "trimSnaps",
-  // Touch swipes are handled explicitly below so they work consistently over
-  // every slide and its interactive content. Keep native Embla dragging for a mouse.
-  watchDrag: (_, event) => event.type !== "touchstart",
 };
 
 function getSlideKey(slide: HeroCarouselSlide, index: number) {
@@ -330,7 +325,6 @@ export function HeroCarousel({
   const progressStartedAtRef = useRef<number | null>(null);
   const progressTimeoutRef = useRef<number | null>(null);
   const progressSlideIndexRef = useRef(0);
-  const touchStartYRef = useRef<number | null>(null);
 
   const updateSlidesInView = useCallback((api: EmblaApi) => {
     setSlidesInView((currentSlides) => {
@@ -371,51 +365,6 @@ export function HeroCarousel({
     clampDragToCarouselBounds(api);
     setIsDragging(false);
   }, []);
-
-  const handleTouchStart = useCallback(
-    (event: ReactTouchEvent<HTMLDivElement>) => {
-      if (event.touches.length !== 1) return;
-
-      touchStartYRef.current = event.touches[0].clientY;
-      pauseProgressTimer();
-      setIsDragging(true);
-    },
-    [pauseProgressTimer],
-  );
-
-  const endTouchGesture = useCallback(() => {
-    touchStartYRef.current = null;
-    setIsDragging(false);
-  }, []);
-
-  const handleTouchEnd = useCallback(
-    (event: ReactTouchEvent<HTMLDivElement>) => {
-      const touchStartY = touchStartYRef.current;
-      const touchEnd = event.changedTouches[0];
-
-      endTouchGesture();
-
-      if (!emblaApi || touchStartY === null || !touchEnd) return;
-
-      const verticalDistance = touchEnd.clientY - touchStartY;
-      if (Math.abs(verticalDistance) < TOUCH_SWIPE_THRESHOLD) return;
-
-      const atBoundary =
-        verticalDistance < 0
-          ? !emblaApi.canScrollNext()
-          : !emblaApi.canScrollPrev();
-      if (atBoundary) return;
-
-      event.preventDefault();
-
-      if (verticalDistance < 0) {
-        emblaApi.scrollNext();
-      } else {
-        emblaApi.scrollPrev();
-      }
-    },
-    [emblaApi, endTouchGesture],
-  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -486,10 +435,8 @@ export function HeroCarousel({
   ]);
 
   if (slides.length === 0) return null;
-  const isFirstSlide = selectedIndex === 0;
   const isLastSlide =
     scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
-  const isAtCarouselBoundary = isFirstSlide || isLastSlide;
 
   return (
     <section
@@ -501,17 +448,13 @@ export function HeroCarousel({
       <div
         className={mergeClassNames(
           styles.viewport,
-          isAtCarouselBoundary && styles.viewportAtBoundary,
+          isLastSlide && styles.viewportAtEnd,
         )}
         ref={emblaRef}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchCancel={endTouchGesture}
       >
         <div
           className={mergeClassNames(
             styles.container,
-            isFirstSlide && styles.containerAtStart,
             isLastSlide && styles.containerAtEnd,
           )}
         >

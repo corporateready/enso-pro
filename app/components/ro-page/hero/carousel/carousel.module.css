@@ -23,13 +23,8 @@
   will-change: transform;
 }
 
-.viewportAtBoundary {
+.viewportAtEnd {
   overscroll-behavior-y: auto;
-}
-
-/* At the boundaries, hand only the outward gesture to the page. */
-.containerAtStart {
-  touch-action: pan-down pinch-zoom;
 }
 
 .containerAtEnd {
