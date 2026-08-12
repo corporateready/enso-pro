@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type TouchEvent as ReactTouchEvent,
 } from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -20,7 +19,6 @@ import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
 const SLIDE_PROGRESS_DURATION = 5000;
-const TOUCH_SWIPE_THRESHOLD = 40;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
@@ -335,7 +333,6 @@ export function HeroCarousel({
   const progressStartedAtRef = useRef<number | null>(null);
   const progressTimeoutRef = useRef<number | null>(null);
   const progressSlideIndexRef = useRef(0);
-  const lastSlideTouchStartYRef = useRef<number | null>(null);
 
   const updateSlidesInView = useCallback((api: EmblaApi) => {
     setSlidesInView((currentSlides) => {
@@ -376,39 +373,6 @@ export function HeroCarousel({
     clampDragToCarouselBounds(api);
     setIsDragging(false);
   }, []);
-
-  const finishLastSlideTouch = useCallback(() => {
-    lastSlideTouchStartYRef.current = null;
-    setIsDragging(false);
-  }, []);
-
-  const handleLastSlideTouchStart = useCallback(
-    (event: ReactTouchEvent<HTMLDivElement>) => {
-      if (!isLastSlide || event.touches.length !== 1) return;
-
-      lastSlideTouchStartYRef.current = event.touches[0].clientY;
-      pauseProgressTimer();
-      setIsDragging(true);
-    },
-    [isLastSlide, pauseProgressTimer],
-  );
-
-  const handleLastSlideTouchEnd = useCallback(
-    (event: ReactTouchEvent<HTMLDivElement>) => {
-      const touchStartY = lastSlideTouchStartYRef.current;
-      const touchEnd = event.changedTouches[0];
-
-      finishLastSlideTouch();
-
-      if (!emblaApi || touchStartY === null || !touchEnd) return;
-
-      const verticalDistance = touchEnd.clientY - touchStartY;
-      if (verticalDistance >= TOUCH_SWIPE_THRESHOLD) {
-        emblaApi.scrollPrev();
-      }
-    },
-    [emblaApi, finishLastSlideTouch],
-  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -493,9 +457,6 @@ export function HeroCarousel({
           isLastSlide && styles.viewportAtEnd,
         )}
         ref={emblaRef}
-        onTouchStart={handleLastSlideTouchStart}
-        onTouchEnd={handleLastSlideTouchEnd}
-        onTouchCancel={finishLastSlideTouch}
       >
         <div
           className={mergeClassNames(

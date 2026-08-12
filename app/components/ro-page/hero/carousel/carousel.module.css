@@ -28,7 +28,7 @@
 }
 
 .containerAtEnd {
-  touch-action: pan-up pinch-zoom;
+  touch-action: pan-y pinch-zoom;
 }
 
 .slide {

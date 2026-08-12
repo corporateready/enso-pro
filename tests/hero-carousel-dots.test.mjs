@@ -31,7 +31,7 @@ for (const [locale, relativePath, componentPath] of carouselStyles) {
     assert.match(component, /loading=\{index === 0 \? "eager" : "lazy"\}/);
   });
 
-  test(`${locale} hero releases the final slide's upward swipe to the page`, async () => {
+  test(`${locale} hero gives final-slide vertical gestures to the page`, async () => {
     const [css, component] = await Promise.all([
       readFile(new URL(relativePath, import.meta.url), "utf8"),
       readFile(new URL(componentPath, import.meta.url), "utf8"),
@@ -39,14 +39,10 @@ for (const [locale, relativePath, componentPath] of carouselStyles) {
 
     assert.match(
       readRule(css, ".containerAtEnd"),
-      /touch-action:\s*pan-up pinch-zoom\s*;/,
+      /touch-action:\s*pan-y pinch-zoom\s*;/,
     );
     assert.match(component, /watchDrag: \(api, event\) =>[\s\S]*?api\.canScrollNext\(\)/);
-    assert.match(component, /const TOUCH_SWIPE_THRESHOLD = 40;/);
-    assert.match(component, /onTouchStart=\{handleLastSlideTouchStart\}/);
-    assert.match(component, /onTouchEnd=\{handleLastSlideTouchEnd\}/);
-    assert.match(component, /verticalDistance >= TOUCH_SWIPE_THRESHOLD/);
-    assert.match(component, /emblaApi\.scrollPrev\(\)/);
+    assert.doesNotMatch(component, /onTouchStart=|onTouchEnd=|TouchEvent as ReactTouchEvent/);
   });
 
   test(`${locale} hero dot keeps progress visible`, async () => {
