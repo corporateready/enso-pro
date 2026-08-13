@@ -1,7 +1,7 @@
-.footer {
+@media screen and (max-width:  640px) {
+  .footer {
   width: 100%;
-  color: #f6f6f6;
-  background: #818181;
+  background: #717171;
 }
 
 .inner {
@@ -17,7 +17,7 @@
   position: absolute;
   top: 24rem;
   padding-left: 10rem;
-  border-left: 1rem solid rgb(255 255 255 / 82%);
+  border-left: 1px solid #fff;
 }
 
 .menu {
@@ -38,6 +38,7 @@
 
 .column ul {
   display: grid;
+  color: #fff;
   gap: 12rem;
   margin: 27rem 0 0;
   padding: 0;
@@ -52,11 +53,6 @@
   line-height: 13rem;
   text-decoration: none;
   white-space: nowrap;
-}
-
-.column a:hover,
-.legalLinks a:hover {
-  text-decoration: underline;
 }
 
 .socials {
@@ -74,34 +70,11 @@
   width: 32rem;
   height: 32rem;
   place-items: center;
-  border: 1.5rem solid #fff;
+  border: 1rem solid #fff;
   border-radius: 50%;
   text-decoration: none;
-  transition:
-    background-color 160ms ease,
-    transform 160ms ease;
 }
 
-.socialLink:hover {
-  background: #fff;
-  transform: translateY(-2rem);
-}
-
-.socialLink:focus-visible,
-.backToTop:focus-visible {
-  outline: 2rem solid #fff;
-  outline-offset: 3rem;
-}
-
-.socialIcon {
-  display: block;
-  transition: filter 160ms ease;
-}
-
-/* Assets ship white-filled, so recolor them to the footer grey on the filled hover state. */
-.socialLink:hover .socialIcon {
-  filter: invert(49%);
-}
 
 .tiktok {
   grid-area: 1 / 1;
@@ -129,7 +102,6 @@
 
 .brand {
   position: absolute;
-  /* left keeps the logo mark on the same centre as the 20rem block it replaces. */
   top: 318rem;
   left: 16.5rem;
   width: 24rem;
@@ -141,7 +113,7 @@
   top: 321rem;
   left: 52rem;
   margin: 0;
-  color: #dedede;
+  color: #fff;
   font-size: 10rem;
   font-weight: 400;
   line-height: 13rem;
@@ -156,16 +128,17 @@
 }
 
 .legalLinks a {
-  color: #dedede;
+  color: #fff;
   font-size: 10rem;
   font-weight: 400;
   line-height: 13rem;
+  text-decoration: underline;
 }
 
 .backToTop {
   position: absolute;
   top: 318rem;
-  right: 57rem;
+  right: 54rem;
   display: grid;
   width: 31rem;
   height: 31rem;
@@ -200,4 +173,6 @@
   .backToTopIcon {
     transition: none;
   }
+}
+
 }
