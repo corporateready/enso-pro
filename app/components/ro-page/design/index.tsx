@@ -106,14 +106,14 @@ export default function Design() {
             ÎN 3D?
           </h2>
           <p className={styles.intro}>
-            Majoritatea proiectelor sunt încă proiectate
+            Majoritatea proiectelor sunt încă proiectate{" "}
             <br />
-            în 2D, unde problemele apar abia pe șantier.
+            în 2D, unde problemele apar abia pe șantier.{" "}
             <br />
             <br />
-            Noi modelăm fiecare proiect ENSO
+            Noi modelăm fiecare proiect ENSO{" "}
             <br />
-            întâi în 3D — BIM, standardul internațional —
+            întâi în 3D — BIM, standardul internațional —{" "}
             <br />
             ca să fie rezolvate pe ecran, nu în beton.
           </p>
@@ -121,12 +121,19 @@ export default function Design() {
 
         <div className={styles.buildingVisual} aria-hidden="true">
           <Image
-            className={styles.sourceImage}
+            className={`${styles.sourceImage} ${styles.mobileImage}`}
             src="/bim-design.png"
             width={1000}
             height={560}
             alt=""
             unoptimized
+          />
+          <Image
+            className={`${styles.sourceImage} ${styles.desktopImage}`}
+            src="/design-3d-building-desktop.avif"
+            width={3128}
+            height={1752}
+            alt=""
           />
         </div>
 

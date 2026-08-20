@@ -5,8 +5,7 @@ import Link from "next/link";
 import HeroCarousel, { type HeroCarouselSlide } from "./carousel";
 import MobileMenu from "./mobile-menu";
 import OfferModal from "./offer-modal";
-
-// type Props = {}
+import styles from "./hero.module.css";
 
 const Index = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -25,6 +24,7 @@ const Index = () => {
     {
       id: "carpathian-view",
       src: "/hero-build-first.webp",
+      desktopSrc: "/hero-slide-first-desktop-bg.avif",
       alt: "Carpathian View residential project",
       objectPosition: "center center",
       eyebrow: "ENSO LIVING",
@@ -34,7 +34,11 @@ const Index = () => {
         href: "#request-offer",
         onClick: () => setIsOfferModalOpen(true),
       },
-      secondaryAction: { label: "Learn more", href: "#learn-more" },
+      secondaryAction: {
+        label: "Learn more",
+        desktopLabel: "Află mai mult",
+        href: "#learn-more",
+      },
       styles: {
         content: {
           right: "21rem",
@@ -94,6 +98,7 @@ const Index = () => {
     {
       id: "urban-living",
       src: "/hero-slide-2.webp",
+      desktopSrc: "/hero-slide-second-desktop-bg.avif",
       alt: "Contemporary Enso residential architecture",
       objectPosition: "center center",
       eyebrow: "ENSO ESTATE",
@@ -103,7 +108,11 @@ const Index = () => {
         href: "#request-offer",
         onClick: () => setIsOfferModalOpen(true),
       },
-      secondaryAction: { label: "Learn more", href: "#learn-more" },
+      secondaryAction: {
+        label: "Learn more",
+        desktopLabel: "Află mai mult",
+        href: "#learn-more",
+      },
       styles: {
         content: {
           right: "21rem",
@@ -163,6 +172,7 @@ const Index = () => {
     {
       id: "enso-development",
       src: "/hero-slide-3.webp",
+      desktopSrc: "/hero-slide-thiree-desktop-bg.avif",
       animatedBackground: true,
       alt: "Enso Development blue visual identity",
       objectPosition: "center center",
@@ -178,6 +188,7 @@ const Index = () => {
         icon: "chevron-down",
       },
       classNames: {
+        slide: "blueSlideMotion",
         primaryAction: "paymentPlanAction",
       },
       styles: {
@@ -245,16 +256,16 @@ const Index = () => {
   ];
 
   return (
-    <div className=" bg-slate-500">
+    <div className={styles.heroShell}>
       <header
-        className={`fixed top-0 left-0 z-[100] flex w-full items-center justify-between pl-[16rem] pr-[48rem] transition-[height,padding,background-color,box-shadow,backdrop-filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+        className={`fixed top-0 left-0 z-[100] flex w-full items-center justify-between pl-[16rem] pr-[48rem] transition-[height,padding,background-color,box-shadow,backdrop-filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${styles.header} ${isSticky ? styles.headerActive : ""} ${
           isSticky
             ? "h-[64rem] bg-white pt-[19.5rem] pb-[19.5rem] shadow-[0_4rem_18rem_rgba(0,0,0,0.08)] backdrop-blur-0"
             : "h-[69rem] bg-[rgba(0,0,0,0.2)] pt-[26rem] pb-[18rem] shadow-[0_0_0_rgba(0,0,0,0)] backdrop-blur-[1px]"
         }`}
       >
         <svg
-          className={`h-auto w-[75rem] transition-[filter] duration-300 ${isSticky ? "invert" : ""}`}
+          className={`${styles.logo} h-auto w-[75rem] transition-[filter] duration-300 ${isSticky ? "invert" : ""}`}
           viewBox="0 0 75 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -343,11 +354,32 @@ const Index = () => {
             </clipPath>
           </defs>
         </svg>
-        <div className="flex items-center justify-center gap-[36rem]">
+        <nav className={styles.desktopNav} aria-label="Navigare principală">
+          <a href="#projects">Projects</a>
+          <a href="#since">About Us</a>
+          <a href="#payment-method">Payment</a>
+          <a href="#journal">Journal</a>
+          <a href="#contact">Contacts</a>
+        </nav>
+
+        <div className={`${styles.headerActions} flex items-center justify-center gap-[36rem]`}>
+          <a
+            className={styles.desktopOfferButton}
+            href="#create-account"
+          >
+            <span>Cont personal</span>
+            <svg viewBox="0 0 19 21" fill="none" aria-hidden="true">
+              <path
+                d="M18.5 20.5C18.5 17.4318 14.4706 14.9444 9.5 14.9444C4.52944 14.9444 0.5 17.4318 0.5 20.5M9.5 11.6111C6.3934 11.6111 3.875 9.12381 3.875 6.05556C3.875 2.98731 6.3934 0.5 9.5 0.5C12.6066 0.5 15.125 2.98731 15.125 6.05556C15.125 9.12381 12.6066 11.6111 9.5 11.6111Z"
+                stroke="currentColor"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
           <button
             type="button"
             aria-label="Open personal account"
-            className={`transition-colors duration-300 ${isSticky ? "text-black" : "text-white"}`}
+            className={`${styles.accountButton} transition-colors duration-300 ${isSticky ? "text-black" : "text-white"}`}
           >
             <svg
               className="w-[20rem] h-[22rem]"
@@ -365,15 +397,23 @@ const Index = () => {
           <Link
             href="/en"
             aria-label="Switch to English"
-            className={`flex min-h-[32rem] min-w-[32rem] items-center justify-center text-[18rem] font-light uppercase no-underline transition-[color,opacity] duration-300 hover:opacity-70 focus-visible:rounded-[4rem] focus-visible:outline-2 focus-visible:outline-offset-2 ${isSticky ? "text-black focus-visible:outline-black" : "text-white focus-visible:outline-white"}`}
+            className={`${styles.languageLink} flex min-h-[32rem] min-w-[32rem] items-center justify-center text-[18rem] font-light uppercase no-underline transition-[color,opacity] duration-300 hover:opacity-70 focus-visible:rounded-[4rem] focus-visible:outline-2 focus-visible:outline-offset-2 ${isSticky ? "text-black focus-visible:outline-black" : "text-white focus-visible:outline-white"}`}
           >
-            en
+            <span className={styles.mobileLanguage}>en</span>
+            <span className={styles.desktopLanguage}>RO</span>
           </Link>
-          <MobileMenu dark={isSticky} />
+          <span className={styles.mobileMenuShell}>
+            <MobileMenu dark={isSticky} />
+          </span>
         </div>
       </header>
 
-      <HeroCarousel slides={slides} />
+      <div className={styles.mobileCarousel}>
+        <HeroCarousel slides={slides} mode="mobile" />
+      </div>
+      <div className={styles.desktopCarousel}>
+        <HeroCarousel slides={slides} mode="desktop" />
+      </div>
 
       {isOfferModalOpen && (
         <OfferModal onClose={() => setIsOfferModalOpen(false)} />

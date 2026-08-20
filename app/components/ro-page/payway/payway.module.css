@@ -1,11 +1,166 @@
 @media screen and (max-width: 640px) {
   .section {
+  position: relative;
+  left: 50%;
   width: 394rem;
   height: 789rem;
   color: #0d0d0d;
   background: #fdfdfd;
+  transform: translateX(-50%);
+}
 }
 
+@media screen and (min-width: 641px) {
+  .section {
+    width: 100%;
+    height: auto;
+    padding-top: 65rem;
+    color: #111;
+    background: #fff;
+  }
+
+  .inner {
+    width: 1600rem;
+    margin: 0 auto;
+  }
+
+  .title {
+    margin: 0 0 62rem;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 60rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -1.6rem;
+  }
+
+  .title br {
+    display: none;
+  }
+
+  .featuredCard,
+  .benefitCard {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featuredCard {
+    width: 1600rem;
+    height: 260rem;
+    padding: 60rem 42rem;
+    color: #fff;
+    background: #40854e;
+  }
+
+  .featuredCard h3,
+  .featuredCard p,
+  .benefitCard h3,
+  .benefitCard p {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .featuredCard h3 {
+    margin: 0;
+    font-size: 52rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .featuredCard p {
+    margin: 24rem 0 0;
+    font-size: 42rem;
+    line-height: 1.25;
+  }
+
+  .featuredCard p br {
+    display: none;
+  }
+
+  .featuredCard > span {
+    width: 280rem !important;
+    height: 250rem !important;
+  }
+
+  .featuredCard > span img {
+    width: 240rem !important;
+    height: auto !important;
+  }
+
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50rem;
+    margin-top: 70rem;
+  }
+
+  .benefitCard {
+    height: 500rem;
+    padding: 38rem;
+    background: #fff;
+    box-shadow: 0 12rem 34rem rgb(64 64 64 / 15%);
+  }
+
+  .benefitCard:nth-child(2) {
+    order: 3;
+  }
+
+  .benefitCard:nth-child(3) {
+    order: 2;
+  }
+
+  /* 340 (not 310/330) so "Rate trimestriale" (337rem) fits on one line
+     instead of breaking into an unbalanced "Rate" / "trimestriale" split —
+     the other titles still wrap at the same word boundary at this width. */
+  .benefitCard h3 {
+    width: 340rem;
+    margin: 0;
+    font-size: 42rem;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  /* 31 (not 33.5) so the second manual line of the longest description
+     ("dezvoltator, fără intermediari", 456rem) fits within the 424rem
+     content width without an unwanted extra wrap. */
+  .benefitCard p {
+    margin: 24rem 0 0;
+    font-size: 31rem;
+    line-height: 1.25;
+  }
+
+  .rateVisual {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 228rem;
+  }
+
+  .rateImage {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .requestButton {
+    display: flex;
+    width: 710rem;
+    height: 100rem;
+    align-items: center;
+    justify-content: center;
+    margin: 50rem auto 0;
+    border: 1rem solid #111;
+    border-radius: 999rem;
+    color: #000;
+    background: #fff;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 40rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
 .inner {
   width: 394rem;
   margin: 0 auto;
@@ -120,40 +275,36 @@
   left: -252rem;
 }
 
-.downPaymentVisual {
-  top: 25rem;
+.rateVisual {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+}
+
+.rateImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+.firstRateVisual {
   right: 0;
+  bottom: 0;
   width: 118rem;
-  height: 100rem;
 }
 
-.downPaymentImage {
-  top: -287rem;
-  left: -264rem;
-}
-
-.installmentsVisual {
-  top: 16rem;
+.secondRateVisual {
   right: 0;
+  bottom: 0;
   width: 117rem;
-  height: 109rem;
 }
 
-.installmentsImage {
-  top: -418rem;
-  left: -265rem;
-}
-
-.feesVisual {
-  top: 26rem;
+.thirdRateVisual {
   right: 0;
-  width: 112rem;
-  height: 99rem;
-}
-
-.feesImage {
-  top: -568rem;
-  left: -268rem;
+  bottom: 0;
+  width: 126rem;
 }
 
 .requestButton {
@@ -163,7 +314,7 @@
   align-items: center;
   justify-content: center;
   margin: 15rem 0 0 18rem;
-  border: 1rem solid #000;
+  border: 1px solid #000;
   border-radius: 999rem;
   color: #000;
   background: #fff;
@@ -172,6 +323,8 @@
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
+  position: relative;
+  z-index: 1;
   transition:
     color 160ms ease,
     background-color 160ms ease,

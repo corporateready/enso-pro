@@ -1,4 +1,8 @@
 @media screen and (max-width: 640px) {
+  .desktopImage,
+  .buildingImage {
+    display: none;
+  }
   .section {
     position: relative;
     left: 0;
@@ -86,12 +90,6 @@
     text-transform: uppercase;
   }
 
-  .awardLocation {
-    top: 60rem;
-    font-size: 20rem;
-    font-weight: 400;
-  }
-
   .metrics {
     position: absolute;
     top: 597rem;
@@ -149,5 +147,139 @@
     top: -0.35em;
     font-size: 10.32rem;
     line-height: 0;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  /* 1000rem = the 825rem gradient plate plus the 175rem white band above it
+     that the building rises into. */
+  .section,
+  .inner {
+    position: relative;
+    z-index: 0;
+    margin-top: -16rem;
+    width: 100%;
+    height: 1000rem;
+    /* overflow: hidden; */
+    background: transparent;
+  }
+
+  .mobileImage {
+    display: none;
+  }
+
+  /* The plate keeps its native 7680x3300 ratio (1920x825) instead of being
+     stretched to the section height, which cropped its sides. */
+  .desktopImage {
+    position: absolute;
+    top: 175rem;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 825rem;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Flush right: the asset's facade corner sits at 0.497 of its width, which
+     lands it at ~1430rem — where the reference puts it. The roof apex then
+     reaches the section's top edge. */
+  .buildingImage {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    display: block;
+    width: auto;
+    height: 1000rem;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    color: #fff;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .title {
+    position: absolute;
+    top: 285rem;
+    left: 160rem;
+    margin: 0;
+    font-size: 64rem;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2.2rem;
+  }
+
+  .award {
+    position: absolute;
+    top: 512rem;
+    left: 160rem;
+    width: 380rem;
+    height: 172rem;
+  }
+
+  .decor {
+    position: absolute;
+    inset: 0;
+    width: 380rem;
+    height: auto;
+  }
+
+  .awardText {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    text-align: center;
+  }
+
+  .awardText p {
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .awardKicker {
+    top: 0;
+    font-size: 24rem;
+  }
+
+  .awardTitle {
+    top: 32rem;
+    font-size: 44rem;
+    font-weight: 600;
+  }
+
+  .metrics {
+    position: absolute;
+    top: 755rem;
+    left: 160rem;
+    display: flex;
+    gap: 95rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .metrics strong,
+  .metrics span {
+    display: block;
+  }
+
+  .metrics strong {
+    font-size: 78rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .metrics span {
+    margin-top: 16rem;
+    font-size: 34rem;
+    line-height: 1.25;
   }
 }

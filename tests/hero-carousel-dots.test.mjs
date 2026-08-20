@@ -88,9 +88,16 @@ for (const [locale, relativePath, componentPath] of carouselStyles) {
 }
 
 test("RO third hero slide shows the red payment-plan marker", async () => {
-  const [hero, css] = await Promise.all([
+  const [hero, carousel, css] = await Promise.all([
     readFile(
       new URL("../app/components/ro-page/hero/index.tsx", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "../app/components/ro-page/hero/carousel/carousel.tsx",
+        import.meta.url,
+      ),
       "utf8",
     ),
     readFile(
@@ -104,11 +111,29 @@ test("RO third hero slide shows the red payment-plan marker", async () => {
 
   assert.match(
     hero,
-    /label: "Calculează-mi ratele",[\s\S]*?classNames: \{\s*primaryAction: "paymentPlanAction",\s*\}/,
+    /label: "Calculează-mi ratele",[\s\S]*?classNames: \{\s*slide: "blueSlideMotion",\s*primaryAction: "paymentPlanAction",\s*\}/,
   );
   assert.match(
     css,
     /:global\(\.paymentPlanAction\)::after\s*\{[\s\S]*?top: -7rem;[\s\S]*?right: -4rem;[\s\S]*?width: 20rem;[\s\S]*?height: 20rem;[\s\S]*?border-radius: 50%;[\s\S]*?background: #df332d;/,
+  );
+  assert.match(css, /\.motionLayer\s*\{[\s\S]*?width: 100%;[\s\S]*?height: 100%;/);
+  assert.match(
+    css,
+    /\.slideActive:global\(\.blueSlideMotion\) \.motionLayer\s*\{[\s\S]*?animation: blue-slide-motion 5s/,
+  );
+  assert.ok(
+    css.indexOf("@keyframes blue-slide-motion") <
+      css.indexOf("@media screen and (max-width: 640px)"),
+    "the full-slide timeline must be shared by responsive breakpoints",
+  );
+  assert.match(
+    css,
+    /@media screen and \(min-width: 641px\)[\s\S]*?\.slideActive:global\(\.blueSlideMotion\) \.motionLayer\s*\{[\s\S]*?animation: blue-slide-motion 5s/,
+  );
+  assert.match(
+    carousel,
+    /<div className=\{styles\.motionLayer\}>[\s\S]*?styles\.lazyLoad[\s\S]*?styles\.content[\s\S]*?\{children\}/,
   );
 });
 

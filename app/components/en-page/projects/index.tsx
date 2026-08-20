@@ -7,6 +7,7 @@ const projects = [
   {
     id: "enso-estate",
     src: "/projects-slide-1.webp",
+    desktopSrc: "/enso-estate-project.avif",
     name: "ENSO ESTATE",
     location: "Chisinau, Moldova",
     status: "Starting soon",
@@ -16,6 +17,7 @@ const projects = [
   {
     id: "enso-living",
     src: "/projects-slide-2.webp",
+    desktopSrc: "/enso-living-project.avif",
     name: "ENSO LIVING",
     location: "Brasov, Romania",
     status: "Under construction",
@@ -25,6 +27,7 @@ const projects = [
   {
     id: "artima",
     src: "/projects-slide-3.webp",
+    desktopSrc: "/artima-project.avif",
     name: "ARTIMA\nBusiness & Lifestyle",
     location: "Chisinau, Moldova",
     status: "Ready to move in",
@@ -52,10 +55,19 @@ export default function Projects() {
               <article id={project.id} className={styles.card} key={project.id}>
                 <div className={styles.media}>
                   <Image
-                    className={styles.sourceImage}
+                    className={`${styles.sourceImage} ${styles.mobileImage}`}
                     src={project.src}
                     fill
                     sizes="(max-width: 640px) 68vw, 13.81vw"
+                    quality={100}
+                    alt={project.imageAlt}
+                  />
+                  <Image
+                    className={`${styles.sourceImage} ${styles.desktopImage}`}
+                    src={project.desktopSrc}
+                    fill
+                    unoptimized
+                    sizes="(min-width: 641px) 36vw, 1px"
                     quality={100}
                     alt={project.imageAlt}
                   />

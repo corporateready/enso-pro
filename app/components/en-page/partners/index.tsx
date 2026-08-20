@@ -89,8 +89,9 @@ export default function Partners() {
           OUR PARTNERS
         </h2>
         <p className={styles.subtitle}>
-          We build alongside teams with proven reputations — each an expert in
-          their field.
+          We build alongside teams with proven
+          <br />
+          reputations — each an expert in their field.
         </p>
       </header>
 

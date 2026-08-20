@@ -204,3 +204,157 @@
     scroll-behavior: auto;
   }
 }
+
+@media screen and (min-width: 641px) {
+  /* 990 = 980 + the 10rem the timeline grows by now that bottom-row
+     descriptions max out at 4 lines with the per-milestone content width. */
+  .section {
+    width: 100%;
+    height: 990rem;
+    padding-top: 145rem;
+    overflow: hidden;
+    color: #111;
+    background: #fff;
+  }
+
+  .inner {
+    width: 1600rem;
+    margin: 0 auto;
+  }
+
+  .title {
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 64rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -1.5rem;
+  }
+
+  /* 1412x86 in the reference: at 36rem/1.2 the longest line ("...we built
+     ENSO —") measures ~1404rem, and two lines at that line-height are 86rem
+     tall — both match within rounding. */
+  .intro {
+    width: 1412rem;
+    margin: 20rem 0 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 36rem;
+    line-height: 1.2;
+  }
+
+  .timeline {
+    --timeline-line-position: 250rem;
+    position: relative;
+    height: 530rem;
+    margin-top: 58rem;
+  }
+
+  .viewport {
+    width: 100%;
+    height: 530rem;
+    /* overflow: hidden; */
+  }
+
+  .track {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 530rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Explicit width (sum of the first 5 milestones' scaled widths, ending at
+     the last dot's center) instead of `right`, since the milestones overflow
+     the track's own declared 1600rem width — `right` resolves against that
+     declared width and undershoots the actual last-dot position by ~25rem. */
+  .track::before {
+    position: absolute;
+    top: var(--timeline-line-position);
+    left: 0;
+    width: 1166.25rem;
+    height: 1px;
+    background: #000;
+    content: "";
+  }
+
+  /* Desktop reuses the per-milestone --milestone-width/--content-width
+     custom properties set inline per item (see index.tsx), scaled 1.875x
+     (30/16 — the ratio between this section's 30rem type and the 16rem
+     scale those variables were originally sized for) to match the wider
+     desktop type. This reproduces the reference's uneven column spacing
+     instead of a uniform grid. */
+  .milestone {
+    position: relative;
+    width: calc(var(--milestone-width) * 1.875) !important;
+    height: 530rem;
+    flex: 0 0 calc(var(--milestone-width) * 1.875) !important;
+  }
+
+  .stem {
+    position: absolute;
+    left: 0;
+    width: 1px;
+    background: #000;
+  }
+
+  .milestoneTop .stem {
+    top: 20rem;
+    height: 230rem;
+  }
+
+  /* 260 = content height (190rem, all three bottom milestones wrap to the
+     same 4-line height) plus the gap between the line and content top
+     (320 - 250 = 70), so the stem runs unbroken to the text's last line. */
+  .milestoneBottom .stem {
+    top: 250rem;
+    height: 260rem;
+  }
+
+  .dot {
+    position: absolute;
+    z-index: 1;
+    top: 246rem;
+    left: -4rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background: #000;
+  }
+
+  .milestoneContent {
+    position: absolute;
+    left: 16rem;
+    width: calc(var(--content-width) * 1.875) !important;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .milestoneTop .milestoneContent {
+    top: 16rem;
+  }
+
+  .milestoneBottom .milestoneContent {
+    top: 320rem;
+  }
+
+  .milestoneContent h3 {
+    margin: 0;
+    font-size: 30rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  /* 326x108 in the reference for a 3-line description: at 30rem/1.2 three
+     lines measure 108rem tall — matches exactly. */
+  .milestoneContent p {
+    margin: 10rem 0 0;
+    font-size: 30rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .arrowButton {
+    display: none;
+  }
+}

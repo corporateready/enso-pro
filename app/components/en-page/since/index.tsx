@@ -161,8 +161,11 @@ export default function Since() {
             SINCE 1999
           </h2>
           <p className={styles.intro}>
-            After two decades as co-investors across Moldova and Romania, we
-            built ENSO — our own vision of a modern developer.
+            After two decades as co-investors across
+            <br className={styles.introBreak} /> Moldova and Romania, we built
+            ENSO — our
+            <br className={styles.introBreak} /> own vision of a modern
+            developer.
           </p>
         </header>
 

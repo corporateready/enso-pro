@@ -4,7 +4,14 @@ import styles from "./payway.module.css";
 
 const benefits = [
   {
-    title: "Down Payment",
+    id: "down-payment",
+    title: (
+      <>
+        Down{" "}
+        <br className={styles.titleBreak} />
+        Payment
+      </>
+    ),
     description: (
       <>
         Upon signing the contract
@@ -12,10 +19,13 @@ const benefits = [
         directly with the developer
       </>
     ),
-    visualClassName: styles.downPaymentVisual,
-    imageClassName: styles.downPaymentImage,
+    visualClassName: styles.firstRateVisual,
+    imageSrc: "/first-rate.png",
+    imageWidth: 468,
+    imageHeight: 400,
   },
   {
+    id: "quarterly-installments",
     title: "Quarterly Installments",
     description: (
       <>
@@ -24,10 +34,13 @@ const benefits = [
         for long-term comfort
       </>
     ),
-    visualClassName: styles.installmentsVisual,
-    imageClassName: styles.installmentsImage,
+    visualClassName: styles.secondRateVisual,
+    imageSrc: "/second-rate.png",
+    imageWidth: 469,
+    imageHeight: 440,
   },
   {
+    id: "no-banks",
     title: "No banks & hidden fees",
     description: (
       <>
@@ -36,25 +49,31 @@ const benefits = [
         developer, no intermediaries
       </>
     ),
-    visualClassName: styles.feesVisual,
-    imageClassName: styles.feesImage,
+    visualClassName: styles.thirdRateVisual,
+    imageSrc: "/third-rate.png",
+    imageWidth: 516,
+    imageHeight: 404,
   },
-] as const;
+];
 
-function DecorativeVisual({
+function RateVisual({
   visualClassName,
-  imageClassName,
+  imageSrc,
+  imageWidth,
+  imageHeight,
 }: {
   visualClassName: string;
-  imageClassName: string;
+  imageSrc: string;
+  imageWidth: number;
+  imageHeight: number;
 }) {
   return (
-    <span className={`${styles.visual} ${visualClassName}`} aria-hidden="true">
+    <span className={`${styles.rateVisual} ${visualClassName}`} aria-hidden="true">
       <Image
-        className={`${styles.sourceImage} ${imageClassName}`}
-        src="/pay your way.png"
-        width={394}
-        height={732}
+        className={styles.rateImage}
+        src={imageSrc}
+        width={imageWidth}
+        height={imageHeight}
         unoptimized
         alt=""
       />
@@ -77,26 +96,37 @@ export default function Payway() {
         <article className={styles.featuredCard}>
           <h3>0% Interest</h3>
           <p>
-            Fully transparent
+            Fully transparent{" "}
             <br />
-            total cost, with
+            total cost, with{" "}
             <br />
             no extra charges
           </p>
-          <DecorativeVisual
-            visualClassName={styles.interestVisual}
-            imageClassName={styles.interestImage}
-          />
+          <span
+            className={`absolute bottom-0 right-0 z-1 w-[126rem] h-[152rem]`}
+            aria-hidden="true"
+          >
+            <Image
+              className={`absolute bottom-0 right-0 z-2`}
+              src="/zero-rate.png"
+              width={126}
+              height={152}
+              unoptimized
+              alt=""
+            />
+          </span>
         </article>
 
         <div className={styles.benefits}>
           {benefits.map((benefit) => (
-            <article className={styles.benefitCard} key={benefit.title}>
+            <article className={styles.benefitCard} key={benefit.id}>
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>
-              <DecorativeVisual
+              <RateVisual
                 visualClassName={benefit.visualClassName}
-                imageClassName={benefit.imageClassName}
+                imageSrc={benefit.imageSrc}
+                imageWidth={benefit.imageWidth}
+                imageHeight={benefit.imageHeight}
               />
             </article>
           ))}

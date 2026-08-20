@@ -1,0 +1,145 @@
+.desktopNav,
+.desktopOfferButton,
+.desktopLanguage,
+.desktopCarousel {
+  display: none;
+}
+
+.mobileCarousel {
+  display: block;
+}
+
+@media screen and (min-width: 641px) {
+  .heroShell {
+    width: 100%;
+    height: 1050rem;
+    overflow: hidden;
+    background: #1b1b1b;
+  }
+
+  .mobileCarousel {
+    display: none;
+  }
+
+  .desktopCarousel {
+    display: block;
+  }
+
+  .header {
+    height: 100rem !important;
+    padding: 0 160rem !important;
+    color: #fff !important;
+    background: rgb(214 222 228 / 24%) !important;
+    border-bottom: 1rem solid rgb(255 255 255 / 18%);
+    box-shadow: none !important;
+    backdrop-filter: blur(3rem) !important;
+  }
+
+  .headerActive {
+    color: #111 !important;
+    background: #fff !important;
+    border-bottom-color: rgb(17 17 17 / 7%);
+    box-shadow: 0 4rem 18rem rgb(0 0 0 / 7%) !important;
+    backdrop-filter: none !important;
+  }
+
+  .logo {
+    width: 145rem !important;
+    height: auto !important;
+    filter: none !important;
+  }
+
+  .headerActive .logo {
+    filter: invert(1) !important;
+  }
+
+  .desktopNav {
+    position: absolute;
+    left: 706rem;
+    display: flex;
+    height: 100rem;
+    align-items: center;
+    gap: 38rem;
+  }
+
+  .desktopNav a {
+    color: #fff;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 18rem;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 180ms ease;
+  }
+
+  .headerActive .desktopNav a {
+    color: #111;
+  }
+
+  .desktopNav a:hover {
+    opacity: 0.68;
+  }
+
+  .headerActions {
+    height: 100rem;
+    gap: 36rem !important;
+  }
+
+  .desktopOfferButton {
+    display: flex;
+    height: 50rem;
+    padding: 0 19rem;
+    align-items: center;
+    justify-content: center;
+    gap: 13rem;
+    border: 1rem solid currentColor;
+    border-radius: 55rem;
+    color: #fff;
+    background: transparent;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 18rem;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .desktopOfferButton svg {
+    width: 18rem;
+    height: 20rem;
+  }
+
+  .headerActive .desktopOfferButton {
+    color: #111;
+  }
+
+  .accountButton {
+    display: none;
+  }
+
+  .languageLink {
+    min-width: 32rem !important;
+    min-height: 32rem !important;
+    color: #fff !important;
+    font-size: 18rem !important;
+  }
+
+  .headerActive .languageLink {
+    color: #111 !important;
+  }
+
+  .mobileLanguage {
+    display: none;
+  }
+
+  .desktopLanguage {
+    display: inline;
+  }
+
+  .mobileMenuShell {
+    display: block;
+    width: 30rem;
+    height: 22rem;
+  }
+}

@@ -101,16 +101,16 @@ export default function Design() {
       <div className={styles.inner}>
         <header className={styles.header}>
           <h2 id="design-title" className={styles.title}>
-            WHY DESIGN
+            WHY DESIGN{" "}
             <br />
             PROJECTS IN 3D?
           </h2>
           <p className={styles.intro}>
-            Most projects are still drawn in 2D, where
+            Most projects are still drawn in 2D, where{" "}
             <br />
-            problems surface on site. We model ours in 3D
+            problems surface on site. We model ours in 3D{" "}
             <br />
-            first — BIM, the international standard —
+            first — BIM, the international standard —{" "}
             <br />
             so they&apos;re solved on screen, not in concrete
           </p>
@@ -118,12 +118,19 @@ export default function Design() {
 
         <div className={styles.buildingVisual} aria-hidden="true">
           <Image
-            className={styles.sourceImage}
+            className={`${styles.sourceImage} ${styles.mobileImage}`}
             src="/bim-design.png"
             width={1000}
             height={560}
             alt=""
             unoptimized
+          />
+          <Image
+            className={`${styles.sourceImage} ${styles.desktopImage}`}
+            src="/design-3d-building-desktop.avif"
+            width={3128}
+            height={1752}
+            alt=""
           />
         </div>
 

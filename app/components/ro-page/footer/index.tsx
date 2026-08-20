@@ -16,9 +16,9 @@ const menuLinks = [
 ] as const;
 
 const projectLinks = [
-  { label: "ENSO LIVING", href: "#enso-living" },
+  { label: "ENSO LIVING", href: "https://enso.ro/living" },
   { label: "ENSO ESTATE", href: "#enso-estate" },
-  { label: "ARTIMA Business & Lifestyle", href: "#artima" },
+  { label: "ARTIMA Business & Lifestyle", href: "https://artima.md/" },
 ] as const;
 
 const socialLinks: {
@@ -39,7 +39,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <nav className={`${styles.column} ${styles.menu}`} aria-label="Footer menu">
-          <p className={styles.columnTitle}>Menu</p>
+          <p className={styles.columnTitle}>Meniu</p>
           <ul>
             {menuLinks.map((link) => (
               <li key={link.label}>

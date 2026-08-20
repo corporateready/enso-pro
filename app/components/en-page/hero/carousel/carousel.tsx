@@ -26,6 +26,7 @@ export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
 export type HeroCarouselAction = {
   label: string;
+  desktopLabel?: string;
   href: string;
   icon?: "chevron-right" | "chevron-down";
   onClick?: () => void;
@@ -57,6 +58,7 @@ export type HeroCarouselSlideClassNames = Partial<
 export type HeroCarouselSlide = {
   id?: string;
   src: ImageProps["src"];
+  desktopSrc?: ImageProps["src"];
   alt: string;
   sizes?: string;
   objectPosition?: CSSProperties["objectPosition"];
@@ -76,9 +78,10 @@ export type HeroCarouselProps = {
   options?: HeroCarouselOptions;
   ariaLabel?: string;
   className?: string;
+  mode?: "responsive" | "mobile" | "desktop";
 };
 
-const DEFAULT_OPTIONS: HeroCarouselOptions = {
+const DEFAULT_OPTIONS: NonNullable<HeroCarouselOptions> = {
   axis: "y",
   containScroll: "trimSnaps",
   // The final slide hands an upward touch gesture to the page before Embla
@@ -125,6 +128,7 @@ function LazyLoadImage({
   slideCount,
   inView,
   isActive,
+  mode,
   children,
 }: {
   slide: HeroCarouselSlide;
@@ -132,6 +136,7 @@ function LazyLoadImage({
   slideCount: number;
   inView: boolean;
   isActive: boolean;
+  mode: NonNullable<HeroCarouselProps["mode"]>;
   children?: React.ReactNode;
 }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -147,12 +152,17 @@ function LazyLoadImage({
 
   return (
     <div
-      className={mergeClassNames(styles.slide, slide.classNames?.slide)}
+      className={mergeClassNames(
+        styles.slide,
+        isActive && styles.slideActive,
+        slide.classNames?.slide,
+      )}
       style={slide.styles?.slide}
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${slideCount}`}
     >
+      <div className={styles.motionLayer}>
       <div
         className={mergeClassNames(
           styles.lazyLoad,
@@ -172,19 +182,24 @@ function LazyLoadImage({
           />
         )}
 
-        {hasAnimatedBackground ? (
-          <AnimatedSlideBackground active={isActive} />
-        ) : shouldRenderImage ? (
+        {hasAnimatedBackground && mode !== "desktop" && (
+          <div className={styles.mobileAnimatedBackground}>
+            <AnimatedSlideBackground active={isActive} />
+          </div>
+        )}
+
+        {shouldRenderImage && !hasAnimatedBackground && mode !== "desktop" && (
           <Image
             className={mergeClassNames(
               styles.image,
+              styles.mobileImage,
               slide.classNames?.image,
             )}
             src={slide.src}
             alt={slide.alt}
             fill
             loading={index === 0 ? "eager" : "lazy"}
-            sizes={slide.sizes ?? "100vw"}
+            sizes="(max-width: 640px) 100vw, 1px"
             style={{
               ...slide.styles?.image,
               ...(slide.objectPosition
@@ -193,7 +208,31 @@ function LazyLoadImage({
             }}
             onLoad={() => setHasLoaded(true)}
           />
-        ) : null}
+        )}
+
+        {shouldRenderImage && slide.desktopSrc && mode !== "mobile" && (
+          <Image
+            className={mergeClassNames(
+              styles.image,
+              styles.desktopImage,
+              slide.classNames?.image,
+            )}
+            src={slide.desktopSrc}
+            alt={slide.alt}
+            fill
+            unoptimized
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
+            sizes="(min-width: 641px) 100vw, 1px"
+            style={{
+              ...slide.styles?.image,
+              ...(slide.objectPosition
+                ? { objectPosition: slide.objectPosition }
+                : {}),
+            }}
+            onLoad={() => setHasLoaded(true)}
+          />
+        )}
 
         <span
           className={mergeClassNames(
@@ -269,7 +308,12 @@ function LazyLoadImage({
                     slide.primaryAction.onClick();
                   }}
                 >
-                  {slide.primaryAction.label}
+                  <span className={styles.mobileActionLabel}>
+                    {slide.primaryAction.label}
+                  </span>
+                  <span className={styles.desktopActionLabel}>
+                    {slide.primaryAction.desktopLabel ?? slide.primaryAction.label}
+                  </span>
                 </a>
               )}
               {slide.secondaryAction && (
@@ -281,7 +325,12 @@ function LazyLoadImage({
                   style={slide.styles?.secondaryAction}
                   href={slide.secondaryAction.href}
                 >
-                  {slide.secondaryAction.label}
+                  <span className={styles.mobileActionLabel}>
+                    {slide.secondaryAction.label}
+                  </span>
+                  <span className={styles.desktopActionLabel}>
+                    {slide.secondaryAction.desktopLabel ?? slide.secondaryAction.label}
+                  </span>
                   <svg
                     className={mergeClassNames(
                       styles.actionIcon,
@@ -310,6 +359,7 @@ function LazyLoadImage({
       )}
 
       {children}
+      </div>
     </div>
   );
 }
@@ -319,10 +369,32 @@ export function HeroCarousel({
   options,
   ariaLabel = "Hero images",
   className,
+  mode = "responsive",
 }: HeroCarouselProps) {
+  const [isViewportDesktop, setIsViewportDesktop] = useState(false);
+  const isDesktop =
+    mode === "desktop" || (mode === "responsive" && isViewportDesktop);
+
+  useEffect(() => {
+    if (mode !== "responsive") return;
+
+    const mediaQuery = window.matchMedia("(min-width: 641px)");
+    const updateMode = () => setIsViewportDesktop(mediaQuery.matches);
+
+    updateMode();
+    mediaQuery.addEventListener("change", updateMode);
+
+    return () => mediaQuery.removeEventListener("change", updateMode);
+  }, [mode]);
+
   const emblaOptions = useMemo(
-    () => ({ ...DEFAULT_OPTIONS, ...options, axis: "y" as const }),
-    [options],
+    () => ({
+      ...DEFAULT_OPTIONS,
+      ...options,
+      axis: isDesktop ? ("x" as const) : ("y" as const),
+      watchDrag: isDesktop ? true : DEFAULT_OPTIONS.watchDrag,
+    }),
+    [isDesktop, options],
   );
   const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
@@ -379,11 +451,11 @@ export function HeroCarousel({
 
   const handleLastSlideTouchStart = useCallback(
     (event: ReactTouchEvent<HTMLDivElement>) => {
-      if (!isLastSlide || event.touches.length !== 1) return;
+      if (isDesktop || !isLastSlide || event.touches.length !== 1) return;
 
       lastSlideTouchStartYRef.current = event.touches[0].clientY;
     },
-    [isLastSlide],
+    [isDesktop, isLastSlide],
   );
 
   const handleLastSlideTouchEnd = useCallback(
@@ -393,14 +465,14 @@ export function HeroCarousel({
 
       lastSlideTouchStartYRef.current = null;
 
-      if (!emblaApi || touchStartY === null || !touchEnd) return;
+      if (isDesktop || !emblaApi || touchStartY === null || !touchEnd) return;
 
       const verticalDistance = touchEnd.clientY - touchStartY;
       if (verticalDistance >= RETURN_TO_PREVIOUS_SWIPE_THRESHOLD) {
         emblaApi.scrollPrev();
       }
     },
-    [emblaApi],
+    [emblaApi, isDesktop],
   );
 
   useEffect(() => {
@@ -504,6 +576,7 @@ export function HeroCarousel({
               slideCount={slides.length}
               inView={slidesInView.includes(index)}
               isActive={selectedIndex === index}
+              mode={mode}
             />
           ))}
         </div>

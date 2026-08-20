@@ -21,6 +21,14 @@ const locales = [
   },
 ];
 
+function readRule(css, selector) {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = css.match(new RegExp(`${escapedSelector}\\s*\\{([^}]*)\\}`));
+
+  assert.ok(match, `Missing ${selector} rule`);
+  return match[1];
+}
+
 for (const locale of locales) {
   test(`${locale.name} Payway follows the mobile Figma frame`, async () => {
     const css = await readFile(
@@ -56,10 +64,26 @@ for (const locale of locales) {
       css,
       new RegExp(`margin: 15rem 0 0 ${locale.buttonLeft}rem;`),
     );
-    assert.match(component, /src="\/pay your way\.png"/);
-    assert.match(component, /width=\{394\}/);
-    assert.match(component, /height=\{732\}/);
+    assert.match(component, /imageSrc: "\/first-rate\.png"/);
+    assert.match(component, /imageSrc: "\/second-rate\.png"/);
+    assert.match(component, /imageSrc: "\/third-rate\.png"/);
+    assert.match(component, /className=\{styles\.rateImage\}/);
+    assert.match(component, /src="\/zero-rate\.png"/);
+    assert.match(component, /width=\{126\}/);
+    assert.match(component, /height=\{152\}/);
     assert.match(component, /unoptimized/);
+    assert.match(
+      readRule(css, ".firstRateVisual"),
+      /right:\s*0;\s*bottom:\s*0;\s*width:\s*118rem;/,
+    );
+    assert.match(
+      readRule(css, ".secondRateVisual"),
+      /right:\s*0;\s*bottom:\s*0;\s*width:\s*117rem;/,
+    );
+    assert.match(
+      readRule(css, ".thirdRateVisual"),
+      /right:\s*0;\s*bottom:\s*0;\s*width:\s*126rem;/,
+    );
   });
 }
 

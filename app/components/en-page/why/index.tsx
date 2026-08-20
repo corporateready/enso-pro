@@ -7,11 +7,27 @@ export default function Why() {
     <section id="why-enso" className={styles.section} aria-labelledby="why-title">
       <div className={styles.inner}>
         <Image
-          className={styles.image}
+          className={`${styles.image} ${styles.mobileImage}`}
           src="/why-mobile-bg.webp"
           fill
           alt=""
           unoptimized
+        />
+        <Image
+          className={`${styles.image} ${styles.desktopImage}`}
+          src="/why-desktop-bg.avif"
+          width={7680}
+          height={3300}
+          unoptimized
+          alt=""
+        />
+        <Image
+          className={styles.buildingImage}
+          src="/why-building-desktop.avif"
+          width={3872}
+          height={4058}
+          unoptimized
+          alt=""
         />
 
         <div className={styles.content}>
@@ -33,7 +49,6 @@ export default function Why() {
             <div className={styles.awardText}>
               <p className={styles.awardKicker}>REAL ESTATE</p>
               <p className={styles.awardTitle}>SALES LEADER</p>
-              <p className={styles.awardLocation}>in Moldova</p>
             </div>
           </div>
 

@@ -23,10 +23,25 @@ export default function CTA() {
     >
       <div className={styles.inner}>
         <Image
-          className={styles.image}
+          className={`${styles.image} ${styles.mobileImage}`}
           src="/cta-mobile-bg.webp"
           fill
           sizes="(max-width: 639px) 100vw, 390px"
+          alt=""
+        />
+        <Image
+          className={`${styles.image} ${styles.desktopImage}`}
+          src="/cta-desktop-bg.avif"
+          fill
+          sizes="(min-width: 641px) 100vw, 1px"
+          alt=""
+        />
+        <Image
+          className={styles.buildingImage}
+          src="/cta-building-desctop.avif"
+          width={676}
+          height={970}
+          unoptimized
           alt=""
         />
 

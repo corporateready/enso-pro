@@ -2,8 +2,8 @@
 .section {
   width: 100%;
   padding: 48rem 0 0;
-  color: #111;
-  background: #f4f4f2;
+  color: #000;
+  background: #fff;
 }
 
 .inner {
@@ -183,6 +183,221 @@
     scroll-behavior: auto;
   }
 
+  .arrow {
+    transition: none;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .section {
+    width: 100%;
+    height: 1165rem;
+    padding: 150rem 0 54rem;
+    overflow: hidden;
+    color: #111;
+    background: #fff;
+  }
+
+  .inner {
+    width: 100%;
+  }
+
+  .title {
+    margin: 0 0 46rem 160rem;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 64rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -1.8rem;
+  }
+
+  .scroller {
+    width: 100%;
+    padding: 0 0 34rem 160rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 160rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  .scroller[data-dragging="true"] {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+
+  .scroller:focus-visible {
+    outline: 2rem solid #2864d7;
+    outline-offset: -2rem;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    gap: 50rem;
+    padding-right: 160rem;
+  }
+
+  .card {
+    width: 800rem;
+    height: 800rem;
+    flex: 0 0 800rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 12rem 30rem rgb(0 0 0 / 10%);
+    scroll-snap-align: start;
+  }
+
+  .media {
+    position: relative;
+    width: 680rem;
+    height: 530rem;
+    margin: 60rem auto 0;
+    overflow: hidden;
+    background: #d5d5d1;
+  }
+
+  .sourceImage {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .mobileImage {
+    display: none;
+  }
+
+  .desktopImage {
+    display: block;
+  }
+
+  .status {
+    position: absolute;
+    z-index: 2;
+    top: 18rem;
+    left: 0;
+    display: flex;
+    height: 46rem;
+    align-items: center;
+    padding: 0 20rem;
+    color: #111;
+    background: #fff;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 26.3rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .statusGreen {
+    color: #fff;
+    background: #3c925b;
+  }
+
+  .details {
+    position: relative;
+    display: flex;
+    height: 210rem;
+    align-items: center;
+    padding: 24rem 76rem 20rem 47rem;
+    color: #111;
+    text-decoration: none;
+  }
+
+  .projectCopy,
+  .projectName,
+  .location {
+    display: block;
+  }
+
+  .projectName {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 60rem;
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -1.2rem;
+    white-space: nowrap;
+  }
+
+  .projectName span {
+    display: inline;
+  }
+
+  .projectName span + span::before {
+    content: " ";
+  }
+
+  .card:last-child .projectName {
+    font-size: 45rem;
+    letter-spacing: -0.8rem;
+  }
+
+  .location {
+    margin-top: 7rem;
+    color: #111;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 32rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    right: 46rem;
+    width: 22rem;
+    height: 43rem;
+    transform: translateY(-50%);
+    transition: transform 180ms ease;
+  }
+
+  .details:hover .arrow {
+    transform: translate(4rem, -50%);
+  }
+
+  .details:focus-visible {
+    outline: 2rem solid #2864d7;
+    outline-offset: -4rem;
+  }
+
+  .scrollbar {
+    position: relative;
+    width: 1600rem;
+    height: 10rem;
+    margin-left: 160rem;
+    overflow: hidden;
+    border-radius: 4rem;
+    background: #bcbcbc;
+  }
+
+  .scrollbarThumb {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 4rem;
+    background: #171717;
+    will-change: left;
+  }
+
+  .visuallyHidden {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    margin: -1rem;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media screen and (min-width: 641px) and (prefers-reduced-motion: reduce) {
   .arrow {
     transition: none;
   }

@@ -8,14 +8,14 @@ import AccountModal from "./account-modal";
 import styles from "./mobile-menu.module.css";
 
 const navigation = [
-  "PROJECTS",
-  "OUR HISTORY",
-  "PAYMENT METHOD",
-  "WHY ENSO?",
+  "PROIECTE",
+  "ISTORIA NOASTRĂ",
+  "MODALITĂȚI DE PLATĂ",
+  "DE CE ENSŌ?",
   "BIM",
-  "OUR VALUES",
-  "OUR TEAM",
-  "OUR PARTNERS",
+  "VALORILE NOASTRE",
+  "ECHIPA NOASTRĂ",
+  "PARTENERII NOȘTRI",
   "ENSO JOURNAL",
 ] as const;
 
@@ -138,7 +138,7 @@ export default function MobileMenu({ dark = false }: MobileMenuProps) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>LOG IN PERSONAL ACCOUNT</span>
+            <span>INTRĂ ÎN CONTUL PERSONAL</span>
           </button>
 
           <button
@@ -146,7 +146,7 @@ export default function MobileMenu({ dark = false }: MobileMenuProps) {
             type="button"
             onClick={closeMenu}
           >
-            New? <span>Create an Account</span>
+            Ești nou aici? <span>Creează-ți cont</span>
           </button>
         </div>
       </div>

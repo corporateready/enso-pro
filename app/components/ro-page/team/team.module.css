@@ -245,3 +245,180 @@
     transition: none;
   }
 }
+
+@media screen and (min-width: 641px) {
+  .section,
+  .inner {
+    position: relative;
+    width: 100%;
+    height: 1000rem;
+    overflow: hidden;
+    color: #111;
+    background: #fff;
+  }
+
+  .header {
+    position: absolute;
+    top: 168rem;
+    left: 160rem;
+    width: 700rem;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 64rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -1.5rem;
+  }
+
+  .intro,
+  .introSecondary {
+    margin: 34rem 0 0;
+    font-size: 36rem;
+    line-height: 1.3;
+  }
+
+  .introSecondary {
+    margin-top: 42rem;
+  }
+
+  /* Mobile hard-wraps both paragraphs, and at different points than the
+     reference — on desktop they wrap on their own inside the 700rem column. */
+  .intro br,
+  .introSecondary br {
+    display: none;
+  }
+
+  /* Centred under the text column, not under the whole avatar+text block —
+     that is where the reference puts them. */
+  .pagination {
+    position: absolute;
+    top: 962rem;
+    left: 1376rem;
+    display: flex;
+    gap: 14rem;
+    transform: translateX(-50%);
+  }
+
+  /* The dot's border-radius/background/reset live in the mobile query, so on
+     desktop they have to be restated or the dots render as invisible squares. */
+  .dot {
+    width: 20rem;
+    height: 20rem;
+    flex: 0 0 20rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d8d8d8;
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  .dotActive {
+    background: #050505;
+    transform: scale(1.05);
+  }
+
+  .dot:focus-visible {
+    outline: 2rem solid #2864d7;
+    outline-offset: 3rem;
+  }
+
+  .viewport {
+    position: absolute;
+    top: 284rem;
+    left: 987rem;
+    width: 660rem;
+    height: 620rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Same mechanic as mobile: one slide per page, scroll-snapped, driven by the
+     dots. The reference puts slide 2 outside the artboard, i.e. off-screen. */
+  .track {
+    display: flex;
+    height: 100%;
+  }
+
+  .slide {
+    display: grid;
+    width: 660rem;
+    flex: 0 0 660rem;
+    align-content: start;
+    grid-auto-rows: max-content;
+    row-gap: 32rem;
+    scroll-snap-align: start;
+  }
+
+  .member {
+    position: relative;
+    width: 660rem;
+    min-height: 170rem;
+  }
+
+  .photo,
+  .photoPlaceholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 170rem;
+    height: 170rem;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #263958;
+  }
+
+  .photo {
+    background: #f0f0ee;
+  }
+
+  .avatarImage {
+    object-fit: cover;
+  }
+
+  .memberContent {
+    position: absolute;
+    top: 8rem;
+    left: 220rem;
+    width: 440rem;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .memberContent h3,
+  .role,
+  .description {
+    margin: 0;
+  }
+
+  .memberContent h3 {
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .role {
+    margin-top: 6rem;
+    color: #7d7d7d;
+    font-size: 33rem;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .description {
+    margin-top: 9rem;
+    font-size: 25rem;
+    line-height: 1.25;
+  }
+}

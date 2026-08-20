@@ -176,3 +176,158 @@
 }
 
 }
+
+@media screen and (min-width: 641px) {
+  .footer {
+    width: 100%;
+    background: #717171;
+  }
+
+  .inner {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    height: 1045rem;
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .column {
+    position: absolute;
+    top: 110rem;
+    padding-left: 24rem;
+    border-left: 1rem solid #fff;
+  }
+
+  .menu {
+    left: 160rem;
+  }
+
+  .projects {
+    left: 720rem;
+  }
+
+  .columnTitle {
+    margin: 0;
+    color: #d9d9d9;
+    font-size: 36rem;
+    line-height: 1;
+  }
+
+  .column ul {
+    display: grid;
+    gap: 33rem;
+    margin: 70rem 0 0;
+    padding: 0;
+    color: #fff;
+    list-style: none;
+  }
+
+  .column a {
+    display: block;
+    color: #fff;
+    font-size: 36rem;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .socials {
+    position: absolute;
+    top: 670rem;
+    left: 720rem;
+    display: grid;
+    grid-template-columns: repeat(4, 48rem);
+    grid-template-rows: repeat(2, 48rem);
+    gap: 30rem;
+  }
+
+  .socialLink {
+    display: grid;
+    width: 60rem;
+    height: 60rem;
+    place-items: center;
+    border: 1rem solid #fff;
+    border-radius: 50%;
+    text-decoration: none;
+  }
+
+  .socialIcon {
+    transform: scale(1.5);
+  }
+
+  .tiktok {
+    grid-area: 1 / 1;
+  }
+
+  .x {
+    grid-area: 1 / 2;
+  }
+
+  .instagram {
+    grid-area: 2 / 1;
+  }
+
+  .facebook {
+    grid-area: 2 / 2;
+  }
+
+  .youtube {
+    grid-area: 2 / 3;
+  }
+
+  .linkedin {
+    grid-area: 2 / 4;
+  }
+
+  .brand {
+    position: absolute;
+    top: 110rem;
+    right: 160rem;
+    left: auto;
+    width: 206rem;
+    height: 270rem;
+  }
+
+  .copyright {
+    position: absolute;
+    top: 890rem;
+    left: 160rem;
+    margin: 0;
+    color: #fff;
+    font-size: 32rem;
+    line-height: 20rem;
+  }
+
+  .legalLinks {
+    position: absolute;
+    top: 880rem;
+    left: 720rem;
+    display: flex;
+    gap: 48rem;
+  }
+
+  .legalLinks a {
+    color: #fff;
+    font-size: 32rem;
+    line-height: 36rem;
+    text-decoration: underline;
+  }
+
+  .backToTop {
+    position: absolute;
+    top: 818rem;
+    right: 160rem;
+    display: grid;
+    width: 100rem;
+    height: 100rem;
+    place-items: center;
+    border: 1rem solid #fff;
+    border-radius: 50%;
+  }
+
+  .backToTopIcon {
+    width: 26rem;
+    height: 52rem;
+  }
+}

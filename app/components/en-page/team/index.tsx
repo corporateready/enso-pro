@@ -109,14 +109,14 @@ export default function Team() {
             OUR TEAM
           </h2>
           <p className={styles.intro}>
-            We manage the whole journey in-house —
+            We manage the whole journey in-house —{" "}
             <br />
-            land, design, construction, sales, asset
+            land, design, construction, sales, asset{" "}
             <br />
             management.
           </p>
           <p className={styles.introSecondary}>
-            One team, one standard, full responsibility
+            One team, one standard, full responsibility{" "}
             <br />
             from first sketch to final handover.
           </p>

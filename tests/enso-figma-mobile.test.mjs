@@ -92,6 +92,19 @@ for (const variant of variants) {
     assert.match(component, />\s*MY ENSO\s*</);
     assert.match(component, /<br \/>/);
     assert.match(component, /className=\{styles\.accountLink\}/);
+    assert.match(component, /"use client";/);
+    assert.match(component, /import \{ usePathname \} from "next\/navigation";/);
+    assert.match(component, /new IntersectionObserver/);
+    assert.match(component, /setAnimatedPathname\(pathname\)/);
+    assert.match(component, /\}, \[pathname\]\);/);
+    assert.match(component, /observer\.unobserve\(section\)/);
+    assert.match(component, /window\.addEventListener\("scroll", waitForRouteScrollEnd/);
+    assert.match(component, /window\.setTimeout\(startObserving, 150\)/);
+    assert.match(css, /\.featuresVisible \.feature\s*\{[\s\S]*?animation: feature-enter 700ms/);
+    assert.match(css, /\.featuresVisible \.featureOne\s*\{\s*animation-delay: 1000ms;/);
+    assert.match(css, /\.featuresVisible \.featureTwo\s*\{\s*animation-delay: 1300ms;/);
+    assert.match(css, /\.featuresVisible \.featureThree\s*\{\s*animation-delay: 1600ms;/);
+    assert.match(css, /\.featuresVisible \.featureFour\s*\{\s*animation-delay: 1900ms;/);
   });
 }
 

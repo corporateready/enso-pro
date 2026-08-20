@@ -246,3 +246,179 @@
     transition: none;
   }
 }
+
+@media screen and (min-width: 641px) {
+  .section,
+  .inner {
+    position: relative;
+    width: 100%;
+    height: 1000rem;
+    overflow: hidden;
+    color: #111;
+    background: #fff;
+  }
+
+  /* 730 (not 700) so "We manage the whole journey in-house —" (722rem) and
+     "One team, one standard, full responsibility" (718rem) each fit their
+     intended manual line without wrapping early. */
+  .header {
+    position: absolute;
+    top: 168rem;
+    left: 160rem;
+    width: 730rem;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 64rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -1.5rem;
+  }
+
+  .intro,
+  .introSecondary {
+    margin: 34rem 0 0;
+    font-size: 36rem;
+    line-height: 1.3;
+  }
+
+  .introSecondary {
+    margin-top: 42rem;
+  }
+
+  .pagination {
+    position: absolute;
+    top: 962rem;
+    left: 1376rem;
+    display: flex;
+    gap: 14rem;
+    transform: translateX(-50%);
+  }
+
+  .dot {
+    width: 20rem;
+    height: 20rem;
+    flex: 0 0 20rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d8d8d8;
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  .dotActive {
+    background: #050505;
+    transform: scale(1.05);
+  }
+
+  .dot:focus-visible {
+    outline: 2rem solid #2864d7;
+    outline-offset: 3rem;
+  }
+
+  .viewport {
+    position: absolute;
+    top: 284rem;
+    left: 987rem;
+    width: 660rem;
+    height: 620rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    display: flex;
+    height: 100%;
+  }
+
+  .slide {
+    display: grid;
+    width: 660rem;
+    flex: 0 0 660rem;
+    align-content: start;
+    grid-auto-rows: max-content;
+    row-gap: 32rem;
+    scroll-snap-align: start;
+  }
+
+  .member {
+    position: relative;
+    width: 660rem;
+    min-height: 170rem;
+  }
+
+  /* .memberContent is absolutely positioned, so its overflow doesn't grow the
+     grid row — EN's longer role titles ("Customer Relations Department",
+     "Architecture & Project Management") wrap to 2 lines and would collide
+     with the next card. Slide 2 has only 2 members, so there's headroom to
+     grow it: 2 * 210 + 32 gap = 452rem, well under the 620rem viewport. */
+  .slide:nth-child(2) .member {
+    min-height: 210rem;
+  }
+
+  .photo,
+  .photoPlaceholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 170rem;
+    height: 170rem;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #263958;
+  }
+
+  .photo {
+    background: #f0f0ee;
+  }
+
+  .avatarImage {
+    object-fit: cover;
+  }
+
+  .memberContent {
+    position: absolute;
+    top: 8rem;
+    left: 220rem;
+    width: 440rem;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .memberContent h3,
+  .role,
+  .description {
+    margin: 0;
+  }
+
+  .memberContent h3 {
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .role {
+    margin-top: 6rem;
+    color: #7d7d7d;
+    font-size: 33rem;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .description {
+    margin-top: 9rem;
+    font-size: 25rem;
+    line-height: 1.25;
+  }
+}

@@ -109,16 +109,16 @@ export default function Team() {
             ECHIPA NOASTRĂ
           </h2>
           <p className={styles.intro}>
-            Gestionăm întregul parcurs in-house — teren,
+            Gestionăm întregul parcurs in-house — teren,{" "}
             <br />
-             proiectare, construcție, vânzări, administrarea
+             proiectare, construcție, vânzări, administrarea{" "}
             <br />
              activelor.
           </p>
           <p className={styles.introSecondary}>
-            O singură echipă, un singur standard,
+            O singură echipă, un singur standard,{" "}
             <br />
-            responsabilitate completă de la prima schiță
+            responsabilitate completă de la prima schiță{" "}
             <br />
             până la predarea finală.
           </p>

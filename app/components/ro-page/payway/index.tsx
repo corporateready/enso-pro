@@ -12,8 +12,10 @@ const benefits = [
         direct cu dezvoltatorul
       </>
     ),
-    visualClassName: styles.downPaymentVisual,
-    imageClassName: styles.downPaymentImage,
+    visualClassName: styles.firstRateVisual,
+    imageSrc: "/first-rate.png",
+    imageWidth: 468,
+    imageHeight: 400,
   },
   {
     title: "Rate trimestriale",
@@ -24,8 +26,10 @@ const benefits = [
         confort pe termen lung
       </>
     ),
-    visualClassName: styles.installmentsVisual,
-    imageClassName: styles.installmentsImage,
+    visualClassName: styles.secondRateVisual,
+    imageSrc: "/second-rate.png",
+    imageWidth: 469,
+    imageHeight: 440,
   },
   {
     title: "Fără bănci și costuri ascunse",
@@ -36,25 +40,31 @@ const benefits = [
         dezvoltator, fără intermediari
       </>
     ),
-    visualClassName: styles.feesVisual,
-    imageClassName: styles.feesImage,
+    visualClassName: styles.thirdRateVisual,
+    imageSrc: "/third-rate.png",
+    imageWidth: 516,
+    imageHeight: 404,
   },
 ] as const;
 
-function DecorativeVisual({
+function RateVisual({
   visualClassName,
-  imageClassName,
+  imageSrc,
+  imageWidth,
+  imageHeight,
 }: {
   visualClassName: string;
-  imageClassName: string;
+  imageSrc: string;
+  imageWidth: number;
+  imageHeight: number;
 }) {
   return (
-    <span className={`${styles.visual} ${visualClassName}`} aria-hidden="true">
+    <span className={`${styles.rateVisual} ${visualClassName}`} aria-hidden="true">
       <Image
-        className={`${styles.sourceImage} ${imageClassName}`}
-        src="/pay your way.png"
-        width={394}
-        height={732}
+        className={styles.rateImage}
+        src={imageSrc}
+        width={imageWidth}
+        height={imageHeight}
         unoptimized
         alt=""
       />
@@ -71,7 +81,7 @@ export default function Payway() {
     >
       <div className={styles.inner}>
         <h2 id="payway-title" className={styles.title}>
-          PLĂTEȘTI CUM
+          PLĂTEȘTI CUM{" "}
           <br />
           ÎȚI CONVINE
         </h2>
@@ -79,16 +89,26 @@ export default function Payway() {
         <article className={styles.featuredCard}>
           <h3>Dobândă 0%</h3>
           <p>
-            Cost total
+            Cost total{" "}
             <br />
-            transparent, fără taxe
+            transparent, fără taxe{" "}
             <br />
             suplimentare
           </p>
-          <DecorativeVisual
-            visualClassName={styles.interestVisual}
-            imageClassName={styles.interestImage}
-          />
+
+          <span
+            className={`absolute bottom-0 right-0 z-1 w-[126rem] h-[152rem]`}
+            aria-hidden="true"
+          >
+            <Image
+              className={`absolute bottom-0 right-0 z-2`}
+              src="/zero-rate.png"
+              width={126}
+              height={152}
+              unoptimized
+              alt=""
+            />
+          </span>
         </article>
 
         <div className={styles.benefits}>
@@ -96,9 +116,11 @@ export default function Payway() {
             <article className={styles.benefitCard} key={benefit.title}>
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>
-              <DecorativeVisual
+              <RateVisual
                 visualClassName={benefit.visualClassName}
-                imageClassName={benefit.imageClassName}
+                imageSrc={benefit.imageSrc}
+                imageWidth={benefit.imageWidth}
+                imageHeight={benefit.imageHeight}
               />
             </article>
           ))}
