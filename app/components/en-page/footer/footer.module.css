@@ -307,7 +307,7 @@
   .legalLinks {
     position: absolute;
     top: 880rem;
-    left: 720rem;
+    left: 960rem;
     display: flex;
     gap: 48rem;
   }

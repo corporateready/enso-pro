@@ -31,7 +31,7 @@ const articles: readonly JournalArticle[] = [
   {
     id: "bim-standard",
     category: "inside-enso",
-    badge: "Inside ENSO",
+    badge: "Din interior",
     title:
       "BIM is the international standard applied in every ENSO Development project",
     desktopSrc: "/journal-post-image.avif",
@@ -44,7 +44,7 @@ const articles: readonly JournalArticle[] = [
   {
     id: "eminescu-offices",
     category: "buying-guide",
-    badge: "Buying guide",
+    badge: "Ghid de cumpărare",
     title:
       "ENSO Development completes the investment exit from Eminescu Offices",
     desktopSrc: "/journal-post-buying-guide.avif",
@@ -56,7 +56,7 @@ const articles: readonly JournalArticle[] = [
   {
     id: "moldova-growth-leader",
     category: "market",
-    badge: "Market",
+    badge: "Piață",
     title: "Moldova — #1 in Europe Real Estate Growth Leader 2025",
     desktopSrc: "/journal-post-market.avif",
     desktopWidth: 1541,
@@ -94,11 +94,11 @@ function ArticleVisual({ article }: { article: JournalArticle }) {
       </div>
       <div className={styles.articleCopy}>
         <span className={styles.articleCategory}>{article.badge}</span>
-        <span className={styles.articleMeta}>June 2 · 5 min read</span>
+        <span className={styles.articleMeta}>2 Iunie · 5 min de citit</span>
         <h3>{article.title}</h3>
         {article.isFeature && (
           <a className={styles.readArticle} href={`#journal-${article.id}`}>
-            Read article →
+            Citește articolul →
           </a>
         )}
       </div>
@@ -127,7 +127,7 @@ export default function Journal() {
           <h2 id="journal-title" className={styles.title}>
             ENSO JOURNAL
           </h2>
-          <p className={styles.subtitle}>Despre cum construim și cum gândim</p>
+          <p className={styles.subtitle}>Note despre construcții și felul în care gândim</p>
         </header>
 
         <div className={styles.filters} aria-label="Filter journal articles">

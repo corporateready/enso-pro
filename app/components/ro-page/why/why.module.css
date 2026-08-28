@@ -90,6 +90,12 @@
     text-transform: uppercase;
   }
 
+  .awardPlace {
+    top: 82rem;
+    font-size: 16rem;
+    font-weight: 400;
+  }
+
   .metrics {
     position: absolute;
     top: 597rem;
@@ -253,6 +259,12 @@
     top: 32rem;
     font-size: 44rem;
     font-weight: 600;
+  }
+
+  .awardPlace {
+    top: 80rem;
+    font-size: 18rem;
+    font-weight: 400;
   }
 
   .metrics {

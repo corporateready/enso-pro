@@ -49,6 +49,7 @@ export default function Why() {
             <div className={styles.awardText}>
               <p className={styles.awardKicker}>LIDER ÎN VÂNZĂRI</p>
               <p className={styles.awardTitle}>IMOBILIARE</p>
+              <p className={styles.awardPlace}>în Moldova</p>
             </div>
           </div>
 

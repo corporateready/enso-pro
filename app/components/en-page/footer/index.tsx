@@ -84,7 +84,7 @@ export default function Footer() {
           alt="ENSO Development"
         />
 
-        <p className={styles.copyright}>© 2026 All rights reserved.</p>
+        <p className={styles.copyright}>© 2026 ENSO Development All rights reserved.</p>
 
         <div className={styles.legalLinks}>
           <a href="#terms">Terms &amp; conditions</a>

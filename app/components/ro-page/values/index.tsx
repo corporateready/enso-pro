@@ -35,9 +35,9 @@ export default function Values() {
           </h2>
           <p className={styles.description}>
             Un proiect, odată finalizat,
-            <br className="hidden sm:inline-block" /> nu mai
+            <br className="hidden sm:inline-block" /> nu mai{" "}
             <br className="inline-block sm:hidden" />
-            poate fi reconstruit. Gândim totul
+            poate fi reconstruit. Gândim totul{" "}
             <br className="inline-block sm:hidden" />
             impecabil, de la început
             <br />
