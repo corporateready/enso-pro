@@ -1,0 +1,218 @@
+.section {
+  width: 100%;
+  background: #fff;
+  font-family: var(--font-inter), sans-serif;
+}
+
+@media screen and (max-width: 640px) {
+  .inner {
+    width: 100%;
+    max-width: 390rem;
+    margin: 0 auto;
+    padding: 40rem 16rem 40rem;
+  }
+
+  .title {
+    margin: 0;
+    color: #000;
+    font-size: 34rem;
+    font-weight: 600;
+    line-height: 37rem;
+  }
+
+  .subtitle {
+    margin: 20rem 0 0;
+    color: #000;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 19rem;
+  }
+
+  .cards {
+    display: grid;
+    gap: 20rem;
+    margin-top: 20rem;
+  }
+
+  .card {
+    position: relative;
+    height: 274rem;
+    padding: 20rem;
+    background: #fff;
+    box-shadow: 0 9rem 36rem rgb(113 113 113 / 20%);
+  }
+
+  .cardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .stars {
+    color: #0e3477;
+    font-size: 16rem;
+    font-weight: 700;
+    line-height: 19rem;
+    letter-spacing: 3rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    height: 20rem;
+    padding: 0 13rem;
+    border-radius: 999rem;
+    background: #e3eaf9;
+    color: #0e3477;
+    font-size: 12rem;
+    font-weight: 700;
+    line-height: 14rem;
+  }
+
+  .quote {
+    margin: 17rem 0 0;
+    color: #000;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 22.4rem;
+  }
+
+  .person {
+    position: absolute;
+    right: 26rem;
+    bottom: 15rem;
+    left: 20rem;
+    padding-top: 11rem;
+    border-top: 1rem solid #c6c6c6;
+  }
+
+  .name {
+    margin: 0;
+    color: #000;
+    font-size: 16rem;
+    font-weight: 700;
+    line-height: 19rem;
+  }
+
+  .role {
+    margin: 4rem 0 0;
+    color: #717171;
+    font-size: 16rem;
+    font-weight: 400;
+    line-height: 19rem;
+  }
+
+  .since {
+    margin: 9rem 0 0;
+    color: #000;
+    font-size: 12rem;
+    font-weight: 400;
+    line-height: 14rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .inner {
+    width: 100%;
+    padding: 100rem 160rem 55rem;
+  }
+
+  .title {
+    margin: 0;
+    color: #000;
+    font-size: 64rem;
+    font-weight: 600;
+    line-height: 77rem;
+  }
+
+  .subtitle {
+    margin: 20rem 0 0;
+    color: #000;
+    font-size: 36rem;
+    font-weight: 400;
+    line-height: 43rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 500rem);
+    gap: 50rem;
+    margin-top: 60rem;
+  }
+
+  .card {
+    position: relative;
+    height: 532rem;
+    padding: 30rem;
+    background: #fff;
+    box-shadow: 0 18rem 72rem rgb(113 113 113 / 20%);
+  }
+
+  .cardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .stars {
+    color: #0e3477;
+    font-size: 28rem;
+    font-weight: 700;
+    line-height: 34rem;
+    letter-spacing: 6rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    height: 37rem;
+    padding: 0 25rem;
+    border-radius: 999rem;
+    background: #e3eaf9;
+    color: #0e3477;
+    font-size: 21.5rem;
+    font-weight: 700;
+    line-height: 26rem;
+  }
+
+  .quote {
+    margin: 33rem 0 0;
+    color: #000;
+    font-size: 28rem;
+    font-weight: 400;
+    line-height: 39.2rem;
+  }
+
+  .person {
+    position: absolute;
+    right: 30rem;
+    bottom: 28rem;
+    left: 30rem;
+    padding-top: 30rem;
+    border-top: 1rem solid #c6c6c6;
+  }
+
+  .name {
+    margin: 0;
+    color: #000;
+    font-size: 32rem;
+    font-weight: 700;
+    line-height: 38rem;
+  }
+
+  .role {
+    margin: 6rem 0 0;
+    color: #717171;
+    font-size: 32rem;
+    font-weight: 400;
+    line-height: 38rem;
+  }
+
+  .since {
+    margin: 17rem 0 0;
+    color: #000;
+    font-size: 24rem;
+    font-weight: 400;
+    line-height: 29rem;
+  }
+}

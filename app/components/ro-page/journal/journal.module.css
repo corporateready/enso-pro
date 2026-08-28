@@ -353,7 +353,8 @@
   }
 
   .featureCard .articleCopy h3 {
-    bottom: 130rem;
+    top: 153rem;
+    bottom: auto;
     font-size: 42rem;
   }
 
@@ -363,7 +364,8 @@
 
   .readArticle {
     position: absolute;
-    bottom: 60rem;
+    top: 364rem;
+    bottom: auto;
     left: 50rem;
     color: #111;
     font-size: 20rem;

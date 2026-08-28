@@ -86,6 +86,7 @@
   left: 19rem;
   height: 1rem;
   background: #727272;
+  box-shadow: 2rem 0 13rem #006fff;
   content: "";
 }
 
@@ -206,6 +207,10 @@
 }
 
 @media screen and (min-width: 641px) {
+  .track::before {
+    box-shadow: 4rem 0 24rem #006fff;
+  }
+
   /* 990 = 980 + the 10rem the timeline grows by now that bottom-row
      descriptions max out at 4 lines with the per-milestone content width. */
   .section {

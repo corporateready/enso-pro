@@ -19,7 +19,7 @@ import { AnimatedSlideBackground } from "@/app/components/animated-slide-backgro
 import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
-const SLIDE_PROGRESS_DURATION = 5000;
+const SLIDE_PROGRESS_DURATION = 3333;
 const RETURN_TO_PREVIOUS_SWIPE_THRESHOLD = 40;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];

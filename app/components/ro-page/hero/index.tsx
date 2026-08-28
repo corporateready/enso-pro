@@ -35,8 +35,7 @@ const Index = () => {
         onClick: () => setIsOfferModalOpen(true),
       },
       secondaryAction: {
-        label: "Learn more",
-        desktopLabel: "Află mai mult",
+        label: "Află mai mult",
         href: "#learn-more",
       },
       styles: {
@@ -109,8 +108,7 @@ const Index = () => {
         onClick: () => setIsOfferModalOpen(true),
       },
       secondaryAction: {
-        label: "Learn more",
-        desktopLabel: "Află mai mult",
+        label: "Află mai mult",
         href: "#learn-more",
       },
       styles: {
@@ -355,11 +353,11 @@ const Index = () => {
           </defs>
         </svg>
         <nav className={styles.desktopNav} aria-label="Navigare principală">
-          <a href="#projects">Projects</a>
-          <a href="#since">About Us</a>
-          <a href="#payment-method">Payment</a>
+          <a href="#projects">Proiecte</a>
+          <a href="#since">Istoria noastră</a>
+          <a href="#payment-method">Modalități de plată</a>
           <a href="#journal">Journal</a>
-          <a href="#contact">Contacts</a>
+          <a href="#contact">Contacte</a>
         </nav>
 
         <div className={`${styles.headerActions} flex items-center justify-center gap-[36rem]`}>
@@ -400,7 +398,7 @@ const Index = () => {
             className={`${styles.languageLink} flex min-h-[32rem] min-w-[32rem] items-center justify-center text-[18rem] font-light uppercase no-underline transition-[color,opacity] duration-300 hover:opacity-70 focus-visible:rounded-[4rem] focus-visible:outline-2 focus-visible:outline-offset-2 ${isSticky ? "text-black focus-visible:outline-black" : "text-white focus-visible:outline-white"}`}
           >
             <span className={styles.mobileLanguage}>en</span>
-            <span className={styles.desktopLanguage}>RO</span>
+            <span className={styles.desktopLanguage}>EN</span>
           </Link>
           <span className={styles.mobileMenuShell}>
             <MobileMenu dark={isSticky} />

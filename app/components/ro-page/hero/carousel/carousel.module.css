@@ -28,7 +28,7 @@
 }
 
 .slideActive:global(.blueSlideMotion) .motionLayer {
-  animation: blue-slide-motion 5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: blue-slide-motion 3.33s cubic-bezier(0.22, 1, 0.36, 1) both;
   will-change: transform, opacity;
 }
 
@@ -325,7 +325,7 @@
   background: white;
   transform: scaleY(0);
   transform-origin: top;
-  animation: carousel-dot-progress 5s linear forwards;
+  animation: carousel-dot-progress 3.33s linear forwards;
 }
 
 .dotProgressPaused {
@@ -378,7 +378,7 @@
   .slide,
   .lazyLoad {
     width: 100%;
-    height: 1050rem;
+    height: min(1050rem, 100svh);
   }
 
   .carousel {
@@ -414,7 +414,7 @@
   }
 
   .slideActive:global(.blueSlideMotion) .motionLayer {
-    animation: blue-slide-motion 5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: blue-slide-motion 3.33s cubic-bezier(0.22, 1, 0.36, 1) both;
     will-change: transform, opacity;
   }
 
@@ -468,7 +468,7 @@
   .content {
     position: absolute !important;
     z-index: 3;
-    top: 595rem !important;
+    top: min(595rem, max(140rem, calc(100svh - 455rem))) !important;
     right: auto !important;
     bottom: auto !important;
     left: 160rem !important;
@@ -545,8 +545,85 @@
     backdrop-filter: blur(10rem) !important;
   }
 
+  /*
+   * Slide progress on desktop: a horizontal row of bars centred at the bottom
+   * of the hero, the active one filling left-to-right over the slide's
+   * duration. Same mechanic as the mobile column (which fills top-to-bottom),
+   * in the layout desktop hero carousels normally use. Base styles for the
+   * controls live in the mobile media query, so everything is defined here.
+   */
   .controls {
-    display: none;
+    position: absolute;
+    z-index: 3;
+    top: auto;
+    right: auto;
+    bottom: 60rem;
+    left: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16rem;
+    transform: translateX(-50%);
+  }
+
+  .dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16rem;
+  }
+
+  .dot {
+    position: relative;
+    width: 92rem;
+    height: 5rem;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999rem;
+    background: rgb(255 255 255 / 32%);
+    cursor: pointer;
+    transition: background-color 160ms ease;
+  }
+
+  .dot:hover {
+    background: rgb(255 255 255 / 55%);
+  }
+
+  .dotViewed {
+    background: rgb(255 255 255 / 70%);
+  }
+
+  .dotProgress {
+    position: absolute;
+    inset: 0;
+    display: block;
+    border-radius: inherit;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: carousel-dot-progress-x 3.33s linear forwards;
+  }
+
+  .dotProgressPaused {
+    animation-play-state: paused;
+  }
+
+  @keyframes carousel-dot-progress-x {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot {
+      transition: none;
+    }
+
+    .dotProgress {
+      animation: none;
+      transform: scaleX(1);
+    }
   }
 
   .actionIcon {
@@ -563,7 +640,7 @@
   }
 
   .slide:nth-child(3) .content {
-    top: 424rem !important;
+    top: min(424rem, max(120rem, calc(100svh - 626rem))) !important;
     right: 0 !important;
     left: 0 !important;
     width: 100% !important;

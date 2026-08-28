@@ -393,7 +393,7 @@ const Index = () => {
             aria-label="Switch to Romanian"
             className={`${styles.languageLink} flex min-h-[32rem] min-w-[32rem] items-center justify-center text-[18rem] font-light uppercase no-underline transition-[color,opacity] duration-300 hover:opacity-70 focus-visible:rounded-[4rem] focus-visible:outline-2 focus-visible:outline-offset-2 ${isSticky ? "text-black focus-visible:outline-black" : "text-white focus-visible:outline-white"}`}
           >
-            <span className={styles.mobileLanguage}>en</span>
+            <span className={styles.mobileLanguage}>ro</span>
             <span className={styles.desktopLanguage}>RO</span>
           </Link>
           <span className={styles.mobileMenuShell}>

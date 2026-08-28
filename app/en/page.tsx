@@ -9,6 +9,7 @@ import Payway from "../components/en-page/payway";
 import Projects from "../components/en-page/projects";
 import Since from "../components/en-page/since";
 import Team from "../components/en-page/team";
+import Testimonials from "../components/en-page/testimonials";
 import Values from "../components/en-page/values";
 import Why from "../components/en-page/why";
 
@@ -26,6 +27,7 @@ export default function EnglishHome() {
         <Team />
         <Enso />
         <Partners />
+        <Testimonials />
         <Journal />
         <CTA />
       </main>

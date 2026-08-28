@@ -9,6 +9,7 @@ import Payway from "./components/ro-page/payway";
 import Projects from "./components/ro-page/projects";
 import Since from "./components/ro-page/since";
 import Team from "./components/ro-page/team";
+import Testimonials from "./components/ro-page/testimonials";
 import Values from "./components/ro-page/values";
 import Why from "./components/ro-page/why";
 
@@ -26,6 +27,7 @@ export default function RomanianHome() {
         <Team />
         <Enso />
         <Partners />
+        <Testimonials />
         <Journal />
         <CTA />
       </main>

@@ -99,7 +99,7 @@ export default function Projects() {
                     <path d="M1 1L13 13L1 25" stroke="currentColor" />
                   </svg>
                   <span className={styles.visuallyHidden}>
-                    Learn more about {project.name.replace("\n", " ")}
+                    Află mai mult despre {project.name.replace("\n", " ")}
                   </span>
                 </a>
               </article>

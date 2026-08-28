@@ -198,7 +198,7 @@
 
   .column {
     position: absolute;
-    top: 110rem;
+    top: 200rem;
     padding-left: 24rem;
     border-left: 1rem solid #fff;
   }
@@ -208,7 +208,7 @@
   }
 
   .projects {
-    left: 720rem;
+    left: 707rem;
   }
 
   .columnTitle {
@@ -221,7 +221,7 @@
   .column ul {
     display: grid;
     gap: 33rem;
-    margin: 70rem 0 0;
+    margin: 67rem 0 0;
     padding: 0;
     color: #fff;
     list-style: none;
@@ -234,6 +234,11 @@
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
+  }
+
+  .menu ul {
+    gap: 28rem;
+    margin-top: 62rem;
   }
 
   .socials {

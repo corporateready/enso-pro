@@ -12,7 +12,11 @@
 @media screen and (min-width: 641px) {
   .heroShell {
     width: 100%;
-    height: 1050rem;
+    /* Макет рисован под 1920x1050, но 1rem = 100vw/1920, поэтому высота
+       героя зависит только от ширины окна. На широких, но невысоких окнах
+       (ноутбук: ~900px видимой области) низ героя уезжал за экран вместе
+       с кнопками. Ограничиваем высотой окна. */
+    height: min(1050rem, 100svh);
     overflow: hidden;
     background: #1b1b1b;
   }
@@ -29,7 +33,7 @@
     height: 100rem !important;
     padding: 0 160rem !important;
     color: #fff !important;
-    background: rgb(214 222 228 / 24%) !important;
+    background: rgb(0 0 0 / 50%) !important;
     border-bottom: 1rem solid rgb(255 255 255 / 18%);
     box-shadow: none !important;
     backdrop-filter: blur(3rem) !important;
