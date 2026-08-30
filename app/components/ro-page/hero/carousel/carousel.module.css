@@ -292,13 +292,13 @@
 
 .dot {
   position: relative;
-  width: 5rem;
-  height: 50rem;
+  width: 4rem;
+  height: 44rem;
   padding: 0;
   overflow: hidden;
   border: 0;
   border-radius: 25rem;
-  background: black;
+  background: rgb(255 255 255 / 35%);
   cursor: pointer;
   transition:
     background-color 160ms ease,
@@ -306,15 +306,15 @@
 }
 
 .dotSelected {
-  background: black;
+  background: rgb(255 255 255 / 35%);
 }
 
 .dotSelectedPaused {
-  background: black;
+  background: rgb(255 255 255 / 35%);
 }
 
 .dotViewed {
-  background: white;
+  background: rgb(255 255 255 / 85%);
 }
 
 .dotProgress {
