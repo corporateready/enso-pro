@@ -94,7 +94,7 @@ function ArticleVisual({ article }: { article: JournalArticle }) {
       </div>
       <div className={styles.articleCopy}>
         <span className={styles.articleCategory}>{article.badge}</span>
-        <span className={styles.articleMeta}>2 Iunie · 5 min de citit</span>
+        <span className={styles.articleMeta}>{article.isFeature ? "3 Iunie · 5 min de citit" : "2 Iunie · 5 min de citit"}</span>
         <h3>{article.title}</h3>
         {article.isFeature && (
           <a className={styles.readArticle} href={`#journal-${article.id}`}>
@@ -160,7 +160,7 @@ export default function Journal() {
           </div>
 
           <a className={styles.viewAllButton} href="#journal">
-            Vezi toate articolele
+            Vezi toate articolele →
           </a>
         </div>
       </div>

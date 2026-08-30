@@ -160,7 +160,7 @@ export default function Journal() {
           </div>
 
           <a className={styles.viewAllButton} href="#journal">
-            View all articles
+            View all articles →
           </a>
         </div>
       </div>

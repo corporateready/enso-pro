@@ -33,7 +33,7 @@ const partners = [
   {
     name: "ARUTIN BUREAU",
     description:
-      "Interioare și finisaje realizate \nla standard premium.",
+      "Interioare și finisaje executate \nla standard premium.",
     logoSrc: "/abureau.png",
     logoWidth: 731,
     logoHeight: 68,
