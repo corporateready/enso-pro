@@ -84,15 +84,12 @@ export type HeroCarouselProps = {
 const DEFAULT_OPTIONS: NonNullable<HeroCarouselOptions> = {
   axis: "y",
   containScroll: "trimSnaps",
-  // The final slide hands an upward touch gesture to the page before Embla
-  // begins a drag. This prevents the carousel's boundary clamp from tugging.
-  // While a programmatic transition is still animating the carousel must
-  // keep accepting touches, otherwise it goes deaf every time the
-  // auto-advance heads to the last slide.
+  // An upward swipe with nowhere left to scroll belongs to the page, not to
+  // the carousel: once the last slide is the target, Embla must not take the
+  // touch, or the boundary clamp swallows the gesture and the page appears
+  // frozen. Everything before that (including mid-transition) still drags.
   watchDrag: (api, event) =>
-    event.type !== "touchstart" ||
-    api.canScrollNext() ||
-    !api.internalEngine().scrollBody.settled(),
+    event.type !== "touchstart" || api.canScrollNext(),
 };
 
 function getSlideKey(slide: HeroCarouselSlide, index: number) {
