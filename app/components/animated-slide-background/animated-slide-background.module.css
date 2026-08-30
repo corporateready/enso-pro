@@ -19,21 +19,28 @@
  * Figma places the BLUE ANIMATION instance (1920x1263) at x=-51 with width
  * 1062 inside the 390-wide mobile frame: left -13.1%, width 272.3%.
  */
-.aurora {
+.petal {
   position: absolute;
   top: 0;
   left: -13.1%;
   width: 272.3%;
   height: 100%;
-}
-
-.blob {
-  transform-box: view-box;
   transform-origin: 0 0;
   will-change: transform;
   animation-duration: 9s;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
+}
+
+/*
+ * The blur reaches far outside the path, and the petal is placed by moving this
+ * box around, so the drawing must not be cropped to its own viewport first —
+ * the crop would travel with the petal. Only .root clips, exactly as before.
+ */
+.petalShape {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
 /*
@@ -80,30 +87,30 @@
   animation: iris-drift 1.73s ease-in-out infinite alternate;
 }
 
-.playing .blob,
+.playing .petal,
 .playing .iris {
   animation-play-state: running;
 }
 
-.paused .blob,
+.paused .petal,
 .paused .iris {
   animation-play-state: paused;
 }
 
-.blobBack {
-  animation-name: blob-back;
+.petalBack {
+  animation-name: petal-back;
 }
 
-.blobRight {
-  animation-name: blob-right;
+.petalRight {
+  animation-name: petal-right;
 }
 
-.blobCore {
-  animation-name: blob-core;
+.petalCore {
+  animation-name: petal-core;
 }
 
-.blobBand {
-  animation-name: blob-band;
+.petalBand {
+  animation-name: petal-band;
 }
 
 /*
@@ -112,67 +119,86 @@
  * both segments EASE_OUT. Each keyframe carries the vector's exact Figma
  * relativeTransform, so the petals sweep with the same ~30deg rotation.
  */
-@keyframes blob-back {
+/*
+ * The transform now moves the petal's box rather than a <g> inside the drawing,
+ * so Figma's translation — given in the 1920x1263 viewBox — is expressed as a
+ * share of that box: x/1920 and y/1263. The box carries the same aspect as the
+ * viewBox up to the 3% by which the slide is squashed, so the rotation terms
+ * carry over unchanged.
+ */
+@keyframes petal-back {
   0% {
-    transform: matrix(-0.911275, -0.411799, 0.411799, -0.911275, 1325.334, 1754.173);
+    transform: translate(69.0278%, 138.8894%)
+      matrix(-0.911275, -0.411799, 0.411799, -0.911275, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   66.667% {
-    transform: matrix(-0.576062, -0.817406, 0.817406, -0.576062, 729.042, 1731.305);
+    transform: translate(37.9709%, 137.0788%)
+      matrix(-0.576062, -0.817406, 0.817406, -0.576062, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   100% {
-    transform: matrix(-0.911275, -0.411799, 0.411799, -0.911275, 1325.334, 1754.173);
+    transform: translate(69.0278%, 138.8894%)
+      matrix(-0.911275, -0.411799, 0.411799, -0.911275, 0, 0);
   }
 }
 
-@keyframes blob-right {
+@keyframes petal-right {
   0% {
-    transform: matrix(-0.3701, -0.928992, 0.928992, -0.3701, 1058.206, 1648.834);
+    transform: translate(55.1149%, 130.549%)
+      matrix(-0.3701, -0.928992, 0.928992, -0.3701, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   66.667% {
-    transform: matrix(0.152749, -0.988265, 0.988265, 0.152749, 552.372, 1504.939);
+    transform: translate(28.7694%, 119.1559%)
+      matrix(0.152749, -0.988265, 0.988265, 0.152749, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   100% {
-    transform: matrix(-0.3701, -0.928992, 0.928992, -0.3701, 1058.206, 1648.834);
+    transform: translate(55.1149%, 130.549%)
+      matrix(-0.3701, -0.928992, 0.928992, -0.3701, 0, 0);
   }
 }
 
-@keyframes blob-core {
+@keyframes petal-core {
   0% {
-    transform: matrix(-0.972091, 0.234603, -0.234603, -0.972091, 1436.736, 1242.238);
+    transform: translate(74.83%, 98.3562%)
+      matrix(-0.972091, 0.234603, -0.234603, -0.972091, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   66.667% {
-    transform: matrix(-0.956611, -0.291368, 0.291368, -0.956611, 1084.910, 1346.797);
+    transform: translate(56.5057%, 106.6347%)
+      matrix(-0.956611, -0.291368, 0.291368, -0.956611, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   100% {
-    transform: matrix(-0.972091, 0.234603, -0.234603, -0.972091, 1436.736, 1242.238);
+    transform: translate(74.83%, 98.3562%)
+      matrix(-0.972091, 0.234603, -0.234603, -0.972091, 0, 0);
   }
 }
 
-@keyframes blob-band {
+@keyframes petal-band {
   0% {
-    transform: matrix(0.999914, -0.013139, -0.013139, -0.999914, -169.724, 1466.088);
+    transform: translate(-8.8398%, 116.0798%)
+      matrix(0.999914, -0.013139, -0.013139, -0.999914, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   66.667% {
-    transform: matrix(0.868153, 0.496296, 0.496296, -0.868153, -412.788, 724.123);
+    transform: translate(-21.4994%, 57.3336%)
+      matrix(0.868153, 0.496296, 0.496296, -0.868153, 0, 0);
     animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
   }
 
   100% {
-    transform: matrix(0.999914, -0.013139, -0.013139, -0.999914, -169.724, 1466.088);
+    transform: translate(-8.8398%, 116.0798%)
+      matrix(0.999914, -0.013139, -0.013139, -0.999914, 0, 0);
   }
 }
 
@@ -187,7 +213,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blob,
+  .petal,
   .iris {
     animation: none !important;
   }
