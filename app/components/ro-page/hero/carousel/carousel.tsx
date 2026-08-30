@@ -142,6 +142,12 @@ function LazyLoadImage({
   children?: React.ReactNode;
 }) {
   const [hasLoaded, setHasLoaded] = useState(false);
+  // The first slide loads eagerly, so the browser can finish it before React
+  // hydrates — and a load event that already fired is gone for good, leaving
+  // the slide stuck behind its spinner. Catch that when the node is attached.
+  const markLoadedIfReady = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth > 0) setHasLoaded(true);
+  }, []);
   const hasAnimatedBackground = Boolean(slide.animatedBackground);
   const shouldRenderImage = inView || index === 0;
   const hasTextContent = Boolean(
@@ -197,6 +203,7 @@ function LazyLoadImage({
               styles.mobileImage,
               slide.classNames?.image,
             )}
+            ref={markLoadedIfReady}
             src={slide.src}
             alt={slide.alt}
             fill
@@ -219,6 +226,7 @@ function LazyLoadImage({
               styles.desktopImage,
               slide.classNames?.image,
             )}
+            ref={markLoadedIfReady}
             src={slide.desktopSrc}
             alt={slide.alt}
             fill
