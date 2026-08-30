@@ -401,6 +401,7 @@ export function HeroCarousel({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragEpoch, setDragEpoch] = useState(0);
   const isLastSlide =
     scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
   const progressRemainingRef = useRef(SLIDE_PROGRESS_DURATION);
@@ -441,12 +442,17 @@ export function HeroCarousel({
 
   const handlePointerDown = useCallback(() => {
     pauseProgressTimer();
+    // The user took over: restart the auto-advance countdown from the full
+    // duration, otherwise a timer that had already expired would fire with a
+    // zero delay right on release and fight the swipe.
+    progressRemainingRef.current = SLIDE_PROGRESS_DURATION;
     setIsDragging(true);
   }, [pauseProgressTimer]);
 
   const handlePointerUp = useCallback((api: EmblaApi) => {
     clampDragToCarouselBounds(api);
     setIsDragging(false);
+    setDragEpoch((epoch) => epoch + 1);
   }, []);
 
   const handleLastSlideTouchStart = useCallback(
@@ -532,7 +538,7 @@ export function HeroCarousel({
       } else {
         emblaApi.scrollTo(0, true);
       }
-    }, progressRemainingRef.current);
+    }, Math.max(progressRemainingRef.current, 400));
 
     return pauseProgressTimer;
   }, [
@@ -610,7 +616,7 @@ export function HeroCarousel({
                 >
                   {isSelected && (
                     <span
-                      key={selectedIndex}
+                      key={`${selectedIndex}:${dragEpoch}`}
                       className={mergeClassNames(
                         styles.dotProgress,
                         isDragging && styles.dotProgressPaused,

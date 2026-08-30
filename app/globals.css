@@ -21,6 +21,12 @@ html {
 
   font-size: calc(100vw / (390 * 1));
 
+  /* Sections built on the 394rem Figma grid (values, payway) are 4px wider
+     than the 390 viewport; body has overflow-x-hidden but the horizontal
+     scroll lives on <html>, so the page could be nudged sideways on mobile.
+     clip (not hidden) kills that without creating a scroll container. */
+  overflow-x: clip;
+
   @media screen and (min-width: 641px) {
     font-size: calc(100vw / (1920 * 1));
   }
