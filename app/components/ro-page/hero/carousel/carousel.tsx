@@ -412,6 +412,10 @@ export function HeroCarousel({
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [dragEpoch, setDragEpoch] = useState(0);
+  // Starts true so the slides advance even where IntersectionObserver is
+  // missing, and so the server-rendered markup matches the first paint.
+  const [isInView, setIsInView] = useState(true);
+  const carouselRef = useRef<HTMLElement | null>(null);
   const isLastSlide =
     scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
   const progressRemainingRef = useRef(SLIDE_PROGRESS_DURATION);
@@ -526,13 +530,30 @@ export function HeroCarousel({
   ]);
 
   useEffect(() => {
+    const node = carouselRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+
+    // Scrolling past the hero used to leave the countdown running, so coming
+    // back landed you on whichever slide had arrived meanwhile — usually the
+    // last one, where an upward swipe deliberately belongs to the page. Hold
+    // the timer while the carousel is off-screen and it resumes where it left.
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (progressSlideIndexRef.current !== selectedIndex) {
       progressSlideIndexRef.current = selectedIndex;
       progressRemainingRef.current = SLIDE_PROGRESS_DURATION;
       progressStartedAtRef.current = null;
     }
 
-    if (!emblaApi || scrollSnaps.length < 2 || isDragging) return;
+    if (!emblaApi || scrollSnaps.length < 2 || isDragging || !isInView) return;
 
     progressStartedAtRef.current = performance.now();
 
@@ -554,15 +575,19 @@ export function HeroCarousel({
   }, [
     emblaApi,
     isDragging,
+    isInView,
     pauseProgressTimer,
     scrollSnaps.length,
     selectedIndex,
   ]);
 
+  const isProgressHeld = isDragging || !isInView;
+
   if (slides.length === 0) return null;
 
   return (
     <section
+      ref={carouselRef}
       className={`${styles.carousel} ${className ?? ""} relative z-0`}
       role="region"
       aria-roledescription="carousel"
@@ -614,7 +639,7 @@ export function HeroCarousel({
                   key={index}
                   className={`${styles.dot} ${
                     isSelected
-                      ? isDragging
+                      ? isProgressHeld
                         ? styles.dotSelectedPaused
                         : styles.dotSelected
                       : ""
@@ -629,7 +654,7 @@ export function HeroCarousel({
                       key={`${selectedIndex}:${dragEpoch}`}
                       className={mergeClassNames(
                         styles.dotProgress,
-                        isDragging && styles.dotProgressPaused,
+                        isProgressHeld && styles.dotProgressPaused,
                       )}
                       aria-hidden="true"
                     />
