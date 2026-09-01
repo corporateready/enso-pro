@@ -55,9 +55,11 @@
     position: fixed;
     z-index: 301;
     inset: 0;
+    display: flex;
     width: 100dvw;
     height: 100dvh;
-    overflow-y: auto;
+    flex-direction: column;
+    overflow: hidden;
     color: #111;
     background: #fff;
     opacity: 0;
@@ -127,12 +129,24 @@
     text-decoration: none;
   }
 
+  /*
+   * Figma has no desktop menu, so this layout is ours. The list takes the room
+   * left between the header and the account block and centres itself in it —
+   * the two can no longer collide, whatever the window's height. Padding-top
+   * clears the absolutely positioned header.
+   */
   .navigation {
     display: flex;
+    min-height: 0;
+    flex: 1;
     flex-direction: column;
     align-items: center;
+    /* "safe" so a list too tall for the window falls back to the top instead
+       of centring itself and putting its first items out of scroll reach. */
+    justify-content: safe center;
     gap: 18rem;
-    padding: 155rem 160rem 230rem;
+    padding: 96rem 160rem 24rem;
+    overflow-y: auto;
     font-family: var(--font-inter), sans-serif;
     font-size: 48rem;
     font-weight: 600;
@@ -144,15 +158,13 @@
   }
 
   .accountActions {
-    position: absolute;
-    bottom: 70rem;
-    left: 50%;
     display: flex;
+    flex: none;
     flex-direction: column;
     align-items: center;
     gap: 18rem;
+    padding-bottom: 70rem;
     font-family: var(--font-inter), sans-serif;
-    transform: translateX(-50%);
   }
 
   .loginLink {
@@ -180,6 +192,23 @@
   .createAccountLink span {
     margin-left: 4rem;
     border-bottom: 1rem solid currentColor;
+  }
+
+  /*
+   * Short windows — a laptop with the dock and tab bar eating the height. The
+   * mobile menu has the same fallback; without it the list is tall enough to
+   * need scrolling and the last item gets sliced by the account block's edge.
+   */
+  @media (max-height: 700px) {
+    .navigation {
+      gap: 10rem;
+      padding-top: 80rem;
+      font-size: 38rem;
+    }
+
+    .accountActions {
+      padding-bottom: 40rem;
+    }
   }
 }
 
