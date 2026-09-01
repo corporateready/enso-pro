@@ -195,11 +195,13 @@
   }
 
   /*
-   * Short windows — a laptop with the dock and tab bar eating the height. The
-   * mobile menu has the same fallback; without it the list is tall enough to
-   * need scrolling and the last item gets sliced by the account block's edge.
+   * Everything here is sized from the window's width, so the height this
+   * layout demands grows with it: a plain max-height threshold let wide but
+   * shallow windows through — 1600x760 and a 1920 monitor with browser chrome
+   * both overflowed, and the last item got sliced by the scroll box. The list
+   * needs about 0.52 of the width in height, so switch on the ratio instead.
    */
-  @media (max-height: 700px) {
+  @media (min-aspect-ratio: 19 / 10) {
     .navigation {
       gap: 10rem;
       padding-top: 80rem;
