@@ -59,6 +59,7 @@
     width: 100dvw;
     height: 100dvh;
     flex-direction: column;
+    justify-content: center;
     overflow: hidden;
     color: #111;
     background: #fff;
@@ -138,14 +139,14 @@
   .navigation {
     display: flex;
     min-height: 0;
-    flex: 1;
+    flex: 0 1 auto;
     flex-direction: column;
     align-items: center;
     /* "safe" so a list too tall for the window falls back to the top instead
        of centring itself and putting its first items out of scroll reach. */
     justify-content: safe center;
     gap: 18rem;
-    padding: 96rem 160rem 72rem;
+    padding: 96rem 160rem 0;
     overflow-y: auto;
     font-family: var(--font-inter), sans-serif;
     font-size: 48rem;
@@ -157,13 +158,18 @@
     font: inherit;
   }
 
+  /*
+   * Fixed distance from the list rather than whatever the window has left
+   * over: the pair reads as one group, and the spacing no longer changes with
+   * the height of the window. The column as a whole is centred by .menu.
+   */
   .accountActions {
     display: flex;
     flex: none;
     flex-direction: column;
     align-items: center;
     gap: 18rem;
-    padding-bottom: 70rem;
+    margin-top: 64rem;
     font-family: var(--font-inter), sans-serif;
   }
 
@@ -205,12 +211,11 @@
     .navigation {
       gap: 10rem;
       padding-top: 80rem;
-      padding-bottom: 48rem;
       font-size: 38rem;
     }
 
     .accountActions {
-      padding-bottom: 40rem;
+      margin-top: 44rem;
     }
   }
 }
