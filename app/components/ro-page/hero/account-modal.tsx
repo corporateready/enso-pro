@@ -7,12 +7,25 @@ import { createPortal } from "react-dom";
 
 import styles from "./account-modal.module.css";
 
+type AccountMode = "signin" | "signup";
+
 type AccountModalProps = {
   onClose: () => void;
+  initialMode?: AccountMode;
 };
 
-export default function AccountModal({ onClose }: AccountModalProps) {
+export default function AccountModal({
+  onClose,
+  initialMode = "signin",
+}: AccountModalProps) {
+  const [mode, setMode] = useState<AccountMode>(initialMode);
   const [identifier, setIdentifier] = useState("");
+  const [fullName, setFullName] = useState("");
+  const isSignUp = mode === "signup";
+  // Sign-in needs one field, sign-up needs both.
+  const canSubmit = isSignUp
+    ? Boolean(fullName.trim() && identifier.trim())
+    : Boolean(identifier.trim());
   const identifierRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -95,7 +108,7 @@ export default function AccountModal({ onClose }: AccountModalProps) {
 
         <div className={styles.content}>
           <h2 id="personal-account-title" className={styles.title}>
-            INTRĂ ÎN
+            {isSignUp ? "CREEAZĂ-ȚI" : "INTRĂ ÎN"}
             <br />
             CONTUL PERSONAL
           </h2>
@@ -130,8 +143,26 @@ export default function AccountModal({ onClose }: AccountModalProps) {
               <span>sau</span>
             </div>
 
+            {isSignUp && (
+              <>
+                <label className={styles.visuallyHidden} htmlFor="account-name">
+                  Nume și prenume
+                </label>
+                <input
+                  id="account-name"
+                  className={styles.input}
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Nume și prenume"
+                  value={fullName}
+                  onChange={(event) => setFullName(event.target.value)}
+                />
+              </>
+            )}
+
             <label className={styles.visuallyHidden} htmlFor="account-identifier">
-              E-mail sau nume de utilizator
+              {isSignUp ? "E-mail" : "E-mail sau nume de utilizator"}
             </label>
             <input
               ref={identifierRef}
@@ -141,7 +172,7 @@ export default function AccountModal({ onClose }: AccountModalProps) {
               type="text"
               autoComplete="username"
               inputMode="email"
-              placeholder="E-mail sau nume de utilizator"
+              placeholder={isSignUp ? "E-mail" : "E-mail sau nume de utilizator"}
               value={identifier}
               onChange={(event) => setIdentifier(event.target.value)}
             />
@@ -149,17 +180,21 @@ export default function AccountModal({ onClose }: AccountModalProps) {
             <button
               className={styles.continueButton}
               type="submit"
-              disabled={!identifier.trim()}
+              disabled={!canSubmit}
             >
-              Continuă
+              {isSignUp ? "Creează contul" : "Continuă"}
             </button>
           </form>
 
           <p className={styles.createAccount}>
-            Ești nou aici?{" "}
-            <a href="#create-account" onClick={onClose}>
-              Creează-ți cont
-            </a>
+            {isSignUp ? "Ai deja cont?" : "Ești nou aici?"}{" "}
+            <button
+              type="button"
+              onClick={() => setMode(isSignUp ? "signin" : "signup")}
+              aria-label={isSignUp ? "Treci la autentificare" : "Treci la crearea contului"}
+            >
+              {isSignUp ? "Intră în cont" : "Creează-ți cont"}
+            </button>
           </p>
         </div>
       </section>

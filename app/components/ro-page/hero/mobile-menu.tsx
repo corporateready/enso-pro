@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import AccountModal from "./account-modal";
 import styles from "./mobile-menu.module.css";
 
 const navigation = [
@@ -21,11 +20,15 @@ const navigation = [
 
 type MobileMenuProps = {
   dark?: boolean;
+  /* The header owns the dialog so its own controls can open it too. */
+  onOpenAccount: (mode: "signin" | "signup") => void;
 };
 
-export default function MobileMenu({ dark = false }: MobileMenuProps) {
+export default function MobileMenu({
+  dark = false,
+  onOpenAccount,
+}: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -47,7 +50,12 @@ export default function MobileMenu({ dark = false }: MobileMenuProps) {
   const closeMenu = () => setIsOpen(false);
   const openAccountModal = () => {
     setIsOpen(false);
-    setIsAccountModalOpen(true);
+    onOpenAccount("signin");
+  };
+
+  const openCreateAccount = () => {
+    setIsOpen(false);
+    onOpenAccount("signup");
   };
 
   return (
@@ -144,16 +152,12 @@ export default function MobileMenu({ dark = false }: MobileMenuProps) {
           <button
             className={styles.createAccountLink}
             type="button"
-            onClick={closeMenu}
+            onClick={openCreateAccount}
           >
             Ești nou aici? <span>Creează-ți cont</span>
           </button>
         </div>
       </div>
-
-      {isAccountModalOpen && (
-        <AccountModal onClose={() => setIsAccountModalOpen(false)} />
-      )}
     </>
   );
 }

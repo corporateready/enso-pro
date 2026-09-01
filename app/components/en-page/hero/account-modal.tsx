@@ -7,12 +7,25 @@ import { createPortal } from "react-dom";
 
 import styles from "../../ro-page/hero/account-modal.module.css";
 
+type AccountMode = "signin" | "signup";
+
 type AccountModalProps = {
   onClose: () => void;
+  initialMode?: AccountMode;
 };
 
-export default function AccountModal({ onClose }: AccountModalProps) {
+export default function AccountModal({
+  onClose,
+  initialMode = "signin",
+}: AccountModalProps) {
+  const [mode, setMode] = useState<AccountMode>(initialMode);
   const [identifier, setIdentifier] = useState("");
+  const [fullName, setFullName] = useState("");
+  const isSignUp = mode === "signup";
+  // Sign-in needs one field, sign-up needs both.
+  const canSubmit = isSignUp
+    ? Boolean(fullName.trim() && identifier.trim())
+    : Boolean(identifier.trim());
   const identifierRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -95,7 +108,7 @@ export default function AccountModal({ onClose }: AccountModalProps) {
 
         <div className={styles.content}>
           <h2 id="personal-account-title-en" className={styles.title}>
-            LOG IN TO YOUR
+            {isSignUp ? "CREATE YOUR" : "LOG IN TO YOUR"}
             <br />
             PERSONAL ACCOUNT
           </h2>
@@ -130,11 +143,32 @@ export default function AccountModal({ onClose }: AccountModalProps) {
               <span>or</span>
             </div>
 
+            {isSignUp && (
+              <>
+                <label
+                  className={styles.visuallyHidden}
+                  htmlFor="account-name-en"
+                >
+                  Full name
+                </label>
+                <input
+                  id="account-name-en"
+                  className={styles.input}
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Full name"
+                  value={fullName}
+                  onChange={(event) => setFullName(event.target.value)}
+                />
+              </>
+            )}
+
             <label
               className={styles.visuallyHidden}
               htmlFor="account-identifier-en"
             >
-              E-mail or username
+              {isSignUp ? "E-mail" : "E-mail or username"}
             </label>
             <input
               ref={identifierRef}
@@ -144,7 +178,7 @@ export default function AccountModal({ onClose }: AccountModalProps) {
               type="text"
               autoComplete="username"
               inputMode="email"
-              placeholder="E-mail or username"
+              placeholder={isSignUp ? "E-mail" : "E-mail or username"}
               value={identifier}
               onChange={(event) => setIdentifier(event.target.value)}
             />
@@ -152,17 +186,25 @@ export default function AccountModal({ onClose }: AccountModalProps) {
             <button
               className={styles.continueButton}
               type="submit"
-              disabled={!identifier.trim()}
+              disabled={!canSubmit}
             >
-              Continue
+              {isSignUp ? "Create account" : "Continue"}
             </button>
           </form>
 
           <p className={styles.createAccount}>
-            New here?{" "}
-            <a href="#create-account" onClick={onClose}>
-              Create an account
-            </a>
+            {isSignUp ? "Already have an account?" : "New here?"}{" "}
+            <button
+              type="button"
+              onClick={() => setMode(isSignUp ? "signin" : "signup")}
+              aria-label={
+                isSignUp
+                  ? "Switch to logging in"
+                  : "Switch to creating an account"
+              }
+            >
+              {isSignUp ? "Log in" : "Create an account"}
+            </button>
           </p>
         </div>
       </section>

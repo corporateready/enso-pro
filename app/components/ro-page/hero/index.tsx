@@ -3,11 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import HeroCarousel, { type HeroCarouselSlide } from "./carousel";
+import AccountModal from "./account-modal";
 import MobileMenu from "./mobile-menu";
 import OfferModal from "./offer-modal";
 import styles from "./hero.module.css";
 
 const Index = () => {
+  const [accountMode, setAccountMode] = useState<
+    "signin" | "signup" | null
+  >(null);
   const [isSticky, setIsSticky] = useState(false);
   const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
 
@@ -361,9 +365,10 @@ const Index = () => {
         </nav>
 
         <div className={`${styles.headerActions} flex items-center justify-center gap-[36rem]`}>
-          <a
+          <button
+            type="button"
             className={styles.desktopOfferButton}
-            href="#create-account"
+            onClick={() => setAccountMode("signin")}
           >
             <span>Cont personal</span>
             <svg viewBox="0 0 19 21" fill="none" aria-hidden="true">
@@ -373,9 +378,10 @@ const Index = () => {
                 strokeLinejoin="round"
               />
             </svg>
-          </a>
+          </button>
           <button
             type="button"
+            onClick={() => setAccountMode("signin")}
             aria-label="Open personal account"
             className={`${styles.accountButton} transition-colors duration-300 ${isSticky ? "text-black" : "text-white"}`}
           >
@@ -401,7 +407,7 @@ const Index = () => {
             <span className={styles.desktopLanguage}>EN</span>
           </Link>
           <span className={styles.mobileMenuShell}>
-            <MobileMenu dark={isSticky} />
+            <MobileMenu dark={isSticky} onOpenAccount={setAccountMode} />
           </span>
         </div>
       </header>
@@ -415,6 +421,13 @@ const Index = () => {
 
       {isOfferModalOpen && (
         <OfferModal onClose={() => setIsOfferModalOpen(false)} />
+      )}
+
+      {accountMode && (
+        <AccountModal
+          initialMode={accountMode}
+          onClose={() => setAccountMode(null)}
+        />
       )}
       
     </div>
