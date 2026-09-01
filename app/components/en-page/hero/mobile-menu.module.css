@@ -381,7 +381,7 @@
        of centring itself and putting its first items out of scroll reach. */
     justify-content: safe center;
     gap: 18rem;
-    padding: 96rem 160rem 24rem;
+    padding: 96rem 160rem 72rem;
     overflow-y: auto;
     font-family: var(--font-inter), sans-serif;
     font-size: 48rem;
@@ -439,6 +439,7 @@
     .navigation {
       gap: 10rem;
       padding-top: 80rem;
+      padding-bottom: 48rem;
       font-size: 38rem;
     }
 
