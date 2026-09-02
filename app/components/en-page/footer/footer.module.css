@@ -119,6 +119,10 @@
   line-height: 13rem;
 }
 
+.copyDesktop {
+  display: none;
+}
+
 .legalLinks {
   position: absolute;
   top: 341rem;
@@ -302,6 +306,16 @@
     color: #fff;
     font-size: 32rem;
     line-height: 20rem;
+  }
+
+  .copyMobile {
+    display: none;
+  }
+
+  /* Figma's desktop footer lists the privacy policy before the terms;
+     its mobile footer has them the other way round, which the markup keeps. */
+  .legalLinks a:first-child {
+    order: 2;
   }
 
   .legalLinks {

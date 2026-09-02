@@ -46,7 +46,7 @@ const articles: readonly JournalArticle[] = [
     category: "buying-guide",
     badge: "Buying guide",
     title:
-      "ENSO Development completes the investment exit from Eminescu Offices",
+      "ENSŌ Development completes the investment exit from Eminescu Offices",
     desktopSrc: "/journal-post-buying-guide.avif",
     desktopWidth: 1541,
     desktopHeight: 878,

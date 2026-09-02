@@ -84,11 +84,14 @@ export default function Footer() {
           alt="ENSO Development"
         />
 
-        <p className={styles.copyright}>© 2026 ENSO Development All rights reserved.</p>
+        <p className={styles.copyright}>
+          <span className={styles.copyDesktop}>© 2026 ENSO Development All Rights Reserved</span>
+          <span className={styles.copyMobile}>© 2026 All rights reserved.</span>
+        </p>
 
         <div className={styles.legalLinks}>
           <a href="#terms">Terms &amp; conditions</a>
-          <a href="#privacy">Privacy Policy</a>
+          <a href="#privacy">Privacy policy</a>
         </div>
 
         <a className={styles.backToTop} href="#top" aria-label="Back to top">

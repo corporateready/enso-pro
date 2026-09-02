@@ -7,7 +7,7 @@ const menuLinks = [
   { label: "Cont personal", href: "#my-enso" },
   { label: "Istoria noastră", href: "#since" },
   { label: "Modalități de plată", href: "#payment-method" },
-  { label: "De ce ENSO", href: "#why-enso" },
+  { label: "De ce ENSŌ", href: "#why-enso" },
   { label: "BIM", href: "#bim" },
   { label: "Valorile noastre", href: "#values" },
   { label: "Echipa noastră", href: "#team" },
@@ -84,7 +84,10 @@ export default function Footer() {
           alt="ENSO Development"
         />
 
-        <p className={styles.copyright}>© 2026 Toate drepturile rezervate.</p>
+        <p className={styles.copyright}>
+          <span className={styles.copyDesktop}>© 2026 Toate drepturile rezervate</span>
+          <span className={styles.copyMobile}>© 2026 Toate drepturile rezervate.</span>
+        </p>
 
         <div className={styles.legalLinks}>
           <a href="#terms">Termeni și condiții</a>

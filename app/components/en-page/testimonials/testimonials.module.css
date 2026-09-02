@@ -9,7 +9,7 @@
     width: 100%;
     max-width: 390rem;
     margin: 0 auto;
-    padding: 40rem 16rem 40rem;
+    padding: 34rem 16rem 60rem;
   }
 
   .title {
@@ -114,7 +114,7 @@
 @media screen and (min-width: 641px) {
   .inner {
     width: 100%;
-    padding: 100rem 160rem 55rem;
+    padding: 141rem 160rem 55rem;
   }
 
   .title {

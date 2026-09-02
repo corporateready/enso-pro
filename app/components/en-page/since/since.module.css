@@ -219,8 +219,8 @@
      fit at the per-milestone content width (max 4 lines). */
   .section {
     width: 100%;
-    height: 940rem;
-    padding-top: 50rem;
+    height: 990rem;
+    padding-top: 145rem;
     overflow: hidden;
     color: #111;
     background: #fff;

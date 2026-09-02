@@ -33,7 +33,7 @@ const articles: readonly JournalArticle[] = [
     category: "inside-enso",
     badge: "Din interior",
     title:
-      "BIM is the international standard applied in every ENSO Development project",
+      "BIM is the international standard applied in every ENSŌ Development project",
     desktopSrc: "/journal-post-image.avif",
     desktopWidth: 3200,
     desktopHeight: 2520,
@@ -46,7 +46,7 @@ const articles: readonly JournalArticle[] = [
     category: "buying-guide",
     badge: "Ghid de cumpărare",
     title:
-      "ENSO Development completes the investment exit from Eminescu Offices",
+      "ENSŌ Development completes the investment exit from Eminescu Offices",
     desktopSrc: "/journal-post-buying-guide.avif",
     desktopWidth: 1541,
     desktopHeight: 878,
