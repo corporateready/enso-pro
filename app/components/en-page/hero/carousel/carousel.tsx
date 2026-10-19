@@ -90,8 +90,12 @@ const DEFAULT_OPTIONS: NonNullable<HeroCarouselOptions> = {
   // the carousel: once the last slide is the target, Embla must not take the
   // touch, or the boundary clamp swallows the gesture and the page appears
   // frozen. Everything before that (including mid-transition) still drags.
+  // The same goes for any swipe once the page has scrolled at all: with the
+  // hero partly off screen a vertical swipe means "move the page", and taking
+  // it left a swipe down on slide 1 dead instead of bringing the top back.
   watchDrag: (api, event) =>
-    event.type !== "touchstart" || api.canScrollNext(),
+    event.type !== "touchstart" ||
+    (api.canScrollNext() && window.scrollY <= 1),
 };
 
 function getSlideKey(slide: HeroCarouselSlide, index: number) {
@@ -453,6 +457,9 @@ export function HeroCarousel({
   // Starts true so the slides advance even where IntersectionObserver is
   // missing, and so the server-rendered markup matches the first paint.
   const [isInView, setIsInView] = useState(true);
+  // Mirrors watchDrag's scroll test, so touch-action hands vertical pans to
+  // the browser whenever Embla would not take them.
+  const [isPageScrolled, setIsPageScrolled] = useState(false);
   const carouselRef = useRef<HTMLElement | null>(null);
   const isLastSlide =
     scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
@@ -509,7 +516,14 @@ export function HeroCarousel({
 
   const handleLastSlideTouchStart = useCallback(
     (event: ReactTouchEvent<HTMLDivElement>) => {
-      if (isDesktop || !isLastSlide || event.touches.length !== 1) return;
+      // with the page scrolled, a swipe down is a page scroll, not "back"
+      if (
+        isDesktop ||
+        !isLastSlide ||
+        event.touches.length !== 1 ||
+        window.scrollY > 1
+      )
+        return;
 
       lastSlideTouchStartYRef.current = event.touches[0].clientY;
     },
@@ -566,6 +580,17 @@ export function HeroCarousel({
     updateControls,
     updateSlidesInView,
   ]);
+
+  useEffect(() => {
+    if (isDesktop) return;
+
+    const updatePageScrolled = () => setIsPageScrolled(window.scrollY > 1);
+
+    updatePageScrolled();
+    window.addEventListener("scroll", updatePageScrolled, { passive: true });
+
+    return () => window.removeEventListener("scroll", updatePageScrolled);
+  }, [isDesktop]);
 
   useEffect(() => {
     const node = carouselRef.current;
@@ -634,7 +659,7 @@ export function HeroCarousel({
       <div
         className={mergeClassNames(
           styles.viewport,
-          isLastSlide && styles.viewportAtEnd,
+          (isLastSlide || isPageScrolled) && styles.viewportAtEnd,
         )}
         ref={emblaRef}
         onTouchStart={handleLastSlideTouchStart}
@@ -643,7 +668,7 @@ export function HeroCarousel({
         <div
           className={mergeClassNames(
             styles.container,
-            isLastSlide && styles.containerAtEnd,
+            (isLastSlide || isPageScrolled) && styles.containerAtEnd,
           )}
         >
           {slides.map((slide, index) => (

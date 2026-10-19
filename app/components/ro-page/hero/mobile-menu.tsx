@@ -4,18 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { lockPageScroll } from "../../scroll-lock";
 import styles from "./mobile-menu.module.css";
 
+// Each item scrolls to its section (the same anchors the desktop header
+// links to); they used to only close the menu.
 const navigation = [
-  "PROIECTE",
-  "ISTORIA NOASTRĂ",
-  "MODALITĂȚI DE PLATĂ",
-  "DE CE ENSŌ?",
-  "BIM",
-  "VALORILE NOASTRE",
-  "ECHIPA NOASTRĂ",
-  "PARTENERII NOȘTRI",
-  "ENSO JOURNAL",
+  { label: "PROIECTE", target: "projects" },
+  { label: "ISTORIA NOASTRĂ", target: "since" },
+  { label: "MODALITĂȚI DE PLATĂ", target: "payment-method" },
+  { label: "DE CE ENSŌ?", target: "why-enso" },
+  { label: "BIM", target: "bim" },
+  { label: "VALORILE NOASTRE", target: "values" },
+  { label: "ECHIPA NOASTRĂ", target: "team" },
+  { label: "PARTENERII NOȘTRI", target: "partners" },
+  { label: "ENSO JOURNAL", target: "journal" },
 ] as const;
 
 type MobileMenuProps = {
@@ -33,21 +36,32 @@ export default function MobileMenu({
   useEffect(() => {
     if (!isOpen) return;
 
-    const previousOverflow = document.body.style.overflow;
+    const unlockPageScroll = lockPageScroll();
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsOpen(false);
     };
 
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", closeOnEscape);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      unlockPageScroll();
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [isOpen]);
 
   const closeMenu = () => setIsOpen(false);
+  const goToSection = (target: string) => {
+    setIsOpen(false);
+    // Scroll once the menu has closed and let go of the page: two frames
+    // covers the re-render and the effect clean-up that unlocks scrolling.
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document
+          .getElementById(target)
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  };
   const openAccountModal = () => {
     setIsOpen(false);
     onOpenAccount("signin");
@@ -123,8 +137,12 @@ export default function MobileMenu({
 
         <nav className={styles.navigation} aria-label="Main navigation">
           {navigation.map((item) => (
-            <button key={item} type="button" onClick={closeMenu}>
-              {item}
+            <button
+              key={item.target}
+              type="button"
+              onClick={() => goToSection(item.target)}
+            >
+              {item.label}
             </button>
           ))}
         </nav>

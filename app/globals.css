@@ -52,6 +52,15 @@ html {
      scroll lives on <html>, so the page could be nudged sideways on mobile.
      clip (not hidden) kills that without creating a scroll container. */
   overflow-x: clip;
+  /* Overlays lock scrolling with overflow: hidden here; keep the classic
+     (Windows) scrollbar's gutter so the page does not jump sideways. */
+  scrollbar-gutter: stable;
+
+  /* The phone header stays fixed at 64px: land anchors (menu items, "View
+     the projects") just below it instead of under it. */
+  @media screen and (max-width: 640px) {
+    scroll-padding-top: 64rem;
+  }
 
   @media screen and (min-width: 641px) {
     font-size: calc(100vw / (1920 * 1));

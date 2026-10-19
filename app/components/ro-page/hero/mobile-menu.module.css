@@ -285,6 +285,7 @@
   width: 100dvw;
   height: 100dvh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   color: #000;
   background: white;
   opacity: 0;
@@ -372,12 +373,15 @@
   text-transform: uppercase;
 }
 
+/* The bottom padding keeps the list clear of the account block pinned to the
+   bottom (107 tall with its offset). 180 made the menu scroll on any screen
+   under 690px, Safari's usual phone viewport included. */
 .navigation {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 11rem;
-  padding: 80rem 16rem 180rem 24rem;
+  padding: 80rem 16rem 137rem 24rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 24rem;
   font-weight: 600;

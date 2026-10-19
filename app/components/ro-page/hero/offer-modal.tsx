@@ -5,6 +5,7 @@ import Image from "next/image";
 import { createPortal } from "react-dom";
 
 import styles from "./offer-modal.module.css";
+import { lockPageScroll } from "../../scroll-lock";
 
 type OfferModalProps = {
   onClose: () => void;
@@ -17,16 +18,14 @@ export default function OfferModal({ onClose }: OfferModalProps) {
   const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
+    const unlockPageScroll = lockPageScroll();
     const focusFrame = window.requestAnimationFrame(() => {
       nameRef.current?.focus();
     });
 
-    document.body.style.overflow = "hidden";
-
     return () => {
       window.cancelAnimationFrame(focusFrame);
-      document.body.style.overflow = previousOverflow;
+      unlockPageScroll();
     };
   }, []);
 

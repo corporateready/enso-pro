@@ -5,6 +5,7 @@ import Image from "next/image";
 import { createPortal } from "react-dom";
 
 import styles from "./book-call-modal.module.css";
+import { lockPageScroll } from "./scroll-lock";
 
 type BookCallModalProps = {
   locale: "ro" | "en";
@@ -54,16 +55,14 @@ export default function BookCallModal({
   const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
+    const unlockPageScroll = lockPageScroll();
     const focusFrame = window.requestAnimationFrame(() => {
       nameRef.current?.focus();
     });
 
-    document.body.style.overflow = "hidden";
-
     return () => {
       window.cancelAnimationFrame(focusFrame);
-      document.body.style.overflow = previousOverflow;
+      unlockPageScroll();
     };
   }, []);
 

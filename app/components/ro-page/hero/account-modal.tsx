@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 
 import styles from "./account-modal.module.css";
+import { lockPageScroll } from "../../scroll-lock";
 
 type AccountMode = "signin" | "signup";
 
@@ -29,16 +30,14 @@ export default function AccountModal({
   const identifierRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
+    const unlockPageScroll = lockPageScroll();
     const focusFrame = window.requestAnimationFrame(() => {
       identifierRef.current?.focus();
     });
 
-    document.body.style.overflow = "hidden";
-
     return () => {
       window.cancelAnimationFrame(focusFrame);
-      document.body.style.overflow = previousOverflow;
+      unlockPageScroll();
     };
   }, []);
 
