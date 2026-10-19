@@ -1,6 +1,8 @@
 @media screen and (max-width: 640px) {
 .trigger {
   position: relative;
+  /* Figma's burger strokes sit on y 26, 36 and 46 */
+  top: 0.76rem;
   z-index: 102;
   flex: 0 0 30rem;
   width: 30rem;
@@ -20,13 +22,15 @@
 
 .triggerLine {
   position: absolute;
-  left: 0;
-  width: 30rem;
+  left: 0.5rem;
+  width: 29rem;
   height: 1rem;
   background: currentColor;
   transform-origin: center;
   transition:
     top 220ms ease,
+    left 220ms ease,
+    width 220ms ease,
     opacity 160ms ease,
     transform 220ms ease;
 }
@@ -48,8 +52,12 @@
 }
 
 .triggerOpen .triggerLine:nth-child(1) {
+  /* Figma's cross spans the burger's own 28x20 box, so the strokes run at
+     atan(20/28) = 35.54deg rather than 45 */
   top: 10rem;
-  transform: rotate(45deg);
+  left: -1.7rem;
+  width: 34.41rem;
+  transform: rotate(35.54deg);
 }
 
 .triggerOpen .triggerLine:nth-child(2) {
@@ -58,7 +66,9 @@
 
 .triggerOpen .triggerLine:nth-child(3) {
   top: 10rem;
-  transform: rotate(-45deg);
+  left: -1.7rem;
+  width: 34.41rem;
+  transform: rotate(-35.54deg);
 }
 
 .menu {
@@ -122,32 +132,34 @@
 .activeHeaderControls {
   position: absolute;
   top: 4.5rem;
-  right: 64rem;
+  /* Figma: icon path at x 229, "RO" at x 287 */
+  right: 61.94rem;
   display: flex;
   align-items: center;
-  gap: 39rem;
+  gap: 39.5rem;
 }
 
 .accountButton {
-  width: 20rem;
-  height: 22rem;
+  width: 19rem;
+  height: 21rem;
+  margin-top: -1rem;
 }
 
 .accountButton svg {
   display: block;
-  width: 20rem;
-  height: 22rem;
+  width: 19rem;
+  height: 21rem;
 }
 
 .languageButton {
   display: flex;
-  width: 22rem;
+  min-width: 22rem;
   height: 22rem;
   align-items: center;
   justify-content: center;
   font-family: var(--font-inter), sans-serif;
   font-size: 18rem;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 22rem;
   text-decoration: none;
   text-transform: uppercase;

@@ -17,7 +17,8 @@
 }
 
 @media screen and (max-width: 640px) {
-.actionIconDownDesktop {
+.actionIconDownDesktop,
+.actionIconDesktop {
   display: none;
 }
 
@@ -224,6 +225,9 @@
 }
 
 .actionIconDown {
+  /* Figma lays the chevron out by its rotated 8x4 box; ours rotates a 6x10
+     box in place, so pull it 1px in to land on the same pixels */
+  margin-right: 1rem;
   transform: rotate(90deg);
 }
 
@@ -645,8 +649,16 @@
   }
 
   .actionIcon {
-    width: 9rem;
-    height: 15rem;
+    display: none;
+  }
+
+  /* never squeezed: the RO label is wider than the pill's padding allows,
+     and Figma lets the row overflow it evenly instead */
+  .actionIconDesktop {
+    display: block;
+    width: 7rem;
+    height: 13rem;
+    flex: none;
   }
 
   .mobileActionLabel {

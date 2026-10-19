@@ -91,7 +91,7 @@ const Index = () => {
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "16rem",
           lineHeight: "19rem",
-          backdropFilter: "blur(8rem)",
+          backdropFilter: "none",
         },
         overlay: {
           background:
@@ -164,7 +164,8 @@ const Index = () => {
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "16rem",
           lineHeight: "19rem",
-          backdropFilter: "blur(8rem)",
+          background: "rgb(217 217 217 / 30%)",
+          backdropFilter: "none",
         },
         overlay: {
           background:
@@ -196,7 +197,7 @@ const Index = () => {
       },
       styles: {
         content: {
-          top: "301rem",
+          top: "299rem",
           right: "0rem",
           bottom: "auto",
           left: "0rem",
@@ -213,7 +214,7 @@ const Index = () => {
         },
         description: {
           position: "relative",
-          top: "2rem",
+          top: "4rem",
           margin: "0rem",
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "20rem",
@@ -224,8 +225,8 @@ const Index = () => {
           flexDirection: "column",
           flexWrap: "nowrap",
           alignItems: "center",
-          gap: "10rem",
-          marginTop: "28rem",
+          gap: "10.8rem",
+          marginTop: "30rem",
         },
         primaryAction: {
           position: "relative",
@@ -239,8 +240,9 @@ const Index = () => {
           lineHeight: "19rem",
         },
         secondaryAction: {
-          width: "180rem",
-          minWidth: "180rem",
+          width: "135rem",
+          minWidth: "135rem",
+          justifyContent: "space-between",
           height: "30rem",
           gap: "10rem",
           padding: "0rem",
@@ -387,7 +389,7 @@ const Index = () => {
             className={`${styles.accountButton} transition-colors duration-300 ${isSticky ? "text-black" : "text-white"}`}
           >
             <svg
-              className="w-[20rem] h-[22rem]"
+              className="w-[19rem] h-[21rem]"
               viewBox="0 0 19 21"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

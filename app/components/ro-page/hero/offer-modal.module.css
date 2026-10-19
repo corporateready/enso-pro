@@ -12,11 +12,13 @@
   animation: offer-overlay-in 180ms ease-out;
 }
 
+/* Figma "EN Mobile form" (390 wide; the RO frame is the same dialog drawn
+   on a 430 canvas): title 85 below the top, fields at 198/249/300, submit 360 */
 .dialog {
   position: relative;
-  width: min(380rem, 100%);
+  width: min(390rem, 100%);
   min-height: 426rem;
-  padding: 85rem 16rem 19rem;
+  padding: 85rem 21rem 19rem;
   color: #000;
   background: #fff;
   font-family: var(--font-inter), sans-serif;
@@ -26,7 +28,7 @@
 .closeButton {
   position: absolute;
   top: 18rem;
-  right: 17rem;
+  right: 22rem;
   width: 30rem;
   height: 24rem;
   padding: 0;
@@ -37,35 +39,38 @@
 }
 
 .closeButton span {
+  /* Figma's cross is 23x21: strokes 31.14 long at atan(21/23) = 42.4deg */
   position: absolute;
-  top: 11rem;
+  top: 10.2rem;
   left: 0;
-  width: 30rem;
+  width: 31.14rem;
   height: 1rem;
   background: currentColor;
   transform-origin: center;
 }
 
 .closeButton span:first-child {
-  transform: rotate(45deg);
+  transform: rotate(42.4deg);
 }
 
 .closeButton span:last-child {
-  transform: rotate(-45deg);
+  transform: rotate(-42.4deg);
 }
 
 .title {
-  margin: 0;
-  font-size: 27rem;
+  /* Figma's text box is 358 wide, 10 more than the fields */
+  margin: 0 -10rem 0 0;
+  font-size: 26rem;
   font-weight: 600;
-  line-height: 31rem;
+  line-height: 31.47rem;
+  white-space: nowrap;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10rem;
-  margin-top: 21rem;
+  gap: 11rem;
+  margin-top: 18.59rem;
 }
 
 .input {
@@ -84,7 +89,7 @@
 
 .input::placeholder,
 .phoneInput::placeholder {
-  color: #858585;
+  color: #717171;
   font-size: 16rem;
   font-weight: 400;
   line-height: 19rem;
@@ -96,6 +101,7 @@
 }
 
 .phoneInput::placeholder {
+  color: #7d7f80;
   text-align: left;
 }
 
@@ -112,7 +118,7 @@
   height: 40rem;
   flex: none;
   place-items: center;
-  background: #e6e6e8;
+  background: #e0e0e0;
   font-size: 14rem;
   line-height: 1;
 }
@@ -151,9 +157,9 @@
 .submitButton {
   width: 100%;
   height: 47rem;
-  margin-top: 10rem;
+  margin-top: 9rem;
   padding: 0 16rem;
-  border: 1rem solid #111;
+  border: 1rem solid #000;
   border-radius: 999rem;
   color: #000;
   background: #fff;

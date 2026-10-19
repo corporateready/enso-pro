@@ -48,7 +48,7 @@
 }
 
 .accountIcon {
-  margin-right: 38.4rem;
+  margin-right: 39.4rem;
 }
 
 .language {
@@ -67,8 +67,8 @@
 .accountIcon,
 .accountIcon svg {
   display: block;
-  width: 20rem;
-  height: 22rem;
+  width: 19rem;
+  height: 21rem;
 }
 
 .language {
@@ -92,26 +92,27 @@
 
 .closeButton span {
   position: absolute;
-  right: 0;
-  width: 30rem;
+  /* the menu's 28x20 cross, centred on x 360, y 36 */
+  right: -3.2rem;
+  width: 34.41rem;
   height: 1rem;
   background: currentColor;
   transform-origin: center;
 }
 
 .closeButton span:nth-child(1) {
-  top: 10rem;
-  transform: rotate(45deg);
+  top: 10.52rem;
+  transform: rotate(35.54deg);
 }
 
 .closeButton span:nth-child(2) {
-  top: 10rem;
+  top: 10.52rem;
   opacity: 0;
 }
 
 .closeButton span:nth-child(3) {
-  top: 10rem;
-  transform: rotate(-45deg);
+  top: 10.52rem;
+  transform: rotate(-35.54deg);
 }
 
 .content {

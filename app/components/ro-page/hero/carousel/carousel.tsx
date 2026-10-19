@@ -363,6 +363,24 @@ function LazyLoadImage({
                       strokeLinejoin="round"
                     />
                   </svg>
+                  {slide.secondaryAction.icon !== "chevron-down" && (
+                    // Figma's desktop chevron is 5x11 with a 2px stroke: the
+                    // mobile one scaled up came out 9x15 and heavier.
+                    <svg
+                      className={styles.actionIconDesktop}
+                      viewBox="0 0 7 13"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M1 1L6 6.5L1 12"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
                   {slide.secondaryAction.icon === "chevron-down" && (
                     // Figma's desktop chevron is flatter (20x9) than the
                     // rotated mobile one, so it gets its own drawing.
