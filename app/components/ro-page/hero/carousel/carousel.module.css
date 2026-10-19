@@ -1,21 +1,26 @@
+/*
+ * Entrance only, with the same 16% (~0.5s) rise as before. The slide used to
+ * keep zooming to 106% for the rest of its 3.33s, so it rested 6% larger
+ * than the Figma frame; now it settles exactly on it.
+ */
 @keyframes blue-slide-motion {
   0% {
     opacity: 0;
     transform: translate3d(0, 40rem, 0) scale(0.94);
   }
 
-  16% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
+  16%,
   100% {
     opacity: 1;
-    transform: translate3d(-2rem, -4rem, 0) scale(1.06);
+    transform: none;
   }
 }
 
 @media screen and (max-width: 640px) {
+.actionIconDownDesktop {
+  display: none;
+}
+
 .desktopActionLabel {
   display: none;
 }
@@ -142,7 +147,6 @@
   font-size: 24rem;
   font-weight: 400;
   line-height: 1.1;
-  letter-spacing: 0.02em;
 }
 
 .title {
@@ -191,7 +195,7 @@
 }
 
 .primaryAction {
-  color: #171717;
+  color: #000;
   background: white;
 }
 
@@ -234,11 +238,13 @@
   outline-offset: 3rem;
 }
 
+/* Figma "Component 3": three 5x60 bars, 10 apart, at x 373 and centred
+   on the 640 hero below the 64 header (so 32 below the shell's middle). */
 .controls {
   position: absolute;
   z-index: 2;
-  top: 50%;
-  right: 20rem;
+  top: calc(50% + 32rem);
+  right: 12rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -292,13 +298,13 @@
 
 .dot {
   position: relative;
-  width: 4rem;
-  height: 44rem;
+  width: 5rem;
+  height: 60rem;
   padding: 0;
   overflow: hidden;
   border: 0;
-  border-radius: 25rem;
-  background: rgb(255 255 255 / 35%);
+  border-radius: 5rem;
+  background: #252525;
   cursor: pointer;
   transition:
     background-color 160ms ease,
@@ -306,15 +312,15 @@
 }
 
 .dotSelected {
-  background: rgb(255 255 255 / 35%);
+  background: #252525;
 }
 
 .dotSelectedPaused {
-  background: rgb(255 255 255 / 35%);
+  background: #252525;
 }
 
 .dotViewed {
-  background: rgb(255 255 255 / 85%);
+  background: #fff;
 }
 
 .dotProgress {
@@ -468,7 +474,7 @@
   .content {
     position: absolute !important;
     z-index: 3;
-    top: min(595rem, max(140rem, calc(100svh - 455rem))) !important;
+    top: min(597rem, max(140rem, calc(100svh - 453rem))) !important;
     right: auto !important;
     bottom: auto !important;
     left: 160rem !important;
@@ -479,7 +485,7 @@
   }
 
   .eyebrow {
-    margin: 0 0 22rem !important;
+    margin: 0 0 2.4rem !important;
     font-family: "Mignon", serif !important;
     font-size: 64rem !important;
     font-weight: 400 !important;
@@ -493,8 +499,7 @@
     font-family: var(--font-inter), sans-serif !important;
     font-size: 96rem !important;
     font-weight: 600 !important;
-    line-height: 1.18 !important;
-    letter-spacing: -3.6rem !important;
+    line-height: 1.21 !important;
     white-space: pre-line;
   }
 
@@ -509,16 +514,16 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 36rem !important;
-    margin: 18rem 0 0 !important;
+    gap: 40rem !important;
+    margin: 3.7rem 0 0 !important;
   }
 
   .primaryAction,
   .secondaryAction {
     display: flex;
-    width: 285rem !important;
-    min-width: 285rem !important;
-    height: 68rem !important;
+    width: 280rem !important;
+    min-width: 280rem !important;
+    height: 69rem !important;
     align-items: center;
     justify-content: center;
     gap: 12rem !important;
@@ -533,16 +538,29 @@
   }
 
   .primaryAction {
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
+  /* RO Figma: the button hugs "Solicită ofertă" (285 wide) and grows about
+     the same centre, so it starts 2.5 left of the column; the second button
+     stays at 480. Slide 3 sizes its own button below. */
+  .slide:not(:nth-child(3)) .primaryAction {
+    width: 285rem !important;
+    min-width: 285rem !important;
+    margin-left: -2.5rem;
+  }
+
+  .slide:not(:nth-child(3)) .actions {
+    gap: 37.5rem !important;
+  }
+
   .secondaryAction {
-    width: 226rem !important;
-    min-width: 226rem !important;
+    width: 224rem !important;
+    min-width: 224rem !important;
     color: #fff;
-    background: rgb(255 255 255 / 22%) !important;
-    backdrop-filter: blur(10rem) !important;
+    background: rgb(217 217 217 / 30%) !important;
+    backdrop-filter: none !important;
   }
 
   /*
@@ -639,8 +657,13 @@
     display: inline;
   }
 
+  /*
+   * Slide 3 from Figma "RO hero desktop 5": title box 413 from the top, 96/116.2
+   * and 62/75 text, a button hugging its label (60 a side) set 11.5 left of
+   * centre with its red dot, and the link centred with a 20x9 down chevron.
+   */
   .slide:nth-child(3) .content {
-    top: min(424rem, max(120rem, calc(100svh - 626rem))) !important;
+    top: min(413rem, max(120rem, calc(100svh - 637rem))) !important;
     right: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -652,49 +675,65 @@
     width: 100% !important;
     max-width: none !important;
     font-size: 96rem !important;
-    line-height: 1 !important;
-    letter-spacing: -2.6rem !important;
+    line-height: 116.2rem !important;
   }
 
   .slide:nth-child(3) .description {
     top: auto !important;
-    margin: 24rem 0 0 !important;
-    font-size: 60rem !important;
-    line-height: 1 !important;
+    margin: 0 !important;
+    font-size: 62rem !important;
+    line-height: 75rem !important;
   }
 
   .slide:nth-child(3) .actions {
     flex-direction: column !important;
-    gap: 18rem !important;
-    margin-top: 58rem !important;
+    align-items: center !important;
+    gap: 20rem !important;
+    margin-top: 50.9rem !important;
   }
 
   .slide:nth-child(3) .actions .primaryAction {
-    width: 365rem !important;
-    min-width: 365rem !important;
-    height: 69rem !important;
+    left: -11.5rem;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 69.1rem !important;
+    padding: 0 60rem !important;
   }
 
   :global(.paymentPlanAction)::after {
     position: absolute;
-    top: -11rem;
-    right: -21rem;
-    width: 40rem;
-    height: 40rem;
+    top: -10.9rem;
+    right: -22.5rem;
+    width: 39rem;
+    height: 39.2rem;
     border-radius: 50%;
-    background: #df332d;
+    background: #d22f27;
     content: "";
     pointer-events: none;
   }
 
   .slide:nth-child(3) .secondaryAction {
-    width: 270rem !important;
-    min-width: 270rem !important;
-    height: 34rem !important;
+    position: relative;
+    left: 0rem;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 29rem !important;
+    gap: 15rem !important;
     padding: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     backdrop-filter: none !important;
+  }
+
+  .actionIconDown {
+    display: none;
+  }
+
+  .actionIconDownDesktop {
+    display: block;
+    width: 22rem;
+    height: 11rem;
+    flex: none;
   }
 }
 

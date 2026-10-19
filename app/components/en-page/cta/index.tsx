@@ -50,9 +50,9 @@ export default function CTA() {
             Let’s find your home
           </h2>
           <p className={styles.description}>
-            Book a 5-minute call with an ENSO advisor
-            <br />
-            — online or at one of our offices.
+            Book a 5-minute call with an ENSO advisor —
+            <br className={styles.desktopBreak} /> online or at one of our
+            offices
           </p>
         </div>
 

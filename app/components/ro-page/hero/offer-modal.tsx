@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Image from "next/image";
 import { createPortal } from "react-dom";
 
 import styles from "./offer-modal.module.css";
@@ -51,6 +52,16 @@ export default function OfferModal({ onClose }: OfferModalProps) {
           <span />
         </button>
 
+        {/* desktop only: Figma's form card has the building photo at its left */}
+        <Image
+          className={styles.photo}
+          src="/offer-modal-photo.webp"
+          width={1200}
+          height={1200}
+          alt=""
+          aria-hidden="true"
+        />
+
         <h2 id="offer-modal-title" className={styles.title}>
           PRIMEȘTE INSTANT
           <br />
@@ -97,7 +108,8 @@ export default function OfferModal({ onClose }: OfferModalProps) {
           </label>
           <div className={styles.phoneField}>
             <span className={styles.countryFlag} aria-hidden="true">
-              🇷🇴
+              {/* Figma's flag artwork; the emoji has no flag glyphs on Windows */}
+              <Image src="/flag-ro.png" width={72} height={72} alt="" unoptimized />
             </span>
             <input
               id="offer-phone"

@@ -33,14 +33,14 @@
     height: 100rem !important;
     padding: 0 160rem !important;
     color: #fff !important;
-    background: rgb(0 0 0 / 50%) !important;
+    background: rgb(0 0 0 / 30%) !important;
     border-bottom: 1rem solid rgb(255 255 255 / 18%);
     box-shadow: none !important;
     backdrop-filter: blur(3rem) !important;
   }
 
   .headerActive {
-    color: #111 !important;
+    color: #000 !important;
     background: #fff !important;
     border-bottom-color: rgb(17 17 17 / 7%);
     box-shadow: 0 4rem 18rem rgb(0 0 0 / 7%) !important;
@@ -48,7 +48,7 @@
   }
 
   .logo {
-    width: 145rem !important;
+    width: 149rem !important; /* Figma logo frame 149x50 at 160/25 */
     height: auto !important;
     filter: none !important;
   }
@@ -57,13 +57,16 @@
     filter: invert(1) !important;
   }
 
+  /* Centred on the page as in Figma — the longer Romanian labels grow it to
+     both sides rather than pushing it right — 36px between items. */
   .desktopNav {
     position: absolute;
-    left: 706rem;
+    left: 50%;
     display: flex;
     height: 100rem;
     align-items: center;
-    gap: 38rem;
+    gap: 36rem;
+    transform: translateX(-50%);
   }
 
   .desktopNav a {
@@ -78,7 +81,7 @@
   }
 
   .headerActive .desktopNav a {
-    color: #111;
+    color: #000;
   }
 
   .desktopNav a:hover {
@@ -115,7 +118,7 @@
   }
 
   .headerActive .desktopOfferButton {
-    color: #111;
+    color: #000;
   }
 
   .accountButton {
@@ -130,7 +133,7 @@
   }
 
   .headerActive .languageLink {
-    color: #111 !important;
+    color: #000 !important;
   }
 
   .mobileLanguage {
@@ -145,5 +148,23 @@
     display: block;
     width: 30rem;
     height: 22rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  /* Figma mobile "Head": 64 tall, logo at 21, and the account icon, language
+     and menu at x 229, 283 and 345, all centred 36 from the top (2.5 below
+     the logo's centre). */
+  .headerActions {
+    gap: 0 !important;
+    margin-top: 5rem;
+  }
+
+  .accountButton {
+    margin-right: 31rem;
+  }
+
+  .languageLink {
+    margin-right: 33rem;
   }
 }

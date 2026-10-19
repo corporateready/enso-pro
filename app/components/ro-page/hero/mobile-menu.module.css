@@ -31,7 +31,7 @@
 
   .triggerDark,
   .triggerOpen {
-    color: #111;
+    color: #000;
   }
 
   .triggerLine {
@@ -61,7 +61,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
     opacity: 0;
     visibility: hidden;
@@ -222,7 +222,7 @@
 
 @media screen and (max-width: 640px) {
 .triggerDark {
-  color: #111;
+  color: #000;
 }
 
 .triggerLine {
@@ -251,7 +251,7 @@
 }
 
 .triggerOpen {
-  color: #111;
+  color: #000;
 }
 
 .triggerOpen .triggerLine:nth-child(1) {
@@ -275,7 +275,7 @@
   width: 100dvw;
   height: 100dvh;
   overflow-y: auto;
-  color: #111;
+  color: #000;
   background: white;
   opacity: 0;
   visibility: hidden;
@@ -292,9 +292,10 @@
   transition-delay: 0s;
 }
 
+/* Figma menu header = the page header: logo at 21, icons at 26 */
 .activeHeader {
   position: absolute;
-  top: 26rem;
+  top: 21rem;
   right: 16rem;
   left: 16rem;
   height: 25rem;
@@ -327,7 +328,7 @@
 
 .activeHeaderControls {
   position: absolute;
-  top: 1rem;
+  top: 4.5rem;
   right: 64rem;
   display: flex;
   align-items: center;
@@ -367,7 +368,7 @@
   padding: 80rem 16rem 180rem 24rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 24rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 38rem;
   text-align: right;
 }
@@ -397,7 +398,7 @@
   gap: 10rem;
   border: 1rem solid #111;
   border-radius: 999rem;
-  color: #111;
+  color: #000;
   font-family: var(--font-inter), sans-serif;
   font-size: 16rem;
   font-weight: 400;
@@ -411,7 +412,7 @@
 }
 
 .createAccountLink {
-  color: #858585;
+  color: #717171;
   font-size: 16rem;
   font-weight: 400;
   line-height: 19rem;
@@ -419,7 +420,7 @@
 
 .createAccountLink span {
   display: inline-block;
-  margin-left: 4rem;
+  margin-left: 0;
   border-bottom: 1rem solid currentColor;
 }
 

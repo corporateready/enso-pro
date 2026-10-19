@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 import styles from "./team.module.css";
 
@@ -18,29 +18,29 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       name: "Viorel Benderschi",
       role: "Investiții & Finanțe",
       description:
-        "27 de ani în managementul investițiilor și dezvoltare imobiliară.",
+        "27 de ani în managementul\ninvestițiilor și dezvoltare imobiliară.",
     },
     {
       name: "Maxim Dumbrava",
       role: "Dezvoltare",
       description:
-        "16 ani de proiecte livrate, inclusiv ARTIMA, NEWTON HOUSE și Eminescu Residence.",
+        "16 ani de proiecte livrate, inclusiv\nARTIMA, NEWTON HOUSE\nși Eminescu Residence.",
       imageSrc: "/team-avatar-2.png",
     },
     {
       name: "Denis Vasiliev",
       role: "Marketing & Vânzări",
       description:
-        "12 ani în marketing și vânzări — peste 3.000 de apartamente vândute.",
+        "12 ani în marketing și vânzări —\npeste 3.000 de apartamente vândute.",
       imageSrc: "/team-avatar-3.png",
     },
   ],
   [
     {
       name: "Zinaida Dumbrava",
-      role: "Relații cu clienții",
+      role: "Relații\ncu clienții",
       description:
-        "20 de ani de expertiză în relații cu clienții, pe întreg ciclul.",
+        "20 de ani de expertiză în relații\ncu clienții, pe întreg ciclul.",
       imageSrc: "/team-avatar-4.png",
     },
     {
@@ -52,6 +52,24 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
     },
   ],
 ];
+
+/*
+ * "\n" marks a line break Figma's desktop layout has; on mobile the text
+ * wraps freely, so the break is desktop-only.
+ */
+function desktopLines(text: string) {
+  return text.split("\n").map((line, index) => (
+    <Fragment key={index}>
+      {index > 0 && (
+        <>
+          {" "}
+          <br className={styles.desktopBreak} />
+        </>
+      )}
+      {line}
+    </Fragment>
+  ));
+}
 
 function TeamPhoto({ member }: { member: TeamMember }) {
   if (!member.imageSrc) {
@@ -161,8 +179,10 @@ export default function Team() {
                     <TeamPhoto member={member} />
                     <div className={styles.memberContent}>
                       <h3>{member.name}</h3>
-                      <p className={styles.role}>{member.role}</p>
-                      <p className={styles.description}>{member.description}</p>
+                      <p className={styles.role}>{desktopLines(member.role)}</p>
+                      <p className={styles.description}>
+                        {desktopLines(member.description)}
+                      </p>
                     </div>
                   </article>
                 ))}

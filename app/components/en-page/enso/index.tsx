@@ -84,7 +84,7 @@ export default function Enso() {
       <div className={styles.inner}>
         <Image
           className={`${styles.background} ${styles.mobileImage}`}
-          src="/enso-mobile-bg.webp"
+          src="/enso-mobile-bg-en.webp"
           width={1576}
           height={2591}
           sizes="(max-width: 639px) 100vw, 394px"
@@ -98,9 +98,11 @@ export default function Enso() {
           sizes="(min-width: 641px) 100vw, 1px"
           alt=""
         />
+        {/* EN Figma puts the blurred login popup on the laptop screen 42 to
+            the right of RO's, so each page has its own export */}
         <Image
           className={styles.laptopImage}
-          src="/enso-laptop-desktop.avif"
+          src="/enso-laptop-desktop-en.avif"
           width={3352}
           height={2724}
           unoptimized

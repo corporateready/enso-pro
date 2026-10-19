@@ -163,8 +163,8 @@ export default function Since() {
           <p className={styles.intro}>
             After two decades as co-investors across
             <br className={styles.introBreak} /> Moldova and Romania, we built
-            ENSO — our
-            <br className={styles.introBreak} /> own vision of a modern
+            ENSO —
+            <br className={styles.introBreak} /> our own vision of a modern
             developer.
           </p>
         </header>

@@ -16,6 +16,9 @@ const benefits = [
     imageSrc: "/first-rate.png",
     imageWidth: 468,
     imageHeight: 400,
+    desktopSrc: "/payway-down-desktop.webp",
+    desktopWidth: 504,
+    desktopHeight: 433,
   },
   {
     title: "Rate trimestriale",
@@ -30,6 +33,9 @@ const benefits = [
     imageSrc: "/second-rate.png",
     imageWidth: 469,
     imageHeight: 440,
+    desktopSrc: "/payway-quarterly-desktop.webp",
+    desktopWidth: 446,
+    desktopHeight: 426,
   },
   {
     title: "Fără bănci și costuri ascunse",
@@ -44,6 +50,9 @@ const benefits = [
     imageSrc: "/third-rate.png",
     imageWidth: 516,
     imageHeight: 404,
+    desktopSrc: "/payway-nobank-desktop.webp",
+    desktopWidth: 562,
+    desktopHeight: 430,
   },
 ] as const;
 
@@ -52,19 +61,34 @@ function RateVisual({
   imageSrc,
   imageWidth,
   imageHeight,
+  desktopSrc,
+  desktopWidth,
+  desktopHeight,
 }: {
   visualClassName: string;
   imageSrc: string;
   imageWidth: number;
   imageHeight: number;
+  desktopSrc: string;
+  desktopWidth: number;
+  desktopHeight: number;
 }) {
   return (
     <span className={`${styles.rateVisual} ${visualClassName}`} aria-hidden="true">
       <Image
-        className={styles.rateImage}
+        className={`${styles.rateImage} ${styles.rateImageMobile}`}
         src={imageSrc}
         width={imageWidth}
         height={imageHeight}
+        unoptimized
+        alt=""
+      />
+      {/* the card's corner exactly as Figma renders it, glass and all */}
+      <Image
+        className={`${styles.rateImage} ${styles.rateImageDesktop}`}
+        src={desktopSrc}
+        width={desktopWidth}
+        height={desktopHeight}
         unoptimized
         alt=""
       />
@@ -97,7 +121,7 @@ export default function Payway() {
           </p>
 
           <span
-            className={`absolute bottom-0 right-0 z-1 w-[126rem] h-[152rem]`}
+            className={`${styles.zeroMobile} absolute bottom-0 right-0 z-1 w-[126rem] h-[152rem]`}
             aria-hidden="true"
           >
             <Image
@@ -109,6 +133,15 @@ export default function Payway() {
               alt=""
             />
           </span>
+          <Image
+            className={styles.zeroDesktop}
+            src="/payway-zero-desktop.webp"
+            width={640}
+            height={524}
+            unoptimized
+            alt=""
+            aria-hidden="true"
+          />
         </article>
 
         <div className={styles.benefits}>
@@ -121,6 +154,9 @@ export default function Payway() {
                 imageSrc={benefit.imageSrc}
                 imageWidth={benefit.imageWidth}
                 imageHeight={benefit.imageHeight}
+                desktopSrc={benefit.desktopSrc}
+                desktopWidth={benefit.desktopWidth}
+                desktopHeight={benefit.desktopHeight}
               />
             </article>
           ))}

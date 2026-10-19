@@ -1,4 +1,8 @@
 @media screen and (max-width: 640px) {
+  .desktopBreak {
+    display: none;
+  }
+
   .desktopImage {
     display: none;
   }
@@ -120,6 +124,11 @@
     transition: color 220ms ease;
   }
 
+  /* Figma sets the second label 4.25 left of its half's centre */
+  .tabButton:last-of-type {
+    padding-right: 8.5rem;
+  }
+
   .tabButtonActive {
     color: #fff;
   }
@@ -211,7 +220,7 @@
 
   .card h3 {
     top: 51rem;
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
   }
 
@@ -264,54 +273,60 @@
 }
 
 @media screen and (min-width: 641px) {
+  /*
+   * From the Figma frame (Desktop > WHY 3D). The title sits 160 below the
+   * numbers plate; everything else is placed from the section top:
+   * image 109, intro 354, tabs 646, cards 738 (500x344, 50 apart).
+   */
   .section,
   .inner {
     position: relative;
     width: 100%;
-    height: 1075rem;
+    height: 1278rem;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
-    padding-top: 120rem;
-  }
-
-  .section {
-    height: 1276rem;
   }
 
   .header {
     position: absolute;
-    top: 68rem;
+    top: 160rem;
     left: 160rem;
   }
 
   .title {
     margin: 0;
     font-family: var(--font-inter), sans-serif;
-    font-size: 66rem;
+    font-size: 64rem;
     font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -2.2rem;
+    line-height: 1.2;
   }
 
   .intro {
-    width: 760rem;
-    margin: 44rem 0 0;
+    width: 753rem;
+    margin: 40.4rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 36rem;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   .intro br {
     display: none;
   }
 
+  /* The asset is Figma's own render of what shows of "image 33": its
+     782x489 box starts 51 above the frame, which cuts it to 782x438 at the
+     frame's top (160 here). Letterboxing it in the full box set it 25 high. */
   .buildingVisual {
     position: absolute;
-    top: 56rem;
-    right: 155rem;
-    width: 790rem;
-    height: 460rem;
+    top: 160rem;
+    left: 980rem;
+    width: 782rem;
+    height: 438rem;
+  }
+
+  .buildingVisual .desktopImage {
+    object-fit: fill;
   }
 
   .mobileImage {
@@ -329,17 +344,17 @@
   }
 
   .tabs {
-    --first-tab-width: 190rem;
-    --second-tab-width: 190rem;
+    --first-tab-width: 174.2rem;
+    --second-tab-width: 165.8rem;
     position: absolute;
-    top: 553rem;
+    top: 646rem;
     left: 50%;
     display: grid;
-    width: 380rem;
-    height: 46rem;
+    width: 340rem;
+    height: 52.4rem;
     grid-template-columns: var(--first-tab-width) var(--second-tab-width);
     padding: 0;
-    border: 1rem solid #111;
+    border: 1.34rem solid #000;
     border-radius: 999rem;
     background: #fff;
     transform: translateX(-50%);
@@ -348,17 +363,17 @@
   .tabIndicator {
     position: absolute;
     z-index: 0;
-    top: -1rem;
-    left: -1rem;
+    top: -1.34rem;
+    left: -1.34rem;
     width: var(--first-tab-width);
-    height: 46rem;
+    height: 52.4rem;
     border-radius: 999rem;
-    background: #111;
+    background: #000;
     transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), width 320ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .tabIndicatorBuyers {
-    width: var(--second-tab-width);
+    width: calc(var(--second-tab-width) + 1.34rem);
     transform: translateX(var(--first-tab-width));
   }
 
@@ -366,34 +381,40 @@
     position: relative;
     z-index: 1;
     border: 0;
-    color: #111;
+    color: #000;
     background: transparent;
     font-family: var(--font-inter), sans-serif;
-    font-size: 18rem;
+    font-size: 21.37rem;
+    line-height: 1.2;
   }
 
   .tabButtonActive {
     color: #fff;
   }
 
+  /* Figma sets the second label 6.4 left of its half's centre. */
+  .tabButton:last-of-type {
+    padding-right: 12.8rem;
+  }
+
   .cardsArea {
     position: absolute;
-    top: 640rem;
+    top: 738rem;
     left: 160rem;
     width: 1600rem;
   }
 
   .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 42rem;
+    grid-template-columns: repeat(3, 500rem);
+    gap: 50rem;
   }
 
   .card {
     position: relative;
     height: 344rem;
     background: #fff;
-    box-shadow: 0 18rem 50rem rgb(70 70 70 / 15%);
+    box-shadow: 0 17.9rem 71.59rem rgb(113 113 113 / 20%);
   }
 
   .cardMeta {
@@ -402,50 +423,71 @@
     right: 30rem;
     left: 30rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
   }
 
   .cardNumber {
-    color: #d5d5d5;
+    color: #d9d9d9;
     font-family: var(--font-inter), sans-serif;
-    font-size: 27rem;
+    font-size: 28rem;
+    line-height: 1.2;
   }
 
   .badge {
     display: flex;
-    min-width: 180rem;
-    height: 40rem;
+    width: 208rem;
+    height: 37rem;
     align-items: center;
     justify-content: center;
-    padding: 0 14rem;
+    padding: 0;
     border-radius: 999rem;
     color: #0e3477;
     background: #e3eaf9;
     font-family: var(--font-inter), sans-serif;
-    font-size: 21rem;
+    font-size: 21.48rem;
     font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   .card h3,
   .card p {
     position: absolute;
-    right: 34rem;
-    left: 34rem;
+    left: 30rem;
     margin: 0;
     font-family: var(--font-inter), sans-serif;
   }
 
+  /* Figma breaks every title by hand; its box is the longest line, so the
+     same width (plus a hair) makes the browser break in the same place. */
   .card h3 {
-    top: 105rem;
-    font-size: 28.5rem;
+    top: 90rem;
+    font-size: 28.64rem;
     font-weight: 700;
     line-height: 1.2;
   }
 
-  .card p {
-    top: 192rem;
-    font-size: 27rem;
-    line-height: 1.25;
+  .cardsArea[data-active-tab="investors"] .card:nth-child(-n + 2) h3 {
+    font-size: 28rem;
   }
+
+  .card p {
+    top: 178rem;
+    font-size: 28rem;
+    line-height: 1.2;
+  }
+
+  .cardsArea[data-active-tab="investors"] .card:nth-child(1) h3 { width: 302rem; }
+  .cardsArea[data-active-tab="investors"] .card:nth-child(1) p { width: 416rem; }
+  .cardsArea[data-active-tab="investors"] .card:nth-child(2) h3 { width: 364rem; }
+  .cardsArea[data-active-tab="investors"] .card:nth-child(2) p { width: 440rem; }
+  .cardsArea[data-active-tab="investors"] .card:nth-child(3) h3 { width: 233rem; }
+  .cardsArea[data-active-tab="investors"] .card:nth-child(3) p { width: 410rem; }
+  .cardsArea[data-active-tab="buyers"] .card:nth-child(1) h3 { width: 293rem; }
+  .cardsArea[data-active-tab="buyers"] .card:nth-child(1) p { width: 410rem; }
+  .cardsArea[data-active-tab="buyers"] .card:nth-child(2) h3 { width: 206rem; }
+  .cardsArea[data-active-tab="buyers"] .card:nth-child(2) p { width: 410rem; }
+  .cardsArea[data-active-tab="buyers"] .card:nth-child(3) h3 { width: 246rem; }
+  .cardsArea[data-active-tab="buyers"] .card:nth-child(3) p { width: 410rem; }
 }

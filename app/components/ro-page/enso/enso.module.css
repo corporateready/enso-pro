@@ -25,13 +25,15 @@
     overflow: hidden;
   }
 
+  /* Composited from Figma's layers: the blurred garden (its blur spreads
+     7.7 above the photo, hence 118.3) and this language's phone screen. */
   .background {
     position: absolute;
-    top: 118rem;
+    top: 118.3rem;
     left: 0;
     display: block;
     width: 394rem;
-    height: 648rem;
+    height: 647.75rem;
     max-width: none;
   }
 
@@ -39,7 +41,7 @@
     position: absolute;
     z-index: 1;
     inset: 0;
-    color: #111;
+    color: #000;
     font-family: var(--font-inter), sans-serif;
   }
 
@@ -51,7 +53,6 @@
     font-size: 34rem;
     font-weight: 600;
     line-height: 0.9;
-    letter-spacing: -0.6rem;
     white-space: nowrap;
   }
 
@@ -64,7 +65,6 @@
     font-size: 16rem;
     font-weight: 400;
     line-height: 1.2;
-    letter-spacing: -0.05rem;
     white-space: nowrap;
   }
 
@@ -162,7 +162,6 @@
     top: 346rem;
     left: 86rem;
     width: 292rem;
-    letter-spacing: -0.3rem;
   }
 
   .featureThree {
@@ -171,7 +170,6 @@
     top: 429rem;
     left: 21rem;
     width: 296rem;
-    letter-spacing: -0.15rem;
   }
 
   .featureFour {
@@ -201,7 +199,7 @@
     justify-content: center;
     border: 1rem solid #111;
     border-radius: 999rem;
-    color: #050505;
+    color: #000;
     background: #fff;
     font-family: var(--font-inter), sans-serif;
     font-size: 20rem;
@@ -225,9 +223,9 @@
   .inner {
     position: relative;
     width: 100%;
-    height: 815rem;
+    height: 833rem;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
@@ -236,7 +234,7 @@
      inner height or the button falls past the bottom and gets cut.
      960 = 145 padding + 815 inner. */
   .section {
-    height: 960rem;
+    height: 978rem;
     padding-top: 145rem;
   }
 
@@ -254,14 +252,15 @@
   }
 
   /* Its base lands on the photo's bottom edge, as in the reference. */
+  /* the laptop, cut at the page edge, exactly where Figma has it */
   .laptopImage {
     position: absolute;
     z-index: 1;
-    top: 156rem;
-    right: 0;
+    top: 152rem;
+    left: 1082rem;
     display: block;
-    width: auto;
-    height: 647rem;
+    width: 838rem;
+    height: 681rem;
   }
 
   .content {
@@ -276,23 +275,24 @@
     top: 0;
     left: 160rem;
     margin: 0;
-    font-size: 62rem;
+    font-size: 64rem;
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.2;
   }
 
+  /* RO box is 861 wide in Figma: two lines, broken after "loc —". */
   .intro {
     position: absolute;
-    top: 108rem;
+    top: 117rem;
     left: 160rem;
-    width: 900rem;
+    width: 861rem;
     margin: 0;
     font-size: 36rem;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   /* Mobile breaks this after "singur"; the reference breaks after "loc —",
-     which the 900rem column produces on its own. */
+     which Figma's 861 box produces on its own. */
   .intro br {
     display: none;
   }
@@ -308,14 +308,14 @@
   .feature {
     position: absolute;
     display: flex;
-    height: 50rem;
+    height: 51.6rem;
     align-items: center;
-    gap: 14rem;
-    padding: 0 18rem;
-    border-radius: 10rem;
+    padding: 0;
+    border-radius: 0;
     background: #fff;
-    box-shadow: 0 8rem 20rem rgb(0 0 0 / 12%);
-    font-size: 17rem;
+    filter: drop-shadow(0 10rem 20rem rgb(113 113 113 / 20%));
+    font-size: 16rem;
+    line-height: 1.2;
     white-space: nowrap;
     opacity: 0;
     transform: translateY(24rem);
@@ -332,43 +332,52 @@
 
   .feature::after {
     position: absolute;
-    bottom: -14rem;
+    bottom: -14.4rem;
     left: var(--pointer-left);
-    width: 26rem;
-    height: 16rem;
+    width: 20.25rem;
+    height: 14.4rem;
     background: #fff;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    clip-path: polygon(0 0, 100% 0, 51.85% 100%);
     content: "";
   }
 
   /* Widths are text + icon + gap + padding, so each label stays on one line
      as in the reference: 106+18+14+36, 246+19+14+36, and so on. */
   .featureOne {
-    --pointer-left: 142rem;
-    top: 300rem;
+    --pointer-left: 105.5rem;
+    top: 297rem;
     left: 1130rem;
-    width: 175rem;
+    width: 165.5rem;
+    gap: 19.4rem;
+    padding-left: 17rem;
   }
 
+  /* RO Figma: this pill is wider and sits 48 left, 10 higher than EN's. */
   .featureTwo {
-    --pointer-left: 219rem;
-    top: 420rem;
-    left: 1215rem;
-    width: 315rem;
+    --pointer-left: 51.75rem;
+    top: 417rem;
+    left: 1247rem;
+    width: 285.5rem;
+    gap: 13rem;
+    padding-left: 11rem;
   }
 
   .featureThree {
-    --pointer-left: 216rem;
-    top: 540rem;
-    left: 990rem;
-    width: 315rem;
+    --pointer-left: 204.5rem;
+    top: 536rem;
+    left: 1011rem;
+    width: 300.5rem;
+    gap: 17.5rem;
+    padding-left: 17rem;
   }
 
   .featureFour {
-    --pointer-left: 63rem;
+    --pointer-left: 41.75rem;
     top: 630rem;
-    left: 1265rem;
-    width: 255rem;
+    left: 1298rem;
+    width: 224.5rem;
+    gap: 9rem;
+    padding-left: 8.5rem;
   }
 
   .featureIcon {
@@ -378,20 +387,21 @@
   .accountLink {
     position: absolute;
     z-index: 3;
-    bottom: 57rem;
+    top: 670rem;
     left: 160rem;
     display: flex;
-    width: 708rem;
-    height: 94rem;
+    width: 710rem;
+    height: 100rem;
     align-items: center;
     justify-content: center;
-    border: 1rem solid #111;
+    border: 2rem solid #000;
     border-radius: 999rem;
-    color: #111;
+    color: #000;
     background: #fff;
     font-family: var(--font-inter), sans-serif;
     font-size: 40rem;
     font-weight: 700;
+    line-height: 1.21;
     text-decoration: none;
   }
 

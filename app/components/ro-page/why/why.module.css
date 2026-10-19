@@ -86,13 +86,13 @@
   .awardTitle {
     top: 23rem;
     font-size: 33rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
   }
 
   .awardPlace {
-    top: 82rem;
-    font-size: 16rem;
+    top: 60rem;
+    font-size: 20rem;
     font-weight: 400;
   }
 
@@ -147,26 +147,26 @@
     line-height: 1.2;
     white-space: nowrap;
   }
-
-  .metrics sup {
-    position: relative;
-    top: -0.35em;
-    font-size: 10.32rem;
-    line-height: 0;
-  }
 }
 
 @media screen and (min-width: 641px) {
-  /* 1000rem = the 825rem gradient plate plus the 175rem white band above it
-     that the building rises into. */
-  .section,
+  /*
+   * From the Figma frame (Desktop > Numbers + "фиолетовое здание поверх"):
+   * the building starts 190 above the plate and 30 above the bottom of the
+   * button over it, the plate is 1920x825; text offsets are from that plate.
+   */
+  .section {
+    position: relative;
+    width: 100%;
+    height: 1015rem;
+    margin-top: -30rem;
+    background: transparent;
+  }
+
   .inner {
     position: relative;
-    z-index: 0;
-    margin-top: -16rem;
     width: 100%;
-    height: 1000rem;
-    /* overflow: hidden; */
+    height: 1015rem;
     background: transparent;
   }
 
@@ -174,11 +174,9 @@
     display: none;
   }
 
-  /* The plate keeps its native 7680x3300 ratio (1920x825) instead of being
-     stretched to the section height, which cropped its sides. */
   .desktopImage {
     position: absolute;
-    top: 175rem;
+    top: 190rem;
     left: 0;
     display: block;
     width: 100%;
@@ -187,17 +185,14 @@
     object-position: center;
   }
 
-  /* Flush right: the asset's facade corner sits at 0.497 of its width, which
-     lands it at ~1430rem — where the reference puts it. The roof apex then
-     reaches the section's top edge. */
   .buildingImage {
     position: absolute;
     z-index: 1;
     top: 0;
-    right: 0;
+    left: 962rem;
     display: block;
-    width: auto;
-    height: 1000rem;
+    width: 968rem;
+    height: 1014.5rem;
   }
 
   .content {
@@ -210,27 +205,30 @@
 
   .title {
     position: absolute;
-    top: 285rem;
+    top: 270rem;
     left: 160rem;
     margin: 0;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -2.2rem;
+    line-height: 1.2;
+  }
+
+  .mobileBreak {
+    display: none;
   }
 
   .award {
     position: absolute;
-    top: 512rem;
+    top: 529.9rem;
     left: 160rem;
-    width: 380rem;
-    height: 172rem;
+    width: 379.4rem;
+    height: 166.1rem;
   }
 
   .decor {
     position: absolute;
     inset: 0;
-    width: 380rem;
+    width: 379.4rem;
     height: auto;
   }
 
@@ -245,53 +243,70 @@
     position: absolute;
     left: 50%;
     margin: 0;
-    line-height: 1;
     white-space: nowrap;
     transform: translateX(-50%);
   }
 
   .awardKicker {
-    top: 0;
-    font-size: 24rem;
+    top: -5.9rem;
+    font-size: 28rem;
+    line-height: 28rem;
   }
 
   .awardTitle {
-    top: 32rem;
-    font-size: 44rem;
-    font-weight: 600;
+    top: 26.3rem;
+    font-size: 46.19rem;
+    font-weight: 700;
+    line-height: 46.2rem;
   }
 
   .awardPlace {
-    top: 80rem;
-    font-size: 18rem;
+    top: 78.1rem;
+    font-size: 28rem;
     font-weight: 400;
+    line-height: 28rem;
   }
 
   .metrics {
     position: absolute;
-    top: 755rem;
+    top: 764rem;
     left: 160rem;
-    display: flex;
-    gap: 95rem;
+    width: 800rem;
+    height: 171rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
+
+  .metrics li {
+    position: absolute;
+    top: 0;
+  }
+
+  .metrics li:nth-child(1) { left: 0; width: 166rem; }
+  .metrics li:nth-child(2) { left: 343rem; width: 188rem; }
+  .metrics li:nth-child(3) { left: 619.4rem; width: 180.6rem; }
 
   .metrics strong,
   .metrics span {
     display: block;
   }
 
+  /* each label breaks only where Figma does (the <br>); the boxes are the
+     labels' own widths, so a hair of font difference must not wrap them */
+  .metrics span {
+    white-space: nowrap;
+  }
+
   .metrics strong {
-    font-size: 78rem;
+    font-size: 78.24rem;
     font-weight: 500;
-    line-height: 1;
+    line-height: 0.9;
   }
 
   .metrics span {
-    margin-top: 16rem;
-    font-size: 34rem;
-    line-height: 1.25;
+    margin-top: 16.5rem;
+    font-size: 34.77rem;
+    line-height: 1.2;
   }
 }

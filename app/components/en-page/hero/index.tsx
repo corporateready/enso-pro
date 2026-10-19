@@ -50,9 +50,9 @@ const Index = () => {
           textAlign: "left",
         },
         eyebrow: {
-          margin: "0 0 9rem",
+          margin: "0 0 8.4rem",
           fontSize: "24rem",
-          lineHeight: "26rem",
+          lineHeight: "21.6rem",
           letterSpacing: "0rem",
         },
         title: {
@@ -60,19 +60,19 @@ const Index = () => {
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "34rem",
           fontWeight: 600,
-          lineHeight: "39rem",
-          letterSpacing: "-0.7rem",
+          lineHeight: "41.15rem",
+          letterSpacing: "0rem",
         },
         actions: {
           flexWrap: "nowrap",
-          gap: "9rem",
-          marginTop: "14rem",
+          gap: "10rem",
+          marginTop: "9.7rem",
           marginLeft: "3rem",
         },
         primaryAction: {
-          width: "166rem",
-          minWidth: "166rem",
-          height: "46rem",
+          width: "167rem",
+          minWidth: "167rem",
+          height: "47rem",
           padding: "0rem",
           borderRadius: "999rem",
           fontFamily: "var(--font-inter), sans-serif",
@@ -80,9 +80,9 @@ const Index = () => {
           lineHeight: "19rem",
         },
         secondaryAction: {
-          width: "167rem",
-          minWidth: "167rem",
-          height: "46rem",
+          width: "165rem",
+          minWidth: "165rem",
+          height: "47rem",
           gap: "10rem",
           padding: "0rem",
           borderRadius: "999rem",
@@ -114,35 +114,35 @@ const Index = () => {
       styles: {
         content: {
           right: "21rem",
-          bottom: "64rem",
+          bottom: "63rem",
           left: "24rem",
           maxWidth: "345rem",
           textAlign: "left",
         },
         eyebrow: {
-          margin: "0 0 11rem",
+          margin: "0 0 11.4rem",
           fontSize: "24rem",
-          lineHeight: "26rem",
+          lineHeight: "21.6rem",
           letterSpacing: "0rem",
         },
         title: {
           maxWidth: "345rem",
           fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "33rem",
+          fontSize: "34rem",
           fontWeight: 600,
-          lineHeight: "41rem",
-          letterSpacing: "-0.9rem",
+          lineHeight: "41.15rem",
+          letterSpacing: "0rem",
         },
         actions: {
           flexWrap: "nowrap",
-          gap: "9rem",
-          marginTop: "14rem",
+          gap: "10rem",
+          marginTop: "12.7rem",
         },
         primaryAction: {
           position: "relative",
-          width: "168rem",
-          minWidth: "168rem",
-          height: "46rem",
+          width: "167rem",
+          minWidth: "167rem",
+          height: "47rem",
           padding: "0rem",
           borderRadius: "999rem",
           fontFamily: "var(--font-inter), sans-serif",
@@ -150,9 +150,9 @@ const Index = () => {
           lineHeight: "19rem",
         },
         secondaryAction: {
-          width: "168rem",
-          minWidth: "168rem",
-          height: "46rem",
+          width: "165rem",
+          minWidth: "165rem",
+          height: "47rem",
           gap: "10rem",
           padding: "0rem",
           borderRadius: "999rem",
@@ -204,7 +204,7 @@ const Index = () => {
           fontSize: "38rem",
           fontWeight: 600,
           lineHeight: "46rem",
-          letterSpacing: "-0.8rem",
+          letterSpacing: "0rem",
         },
         description: {
           position: "relative",
@@ -256,10 +256,10 @@ const Index = () => {
   return (
     <div className={styles.heroShell}>
       <header
-        className={`fixed top-0 left-0 z-[100] flex w-full items-center justify-between pl-[16rem] pr-[48rem] transition-[height,padding,background-color,box-shadow,backdrop-filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${styles.header} ${isSticky ? styles.headerActive : ""} ${
+        className={`fixed top-0 left-0 z-[100] flex w-full items-center justify-between pl-[16rem] pr-[45.5rem] transition-[height,padding,background-color,box-shadow,backdrop-filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${styles.header} ${isSticky ? styles.headerActive : ""} ${
           isSticky
-            ? "h-[64rem] bg-white pt-[19.5rem] pb-[19.5rem] shadow-[0_4rem_18rem_rgba(0,0,0,0.08)] backdrop-blur-0"
-            : "h-[69rem] bg-[rgba(0,0,0,0.2)] pt-[26rem] pb-[18rem] shadow-[0_0_0_rgba(0,0,0,0)] backdrop-blur-[1px]"
+            ? "h-[64rem] bg-white pt-[21rem] pb-[18rem] shadow-[0_4rem_18rem_rgba(0,0,0,0.08)] backdrop-blur-0"
+            : "h-[64rem] bg-[rgba(0,0,0,0.12)] pt-[21rem] pb-[18rem] shadow-[0_0_0_rgba(0,0,0,0)] backdrop-blur-[1px]"
         }`}
       >
         <svg

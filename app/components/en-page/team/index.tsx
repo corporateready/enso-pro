@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 import styles from "./team.module.css";
 
@@ -38,7 +38,7 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
   [
     {
       name: "Zinaida Dumbrava",
-      role: "Customer Relations Department",
+      role: "Customer Relations\nDepartment",
       description:
         "20 years of expertise in driving full-cycle customer relations.",
       imageSrc: "/team-avatar-4.png",
@@ -52,6 +52,24 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
     },
   ],
 ];
+
+/*
+ * "\n" marks a line break Figma's desktop layout has; on mobile the text
+ * wraps freely, so the break is desktop-only.
+ */
+function desktopLines(text: string) {
+  return text.split("\n").map((line, index) => (
+    <Fragment key={index}>
+      {index > 0 && (
+        <>
+          {" "}
+          <br className={styles.desktopBreak} />
+        </>
+      )}
+      {line}
+    </Fragment>
+  ));
+}
 
 function TeamPhoto({ member }: { member: TeamMember }) {
   if (!member.imageSrc) {
@@ -116,9 +134,9 @@ export default function Team() {
             management.
           </p>
           <p className={styles.introSecondary}>
-            One team, one standard, full responsibility{" "}
+            One team, one standard, full responsibility from{" "}
             <br />
-            from first sketch to final handover.
+            first sketch to final handover.
           </p>
         </header>
 
@@ -159,8 +177,10 @@ export default function Team() {
                     <TeamPhoto member={member} />
                     <div className={styles.memberContent}>
                       <h3>{member.name}</h3>
-                      <p className={styles.role}>{member.role}</p>
-                      <p className={styles.description}>{member.description}</p>
+                      <p className={styles.role}>{desktopLines(member.role)}</p>
+                      <p className={styles.description}>
+                        {desktopLines(member.description)}
+                      </p>
                     </div>
                   </article>
                 ))}

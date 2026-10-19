@@ -5,9 +5,8 @@
   }
   .section {
     width: 100%;
-    padding-top: 12rem;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
@@ -24,40 +23,44 @@
   .title {
     margin: 0;
     font-family: var(--font-inter), sans-serif;
-    font-size: 36rem;
+    font-size: 34rem;
     font-weight: 600;
-    line-height: 43rem;
-    letter-spacing: -1.3rem;
+    line-height: 30.6rem;
   }
 
   .subtitle {
-    margin: 9rem 0 0;
+    margin: 20.4rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 16rem;
     font-weight: 400;
     line-height: 19rem;
   }
 
+  .subtitleDesktop {
+    display: none;
+  }
+
   .filters {
     position: relative;
     z-index: 2;
     display: flex;
-    gap: 5rem;
-    margin: 21rem 16rem 0;
+    gap: 4rem;
+    margin: 22rem 16rem 0;
   }
 
+  /* Figma pills hug the label with 14.14 a side (border included) */
   .filterButton {
-    height: 35rem;
-    padding: 0 14rem;
-    border: 1rem solid #111;
-    border-radius: 999rem;
-    color: #111;
+    height: 34.7rem;
+    padding: 0 13.26rem;
+    border: 0.884rem solid #000;
+    border-radius: 18rem;
+    color: #000;
     background: #fff;
     cursor: pointer;
     font-family: var(--font-inter), sans-serif;
     font-size: 14rem;
     font-weight: 400;
-    line-height: 33rem;
+    line-height: 32.9rem;
     white-space: nowrap;
     transition:
       color 200ms ease,
@@ -67,7 +70,7 @@
 
   .filterButtonActive {
     color: #fff;
-    background: #050505;
+    background: #000;
   }
 
   .filterButton:hover {
@@ -79,12 +82,13 @@
     outline-offset: 3rem;
   }
 
+  /* Figma has no panel behind the cards: white, with each card's own shadow */
   .contentArea {
     min-height: 652rem;
     margin-top: -10rem;
-    padding: 29rem 16rem 36rem;
-    background: #f1f1f1;
-    box-shadow: 0 0 30rem rgb(40 40 40 / 38%);
+    padding: 29rem 16rem 0rem;
+    background: transparent;
+    box-shadow: none;
   }
 
   .cards {
@@ -98,10 +102,11 @@
     width: 358rem;
     overflow: hidden;
     background: #fff;
+    box-shadow: 0 10rem 40rem rgb(113 113 113 / 20%);
   }
 
   .featureCard {
-    height: 283rem;
+    height: 282rem;
   }
 
   .articleCard {
@@ -137,10 +142,10 @@
     height: 50rem;
     align-items: center;
     justify-content: center;
-    margin-top: 19rem;
-    border: 1rem solid #111;
+    margin-top: 20rem;
+    border: 1px solid #000;
     border-radius: 999rem;
-    color: #111;
+    color: #000;
     background: #fff;
     font-family: var(--font-inter), sans-serif;
     font-size: 20rem;
@@ -151,6 +156,11 @@
       color 180ms ease,
       background-color 180ms ease,
       transform 180ms ease;
+  }
+
+  /* the mobile button in Figma has no arrow */
+  .viewAllButton :global(.inter-arrow) {
+    display: none;
   }
 
   .viewAllButton:hover {
@@ -190,17 +200,20 @@
 }
 
 @media screen and (min-width: 641px) {
+  /* Geometry from the Figma "Journal" frame (1600x1213 below a 160 gap). */
   .section {
     width: 100%;
-    height: 1390rem;
+    height: 1373rem;
     padding-top: 160rem;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
   .inner {
+    position: relative;
     width: 1600rem;
+    height: 1213rem;
     margin: 0 auto;
   }
 
@@ -213,92 +226,111 @@
     font-family: var(--font-inter), sans-serif;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.5rem;
+    line-height: 76.8rem;
   }
 
   .subtitle {
-    margin: 40rem 0 0;
+    margin: 40.2rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 36rem;
-    line-height: 1;
+    font-weight: 400;
+    line-height: 43.2rem;
+  }
+
+  .subtitleMobile {
+    display: none;
   }
 
   .filters {
     position: absolute;
     z-index: 2;
-    right: 160rem;
+    top: 98rem;
+    left: 983rem;
     display: flex;
-    gap: 10rem;
-    margin-top: -64rem;
+    gap: 15rem;
   }
 
   .filterButton {
-    height: 38rem;
-    padding: 0 18rem;
-    border: 1rem solid #111;
-    border-radius: 999rem;
-    color: #111;
+    display: inline-flex;
+    height: 53rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1.24rem solid #000;
+    border-radius: 25rem;
+    color: #000;
     background: #fff;
     font-family: var(--font-inter), sans-serif;
-    font-size: 14rem;
+    font-size: 19.89rem;
+    font-weight: 400;
+    line-height: 23.9rem;
+    white-space: nowrap;
+  }
+
+  /* Figma gives each pill a fixed width with the label centred. */
+  .filterButton:nth-child(1) {
+    width: 79rem;
+  }
+
+  .filterButton:nth-child(2) {
+    width: 208rem;
+  }
+
+  .filterButton:nth-child(3) {
+    width: 115.1rem;
+  }
+
+  .filterButton:nth-child(4) {
+    width: 170.1rem;
   }
 
   .filterButtonActive {
+    border-color: #000;
     color: #fff;
-    background: #111;
+    background: #000;
   }
 
   .contentArea {
-    margin-top: 62rem;
+    position: absolute;
+    top: 209rem;
+    left: 0;
+    width: 1600rem;
   }
 
-  /* Feature card spans the full width as its own row; the other two sit
-     side by side in the row below — a different arrangement than the old
-     "tall card left, two stacked right" layout. */
   .cards {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28rem;
-  }
-
-  .featureCard {
-    grid-column: 1 / 3;
+    grid-template-columns: repeat(2, 770rem);
+    column-gap: 60rem;
+    row-gap: 48.9rem;
   }
 
   .card {
     position: relative;
     display: flex;
     width: auto;
-    height: auto;
     overflow: hidden;
     background: #fff;
-    box-shadow: 0 12rem 36rem rgb(0 0 0 / 12%);
   }
 
   .featureCard {
-    height: 640rem;
+    grid-column: 1 / 3;
+    height: 630rem;
+    box-shadow: 0 22.35rem 89.39rem rgb(113 113 113 / 20%);
   }
 
   .articleCard {
-    height: 300rem;
+    height: 219.4rem;
+    box-shadow: 0 21.51rem 86.03rem rgb(113 113 113 / 20%);
   }
 
-  /* Each card now shows its own dedicated photo (not a shared wide image
-     cropped per card via object-position), so the split is a plain
-     image-left / copy-right layout. */
   .imageArea {
     position: relative;
-    flex: 0 0 50%;
+    flex: 0 0 800rem;
     overflow: hidden;
   }
 
-  /* Narrower than the feature card's 50/50 split: the smaller cards' titles
-     need a 368-417rem text column to wrap the same way the reference does
-     (3 lines, not 4) — 38% leaves the copy side ~490rem, ~390rem after
-     padding. */
   .articleCard .imageArea {
-    flex-basis: 38%;
+    flex-basis: 385.2rem;
   }
 
   .mobileImage {
@@ -314,79 +346,149 @@
     object-fit: cover;
   }
 
+  /* The small-card photo overhangs its frame by 8.6 x 2.2 in Figma. */
+  .articleCard .desktopImage {
+    top: -2.2rem;
+    left: -8.6rem;
+    width: 393.8rem;
+    height: 221.4rem;
+  }
+
   .articleCopy {
-    position: relative;
-    flex: 1;
-    padding: 40rem 50rem;
     font-family: var(--font-inter), sans-serif;
   }
 
-  .articleCategory,
-  .articleMeta {
-    font-size: 14rem;
-    line-height: 1;
-  }
-
   .articleCategory {
+    position: absolute;
     display: inline-flex;
-    padding: 7rem 12rem;
-    border: 1rem solid #111;
-    border-radius: 999rem;
+    align-items: center;
+    white-space: nowrap;
+    color: #000;
   }
 
   .articleMeta {
     position: absolute;
-    top: 40rem;
-    right: 50rem;
-    color: #777;
+    font-weight: 400;
+    white-space: nowrap;
   }
 
   .articleCopy h3 {
     position: absolute;
-    right: 50rem;
-    bottom: 108rem;
-    left: 50rem;
     margin: 0;
+    color: #000;
+    white-space: pre-line;
+  }
+
+  .featureCard .articleCategory {
+    top: 50rem;
+    left: 850rem;
+    height: 54rem;
+    padding: 0 14.99rem;
+    border: 1.01rem solid #000;
+    border-radius: 60rem;
     font-size: 28rem;
-    font-weight: 700;
-    line-height: 1.15;
+    font-weight: 400;
+    line-height: 33.6rem;
+  }
+
+  .featureCard .articleMeta {
+    top: 60rem;
+    right: 34rem;
+    color: #717171;
+    font-size: 28rem;
+    line-height: 33.6rem;
   }
 
   .featureCard .articleCopy h3 {
-    top: 153rem;
-    bottom: auto;
-    font-size: 42rem;
-  }
-
-  .articleCard .articleCopy h3 {
-    bottom: 40rem;
+    top: 164rem;
+    left: 855rem;
+    width: 714.6rem;
+    font-size: 44.69rem;
+    font-weight: 700;
+    line-height: 53.6rem;
   }
 
   .readArticle {
     position: absolute;
-    top: 364rem;
-    bottom: auto;
-    left: 50rem;
-    color: #111;
-    font-size: 20rem;
+    top: 386rem;
+    left: 855rem;
+    color: #000;
+    font-size: 28rem;
+    font-weight: 400;
+    line-height: 33.6rem;
     text-decoration: underline;
+    /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
+    text-decoration-thickness: 0.047em;
+    text-underline-offset: 0.21em;
+  }
+
+  .articleCard .articleCategory {
+    top: 19.3rem;
+    left: 406.5rem;
+    height: 40.5rem;
+    padding: 0 14.61rem;
+    border: 0.97rem solid #000;
+    border-radius: 19rem;
+    font-size: 17.21rem;
+    font-weight: 400;
+    line-height: 20.6rem;
+  }
+
+  .articleCard .articleMeta {
+    top: 30.1rem;
+    right: 21.4rem;
+    color: #000;
+    font-size: 17.21rem;
+    line-height: 20.6rem;
+  }
+
+  .articleCard .articleCopy h3 {
+    top: 107.5rem;
+    left: 406.5rem;
+    width: 335.5rem;
+    font-size: 25.81rem;
+    font-weight: 400;
+    line-height: 31rem;
+  }
+
+  /* Figma: the long "Ghid de cumpărare" pill has 13 side padding, and the
+     date beside it is a 157-wide box, so it breaks onto two lines. */
+  [id="journal-eminescu-offices"] .articleCategory {
+    top: 19.1rem;
+    left: 407rem;
+    padding: 0 12.03rem;
+  }
+
+  [id="journal-eminescu-offices"] .articleMeta {
+    top: 29.1rem;
+    right: 2rem;
+    width: 157rem;
+    white-space: normal;
+  }
+
+  [id="journal-moldova-growth-leader"] .articleCategory {
+    top: 21.5rem;
+  }
+
+  [id="journal-moldova-growth-leader"] .articleMeta {
+    top: 31.3rem;
+    right: 27rem;
   }
 
   .viewAllButton {
-    display: flex;
-    width: 430rem;
-    height: 54rem;
-    align-items: center;
-    justify-content: center;
-    margin: 46rem auto 0;
-    border: none;
-    text-decoration: underline;
-    border-radius: 999rem;
-    color: #111;
-    background: #fff;
+    display: block;
+    width: max-content;
+    margin: 59.7rem auto 0;
+    color: #000;
+    background: none;
     font-family: var(--font-inter), sans-serif;
     font-size: 38rem;
     font-weight: 400;
+    line-height: 45.6rem;
+    text-decoration: underline;
+    /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
+    text-decoration-thickness: 0.047em;
+    text-underline-offset: 0.21em;
   }
 
   .visuallyHidden {

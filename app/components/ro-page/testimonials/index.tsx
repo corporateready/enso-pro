@@ -31,7 +31,11 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className={styles.section}>
       <div className={styles.inner}>
-        <h2 className={styles.title}>CE SPUN CLIENȚII NOȘTRI</h2>
+        <h2 className={styles.title}>
+          CE SPUN{" "}
+          <br className={styles.mobileBreak} />
+          CLIENȚII NOȘTRI
+        </h2>
         <p className={styles.subtitle}>Partea care se vede după predare.</p>
         <div className={styles.cards}>
           {testimonials.map((item) => (

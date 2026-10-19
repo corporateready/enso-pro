@@ -15,6 +15,32 @@
   display: "swap";
 }
 
+/*
+ * Inter as served by Google has no U+2192 (its subsets carry the up/down
+ * arrows only), so every "→" fell back to Arial: long and thin. These two
+ * files hold just that glyph, Inter's own outline in regular and bold, which
+ * is what Figma draws. Use them through the .inter-arrow span.
+ */
+@font-face {
+  font-family: "Inter Arrow";
+  src: url("/fonts/inter-arrow-400.ttf") format("truetype");
+  font-weight: 100 549;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2192;
+}
+@font-face {
+  font-family: "Inter Arrow";
+  src: url("/fonts/inter-arrow-700.ttf") format("truetype");
+  font-weight: 550 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2192;
+}
+.inter-arrow {
+  font-family: "Inter Arrow", var(--font-inter), sans-serif;
+}
+
 html {
   @apply w-full h-full relative;
   scroll-behavior: smooth;
@@ -33,6 +59,11 @@ html {
 }
 body {
   @apply w-full min-h-full relative mx-auto p-0 m-0 overflow-x-hidden;
+
+  /* Every text in the Figma file is Inter (bar the Mignon eyebrows, which set
+     their own family). Without a default here anything not styled explicitly
+     fell back to the system font: the language switch and the desktop CTA. */
+  font-family: var(--font-inter), sans-serif;
 
   @supports (height: 100dvh) {
     :root {

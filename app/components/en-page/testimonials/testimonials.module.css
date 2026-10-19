@@ -5,11 +5,13 @@
 }
 
 @media screen and (max-width: 640px) {
+  /* Figma mobile: title 40 below the partners block, cards from 19.8 under
+     the subtitle, 68 from the last card to the journal title. */
   .inner {
     width: 100%;
     max-width: 390rem;
     margin: 0 auto;
-    padding: 34rem 16rem 60rem;
+    padding: 40rem 16rem 68rem;
   }
 
   .title {
@@ -25,26 +27,26 @@
     color: #000;
     font-size: 16rem;
     font-weight: 400;
-    line-height: 19rem;
+    line-height: 19.2rem;
   }
 
   .cards {
     display: grid;
     gap: 20rem;
-    margin-top: 20rem;
+    margin-top: 19.8rem;
   }
 
   .card {
     position: relative;
     height: 274rem;
-    padding: 20rem;
+    padding: 22rem 20rem 20rem;
     background: #fff;
-    box-shadow: 0 9rem 36rem rgb(113 113 113 / 20%);
+    box-shadow: 0 10rem 40rem rgb(113 113 113 / 20%);
   }
 
   .cardTop {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
   }
 
@@ -52,38 +54,42 @@
     color: #0e3477;
     font-size: 16rem;
     font-weight: 700;
-    line-height: 19rem;
-    letter-spacing: 3rem;
+    line-height: 19.2rem;
+    margin-top: 3rem;
   }
 
+  /* Figma: a fixed 89x20 pill, label centred */
   .badge {
     display: inline-flex;
     align-items: center;
     height: 20rem;
-    padding: 0 13rem;
+    padding: 0;
     border-radius: 999rem;
     background: #e3eaf9;
     color: #0e3477;
     font-size: 12rem;
     font-weight: 700;
-    line-height: 14rem;
+    line-height: 14.4rem;
+    width: 89rem;
+    justify-content: center;
   }
 
   .quote {
-    margin: 17rem 0 0;
+    margin: 20rem 0 0;
     color: #000;
     font-size: 16rem;
     font-weight: 400;
     line-height: 22.4rem;
   }
 
+  /* the rule sits 188 below the card top in Figma, the name 10 under it */
   .person {
     position: absolute;
     right: 26rem;
-    bottom: 15rem;
     left: 20rem;
-    padding-top: 11rem;
+    padding-top: 10rem;
     border-top: 1rem solid #c6c6c6;
+    top: 188rem;
   }
 
   .name {
@@ -91,30 +97,30 @@
     color: #000;
     font-size: 16rem;
     font-weight: 700;
-    line-height: 19rem;
+    line-height: 19.2rem;
   }
 
   .role {
-    margin: 4rem 0 0;
+    margin: 3.8rem 0 0;
     color: #717171;
     font-size: 16rem;
     font-weight: 400;
-    line-height: 19rem;
+    line-height: 19.2rem;
   }
 
   .since {
-    margin: 9rem 0 0;
+    margin: 3.8rem 0 0;
     color: #000;
     font-size: 12rem;
     font-weight: 400;
-    line-height: 14rem;
+    line-height: 14.4rem;
   }
 }
 
 @media screen and (min-width: 641px) {
   .inner {
     width: 100%;
-    padding: 141rem 160rem 55rem;
+    padding: 160rem 160rem 55rem;
   }
 
   .title {
@@ -122,7 +128,11 @@
     color: #000;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 77rem;
+    line-height: 76.8rem;
+  }
+
+  .mobileBreak {
+    display: none;
   }
 
   .subtitle {
@@ -130,7 +140,7 @@
     color: #000;
     font-size: 36rem;
     font-weight: 400;
-    line-height: 43rem;
+    line-height: 43.2rem;
   }
 
   .cards {
@@ -143,14 +153,14 @@
   .card {
     position: relative;
     height: 532rem;
-    padding: 30rem;
+    padding: 32rem 30rem 30rem;
     background: #fff;
     box-shadow: 0 18rem 72rem rgb(113 113 113 / 20%);
   }
 
   .cardTop {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
   }
 
@@ -158,25 +168,26 @@
     color: #0e3477;
     font-size: 28rem;
     font-weight: 700;
-    line-height: 34rem;
-    letter-spacing: 6rem;
+    line-height: 33.6rem;
   }
 
   .badge {
     display: inline-flex;
+    width: 159rem;
     align-items: center;
+    justify-content: center;
     height: 37rem;
-    padding: 0 25rem;
+    padding: 0;
     border-radius: 999rem;
     background: #e3eaf9;
     color: #0e3477;
-    font-size: 21.5rem;
+    font-size: 21.48rem;
     font-weight: 700;
-    line-height: 26rem;
+    line-height: 25.8rem;
   }
 
   .quote {
-    margin: 33rem 0 0;
+    margin: 30rem 0 0;
     color: #000;
     font-size: 28rem;
     font-weight: 400;
@@ -185,8 +196,8 @@
 
   .person {
     position: absolute;
+    top: 354rem;
     right: 30rem;
-    bottom: 28rem;
     left: 30rem;
     padding-top: 30rem;
     border-top: 1rem solid #c6c6c6;
@@ -197,22 +208,22 @@
     color: #000;
     font-size: 32rem;
     font-weight: 700;
-    line-height: 38rem;
+    line-height: 38.4rem;
   }
 
   .role {
-    margin: 6rem 0 0;
+    margin: 5.6rem 0 0;
     color: #717171;
     font-size: 32rem;
     font-weight: 400;
-    line-height: 38rem;
+    line-height: 38.4rem;    white-space: nowrap;
   }
 
   .since {
-    margin: 17rem 0 0;
+    margin: 7.6rem 0 0;
     color: #000;
     font-size: 24rem;
     font-weight: 400;
-    line-height: 29rem;
+    line-height: 28.8rem;
   }
 }

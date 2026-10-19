@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 
 import styles from "./partners.module.css";
 
@@ -6,7 +7,7 @@ const partners = [
   {
     name: "Archimatika",
     description:
-      "Peste 5 milioane m² proiectați. Dezvoltări rezidențiale premiate internațional.",
+      "Peste 5 milioane m² proiectați.\nDezvoltări rezidențiale premiate\ninternațional.",
     logoSrc: "/arch 2.png",
     logoWidth: 760,
     logoHeight: 108,
@@ -24,7 +25,7 @@ const partners = [
   {
     name: "acla",
     description:
-      "Spații verzi gândite ca ecosisteme, nu ca decor.",
+      "Spații verzi gândite ca ecosisteme,\nnu ca decor.",
     logoSrc: "/acla.png",
     logoWidth: 376,
     logoHeight: 128,
@@ -42,13 +43,36 @@ const partners = [
   {
     name: "Estate Invest Company",
     description:
-      "11 ani și peste 400.000 m² construiți, în 50 de dezvoltări în Chișinău.",
+      "11 ani și peste 400.000 m² construiți,\u2028în 50 de dezvoltări în Chișinău.",
     logoSrc: "/eic.png",
     logoWidth: 500,
     logoHeight: 184,
     imageClassName: styles.estateImage,
   },
 ] as const;
+
+/*
+ * Line breaks as set in Figma: "\n" breaks on both breakpoints, "\u2028" on
+ * desktop only (where the two layouts break a text differently).
+ */
+function cardLines(text: string) {
+  return text.split("\n").map((line, index) => (
+    <Fragment key={index}>
+      {index > 0 && <br />}
+      {line.split("\u2028").map((part, partIndex) => (
+        <Fragment key={partIndex}>
+          {partIndex > 0 && (
+            <>
+              {" "}
+              <br className={styles.desktopBreak} />
+            </>
+          )}
+          {part}
+        </Fragment>
+      ))}
+    </Fragment>
+  ));
+}
 
 function PartnerCards({ duplicate = false }: { duplicate?: boolean }) {
   return (
@@ -70,7 +94,7 @@ function PartnerCards({ duplicate = false }: { duplicate?: boolean }) {
             />
           </div>
           <h3 className={styles.visuallyHidden}>{partner.name}</h3>
-          <p>{partner.description}</p>
+          <p>{cardLines(partner.description)}</p>
         </article>
       ))}
     </div>

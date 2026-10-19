@@ -108,12 +108,12 @@ export default function AccountModal({
 
         <div className={styles.content}>
           <h2 id="personal-account-title-en" className={styles.title}>
-            {isSignUp ? "CREATE YOUR" : "LOG IN TO YOUR"}
+            {isSignUp ? "CREATE YOUR" : "SIGN IN TO YOUR"}
             <br />
             PERSONAL ACCOUNT
           </h2>
           <p className={styles.description}>
-            Payments, documents and messages with the team — all in one place.
+            Payments, documents, and messages with the team — all in one place.
           </p>
 
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -168,7 +168,7 @@ export default function AccountModal({
               className={styles.visuallyHidden}
               htmlFor="account-identifier-en"
             >
-              {isSignUp ? "E-mail" : "E-mail or username"}
+              {isSignUp ? "Email" : "Email or Username"}
             </label>
             <input
               ref={identifierRef}
@@ -178,7 +178,7 @@ export default function AccountModal({
               type="text"
               autoComplete="username"
               inputMode="email"
-              placeholder={isSignUp ? "E-mail" : "E-mail or username"}
+              placeholder={isSignUp ? "Email" : "Email or Username"}
               value={identifier}
               onChange={(event) => setIdentifier(event.target.value)}
             />
@@ -193,7 +193,7 @@ export default function AccountModal({
           </form>
 
           <p className={styles.createAccount}>
-            {isSignUp ? "Already have an account?" : "New here?"}{" "}
+            {isSignUp ? "Already have an account?" : "New?"}{" "}
             <button
               type="button"
               onClick={() => setMode(isSignUp ? "signin" : "signup")}
@@ -203,7 +203,7 @@ export default function AccountModal({
                   : "Switch to creating an account"
               }
             >
-              {isSignUp ? "Log in" : "Create an account"}
+              {isSignUp ? "Log in" : "Create an Account"}
             </button>
           </p>
         </div>

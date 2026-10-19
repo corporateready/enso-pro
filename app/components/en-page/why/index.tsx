@@ -32,9 +32,9 @@ export default function Why() {
 
         <div className={styles.content}>
           <h2 id="why-title" className={styles.title}>
-            NUMBERS YOU CAN
-            <br />
-            BUILD ON
+            NUMBERS YOU
+            <br className={styles.desktopBreak} /> CAN
+            <br className={styles.mobileBreak} /> BUILD ON
           </h2>
 
           <div className={styles.award}>
@@ -57,7 +57,7 @@ export default function Why() {
             <li>
               <strong>500k+</strong>
               <span>
-                m<sup>2</sup> delivered
+                m² delivered
                 <br />
                 successfully
               </span>

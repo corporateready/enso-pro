@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Image from "next/image";
 import { createPortal } from "react-dom";
 
 import styles from "./book-call-modal.module.css";
@@ -12,18 +13,20 @@ type BookCallModalProps = {
 
 const copy = {
   ro: {
+    title: "PROGRAMEAZĂ O DISCUȚIE",
     close: "Închide formularul",
-    subtitle: "Spune-ne pe scurt, iar un consultant te sună.",
-    name: "Nume complet",
+    subtitle: "Lasă-ne câteva detalii și un consultant te contactează în scurt timp.",
+    name: "Nume și prenume",
     email: "E-mail",
     phone: "Număr de telefon",
     either: "Oricare",
     project: "Proiect preferat",
     date: "Data preferată",
-    notes: "Altceva?",
-    submit: "Solicită întâlnirea",
+    notes: "Altceva de adăugat?",
+    submit: "Programează întâlnirea",
   },
   en: {
+    title: "BOOK A CALL",
     close: "Close form",
     subtitle: "Tell us a little, and an advisor will reach out.",
     name: "Full Name",
@@ -87,7 +90,7 @@ export default function BookCallModal({
         </button>
 
         <h2 id={`book-call-title-${locale}`} className={styles.title}>
-          BOOK A CALL
+          {text.title}
         </h2>
         <p className={styles.subtitle}>{text.subtitle}</p>
 
@@ -136,8 +139,9 @@ export default function BookCallModal({
             </label>
             <div className={styles.phoneField}>
               <span className={styles.countryFlag} aria-hidden="true">
-                🇷🇴
-              </span>
+              {/* Figma's flag artwork; the emoji has no flag glyphs on Windows */}
+              <Image src="/flag-ro.png" width={72} height={72} alt="" unoptimized />
+            </span>
               <input
                 id={`call-phone-${locale}`}
                 className={styles.phoneInput}

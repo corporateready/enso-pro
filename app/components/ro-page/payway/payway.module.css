@@ -3,19 +3,23 @@
   position: relative;
   left: 50%;
   width: 394rem;
-  height: 789rem;
-  color: #0d0d0d;
+  height: 792rem;
+  color: #000;
   background: #fdfdfd;
   transform: translateX(-50%);
 }
 }
 
 @media screen and (min-width: 641px) {
+  /*
+   * Laid out from the Figma frame (EN/RO Desktop > PAY YOUR WAY). Offsets are
+   * from the section title: banner +118, cards +440, button +1000.
+   */
   .section {
     width: 100%;
     height: auto;
     padding-top: 65rem;
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
@@ -25,12 +29,11 @@
   }
 
   .title {
-    margin: 0 0 62rem;
+    margin: 0 0 60.4rem;
     font-family: var(--font-inter), sans-serif;
-    font-size: 60rem;
+    font-size: 64rem;
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -1.6rem;
+    line-height: 0.9;
   }
 
   .title br {
@@ -45,8 +48,8 @@
 
   .featuredCard {
     width: 1600rem;
-    height: 260rem;
-    padding: 60rem 42rem;
+    height: 262rem;
+    padding: 60rem 40rem;
     color: #fff;
     background: #40854e;
   }
@@ -62,43 +65,48 @@
 
   .featuredCard h3 {
     margin: 0;
-    font-size: 52rem;
+    font-size: 60rem;
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.2;
   }
 
   .featuredCard p {
-    margin: 24rem 0 0;
+    margin: 20rem 0 0;
     font-size: 42rem;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   .featuredCard p br {
     display: none;
   }
 
-  .featuredCard > span {
-    width: 280rem !important;
-    height: 250rem !important;
+  /* the banner's right end, cut from Figma's own render of it */
+  .zeroMobile {
+    display: none !important;
   }
 
-  .featuredCard > span img {
-    width: 240rem !important;
-    height: auto !important;
+  .zeroDesktop {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 320rem;
+    height: 262rem;
   }
 
   .benefits {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 50rem;
-    margin-top: 70rem;
+    margin-top: 60rem;
   }
 
   .benefitCard {
     height: 500rem;
-    padding: 38rem;
+    padding: 40rem;
     background: #fff;
-    box-shadow: 0 12rem 34rem rgb(64 64 64 / 15%);
+    box-shadow: 0 20.96rem 83.82rem rgb(113 113 113 / 20%);
   }
 
   .benefitCard:nth-child(2) {
@@ -109,37 +117,70 @@
     order: 2;
   }
 
-  /* 340 (not 310/330) so "Rate trimestriale" (337rem) fits on one line
-     instead of breaking into an unbalanced "Rate" / "trimestriale" split —
-     the other titles still wrap at the same word boundary at this width. */
   .benefitCard h3 {
-    width: 340rem;
+    width: 263rem;
     margin: 0;
-    font-size: 42rem;
+    font-size: 41.91rem;
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1.2;
   }
 
-  /* 31 (not 33.5) so the second manual line of the longest description
-     ("dezvoltator, fără intermediari", 456rem) fits within the 424rem
-     content width without an unwanted extra wrap. */
+  /* Figma keeps each description on a fixed line of its card, whatever the
+     title's line count: 150 from the card top, 160.2 on the first card. The
+     manual breaks sit where Figma's desktop lines break too, so they stay
+     (hiding them glued the words either side: "contractdirectly"). */
   .benefitCard p {
-    margin: 24rem 0 0;
-    font-size: 31rem;
-    line-height: 1.25;
+    position: absolute;
+    top: 150rem;
+    left: 40rem;
+    width: 456rem;
+    margin: 0;
+    font-size: 33.53rem;
+    line-height: 1.2;
+  }
+
+  .benefitCard:first-child p {
+    top: 160.2rem;
+  }
+
+  .benefitCard:nth-child(1) h3 {
+    width: 127rem;
+  }
+
+  .benefitCard:nth-child(3) h3 {
+    width: 337rem;
   }
 
   .rateVisual {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 228rem;
+    width: auto;
   }
 
   .rateImage {
     display: block;
-    width: 100%;
     height: auto;
+  }
+
+  .rateImageMobile {
+    display: none;
+  }
+
+  .rateImageDesktop {
+    display: block;
+  }
+
+  .firstRateVisual .rateImageDesktop {
+    width: 252.25rem;
+  }
+
+  .secondRateVisual .rateImageDesktop {
+    width: 223rem;
+  }
+
+  .thirdRateVisual .rateImageDesktop {
+    width: 281.25rem;
   }
 
   .requestButton {
@@ -148,14 +189,15 @@
     height: 100rem;
     align-items: center;
     justify-content: center;
-    margin: 50rem auto 0;
-    border: 1rem solid #111;
+    margin: 60rem auto 0;
+    border: 2rem solid #000;
     border-radius: 999rem;
     color: #000;
     background: #fff;
     font-family: var(--font-inter), sans-serif;
     font-size: 40rem;
     font-weight: 700;
+    line-height: 1.21;
     text-decoration: none;
   }
 }
@@ -175,7 +217,6 @@
   font-size: 34rem;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -1.5rem;
 }
 
 .featuredCard,
@@ -207,7 +248,6 @@
   font-size: 36rem;
   font-weight: 700;
   line-height: 43rem;
-  letter-spacing: -1.1rem;
 }
 
 .featuredCard p {
@@ -236,7 +276,6 @@
   font-size: 20rem;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.35rem;
 }
 
 .benefitCard p {
@@ -287,6 +326,12 @@
   width: 100%;
   height: auto;
   max-width: none;
+}
+
+/* the desktop art shares .rateImage, so the doubled class keeps it hidden */
+.rateImage.rateImageDesktop,
+.zeroDesktop {
+  display: none;
 }
 
 .firstRateVisual {

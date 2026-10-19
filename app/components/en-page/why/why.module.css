@@ -1,4 +1,8 @@
 @media screen and (max-width: 640px) {
+  .desktopBreak {
+    display: none;
+  }
+
   .desktopImage,
   .buildingImage {
     display: none;
@@ -8,7 +12,7 @@
     position: relative;
     left: 0;
     width: 394rem;
-    height: 740rem;
+    height: 734rem;
     overflow: hidden;
     background: #171a31;
     transform: translateX(-4rem);
@@ -92,8 +96,8 @@
   }
 
   .awardPlace {
-    top: 82rem;
-    font-size: 16rem;
+    top: 60rem;
+    font-size: 24rem;
     font-weight: 400;
   }
 
@@ -148,25 +152,27 @@
     line-height: 1.2;
     white-space: nowrap;
   }
-
-  .metrics sup {
-    position: relative;
-    top: -0.35em;
-    font-size: 10.32rem;
-    line-height: 0;
-  }
 }
 
 @media screen and (min-width: 641px) {
-  .section,
+  /*
+   * From the Figma frame (Desktop > Numbers + "фиолетовое здание поверх"):
+   * the building starts 190 above the plate and 30 above the bottom of the
+   * button over it, the plate is 1920x825; text offsets are from that plate.
+   */
+  .section {
+    position: relative;
+    width: 100%;
+    height: 1015rem;
+    margin-top: -30rem;
+    background: transparent;
+  }
+
   .inner {
     position: relative;
     width: 100%;
-    height: 1000rem;
-    /* overflow-x: hidden;
-    overflow-y: auto; */
+    height: 1015rem;
     background: transparent;
-    margin-top: -20rem;
   }
 
   .mobileImage {
@@ -175,7 +181,7 @@
 
   .desktopImage {
     position: absolute;
-    top: 175rem;
+    top: 190rem;
     left: 0;
     display: block;
     width: 100%;
@@ -188,10 +194,10 @@
     position: absolute;
     z-index: 1;
     top: 0;
-    right: 0;
+    left: 962rem;
     display: block;
-    width: auto;
-    height: 1000rem;
+    width: 968rem;
+    height: 1014.5rem;
   }
 
   .content {
@@ -204,27 +210,30 @@
 
   .title {
     position: absolute;
-    top: 285rem;
+    top: 270rem;
     left: 160rem;
     margin: 0;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -2.2rem;
+    line-height: 1.2;
+  }
+
+  .mobileBreak {
+    display: none;
   }
 
   .award {
     position: absolute;
-    top: 512rem;
-    left: 160rem;
-    width: 380rem;
-    height: 172rem;
+    top: 522.9rem;
+    left: 185rem;
+    width: 377.6rem;
+    height: 165.3rem;
   }
 
   .decor {
     position: absolute;
     inset: 0;
-    width: 380rem;
+    width: 377.6rem;
     height: auto;
   }
 
@@ -239,53 +248,70 @@
     position: absolute;
     left: 50%;
     margin: 0;
-    line-height: 1;
     white-space: nowrap;
     transform: translateX(-50%);
   }
 
   .awardKicker {
-    top: 0;
-    font-size: 24rem;
+    top: -5.9rem;
+    font-size: 33.44rem;
+    line-height: 33.4rem;
   }
 
   .awardTitle {
-    top: 32rem;
-    font-size: 44rem;
-    font-weight: 600;
+    top: 34.4rem;
+    font-size: 38.53rem;
+    font-weight: 700;
+    line-height: 38.5rem;
   }
 
   .awardPlace {
-    top: 96rem;
-    font-size: 18rem;
+    top: 77.7rem;
+    font-size: 33.44rem;
     font-weight: 400;
+    line-height: 33.4rem;
   }
 
   .metrics {
     position: absolute;
-    top: 755rem;
+    top: 764rem;
     left: 160rem;
-    display: flex;
-    gap: 95rem;
+    width: 800rem;
+    height: 171rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
+
+  .metrics li {
+    position: absolute;
+    top: 0;
+  }
+
+  .metrics li:nth-child(1) { left: 0; width: 309.3rem; }
+  .metrics li:nth-child(2) { left: 343.4rem; width: 236.2rem; }
+  .metrics li:nth-child(3) { left: 619.4rem; width: 180.6rem; }
 
   .metrics strong,
   .metrics span {
     display: block;
   }
 
+  /* each label breaks only where Figma does (the <br>); the boxes are the
+     labels' own widths, so a hair of font difference must not wrap them */
+  .metrics span {
+    white-space: nowrap;
+  }
+
   .metrics strong {
-    font-size: 78rem;
+    font-size: 78.24rem;
     font-weight: 500;
-    line-height: 1;
+    line-height: 0.9;
   }
 
   .metrics span {
-    margin-top: 16rem;
-    font-size: 34rem;
-    line-height: 1.25;
+    margin-top: 16.5rem;
+    font-size: 34.77rem;
+    line-height: 1.2;
   }
 }

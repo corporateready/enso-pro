@@ -64,6 +64,8 @@ export type HeroCarouselSlide = {
   objectPosition?: CSSProperties["objectPosition"];
   eyebrow?: string;
   title?: string;
+  /** Desktop line breaks, when Figma breaks the title differently there. */
+  desktopTitle?: string;
   description?: string;
   primaryAction?: HeroCarouselAction;
   secondaryAction?: HeroCarouselAction;
@@ -281,7 +283,7 @@ function LazyLoadImage({
               )}
               style={slide.styles?.title}
             >
-              {slide.title}
+              {mode === "desktop" ? (slide.desktopTitle ?? slide.title) : slide.title}
             </h2>
           )}
           {slide.description && (
@@ -361,6 +363,24 @@ function LazyLoadImage({
                       strokeLinejoin="round"
                     />
                   </svg>
+                  {slide.secondaryAction.icon === "chevron-down" && (
+                    // Figma's desktop chevron is flatter (20x9) than the
+                    // rotated mobile one, so it gets its own drawing.
+                    <svg
+                      className={styles.actionIconDownDesktop}
+                      viewBox="0 0 22 11"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M1 1L11 10L21 1"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
                 </a>
               )}
             </div>

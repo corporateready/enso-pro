@@ -3,9 +3,9 @@
   width: 100%;
   height: 490rem;
   overflow: hidden;
-  color: #0d0d0d;
+  color: #000;
   background: #fff;
-  padding-top: 56rem;
+  padding-top: 57rem;
 }
 
 .inner {
@@ -19,19 +19,18 @@
 }
 
 .title {
-  margin: 0 0 0 2rem;
+  margin: 0;
   font-family: var(--font-inter), sans-serif;
   font-size: 34rem;
   font-weight: 600;
   line-height: 0.9;
-  letter-spacing: -1.2rem;
   white-space: nowrap;
 }
 
 .intro {
   width: 359rem;
   max-width: 100%;
-  margin: 10rem 0 0;
+  margin: 13.4rem 0 0;
   font-family: var(--font-inter), sans-serif;
   font-size: 16rem;
   font-weight: 400;
@@ -46,7 +45,7 @@
   --timeline-line-position: 145rem;
   position: relative;
   height: 290rem;
-  margin-top: 39rem;
+  margin-top: 39.4rem;
 }
 
 .viewport {
@@ -72,6 +71,7 @@
   outline-offset: -2rem;
 }
 
+/* Figma: the first stem and the line both start at x 17 */
 .track {
   position: relative;
   display: flex;
@@ -79,7 +79,7 @@
   min-width: 100%;
   height: 290rem;
   margin: 0;
-  padding: 0 10rem 0 15rem;
+  padding: 0 10rem 0 17rem;
   list-style: none;
 }
 
@@ -87,7 +87,7 @@
   position: absolute;
   top: var(--timeline-line-position);
   right: 0;
-  left: 19rem;
+  left: 17rem;
   height: 1rem;
   background: #727272;
   box-shadow: 2rem 0 13rem #006fff;
@@ -150,7 +150,6 @@
   font-size: 24rem;
   font-weight: 900;
   line-height: 1.2;
-  letter-spacing: -0.5rem;
 }
 
 .milestoneContent p {
@@ -211,18 +210,18 @@
 }
 
 @media screen and (min-width: 641px) {
-  .track::before {
-    box-shadow: 4rem 0 24rem #006fff;
-  }
-
-  /* 990 = 980 + the 10rem the timeline grows by so bottom-row descriptions
-     fit at the per-milestone content width (max 4 lines). */
+  /*
+   * Desktop timeline, laid out from the Figma frame (EN/RO Desktop > SINCE
+   * 1999): every milestone sits at its stem's x, the line runs at y 257.1 of
+   * the timeline, dots are 11.1 across, strokes 1.85. Offsets below are from
+   * the inner column's left edge (x 160) and from the top of the stems.
+   */
   .section {
     width: 100%;
-    height: 990rem;
+    height: 996rem;
     padding-top: 145rem;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
@@ -236,16 +235,12 @@
     font-family: var(--font-inter), sans-serif;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -1.5rem;
+    line-height: 0.9;
   }
 
-  /* 1412x86 in the reference: at 36rem/1.2 the longest line ("...we built
-     ENSO —") measures ~1404rem, and two lines at that line-height are 86rem
-     tall — both match within rounding. */
   .intro {
     width: 1412rem;
-    margin: 20rem 0 0;
+    margin: 20.4rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 36rem;
     line-height: 1.2;
@@ -256,115 +251,114 @@
   }
 
   .timeline {
-    --timeline-line-position: 250rem;
     position: relative;
-    height: 530rem;
-    margin-top: 58rem;
+    height: 517.7rem;
+    margin-top: 74.3rem;
   }
 
+  /* Nothing scrolls on desktop, and clipping would cut the line's glow. */
   .viewport {
     width: 100%;
-    height: 530rem;
-    overflow: hidden;
+    height: 517.7rem;
+    overflow: visible;
   }
 
   .track {
     position: relative;
-    display: flex;
+    display: block;
     width: 100%;
-    height: 530rem;
+    height: 517.7rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  /* Stops at the last milestone's own left edge (245rem * 1.875 = 459.375),
-     not the track's full width — otherwise the line trails past the last
-     dot into the empty column space after it, since that item has no dot
-     beyond it. */
-  /* Explicit width (sum of the first 5 milestones' scaled widths, ending at
-     the last dot's center) instead of `right`, since the milestones overflow
-     the track's own declared 1600rem width — `right` resolves against that
-     declared width and undershoots the actual last-dot position by ~25rem. */
   .track::before {
     position: absolute;
-    top: var(--timeline-line-position);
-    left: 0;
-    width: 1166.25rem;
-    height: 1px;
+    top: calc(257.1rem - 0.925rem);
+    left: 1.6rem;
+    width: 1152.6rem;
+    height: 1.85rem;
     background: #000;
+    box-shadow: 3.7rem 0 23.68rem #006fff;
     content: "";
   }
 
-  /* Desktop reuses the per-milestone --milestone-width/--content-width
-     custom properties set inline per item (see index.tsx), scaled 1.875x
-     (30/16 — the ratio between this section's 30rem type and the 16rem
-     scale those variables were originally sized for) to match the wider
-     desktop type. This reproduces the reference's uneven column spacing
-     instead of a uniform grid. */
   .milestone {
-    position: relative;
-    width: calc(var(--milestone-width) * 1.875) !important;
-    height: 530rem;
-    flex: 0 0 calc(var(--milestone-width) * 1.875) !important;
+    position: absolute;
+    top: 0;
+    width: 0 !important;
+    height: 517.7rem;
+    flex: none !important;
   }
+
+  .milestone:nth-child(1) { left: 1.5rem; }
+  .milestone:nth-child(2) { left: 184.7rem; }
+  .milestone:nth-child(3) { left: 408.6rem; }
+  .milestone:nth-child(4) { left: 638rem; }
+  .milestone:nth-child(5) { left: 906.2rem; }
+  .milestone:nth-child(6) { left: 1152.3rem; }
 
   .stem {
     position: absolute;
-    left: 0;
-    width: 1px;
+    left: -0.925rem;
+    width: 1.85rem;
     background: #000;
   }
 
   .milestoneTop .stem {
-    top: 20rem;
-    height: 230rem;
+    top: 0;
+    height: 257.1rem;
   }
 
-  /* 260 = content height (190rem, all three bottom milestones wrap to the
-     same 4-line height) plus the gap between the line and content top
-     (320 - 250 = 70), so the stem runs unbroken to the text's last line. */
   .milestoneBottom .stem {
-    top: 250rem;
-    height: 260rem;
+    top: 257.1rem;
+    height: 249.8rem;
   }
 
   .dot {
     position: absolute;
     z-index: 1;
-    top: 246rem;
-    left: -4rem;
-    width: 8rem;
-    height: 8rem;
+    top: calc(257.1rem - 5.55rem);
+    left: -5.55rem;
+    width: 11.1rem;
+    height: 11.1rem;
     border-radius: 50%;
     background: #000;
   }
 
   .milestoneContent {
     position: absolute;
-    left: 16rem;
-    width: calc(var(--content-width) * 1.875) !important;
+    left: 18.6rem;
     font-family: var(--font-inter), sans-serif;
   }
 
+  /* text widths straight from Figma, so every description wraps where it does there */
+  .milestone:nth-child(1) .milestoneContent { width: 262rem !important; }
+  .milestone:nth-child(2) .milestoneContent { width: 344.1rem !important; }
+  .milestone:nth-child(3) .milestoneContent { width: 371.9rem !important; }
+  .milestone:nth-child(4) .milestoneContent { width: 373.7rem !important; }
+  .milestone:nth-child(5) .milestoneContent { width: 444rem !important; }
+  .milestone:nth-child(6) .milestoneContent { width: 429.2rem !important; }
+
   .milestoneTop .milestoneContent {
-    top: 16rem;
+    top: 0;
   }
 
   .milestoneBottom .milestoneContent {
-    top: 320rem;
+    top: 331.1rem;
   }
 
   .milestoneContent h3 {
     margin: 0;
-    font-size: 30rem;
+    font-size: 29.6rem;
     font-weight: 900;
     line-height: 1.2;
   }
 
   .milestoneContent p {
-    margin: 10rem 0 0;
-    font-size: 30rem;
+    margin: 7rem 0 0;
+    font-size: 29.6rem;
     font-weight: 400;
     line-height: 1.2;
   }

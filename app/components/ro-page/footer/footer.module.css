@@ -1,4 +1,9 @@
 @media screen and (max-width: 640px) {
+  .brandDesktop,
+  .backToTopIconDesktop {
+    display: none;
+  }
+
   .footer {
   width: 100%;
   background: #717171;
@@ -58,6 +63,9 @@
 .column a:hover,
 .legalLinks a:hover {
   text-decoration: underline;
+  /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
+  text-decoration-thickness: 0.047em;
+  text-underline-offset: 0.21em;
 }
 
 .socials {
@@ -114,13 +122,13 @@
 
 .copyright {
   position: absolute;
-  top: 321rem;
+  top: 319rem;
   left: 52rem;
   margin: 0;
-  color: #fff;
+  color: rgb(255 255 255 / 60%);
   font-size: 10rem;
   font-weight: 400;
-  line-height: 13rem;
+  line-height: 12.3rem;
 }
 
 .copyDesktop {
@@ -129,18 +137,21 @@
 
 .legalLinks {
   position: absolute;
-  top: 341rem;
+  top: 337rem;
   left: 52rem;
   display: flex;
-  gap: 36rem;
+  gap: 20rem;
 }
 
 .legalLinks a {
-  color: #fff;
+  color: rgb(255 255 255 / 60%);
   font-size: 10rem;
   font-weight: 400;
     line-height: 13rem;
     text-decoration: underline;
+    /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
+    text-decoration-thickness: 0.047em;
+    text-underline-offset: 0.21em;
 }
 
 .backToTop {
@@ -186,6 +197,7 @@
 }
 
 @media screen and (min-width: 641px) {
+  /* Figma "Футтер": 1920x1045 on #717171. */
   .footer {
     width: 100%;
     background: #717171;
@@ -202,159 +214,259 @@
 
   .column {
     position: absolute;
-    top: 200rem;
-    padding-left: 24rem;
-    border-left: 1rem solid #fff;
+    top: 106rem;
+  }
+
+  /* Figma draws each column rule as its own 1px line, not as a border:
+     it neither starts nor ends with the text. */
+  .column::before {
+    position: absolute;
+    left: 0;
+    width: 1rem;
+    background: #fff;
+    content: "";
   }
 
   .menu {
     left: 160rem;
+    padding-left: 30rem;
+  }
+
+  .menu::before {
+    top: 0;
+    height: 707rem;
   }
 
   .projects {
-    left: 707rem;
+    left: 706rem;
+    padding-left: 30rem;
+  }
+
+  .projects::before {
+    top: 2rem;
+    height: 280rem;
   }
 
   .columnTitle {
     margin: 0;
     color: #d9d9d9;
     font-size: 36rem;
-    line-height: 1;
+    font-weight: 400;
+    line-height: 32.4rem;
   }
 
   .column ul {
     display: grid;
-    gap: 33rem;
-    margin: 67rem 0 0;
+    gap: 39.6rem;
+    margin: 69.6rem 0 0;
     padding: 0;
     color: #fff;
     list-style: none;
+  }
+
+  .projects ul {
+    gap: 39.6rem;
+    margin-top: 69.6rem;
   }
 
   .column a {
     display: block;
     color: #fff;
     font-size: 36rem;
-    line-height: 1;
+    font-weight: 400;
+    line-height: 32.4rem;
     text-decoration: none;
     white-space: nowrap;
   }
 
-  .menu ul {
-    gap: 28rem;
-    margin-top: 62rem;
-  }
-
-  .socials {
-    position: absolute;
-    top: 670rem;
-    left: 720rem;
-    display: grid;
-    grid-template-columns: repeat(4, 48rem);
-    grid-template-rows: repeat(2, 48rem);
-    gap: 30rem;
-  }
-
+  /* Circles are 60 in Figma with a centred 2px stroke: 62 outside. */
   .socialLink {
-    display: grid;
-    width: 60rem;
-    height: 60rem;
-    place-items: center;
-    border: 1rem solid #fff;
+    position: absolute;
+    display: block;
+    width: 62rem;
+    height: 62rem;
+    border: 2rem solid #fff;
     border-radius: 50%;
     text-decoration: none;
   }
 
-  /* The six glyphs have different intrinsic sizes (14x16, 10x19, 20x14 ...),
-     so a shared width/height would distort them. Scaling by the same factor
-     as the circle (48/32) keeps each one proportional to its mobile ratio. */
-  .socialIcon {
-    transform: scale(1.5);
-  }
-
-  /* Without these the icons auto-flow 4+2; mobile places them 2+4. */
   .tiktok {
-    grid-area: 1 / 1;
+    top: 687rem;
+    left: 713rem;
   }
 
   .x {
-    grid-area: 1 / 2;
+    top: 687rem;
+    left: 803rem;
   }
 
   .instagram {
-    grid-area: 2 / 1;
+    top: 765rem;
+    left: 713rem;
   }
 
   .facebook {
-    grid-area: 2 / 2;
+    top: 765rem;
+    left: 799.3rem;
   }
 
   .youtube {
-    grid-area: 2 / 3;
+    top: 765rem;
+    left: 885.7rem;
   }
 
   .linkedin {
-    grid-area: 2 / 4;
+    top: 765rem;
+    left: 972rem;
+  }
+
+  /* Glyph boxes as placed in Figma (the component sets the mobile size
+     inline, hence !important). */
+  .socialIcon {
+    position: absolute;
+  }
+
+  .tiktok .socialIcon {
+    top: 13rem;
+    left: 15rem;
+    width: 27.3rem !important;
+    height: 32rem !important;
+  }
+
+  .x .socialIcon {
+    top: 15rem;
+    left: 15rem;
+    width: 30rem !important;
+    height: 28rem !important;
+  }
+
+  .instagram .socialIcon {
+    top: 15.3rem;
+    left: 15.3rem;
+    width: 29.5rem !important;
+    height: 29.5rem !important;
+  }
+
+  .facebook .socialIcon {
+    top: 11.7rem;
+    left: 18.9rem;
+    width: 19.9rem !important;
+    height: 36.2rem !important;
+  }
+
+  .youtube .socialIcon {
+    top: 15.3rem;
+    left: 9.9rem;
+    width: 39.2rem !important;
+    height: 27.5rem !important;
+  }
+
+  .linkedin .socialIcon {
+    top: 11.6rem;
+    left: 13.4rem;
+    width: 31.3rem !important;
+    height: 31.1rem !important;
   }
 
   .brand {
-    position: absolute;
-    top: 110rem;
-    right: 160rem;
-    left: auto;
-    width: 206rem;
-    height: 270rem;
+    display: none;
   }
 
-  .copyright {
+  .brandDesktop {
     position: absolute;
-    top: 890rem;
+    top: 108rem;
+    left: 1554rem;
+    display: block;
+    width: 207rem;
+    height: 269rem;
+  }
+
+  /* One line in Figma: copyright | Privacy policy | Terms & conditions. */
+  .legal {
+    position: absolute;
+    top: 893rem;
     left: 160rem;
+    display: flex;
+    color: #fff;
+    font-size: 32rem;
+    font-weight: 400;
+    line-height: 28.8rem;
+    white-space: pre;
+  }
+
+  .copyright,
+  .legalLinks {
+    position: static;
+    display: flex;
     margin: 0;
     color: #fff;
     font-size: 32rem;
-    line-height: 20rem;
+    font-weight: 400;
+    line-height: 28.8rem;
   }
 
   .copyMobile {
     display: none;
   }
 
-  /* Figma's desktop footer lists the privacy policy before the terms;
-     its mobile footer has them the other way round, which the markup keeps. */
-  .legalLinks a:first-child {
-    order: 2;
-  }
-
-  .legalLinks {
-    position: absolute;
-    top: 880rem;
-    left: 960rem;
-    display: flex;
-    gap: 48rem;
-  }
-
   .legalLinks a {
     color: #fff;
     font-size: 32rem;
-    line-height: 36rem;
+    font-weight: 400;
+    line-height: 28.8rem;
     text-decoration: underline;
+    /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
+    text-decoration-thickness: 0.047em;
+    text-underline-offset: 0.21em;
+  }
+
+  /* Figma's desktop footer lists the privacy policy before the terms;
+     its mobile footer has them the other way round, which the markup keeps. */
+  .legalLinks a[href="#privacy"] {
+    order: 1;
+  }
+
+  .legalLinks a[href="#terms"] {
+    order: 2;
+  }
+
+  /* Separators exactly as typed in Figma (3+3 and 2+2 spaces), kept out of
+     the underline by the inline-block. */
+  .legalLinks a::before {
+    display: inline-block;
+    white-space: pre;
+  }
+
+  .legalLinks a[href="#privacy"]::before {
+    content: "   |   ";
+  }
+
+  .legalLinks a[href="#terms"]::before {
+    content: "  |  ";
   }
 
   .backToTop {
     position: absolute;
-    top: 818rem;
-    right: 160rem;
-    display: grid;
+    top: 826rem;
+    right: auto;
+    left: 1659rem;
+    display: block;
     width: 100rem;
     height: 100rem;
-    place-items: center;
-    border: 1rem solid #fff;
+    border: 2rem solid #fff;
     border-radius: 50%;
   }
 
   .backToTopIcon {
-    width: 26rem;
-    height: 52rem;
+    display: none;
+  }
+
+  .backToTopIconDesktop {
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    display: block;
+    width: 100rem;
+    height: 100rem;
   }
 }

@@ -57,7 +57,7 @@ export default function Why() {
             <li>
               <strong>500k+</strong>
               <span>
-                m<sup>2</sup> livrați
+                m² livrați
                 <br />
                 cu succes
               </span>

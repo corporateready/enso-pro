@@ -16,16 +16,19 @@
   .title {
     margin: 0;
     font-family: var(--font-inter), sans-serif;
-    font-size: 36rem;
+    font-size: 34rem;
     font-weight: 600;
-    line-height: 43rem;
-    letter-spacing: -1.3rem;
+    line-height: 30.6rem;
     white-space: nowrap;
+  }
+
+  .desktopBreak {
+    display: none;
   }
 
   .subtitle {
     width: 350rem;
-    margin: 9rem 0 0;
+    margin: 20.4rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 16rem;
     font-weight: 400;
@@ -161,12 +164,17 @@
 }
 
 @media screen and (min-width: 641px) {
+  /*
+   * From the Figma frame (Desktop > OUR partners): title 160 down, intro 117
+   * below it, cards 464.3x277.9 every 505.9 with Figma's blue glow; every logo
+   * keeps its own size and spot in the card, as Figma draws it.
+   */
   .section {
     width: 100%;
-    height: 800rem;
-    padding-top: 170rem;
+    height: 782rem;
+    padding-top: 160rem;
     overflow: hidden;
-    color: #111;
+    color: #000;
     background: #fff;
   }
 
@@ -180,26 +188,28 @@
     font-family: var(--font-inter), sans-serif;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -1.6rem;
+    line-height: 1.2;
   }
 
+  /* RO box is 806 wide in Figma; the two spans are its two lines. */
   .subtitle {
-    margin: 42rem 0 0;
+    width: 806rem;
+    margin: 40.2rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 36rem;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   .subtitleLine {
     display: block;
+    white-space: nowrap;
   }
 
   .viewport {
     width: 100%;
-    height: 390rem;
-    margin-top: 34rem;
-    padding: 40rem 0;
+    height: 414rem;
+    margin-top: 4.6rem;
+    padding: 68.2rem 0;
     overflow: hidden;
   }
 
@@ -211,47 +221,88 @@
 
   .group {
     display: flex;
-    gap: 28rem;
-    padding-right: 28rem;
+    gap: 41.6rem;
+    padding-right: 41.6rem;
   }
 
   .card {
-    width: 430rem;
-    height: 270rem;
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 430rem;
-    justify-content:space-between;
-    padding: 32rem;
+    position: relative;
+    width: 464.3rem;
+    height: 277.9rem;
+    flex: 0 0 464.3rem;
+    padding: 0;
     background: #fff;
-    box-shadow: 0 20px 66px #36629B;
+    box-shadow: 0 16.64rem 66.56rem #36629b;
   }
 
   .logoVisual {
-    position: relative;
-    width: 366rem;
-    height: 105rem;
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
   }
 
   .sourceImage {
     position: absolute;
-    top: 50% !important;
-    left: 50% !important;
-    width: auto !important;
-    max-width: 300rem;
-    height: 52rem !important;
+    max-width: none;
     object-fit: contain;
-    transform: translate(-50%, -50%);
+    transform: none;
   }
 
+  .archimatikaImage {
+    top: 61.6rem !important;
+    left: 76.5rem !important;
+    width: 322.8rem !important;
+    height: 44.9rem !important;
+  }
+  .inamstroImage {
+    top: 68.2rem !important;
+    left: 99.7rem !important;
+    width: 277rem !important;
+    height: 46.6rem !important;
+  }
+  .aclaImage {
+    top: 63.2rem !important;
+    left: 153.8rem !important;
+    width: 156.4rem !important;
+    height: 53.3rem !important;
+  }
+  .arutinImage {
+    top: 79.9rem !important;
+    left: 80.3rem !important;
+    width: 304.1rem !important;
+    height: 28.3rem !important;
+  }
+  .estateImage {
+    top: 48.3rem !important;
+    left: 127.3rem !important;
+    width: 207.6rem !important;
+    height: 76.5rem !important;
+  }
+
+  /* Figma bottom-aligns the 2- and 3-line texts 34.1 above the card edge. */
   .card p {
-    /* margin: 25rem 0 0; */
-    color: #000;
+    position: absolute;
+    bottom: 34.1rem;
+    left: 33.3rem;
+    width: 409rem;
+    margin: 0;
+    color: rgb(0 0 0 / 70%);
     font-family: var(--font-inter), sans-serif;
-    font-size: 23rem;
+    font-size: 23.3rem;
     font-weight: 400;
-    line-height: 1.25;
+    line-height: 28rem;
     white-space: pre-line;
+  }
+
+  /* the two-line description sits on the same baseline as the others */
+  /* RO Figma sets these two a little lower */
+  .card:has(.arutinImage) p {
+    bottom: 32.1rem;
+  }
+
+  .card:has(.estateImage) p {
+    bottom: 30.1rem;
   }
 
   .visuallyHidden {

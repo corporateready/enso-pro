@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type KeyboardEvent } from "react";
+import { Fragment, useState, type KeyboardEvent } from "react";
 
 import styles from "./design.module.css";
 
@@ -19,21 +19,21 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
     {
       number: "01",
       badge: "~5% → near zero",
-      title: "Millions saved before we build",
+      title: "Millions saved before\nwe build",
       description:
-        "The ~5% normally reserved for on-site surprises drops to near zero — millions saved at our scale.",
+        "The ~5% normally reserved for\non-site surprises drops to near\nzero — millions saved\nat our scale",
     },
     {
       number: "02",
       badge: "Modelled upfront",
-      title: "Feasibility checked before you commit",
+      title: "Feasibility checked before\nyou commit",
       description:
-        "Costs and returns are modelled before construction — check the numbers before you commit.",
+        "Costs and returns are modelled before construction —\ncheck the numbers before\nyou commit.",
     },
     {
       number: "03",
       badge: "Lifetime asset",
-      title: "Lower operating costs for life",
+      title: "Lower operating\ncosts for life",
       description:
         "The model stays live after handover, cutting maintenance and operating costs for years.",
     },
@@ -42,26 +42,44 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
     {
       number: "04",
       badge: "Built right, once",
-      title: "Errors caught before construction",
+      title: "Errors caught before\nconstruction",
       description:
         "All systems coordinated in one model — no clashes in your home.",
     },
     {
       number: "05",
       badge: "See it first",
-      title: "Faster project delivery",
+      title: "Faster project\ndelivery",
       description:
         "No rework, no stoppages — your home is ready sooner.",
     },
     {
       number: "06",
       badge: "Lower bills",
-      title: "Plan your space to the centimetre",
+      title: "Plan your space\nto the centimetre",
       description:
         "Exact dimensions from day one — plan furniture and finishes with no guesswork.",
     },
   ],
 };
+
+/*
+ * "\n" in a title or description marks a line break that Figma's desktop
+ * card has; the mobile cards wrap freely, so the break is desktop-only.
+ */
+function desktopLines(text: string) {
+  return text.split("\n").map((line, index) => (
+    <Fragment key={index}>
+      {index > 0 && (
+        <>
+          {" "}
+          <br className={styles.desktopBreak} />
+        </>
+      )}
+      {line}
+    </Fragment>
+  ));
+}
 
 const tabs: readonly { id: DesignTab; label: string }[] = [
   { id: "investors", label: "For investors" },
@@ -174,10 +192,21 @@ export default function Design() {
               <article className={styles.card} key={benefit.number}>
                 <div className={styles.cardMeta}>
                   <span className={styles.cardNumber}>{benefit.number}</span>
-                  <span className={styles.badge}>{benefit.badge}</span>
+                  <span className={styles.badge}>
+                    {/* one inline run: as separate flex items the spaces
+                        around the arrow would be trimmed */}
+                    <span>
+                      {benefit.badge.split("→").map((part, index) => (
+                        <Fragment key={index}>
+                          {index > 0 && <span className="inter-arrow">→</span>}
+                          {part}
+                        </Fragment>
+                      ))}
+                    </span>
+                  </span>
                 </div>
-                <h3>{benefit.title}</h3>
-                <p>{benefit.description}</p>
+                <h3>{desktopLines(benefit.title)}</h3>
+                <p>{desktopLines(benefit.description)}</p>
               </article>
             ))}
           </div>

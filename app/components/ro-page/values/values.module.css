@@ -63,7 +63,7 @@
 
   .description {
     position: absolute;
-    top: 386rem;
+    top: 379rem;
     left: 19rem;
     width: 361rem;
     margin: 0;
@@ -100,10 +100,10 @@
     object-fit: cover;
   }
 
+  /* The desktop photo is exported with Figma's 50% black already on it;
+     another shade on top made the section darker than the design. */
   .shade {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgb(0 0 0 / 34%), rgb(0 0 0 / 8%) 58%, rgb(0 0 0 / 38%));
+    display: none;
   }
 
   .content {
@@ -116,23 +116,22 @@
 
   .title {
     position: absolute;
-    top: 150rem;
+    top: 160rem;
     left: 160rem;
     margin: 0;
     font-size: 64rem;
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -1.5rem;
+    line-height: 1.2;
   }
 
   .description {
     position: absolute;
+    top: 522rem;
     right: 160rem;
-    bottom: 135rem;
-    width: 650rem;
+    width: 616rem;
     margin: 0;
-    font-size: 41rem;
-    line-height: 1.3;
+    font-size: 40.95rem;
+    line-height: 53.2rem;
     text-align: right;
   }
 }

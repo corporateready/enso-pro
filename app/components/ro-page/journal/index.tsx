@@ -32,8 +32,9 @@ const articles: readonly JournalArticle[] = [
     id: "bim-standard",
     category: "inside-enso",
     badge: "Din interior",
+    // Line breaks as set in Figma; the desktop card keeps them (pre-line).
     title:
-      "BIM is the international standard applied in every ENSŌ Development project",
+      "BIM is the international\nstandard applied in every\nENSŌ Development project",
     desktopSrc: "/journal-post-image.avif",
     desktopWidth: 3200,
     desktopHeight: 2520,
@@ -57,7 +58,7 @@ const articles: readonly JournalArticle[] = [
     id: "moldova-growth-leader",
     category: "market",
     badge: "Piață",
-    title: "Moldova — #1 in Europe Real Estate Growth Leader 2025",
+    title: "Moldova — #1 in Europe\nReal Estate Growth\nLeader 2025",
     desktopSrc: "/journal-post-market.avif",
     desktopWidth: 1541,
     desktopHeight: 878,
@@ -98,7 +99,7 @@ function ArticleVisual({ article }: { article: JournalArticle }) {
         <h3>{article.title}</h3>
         {article.isFeature && (
           <a className={styles.readArticle} href={`#journal-${article.id}`}>
-            Citește articolul →
+            Citește articolul <span className="inter-arrow">→</span>
           </a>
         )}
       </div>
@@ -127,7 +128,15 @@ export default function Journal() {
           <h2 id="journal-title" className={styles.title}>
             ENSO JOURNAL
           </h2>
-          <p className={styles.subtitle}>Note despre construcții și felul în care gândim</p>
+          <p className={styles.subtitle}>
+            {/* Figma words the RO subtitle differently on mobile */}
+            <span className={styles.subtitleDesktop}>
+              Note despre construcții și felul în care gândim
+            </span>
+            <span className={styles.subtitleMobile}>
+              Despre cum construim și cum gândim
+            </span>
+          </p>
         </header>
 
         <div className={styles.filters} aria-label="Filter journal articles">
@@ -160,7 +169,7 @@ export default function Journal() {
           </div>
 
           <a className={styles.viewAllButton} href="#journal">
-            Vezi toate articolele →
+            Vezi toate articolele <span className="inter-arrow">→</span>
           </a>
         </div>
       </div>

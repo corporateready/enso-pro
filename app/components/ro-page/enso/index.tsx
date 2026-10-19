@@ -84,7 +84,7 @@ export default function Enso() {
       <div className={styles.inner}>
         <Image
           className={`${styles.background} ${styles.mobileImage}`}
-          src="/enso-mobile-bg.webp"
+          src="/enso-mobile-bg-ro.webp"
           width={1576}
           height={2591}
           sizes="(max-width: 639px) 100vw, 394px"

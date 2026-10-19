@@ -16,7 +16,7 @@
   width: min(430rem, 100%);
   min-height: 574rem;
   padding: 30rem 16rem 52rem;
-  color: #111;
+  color: #000;
   background: #fff;
   font-family: var(--font-inter), sans-serif;
   animation: book-call-dialog-in 220ms ease-out;
@@ -30,7 +30,7 @@
   height: 28rem;
   padding: 0;
   border: 0;
-  color: #111;
+  color: #000;
   background: transparent;
   cursor: pointer;
 }
@@ -58,7 +58,6 @@
   font-size: 27rem;
   font-weight: 600;
   line-height: 33rem;
-  letter-spacing: -0.65rem;
 }
 
 .subtitle {
@@ -90,7 +89,7 @@
   padding: 0 60rem;
   border: 0;
   border-radius: 0;
-  color: #111;
+  color: #000;
   background: #f4f2f2;
   font-family: inherit;
   font-size: 16rem;
@@ -119,6 +118,13 @@
   line-height: 1;
 }
 
+/* Figma: a 16x16 flag centred in the 40x40 box */
+.countryFlag img {
+  display: block;
+  width: 16rem;
+  height: 16rem;
+}
+
 .phoneInput {
   min-width: 0;
   height: 40rem;
@@ -126,7 +132,7 @@
   padding: 0 20rem;
   border: 0;
   border-radius: 0;
-  color: #111;
+  color: #000;
   background: transparent;
   font-family: inherit;
   font-size: 16rem;
@@ -218,7 +224,7 @@
 
 .dateInput:focus,
 .dateInputFilled {
-  color: #111;
+  color: #000;
 }
 
 .dateInput::-webkit-calendar-picker-indicator {
@@ -240,7 +246,7 @@
   padding: 0 16rem;
   border: 1rem solid #111;
   border-radius: 999rem;
-  color: #111;
+  color: #000;
   background: #fff;
   font-family: inherit;
   font-size: 16rem;

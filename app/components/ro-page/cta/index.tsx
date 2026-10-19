@@ -50,8 +50,9 @@ export default function CTA() {
             Începe cu o discuție
           </h2>
           <p className={styles.description}>
-            Programează un apel de 5 minute cu un consultant ENSO — online sau
-            la unul dintre birourile noastre.
+            Programează un apel de 5 minute cu un consultant ENSO —
+            <br className={styles.desktopBreak} /> online sau la unul dintre
+            birourile noastre.
           </p>
         </div>
 

@@ -83,15 +83,26 @@ export default function Footer() {
           height={30}
           alt="ENSO Development"
         />
+        {/* The desktop logo is exported from Figma as drawn there (206x268);
+            its proportions differ from the small mobile mark. */}
+        <Image
+          className={styles.brandDesktop}
+          src="/enso-footer-desktop.svg"
+          width={207}
+          height={269}
+          alt="ENSO Development"
+        />
 
-        <p className={styles.copyright}>
-          <span className={styles.copyDesktop}>© 2026 Toate drepturile rezervate</span>
-          <span className={styles.copyMobile}>© 2026 Toate drepturile rezervate.</span>
-        </p>
+        <div className={styles.legal}>
+          <p className={styles.copyright}>
+            <span className={styles.copyDesktop}>© 2026 Toate drepturile rezervate</span>
+            <span className={styles.copyMobile}>© 2026 Toate drepturile rezervate.</span>
+          </p>
 
-        <div className={styles.legalLinks}>
-          <a href="#terms">Termeni și condiții</a>
-          <a href="#privacy">Politica de confidențialitate</a>
+          <div className={styles.legalLinks}>
+            <a href="#terms">Termeni și condiții</a>
+            <a href="#privacy">Politica de confidențialitate</a>
+          </div>
         </div>
 
         <a className={styles.backToTop} href="#top" aria-label="Back to top">
@@ -100,6 +111,14 @@ export default function Footer() {
             src="/to-top-arrow.svg"
             width={9}
             height={17}
+            alt=""
+            aria-hidden="true"
+          />
+          <Image
+            className={styles.backToTopIconDesktop}
+            src="/to-top-arrow-desktop.svg"
+            width={100}
+            height={100}
             alt=""
             aria-hidden="true"
           />
