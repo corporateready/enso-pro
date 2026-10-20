@@ -40,7 +40,7 @@ const Index = () => {
         href: "#request-offer",
         onClick: () => setIsOfferModalOpen(true),
       },
-      secondaryAction: { label: "Learn more", href: "#learn-more" },
+      secondaryAction: { label: "Learn more", href: "#projects" },
       styles: {
         content: {
           right: "21rem",
@@ -110,7 +110,7 @@ const Index = () => {
         href: "#request-offer",
         onClick: () => setIsOfferModalOpen(true),
       },
-      secondaryAction: { label: "Learn more", href: "#learn-more" },
+      secondaryAction: { label: "Learn more", href: "#projects" },
       styles: {
         content: {
           // Figma's title box is 356 wide and "A HIGHER STANDARD" fills it;
@@ -181,7 +181,7 @@ const Index = () => {
       description: "Directly from the developer",
       primaryAction: {
         label: "Build my payment plan",
-        href: "#payment-plan",
+        href: "#payment-method",
       },
       secondaryAction: {
         label: "View the projects",

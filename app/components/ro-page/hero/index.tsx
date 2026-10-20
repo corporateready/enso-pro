@@ -41,7 +41,7 @@ const Index = () => {
       },
       secondaryAction: {
         label: "Află mai mult",
-        href: "#learn-more",
+        href: "#projects",
       },
       styles: {
         content: {
@@ -114,7 +114,7 @@ const Index = () => {
       },
       secondaryAction: {
         label: "Află mai mult",
-        href: "#learn-more",
+        href: "#projects",
       },
       styles: {
         content: {
@@ -184,7 +184,7 @@ const Index = () => {
       description: "Direct de la dezvoltator",
       primaryAction: {
         label: "Calculează-mi ratele",
-        href: "#payment-plan",
+        href: "#payment-method",
       },
       secondaryAction: {
         label: "Vezi proiectele",
