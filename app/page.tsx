@@ -1,3 +1,5 @@
+import Projects from "./components/projects";
+import Testimonials from "./components/testimonials";
 import CTA from "./components/ro-page/cta";
 import Design from "./components/ro-page/design";
 import Enso from "./components/ro-page/enso";
@@ -6,10 +8,8 @@ import Hero from "./components/ro-page/hero";
 import Journal from "./components/ro-page/journal";
 import Partners from "./components/ro-page/partners";
 import Payway from "./components/ro-page/payway";
-import Projects from "./components/ro-page/projects";
 import Since from "./components/ro-page/since";
 import Team from "./components/ro-page/team";
-import Testimonials from "./components/ro-page/testimonials";
 import Values from "./components/ro-page/values";
 import Why from "./components/ro-page/why";
 
@@ -18,7 +18,7 @@ export default function RomanianHome() {
     <div id="top" className="flex flex-col items-center w-full min-h-full">
       <main className="flex flex-col min-h-full w-full">
         <Hero />
-        <Projects />
+        <Projects locale="ro" />
         <Since />
         <Payway />
         <Why />
@@ -27,7 +27,7 @@ export default function RomanianHome() {
         <Team />
         <Enso />
         <Partners />
-        <Testimonials />
+        <Testimonials locale="ro" />
         <Journal />
         <CTA />
       </main>

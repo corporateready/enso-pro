@@ -28,6 +28,26 @@ export default function AccountModal({
     ? Boolean(fullName.trim() && identifier.trim())
     : Boolean(identifier.trim());
   const identifierRef = useRef<HTMLInputElement>(null);
+  const [hasOpened, setHasOpened] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  // Closing plays the opening back (account-modal.module.css): the overlay's
+  // fade ends last and takes the dialog away. Without motion it just goes,
+  // and so it does should no animation end.
+  const close = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      onClose();
+    } else {
+      setIsClosing(true);
+    }
+  };
+
+  useEffect(() => {
+    if (!isClosing) return;
+
+    const fallback = window.setTimeout(onClose, 600);
+    return () => window.clearTimeout(fallback);
+  }, [isClosing, onClose]);
 
   useEffect(() => {
     const unlockPageScroll = lockPageScroll();
@@ -46,9 +66,17 @@ export default function AccountModal({
   };
 
   return createPortal(
-    <div className={styles.overlay}>
+    <div
+      className={`${styles.overlay} ${isClosing ? styles.closing : ""}`}
+      onAnimationEnd={(event) => {
+        if (isClosing && event.target === event.currentTarget) onClose();
+      }}
+    >
       <section
-        className={styles.dialog}
+        className={`${styles.dialog} ${hasOpened ? styles.opened : ""}`}
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget) setHasOpened(true);
+        }}
         role="dialog"
         aria-modal="true"
         aria-labelledby="personal-account-title"
@@ -95,7 +123,7 @@ export default function AccountModal({
             <button
               className={styles.closeButton}
               type="button"
-              onClick={onClose}
+              onClick={close}
               aria-label="Închide autentificarea"
             >
               <span />
@@ -161,7 +189,7 @@ export default function AccountModal({
             )}
 
             <label className={styles.visuallyHidden} htmlFor="account-identifier">
-              {isSignUp ? "E-mail" : "E-mail sau nume de utilizator"}
+              {isSignUp ? "E-mail" : "E-mail sau telefon"}
             </label>
             <input
               ref={identifierRef}
@@ -171,7 +199,7 @@ export default function AccountModal({
               type="text"
               autoComplete="username"
               inputMode="email"
-              placeholder={isSignUp ? "E-mail" : "E-mail sau nume de utilizator"}
+              placeholder={isSignUp ? "E-mail" : "E-mail sau telefon"}
               value={identifier}
               onChange={(event) => setIdentifier(event.target.value)}
             />

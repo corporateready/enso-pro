@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { revealDelay } from "../../motion/reveal";
 import styles from "./journal.module.css";
 
 type JournalCategory = "all" | "buying-guide" | "market" | "inside-enso";
@@ -125,10 +126,10 @@ export default function Journal() {
     >
       <div className={styles.inner}>
         <header className={styles.header}>
-          <h2 id="journal-title" className={styles.title}>
+          <h2 id="journal-title" className={styles.title} data-reveal>
             ENSO JOURNAL
           </h2>
-          <p className={styles.subtitle}>
+          <p className={styles.subtitle} data-reveal style={revealDelay(100)}>
             {/* Figma words the RO subtitle differently on mobile */}
             <span className={styles.subtitleDesktop}>
               Note despre construcții și felul în care gândim
@@ -139,10 +140,10 @@ export default function Journal() {
           </p>
         </header>
 
-        <div className={styles.filters} aria-label="Filter journal articles">
+        <div className={styles.filters} data-reveal style={revealDelay(150)} aria-label="Filter journal articles">
           {categories.map((category) => (
             <button
-              className={`${styles.filterButton} ${
+              className={`${styles.filterButton} motion-button ${
                 activeCategory === category.id ? styles.filterButtonActive : ""
               }`}
               key={category.id}
@@ -156,7 +157,7 @@ export default function Journal() {
           ))}
         </div>
 
-        <div className={styles.contentArea}>
+        <div className={styles.contentArea} data-reveal style={revealDelay(100)}>
           <div
             id="journal-articles"
             className={styles.cards}
@@ -168,7 +169,7 @@ export default function Journal() {
             ))}
           </div>
 
-          <a className={styles.viewAllButton} href="#journal">
+          <a className={`${styles.viewAllButton} motion-button`} href="#journal">
             Vezi toate articolele <span className="inter-arrow">→</span>
           </a>
         </div>

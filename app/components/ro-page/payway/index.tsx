@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { revealDelay } from "../../motion/reveal";
 import styles from "./payway.module.css";
 
 const benefits = [
@@ -104,13 +105,17 @@ export default function Payway() {
       aria-labelledby="payway-title"
     >
       <div className={styles.inner}>
-        <h2 id="payway-title" className={styles.title}>
+        <h2 id="payway-title" className={styles.title} data-reveal>
           PLĂTEȘTI CUM{" "}
           <br />
           ÎȚI CONVINE
         </h2>
 
-        <article className={styles.featuredCard}>
+        <article
+          className={styles.featuredCard}
+          data-reveal
+          style={revealDelay(100)}
+        >
           <h3>Dobândă 0%</h3>
           <p>
             Cost total{" "}
@@ -144,9 +149,14 @@ export default function Payway() {
           />
         </article>
 
-        <div className={styles.benefits}>
-          {benefits.map((benefit) => (
-            <article className={styles.benefitCard} key={benefit.title}>
+        <div className={styles.benefits} data-reveal-group>
+          {benefits.map((benefit, index) => (
+            <article
+              className={styles.benefitCard}
+              key={benefit.title}
+              data-reveal
+              style={revealDelay(index * 100)}
+            >
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>
               <RateVisual
@@ -162,7 +172,11 @@ export default function Payway() {
           ))}
         </div>
 
-        <a className={styles.requestButton} href="#request-offer">
+        <a
+          className={`${styles.requestButton} motion-button`}
+          href="#request-offer"
+          data-reveal
+        >
           Calculează-ți ratele
         </a>
       </div>

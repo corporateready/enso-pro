@@ -16,6 +16,9 @@ const Index = () => {
   >(null);
   const [isSticky, setIsSticky] = useState(false);
   const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+  // Once the page moves the bar turns frosted white with black type, the
+  // client's pick over the hero's see-through, blurred bar.
+  const isWhiteBar = isSticky;
 
   useEffect(() => {
     const updateHeader = () => setIsSticky(window.scrollY > 8);
@@ -27,76 +30,6 @@ const Index = () => {
   }, []);
 
   const slides: HeroCarouselSlide[] = [
-    {
-      id: "carpathian-view",
-      src: "/hero-build-first.webp",
-      desktopSrc: "/hero-slide-first-desktop-bg.avif",
-      alt: "Carpathian View residential project",
-      objectPosition: "center center",
-      eyebrow: "ENSO LIVING",
-      title: "PREMIUM PROJECT\nCARPATHIAN VIEW",
-      primaryAction: {
-        label: "Request offer",
-        href: "#request-offer",
-        onClick: () => setIsOfferModalOpen(true),
-      },
-      secondaryAction: { label: "Learn more", href: "#projects" },
-      styles: {
-        content: {
-          right: "21rem",
-          bottom: "54rem",
-          left: "24rem",
-          maxWidth: "345rem",
-          textAlign: "left",
-        },
-        eyebrow: {
-          margin: "0 0 8.4rem",
-          fontSize: "24rem",
-          lineHeight: "21.6rem",
-          letterSpacing: "0rem",
-        },
-        title: {
-          maxWidth: "345rem",
-          fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "34rem",
-          fontWeight: 600,
-          lineHeight: "41.15rem",
-          letterSpacing: "0rem",
-        },
-        actions: {
-          flexWrap: "nowrap",
-          gap: "10rem",
-          marginTop: "9.7rem",
-          marginLeft: "3rem",
-        },
-        primaryAction: {
-          width: "167rem",
-          minWidth: "167rem",
-          height: "47rem",
-          padding: "0rem",
-          borderRadius: "999rem",
-          fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "16rem",
-          lineHeight: "19rem",
-        },
-        secondaryAction: {
-          width: "165rem",
-          minWidth: "165rem",
-          height: "47rem",
-          gap: "10rem",
-          padding: "0rem",
-          borderRadius: "999rem",
-          fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "16rem",
-          lineHeight: "19rem",
-          backdropFilter: "none",
-        },
-        overlay: {
-          background:
-            "linear-gradient(180deg, rgb(0 0 0 / 0%) 45%, rgb(0 0 0 / 38%) 100%)",
-        },
-      },
-    },
     {
       id: "urban-living",
       src: "/hero-slide-2.webp",
@@ -121,8 +54,10 @@ const Index = () => {
           maxWidth: "360rem",
           textAlign: "left",
         },
+        // eyebrow, title lines and buttons one gap apart: the title's own
+        // line gap, measured to the ink
         eyebrow: {
-          margin: "0 0 11.4rem",
+          margin: "0 0 4.4rem",
           fontSize: "24rem",
           lineHeight: "21.6rem",
           letterSpacing: "0rem",
@@ -138,7 +73,7 @@ const Index = () => {
         actions: {
           flexWrap: "nowrap",
           gap: "10rem",
-          marginTop: "12.7rem",
+          marginTop: "7.7rem",
         },
         primaryAction: {
           position: "relative",
@@ -171,6 +106,78 @@ const Index = () => {
       },
     },
     {
+      id: "carpathian-view",
+      src: "/hero-build-first.webp",
+      desktopSrc: "/hero-slide-first-desktop-bg.avif",
+      alt: "Carpathian View residential project",
+      objectPosition: "center center",
+      eyebrow: "ENSO LIVING",
+      title: "PREMIUM PROJECT\nCARPATHIAN VIEW",
+      primaryAction: {
+        label: "Request offer",
+        href: "#request-offer",
+        onClick: () => setIsOfferModalOpen(true),
+      },
+      secondaryAction: { label: "Learn more", href: "#projects" },
+      styles: {
+        content: {
+          right: "21rem",
+          bottom: "54rem",
+          left: "24rem",
+          maxWidth: "345rem",
+          textAlign: "left",
+        },
+        // eyebrow, title lines and buttons one gap apart: the title's own
+        // line gap, measured to the ink
+        eyebrow: {
+          margin: "0 0 4.4rem",
+          fontSize: "24rem",
+          lineHeight: "21.6rem",
+          letterSpacing: "0rem",
+        },
+        title: {
+          maxWidth: "345rem",
+          fontFamily: "var(--font-inter), sans-serif",
+          fontSize: "34rem",
+          fontWeight: 600,
+          lineHeight: "41.15rem",
+          letterSpacing: "0rem",
+        },
+        actions: {
+          flexWrap: "nowrap",
+          gap: "10rem",
+          marginTop: "7.7rem",
+          marginLeft: "3rem",
+        },
+        primaryAction: {
+          width: "167rem",
+          minWidth: "167rem",
+          height: "47rem",
+          padding: "0rem",
+          borderRadius: "999rem",
+          fontFamily: "var(--font-inter), sans-serif",
+          fontSize: "16rem",
+          lineHeight: "19rem",
+        },
+        secondaryAction: {
+          width: "165rem",
+          minWidth: "165rem",
+          height: "47rem",
+          gap: "10rem",
+          padding: "0rem",
+          borderRadius: "999rem",
+          fontFamily: "var(--font-inter), sans-serif",
+          fontSize: "16rem",
+          lineHeight: "19rem",
+          backdropFilter: "none",
+        },
+        overlay: {
+          background:
+            "linear-gradient(180deg, rgb(0 0 0 / 0%) 45%, rgb(0 0 0 / 38%) 100%)",
+        },
+      },
+    },
+    {
       id: "enso-development",
       src: "/hero-slide-3.webp",
       desktopSrc: "/hero-slide-thiree-desktop-bg.avif",
@@ -193,8 +200,10 @@ const Index = () => {
         primaryAction: "paymentPlanAction",
       },
       styles: {
+        // title, subtitle, button and link one gap apart (16 to the ink, as
+        // on slides 1-2); the block starts lower so the button stays put
         content: {
-          top: "299rem",
+          top: "314.9rem",
           right: "0rem",
           bottom: "auto",
           left: "0rem",
@@ -211,7 +220,7 @@ const Index = () => {
         },
         description: {
           position: "relative",
-          top: "4rem",
+          top: "3rem",
           margin: "0rem",
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "20rem",
@@ -222,8 +231,8 @@ const Index = () => {
           flexDirection: "column",
           flexWrap: "nowrap",
           alignItems: "center",
-          gap: "10.8rem",
-          marginTop: "30rem",
+          gap: "7.4rem",
+          marginTop: "14.1rem",
         },
         primaryAction: {
           position: "relative",
@@ -260,14 +269,14 @@ const Index = () => {
   return (
     <div className={styles.heroShell}>
       <header
-        className={`fixed top-0 left-0 z-[100] flex w-full items-center justify-between pl-[16rem] pr-[45.5rem] transition-[height,padding,background-color,box-shadow,backdrop-filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${styles.header} ${isSticky ? styles.headerActive : ""} ${
-          isSticky
-            ? "h-[64rem] bg-white pt-[21rem] pb-[18rem] shadow-[0_4rem_18rem_rgba(0,0,0,0.08)] backdrop-blur-0"
-            : "h-[64rem] bg-[rgba(0,0,0,0.12)] pt-[21rem] pb-[18rem] shadow-[0_0_0_rgba(0,0,0,0)] backdrop-blur-[1px]"
+        className={`fixed top-0 left-0 z-[100] flex h-[64rem] w-full items-center justify-between pt-[21rem] pb-[18rem] pl-[16rem] pr-[45.5rem] transition-[height,padding,background-color,border-color,box-shadow,backdrop-filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${styles.header} ${isWhiteBar ? styles.headerWhite : ""} ${
+          isWhiteBar
+            ? "bg-[rgba(255,255,255,0.88)] shadow-[0_1px_0_rgba(0,0,0,0.07)] backdrop-blur-[20rem] backdrop-saturate-[1.8]"
+            : "bg-[rgba(0,0,0,0.12)] shadow-[0_0_0_rgba(0,0,0,0)] backdrop-blur-[1px]"
         }`}
       >
         <svg
-          className={`${styles.logo} h-auto w-[75rem] transition-[filter] duration-300 ${isSticky ? "invert" : ""}`}
+          className={`${styles.logo} h-auto w-[75rem] transition-[filter] duration-300 ${isWhiteBar ? "invert" : ""}`}
           viewBox="0 0 75 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -383,7 +392,7 @@ const Index = () => {
             type="button"
             onClick={() => setAccountMode("signin")}
             aria-label="Open personal account"
-            className={`${styles.accountButton} transition-colors duration-300 ${isSticky ? "text-black" : "text-white"}`}
+            className={`${styles.accountButton} transition-colors duration-300 ${isWhiteBar ? "text-black" : "text-white"}`}
           >
             <svg
               className="w-[19rem] h-[21rem]"
@@ -401,13 +410,13 @@ const Index = () => {
           <Link
             href="/"
             aria-label="Switch to Romanian"
-            className={`${styles.languageLink} flex min-h-[32rem] min-w-[32rem] items-center justify-center text-[18rem] font-light uppercase no-underline transition-[color,opacity] duration-300 hover:opacity-70 focus-visible:rounded-[4rem] focus-visible:outline-2 focus-visible:outline-offset-2 ${isSticky ? "text-black focus-visible:outline-black" : "text-white focus-visible:outline-white"}`}
+            className={`${styles.languageLink} flex min-h-[32rem] min-w-[32rem] items-center justify-center text-[18rem] font-light uppercase no-underline transition-[color,opacity] duration-300 hover:opacity-70 focus-visible:rounded-[4rem] focus-visible:outline-2 focus-visible:outline-offset-2 ${isWhiteBar ? "text-black focus-visible:outline-black" : "text-white focus-visible:outline-white"}`}
           >
             <span className={styles.mobileLanguage}>ro</span>
             <span className={styles.desktopLanguage}>RO</span>
           </Link>
           <span className={styles.mobileMenuShell}>
-            <MobileMenu dark={isSticky} onOpenAccount={setAccountMode} />
+            <MobileMenu dark={isWhiteBar} onOpenAccount={setAccountMode} />
           </span>
         </div>
       </header>

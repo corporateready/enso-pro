@@ -1,0 +1,73 @@
+/* At rest (and without the reveals) the whole logo shows. */
+.brush {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
+}
+
+.wordLetter,
+.taglineLetter {
+  transform-box: fill-box;
+}
+
+/* Waiting to come in: no circle painted yet (just past its start, so the
+   round cap does not show a dot), no letters. */
+:global(html[data-motion]) .logo:not([data-revealed]) .brush {
+  stroke-dashoffset: 1.05;
+}
+
+:global(html[data-motion]) .logo:not([data-revealed]) .wordLetter,
+:global(html[data-motion]) .logo:not([data-revealed]) .taglineLetter {
+  opacity: 0;
+}
+
+/* Coming in with enso.ro/living's own timings (its logo component): the
+   circle in 0.8s, easeInOut; ENSŌ from 0.8s, a letter every 0.1s, 0.5s each,
+   and DEVELOPMENT from 1.3s, a letter every 0.1s, 0.3s each, every letter
+   fading in as it rises the last 10px into place, ease-out. --rise is that
+   10px in the logo's own units: 10 for the desktop logo, its share of the
+   small phone mark. */
+:global(html[data-motion]) .logo:is([data-revealed="in"], [data-revealed="from-above"]) .brush {
+  animation: enso-footer-brush 800ms cubic-bezier(0.42, 0, 0.58, 1) both;
+}
+
+:global(html[data-motion]) .logo:is([data-revealed="in"], [data-revealed="from-above"]) .wordLetter {
+  animation: enso-footer-letter 500ms cubic-bezier(0, 0, 0.58, 1)
+    calc(800ms + var(--letter) * 100ms) both;
+}
+
+:global(html[data-motion]) .logo:is([data-revealed="in"], [data-revealed="from-above"]) .taglineLetter {
+  animation: enso-footer-letter 300ms cubic-bezier(0, 0, 0.58, 1)
+    calc(1300ms + var(--letter) * 100ms) both;
+}
+
+/* from 1, not the 1.05 of the waiting state: the round cap's dot shows the
+   start of the brush at once, as enso.ro's pathLength 0 does */
+@keyframes enso-footer-brush {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes enso-footer-letter {
+  from {
+    opacity: 0;
+    translate: 0 var(--rise, 10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) .logo .brush {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  :global(html[data-motion]) .logo .wordLetter,
+  :global(html[data-motion]) .logo .taglineLetter {
+    opacity: 1;
+    animation: none;
+  }
+}

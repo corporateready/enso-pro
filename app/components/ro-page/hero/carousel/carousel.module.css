@@ -16,9 +16,117 @@
   }
 }
 
+/*
+ * The red dot on the slide-3 button beats while that slide is shown, the way
+ * the client's reference recording does it, once every 2s: the dot swells by
+ * an eighth into each beat and settles back after it, and at the beat a wave
+ * of the same red leaves it (::before, under the dot), spreading out to 1.78
+ * times the dot as it fades. Every stop is measured off that recording, frame
+ * by frame. Both start mid-rest, so the first beat comes 0.8s after the slide
+ * does. Figma draws the dot still.
+ */
+@keyframes payment-dot-beat {
+  0% {
+    scale: 1.107;
+  }
+
+  12.5% {
+    scale: 1.125;
+  }
+
+  17.5% {
+    scale: 1.123;
+  }
+
+  27.5% {
+    scale: 1.099;
+  }
+
+  37.5% {
+    scale: 1.046;
+  }
+
+  47.5% {
+    scale: 1.007;
+  }
+
+  52.5%,
+  67.5% {
+    scale: 1;
+  }
+
+  77.5% {
+    scale: 1.019;
+  }
+
+  87.5% {
+    scale: 1.053;
+  }
+
+  97.5% {
+    scale: 1.098;
+  }
+
+  100% {
+    scale: 1.107;
+  }
+}
+
+@keyframes payment-dot-wave {
+  0% {
+    opacity: 0.6;
+    scale: 1.107;
+  }
+
+  10% {
+    opacity: 0.51;
+    scale: 1.275;
+  }
+
+  20% {
+    opacity: 0.38;
+    scale: 1.434;
+  }
+
+  30% {
+    opacity: 0.24;
+    scale: 1.564;
+  }
+
+  40% {
+    opacity: 0.135;
+    scale: 1.67;
+  }
+
+  50% {
+    opacity: 0.058;
+    scale: 1.744;
+  }
+
+  57.5%,
+  100% {
+    opacity: 0;
+    scale: 1.775;
+  }
+}
+
+/* the wave only shows while it beats */
+:global(.paymentPlanAction)::before {
+  opacity: 0;
+}
+
+.slideActive :global(.paymentPlanAction)::after {
+  animation: payment-dot-beat 2s linear -1.2s infinite;
+}
+
+.slideActive :global(.paymentPlanAction)::before {
+  animation: payment-dot-wave 2s linear -1.2s infinite;
+}
+
 @media screen and (max-width: 640px) {
 .actionIconDownDesktop,
-.actionIconDesktop {
+.actionIconDesktop,
+.desktopAnimatedBackground {
   display: none;
 }
 
@@ -59,24 +167,17 @@
 .viewport {
   height: 704rem;
   overflow: hidden;
-  overscroll-behavior-y: none;
 }
 
+/* The slides play on their own: a vertical swipe scrolls the page from the
+   first slide on. */
 .container {
   display: flex;
   flex-direction: column;
   height: 704rem;
-  touch-action: pan-x pinch-zoom;
+  touch-action: pan-y pinch-zoom;
   user-select: none;
   will-change: transform;
-}
-
-.viewportAtEnd {
-  overscroll-behavior-y: auto;
-}
-
-.containerAtEnd {
-  touch-action: pan-y pinch-zoom;
 }
 
 .slide {
@@ -200,6 +301,7 @@
   background: white;
 }
 
+:global(.paymentPlanAction)::before,
 :global(.paymentPlanAction)::after {
   position: absolute;
   top: -7rem;
@@ -229,11 +331,6 @@
      box in place, so pull it 1px in to land on the same pixels */
   margin-right: 1rem;
   transform: rotate(90deg);
-}
-
-.primaryAction:hover,
-.secondaryAction:hover {
-  transform: translateY(-2rem);
 }
 
 .primaryAction:focus-visible,
@@ -438,6 +535,13 @@
     display: none;
   }
 
+  .desktopAnimatedBackground {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #23436a;
+  }
+
   .desktopImage {
     display: block;
     opacity: 1 !important;
@@ -478,7 +582,9 @@
   .content {
     position: absolute !important;
     z-index: 3;
-    top: min(597rem, max(140rem, calc(100svh - 453rem))) !important;
+    /* 30 above Figma's 597: the eyebrow and button gaps below grew to the
+       title's own line gap, and the buttons stay where Figma has them */
+    top: min(567rem, max(140rem, calc(100svh - 483rem))) !important;
     right: auto !important;
     bottom: auto !important;
     left: 160rem !important;
@@ -489,7 +595,8 @@
   }
 
   .eyebrow {
-    margin: 0 0 2.4rem !important;
+    /* the gap under the eyebrow is the title's line gap (45 to the ink) */
+    margin: 0 0 14.4rem !important;
     font-family: "Mignon", serif !important;
     font-size: 64rem !important;
     font-weight: 400 !important;
@@ -519,7 +626,8 @@
     flex-direction: row !important;
     align-items: center !important;
     gap: 40rem !important;
-    margin: 3.7rem 0 0 !important;
+    /* and so is the gap above the buttons */
+    margin: 21.7rem 0 0 !important;
   }
 
   .primaryAction,
@@ -675,7 +783,9 @@
    * centre with its red dot, and the link centred with a 20x9 down chevron.
    */
   .slide:nth-child(3) .content {
-    top: min(413rem, max(120rem, calc(100svh - 637rem))) !important;
+    /* 12.1 below Figma, so the button stays where Figma has it once the gaps
+       below are evened out */
+    top: min(425.1rem, max(132.1rem, calc(100svh - 624.9rem))) !important;
     right: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -692,7 +802,9 @@
 
   .slide:nth-child(3) .description {
     top: auto !important;
-    margin: 0 !important;
+    /* title, subtitle, button and link one gap apart, 45 to the ink, as on
+       slides 1-2 (Figma: 36, 66 and 25) */
+    margin: 9rem 0 0 !important;
     font-size: 62rem !important;
     line-height: 75rem !important;
   }
@@ -700,8 +812,8 @@
   .slide:nth-child(3) .actions {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 20rem !important;
-    margin-top: 50.9rem !important;
+    gap: 40.2rem !important;
+    margin-top: 29.8rem !important;
   }
 
   .slide:nth-child(3) .actions .primaryAction {
@@ -712,6 +824,7 @@
     padding: 0 60rem !important;
   }
 
+  :global(.paymentPlanAction)::before,
   :global(.paymentPlanAction)::after {
     position: absolute;
     top: -10.9rem;
@@ -754,5 +867,42 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .slideActive :global(.paymentPlanAction)::before,
+  .slideActive :global(.paymentPlanAction)::after {
+    animation: none;
+  }
+}
+
+/*
+ * While a photo slide is on screen its picture slowly closes in, and eases
+ * back as the slide moves away. The individual scale property leaves the
+ * picture's own transform alone; the media box clips the overflow.
+ */
+.image {
+  transition:
+    opacity 200ms ease-in-out,
+    scale 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:global(html[data-motion]) .slideActive .image {
+  scale: 1.08;
+  transition:
+    opacity 200ms ease-in-out,
+    scale 8000ms linear;
+}
+
+@media screen and (min-width: 641px) {
+  .lazyLoad {
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  :global(html[data-motion]) .slideActive .image {
+    scale: none;
+    transition: none;
   }
 }

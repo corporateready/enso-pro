@@ -1,9 +1,13 @@
 @media screen and (max-width: 640px) {
+  /* 64 between blocks on phones, the client's call (Figma leaves 56–96): from the block above to the title. Below the cards
+     the section leaves their blue glow 42 to fade out in, rather than cutting
+     it off 22 down in a hard line, and the next title starts 64 below where
+     it has faded (97 below the cards) */
   .section {
     width: 390rem;
-    height: 367rem;
-    flex: 0 0 367rem;
-    padding-top: 60rem;
+    height: 437.7rem;
+    flex: 0 0 437.7rem;
+    padding-top: 61.8rem;
     overflow: hidden;
     background: #fff;
   }
@@ -35,12 +39,16 @@
     line-height: 19rem;
   }
 
+  /* the cards' glow dies out before the strip's edges (29 above them, and
+     the section's 42 below), where it was cut off in a faint line */
   .viewport {
     width: 390rem;
-    height: 246rem;
-    padding: 29rem 0 51rem 16rem;
+    height: 240.2rem;
+    padding: 29rem 0 45.2rem 16rem;
     overflow: hidden;
     background: #fff;
+    -webkit-mask-image: linear-gradient(transparent, #000 14rem, #000 calc(100% - 27rem), transparent calc(100% - 3rem));
+    mask-image: linear-gradient(transparent, #000 14rem, #000 calc(100% - 27rem), transparent calc(100% - 3rem));
   }
 
   .track {

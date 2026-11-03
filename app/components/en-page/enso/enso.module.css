@@ -5,13 +5,15 @@
     display: none;
   }
 
+  /* 64 between blocks on phones, the client's call (Figma leaves 56–96): from the team's last card to the title; the empty
+     top of Figma's frame is lifted out of sight, the rest keeps its place */
   .section {
     position: relative;
     left: -4rem;
     width: 394rem;
-    height: 766rem;
-    flex: 0 0 766rem;
-    margin-top: 10rem;
+    height: 743.8rem;
+    flex: 0 0 743.8rem;
+    margin-top: 0;
     overflow: hidden;
     background: #fff;
   }
@@ -21,6 +23,7 @@
     width: 394rem;
     height: 766rem;
     overflow: hidden;
+    top: -22.2rem;
   }
 
   /* Composited from Figma's layers: the blurred garden (its blur spreads

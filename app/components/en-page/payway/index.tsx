@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { revealDelay } from "../../motion/reveal";
 import styles from "./payway.module.css";
 
 const benefits = [
@@ -113,11 +114,15 @@ export default function Payway() {
       aria-labelledby="payway-title"
     >
       <div className={styles.inner}>
-        <h2 id="payway-title" className={styles.title}>
+        <h2 id="payway-title" className={styles.title} data-reveal>
           PAY YOUR WAY
         </h2>
 
-        <article className={styles.featuredCard}>
+        <article
+          className={styles.featuredCard}
+          data-reveal
+          style={revealDelay(100)}
+        >
           <h3>0% Interest</h3>
           <p>
             Fully transparent{" "}
@@ -150,9 +155,14 @@ export default function Payway() {
           />
         </article>
 
-        <div className={styles.benefits}>
-          {benefits.map((benefit) => (
-            <article className={styles.benefitCard} key={benefit.id}>
+        <div className={styles.benefits} data-reveal-group>
+          {benefits.map((benefit, index) => (
+            <article
+              className={styles.benefitCard}
+              key={benefit.id}
+              data-reveal
+              style={revealDelay(index * 100)}
+            >
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>
               <RateVisual
@@ -168,7 +178,11 @@ export default function Payway() {
           ))}
         </div>
 
-        <a className={styles.requestButton} href="#request-offer">
+        <a
+          className={`${styles.requestButton} motion-button`}
+          href="#request-offer"
+          data-reveal
+        >
           Request a custom schedule
         </a>
       </div>

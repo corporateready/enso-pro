@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { revealDelay } from "../../motion/reveal";
+import RevealLines from "../../motion/reveal-lines";
 import styles from "./values.module.css";
 
 export default function Values() {
@@ -24,28 +26,40 @@ export default function Values() {
             src="/values-desktop-bg.avif"
             width={7680}
             height={4000}
+            // without sizes it went out at 3840 even on a 1920 screen
+            sizes="(min-width: 641px) 100vw, 1px"
+            quality={90}
             alt=""
           />
           <span className={styles.shade} />
         </div>
 
         <div className={styles.content}>
-          <h2 id="values-title" className={styles.title}>
+          <h2 id="values-title" className={styles.title} data-reveal>
             VALORILE NOASTRE
           </h2>
-          <p className={styles.description}>
-            Un proiect, odată finalizat,
-            <br className="hidden sm:inline-block" /> nu mai{" "}
-            <br className="inline-block sm:hidden" />
-            poate fi reconstruit. Gândim totul{" "}
-            <br className="inline-block sm:hidden" />
-            impecabil, de la început
-            <br />
-            —
-            <br />
-            pentru azi, și pentru deceniile
-            <br />
-            care urmează.
+          <p
+            className={styles.description}
+            data-reveal-group
+            style={revealDelay(150)}
+          >
+            <RevealLines
+              pieces={[
+                "Un proiect, odată finalizat,",
+                { br: undefined },
+                "nu mai poate fi reconstruit. ",
+                { br: "inline-block sm:hidden" },
+                "Gândim totul impecabil, ",
+                { br: "inline-block sm:hidden" },
+                "de la început",
+                { br: undefined },
+                "—",
+                { br: undefined },
+                "pentru azi, și pentru deceniile",
+                { br: undefined },
+                "care urmează.",
+              ]}
+            />
           </p>
         </div>
       </div>

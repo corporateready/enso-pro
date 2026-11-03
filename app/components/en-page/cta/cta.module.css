@@ -8,11 +8,14 @@
     display: none;
   }
 
+  /* 64 between blocks on phones, the client's call: the picture starts 64
+     below the journal's button (the journal's own picture runs on 27 of white
+     past it; Figma tucks the faded top 36 under the button) */
   .section {
   width: 100%;
   background: #181719;
   font-family: var(--font-inter), sans-serif;
-  margin-top: -36rem;
+  margin-top: 35rem;
 }
 
 .inner {
@@ -96,11 +99,13 @@
 }
 
 @media screen and (min-width: 641px) {
-  /* Figma "CTA" frame: 1920x800, 161 below the journal frame. The sky
-     starts 1 below the frame top, where the title already sits. */
+  /* Figma "CTA" frame: 1920x800. The sky starts 1 below the frame top,
+     where the title already sits. Figma lifts the building beside it to the
+     journal's last link; here its roof keeps the 174.5 between blocks on
+     desktops below that link (the client's call). */
   .section {
     width: 100%;
-    margin-top: 161rem;
+    margin-top: 334.3rem;
     background: #fff;
   }
 
@@ -204,5 +209,50 @@
 @media (prefers-reduced-motion: reduce) {
   .action {
     transition: none;
+  }
+}
+/*
+ * The backdrop pictures sit in their own clipping layer and drift a little
+ * slower than the page as the section scrolls by (scroll-driven, as in
+ * Values), so the building in front of them gains some depth.
+ *
+ * The sky comes out of white at its top edge, as in Figma, so the pictures
+ * only ever drift down from where Figma has them, never scaled: moving up or
+ * zooming in cut that fade off and left a hard line above the title. The
+ * room they leave at the top is the same white.
+ */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+@supports (animation-timeline: view()) {
+  /* the section's own passage through the screen: the picture's view() would
+     look no further than the box that clips it */
+  .section {
+    view-timeline-name: --cta-view;
+  }
+
+  :global(html[data-motion]) .backdrop .image {
+    animation: cta-drift linear both;
+    animation-timeline: --cta-view;
+  }
+}
+
+@keyframes cta-drift {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 5%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) .backdrop .image {
+    animation: none;
   }
 }

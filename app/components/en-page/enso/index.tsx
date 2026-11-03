@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 import EnsoFeatureIcon, {
   type EnsoFeatureIconName,
 } from "../../enso-feature-icon";
+import { revealDelay } from "../../motion/reveal";
 import styles from "./enso.module.css";
 
 const features: readonly {
@@ -103,17 +104,28 @@ export default function Enso() {
         <Image
           className={styles.laptopImage}
           src="/enso-laptop-desktop-en.avif"
+          // slides in from the right edge it sits against
+          data-reveal
+          style={
+            {
+              "--reveal-x": "160rem",
+              "--reveal-shift": "0rem",
+              "--reveal-duration": "1100ms",
+            } as CSSProperties
+          }
           width={3352}
           height={2724}
-          unoptimized
+          // a 3352px source for an 838px picture: let the optimiser size it
+          sizes="(min-width: 641px) 44vw, 1px"
+          quality={90}
           alt=""
         />
 
         <div className={styles.content}>
-          <h2 id="my-enso-title" className={styles.title}>
+          <h2 id="my-enso-title" className={styles.title} data-reveal>
             MY ENSO
           </h2>
-          <p className={styles.intro}>
+          <p className={styles.intro} data-reveal style={revealDelay(100)}>
             Everything about your property,
             <br className={styles.desktopBreak} /> in one place
             <br className={styles.mobileBreak} /> — prices, documents,
@@ -138,7 +150,8 @@ export default function Enso() {
 
         <a
           id="create-account"
-          className={styles.accountLink}
+          className={`${styles.accountLink} motion-button`}
+          data-reveal
           href="#create-account"
         >
           Create your account

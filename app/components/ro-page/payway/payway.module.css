@@ -1,9 +1,10 @@
 @media screen and (max-width: 640px) {
+  /* 64 between blocks on phones, the client's call (Figma leaves 56–96): from the button to the dark block */
   .section {
   position: relative;
   left: 50%;
   width: 394rem;
-  height: 792rem;
+  height: 824.9rem;
   color: #000;
   background: #fdfdfd;
   transform: translateX(-50%);
@@ -379,7 +380,6 @@
 .requestButton:hover {
   color: #fff;
   background: #111;
-  transform: translateY(-2rem);
 }
 
 .requestButton:focus-visible {
@@ -393,4 +393,58 @@
   }
 }
 
+}
+
+/* Under a mouse a card rises a little. */
+@media screen and (min-width: 641px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .benefitCard {
+    transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .benefitCard:hover {
+    translate: 0 -6rem;
+  }
+}
+
+/*
+ * The 3D pieces breathe, each on its own beat: a slow swell and back, pinned
+ * at the card corner that cuts them, so no cut edge ever shows.
+ */
+/* only while its card is on screen (data-revealed), so nothing ticks unseen */
+:global(html[data-motion]) .benefitCard[data-revealed] .rateImage,
+:global(html[data-motion]) .featuredCard[data-revealed] .zeroDesktop,
+:global(html[data-motion]) .featuredCard[data-revealed] .zeroMobile img {
+  transform-origin: right bottom;
+  animation: payway-breathe 6s ease-in-out infinite;
+}
+
+:global(html[data-motion]) .featuredCard[data-revealed] .zeroDesktop {
+  transform-origin: right top;
+}
+
+:global(html[data-motion]) .benefitCard:nth-child(2)[data-revealed] .rateImage {
+  animation-delay: -2s;
+}
+
+:global(html[data-motion]) .benefitCard:nth-child(3)[data-revealed] .rateImage {
+  animation-delay: -4s;
+}
+
+@keyframes payway-breathe {
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.04;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) .rateImage,
+  :global(html[data-motion]) .zeroDesktop,
+  :global(html[data-motion]) .zeroMobile img {
+    animation: none;
+  }
 }

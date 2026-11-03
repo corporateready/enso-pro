@@ -8,19 +8,18 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type TouchEvent as ReactTouchEvent,
 } from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
 
 import { AnimatedSlideBackground } from "@/app/components/animated-slide-background/animated-slide-background";
+import { AuroraVideo } from "@/app/components/animated-slide-background/aurora-video";
 
 import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
 const SLIDE_PROGRESS_DURATION = 3333;
-const RETURN_TO_PREVIOUS_SWIPE_THRESHOLD = 40;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
@@ -86,16 +85,9 @@ export type HeroCarouselProps = {
 const DEFAULT_OPTIONS: NonNullable<HeroCarouselOptions> = {
   axis: "y",
   containScroll: "trimSnaps",
-  // An upward swipe with nowhere left to scroll belongs to the page, not to
-  // the carousel: once the last slide is the target, Embla must not take the
-  // touch, or the boundary clamp swallows the gesture and the page appears
-  // frozen. Everything before that (including mid-transition) still drags.
-  // The same goes for any swipe once the page has scrolled at all: with the
-  // hero partly off screen a vertical swipe means "move the page", and taking
-  // it left a swipe down on slide 1 dead instead of bringing the top back.
-  watchDrag: (api, event) =>
-    event.type !== "touchstart" ||
-    (api.canScrollNext() && window.scrollY <= 1),
+  // A phone's slides are not dragged: they play through on their own, and a
+  // vertical swipe is the page's from the start, whichever slide is showing.
+  watchDrag: false,
 };
 
 function getSlideKey(slide: HeroCarouselSlide, index: number) {
@@ -137,6 +129,7 @@ function LazyLoadImage({
   inView,
   isActive,
   mode,
+  isViewportDesktop,
   children,
 }: {
   slide: HeroCarouselSlide;
@@ -145,6 +138,7 @@ function LazyLoadImage({
   inView: boolean;
   isActive: boolean;
   mode: NonNullable<HeroCarouselProps["mode"]>;
+  isViewportDesktop: boolean;
   children?: React.ReactNode;
 }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -155,7 +149,9 @@ function LazyLoadImage({
     if (node?.complete && node.naturalWidth > 0) setHasLoaded(true);
   }, []);
   const hasAnimatedBackground = Boolean(slide.animatedBackground);
-  const shouldRenderImage = inView || index === 0;
+  // Desktop mounts every slide's picture up front: mounting it as the slide
+  // slid in meant decoding it mid-transition, which is what made it jump.
+  const shouldRenderImage = inView || index === 0 || mode === "desktop";
   const hasTextContent = Boolean(
     slide.eyebrow ||
       slide.title ||
@@ -202,6 +198,12 @@ function LazyLoadImage({
           </div>
         )}
 
+        {hasAnimatedBackground && mode === "desktop" && (
+          <div className={styles.desktopAnimatedBackground}>
+            <AuroraVideo active={isActive} />
+          </div>
+        )}
+
         {shouldRenderImage && !hasAnimatedBackground && mode !== "desktop" && (
           <Image
             className={mergeClassNames(
@@ -225,7 +227,10 @@ function LazyLoadImage({
           />
         )}
 
-        {shouldRenderImage && slide.desktopSrc && mode !== "mobile" && (
+        {shouldRenderImage &&
+          slide.desktopSrc &&
+          !hasAnimatedBackground &&
+          mode !== "mobile" && (
           <Image
             className={mergeClassNames(
               styles.image,
@@ -236,9 +241,13 @@ function LazyLoadImage({
             src={slide.desktopSrc}
             alt={slide.alt}
             fill
-            unoptimized
-            loading={index === 0 ? "eager" : "lazy"}
-            fetchPriority={index === 0 ? "high" : "auto"}
+            // The sources are 7680px wide; served as they are, each one was a
+            // 130MB bitmap to decode as it slid in. Let the optimiser size them.
+            quality={90}
+            // Phones carry this carousel hidden: past the first slide, fetch
+            // only on a desktop screen.
+            loading={index === 0 || isViewportDesktop ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "low"}
             sizes="(min-width: 641px) 100vw, 1px"
             style={{
               ...slide.styles?.image,
@@ -246,7 +255,11 @@ function LazyLoadImage({
                 ? { objectPosition: slide.objectPosition }
                 : {}),
             }}
-            onLoad={() => setHasLoaded(true)}
+            onLoad={(event) => {
+              setHasLoaded(true);
+              // decode now, off screen, rather than on the first frame it shows
+              void event.currentTarget.decode?.().catch(() => {});
+            }}
           />
         )}
 
@@ -314,6 +327,7 @@ function LazyLoadImage({
                 <a
                   className={mergeClassNames(
                     styles.primaryAction,
+                    "motion-button",
                     slide.classNames?.primaryAction,
                   )}
                   style={slide.styles?.primaryAction}
@@ -336,6 +350,7 @@ function LazyLoadImage({
                 <a
                   className={mergeClassNames(
                     styles.secondaryAction,
+                    "motion-button",
                     slide.classNames?.secondaryAction,
                   )}
                   style={slide.styles?.secondaryAction}
@@ -428,8 +443,6 @@ export function HeroCarousel({
     mode === "desktop" || (mode === "responsive" && isViewportDesktop);
 
   useEffect(() => {
-    if (mode !== "responsive") return;
-
     const mediaQuery = window.matchMedia("(min-width: 641px)");
     const updateMode = () => setIsViewportDesktop(mediaQuery.matches);
 
@@ -437,7 +450,7 @@ export function HeroCarousel({
     mediaQuery.addEventListener("change", updateMode);
 
     return () => mediaQuery.removeEventListener("change", updateMode);
-  }, [mode]);
+  }, []);
 
   const emblaOptions = useMemo(
     () => ({
@@ -445,6 +458,10 @@ export function HeroCarousel({
       ...options,
       axis: isDesktop ? ("x" as const) : ("y" as const),
       watchDrag: isDesktop ? true : DEFAULT_OPTIONS.watchDrag,
+      // Desktop loops, so slide 3 moves on to slide 1 instead of cutting back,
+      // and eases like Figma's 1.25s "Slow" spring: 30 follows its curve, any
+      // slower leaves a strip of the last slide at the edge for a second.
+      ...(isDesktop ? { loop: true, duration: 30 } : {}),
     }),
     [isDesktop, options],
   );
@@ -457,17 +474,11 @@ export function HeroCarousel({
   // Starts true so the slides advance even where IntersectionObserver is
   // missing, and so the server-rendered markup matches the first paint.
   const [isInView, setIsInView] = useState(true);
-  // Mirrors watchDrag's scroll test, so touch-action hands vertical pans to
-  // the browser whenever Embla would not take them.
-  const [isPageScrolled, setIsPageScrolled] = useState(false);
   const carouselRef = useRef<HTMLElement | null>(null);
-  const isLastSlide =
-    scrollSnaps.length > 0 && selectedIndex === scrollSnaps.length - 1;
   const progressRemainingRef = useRef(SLIDE_PROGRESS_DURATION);
   const progressStartedAtRef = useRef<number | null>(null);
   const progressTimeoutRef = useRef<number | null>(null);
   const progressSlideIndexRef = useRef(0);
-  const lastSlideTouchStartYRef = useRef<number | null>(null);
 
   const updateSlidesInView = useCallback((api: EmblaApi) => {
     setSlidesInView((currentSlides) => {
@@ -479,8 +490,11 @@ export function HeroCarousel({
   }, []);
 
   const updateControls = useCallback((api: EmblaApi) => {
-    setSelectedIndex(api.selectedScrollSnap());
-    setScrollSnaps(api.scrollSnapList());
+    const snaps = api.scrollSnapList();
+    const index = api.selectedScrollSnap();
+
+    setSelectedIndex(index);
+    setScrollSnaps(snaps);
   }, []);
 
   const pauseProgressTimer = useCallback(() => {
@@ -513,39 +527,6 @@ export function HeroCarousel({
     setIsDragging(false);
     setDragEpoch((epoch) => epoch + 1);
   }, []);
-
-  const handleLastSlideTouchStart = useCallback(
-    (event: ReactTouchEvent<HTMLDivElement>) => {
-      // with the page scrolled, a swipe down is a page scroll, not "back"
-      if (
-        isDesktop ||
-        !isLastSlide ||
-        event.touches.length !== 1 ||
-        window.scrollY > 1
-      )
-        return;
-
-      lastSlideTouchStartYRef.current = event.touches[0].clientY;
-    },
-    [isDesktop, isLastSlide],
-  );
-
-  const handleLastSlideTouchEnd = useCallback(
-    (event: ReactTouchEvent<HTMLDivElement>) => {
-      const touchStartY = lastSlideTouchStartYRef.current;
-      const touchEnd = event.changedTouches[0];
-
-      lastSlideTouchStartYRef.current = null;
-
-      if (isDesktop || !emblaApi || touchStartY === null || !touchEnd) return;
-
-      const verticalDistance = touchEnd.clientY - touchStartY;
-      if (verticalDistance >= RETURN_TO_PREVIOUS_SWIPE_THRESHOLD) {
-        emblaApi.scrollPrev();
-      }
-    },
-    [emblaApi, isDesktop],
-  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -582,24 +563,12 @@ export function HeroCarousel({
   ]);
 
   useEffect(() => {
-    if (isDesktop) return;
-
-    const updatePageScrolled = () => setIsPageScrolled(window.scrollY > 1);
-
-    updatePageScrolled();
-    window.addEventListener("scroll", updatePageScrolled, { passive: true });
-
-    return () => window.removeEventListener("scroll", updatePageScrolled);
-  }, [isDesktop]);
-
-  useEffect(() => {
     const node = carouselRef.current;
     if (!node || typeof IntersectionObserver === "undefined") return;
 
     // Scrolling past the hero used to leave the countdown running, so coming
-    // back landed you on whichever slide had arrived meanwhile — usually the
-    // last one, where an upward swipe deliberately belongs to the page. Hold
-    // the timer while the carousel is off-screen and it resumes where it left.
+    // back landed you on whichever slide had arrived meanwhile. Hold the
+    // timer while the carousel is off-screen and it resumes where it left.
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
       { threshold: 0 },
@@ -627,7 +596,9 @@ export function HeroCarousel({
 
       const nextIndex = selectedIndex + 1;
 
-      if (nextIndex < scrollSnaps.length) {
+      if (isDesktop) {
+        emblaApi.scrollNext();
+      } else if (nextIndex < scrollSnaps.length) {
         emblaApi.scrollTo(nextIndex);
       } else {
         emblaApi.scrollTo(0, true);
@@ -637,6 +608,7 @@ export function HeroCarousel({
     return pauseProgressTimer;
   }, [
     emblaApi,
+    isDesktop,
     isDragging,
     isInView,
     pauseProgressTimer,
@@ -656,21 +628,8 @@ export function HeroCarousel({
       aria-roledescription="carousel"
       aria-label={ariaLabel}
     >
-      <div
-        className={mergeClassNames(
-          styles.viewport,
-          (isLastSlide || isPageScrolled) && styles.viewportAtEnd,
-        )}
-        ref={emblaRef}
-        onTouchStart={handleLastSlideTouchStart}
-        onTouchEnd={handleLastSlideTouchEnd}
-      >
-        <div
-          className={mergeClassNames(
-            styles.container,
-            (isLastSlide || isPageScrolled) && styles.containerAtEnd,
-          )}
-        >
+      <div className={styles.viewport} ref={emblaRef}>
+        <div className={styles.container}>
           {slides.map((slide, index) => (
             
             <LazyLoadImage
@@ -681,6 +640,7 @@ export function HeroCarousel({
               inView={slidesInView.includes(index)}
               isActive={selectedIndex === index}
               mode={mode}
+              isViewportDesktop={isViewportDesktop}
             />
           ))}
         </div>

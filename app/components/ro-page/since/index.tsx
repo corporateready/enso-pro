@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import styles from "./since.module.css";
+import { revealDelay } from "../../motion/reveal";
 
 type Milestone = {
   year: string;
@@ -91,10 +92,38 @@ const milestones: readonly Milestone[] = [
 
 const EDGE_TOLERANCE = 2;
 
+// how long the line takes to draw itself, in ms: --timeline-duration in the
+// CSS, longer on a phone, where the view rides along with it (the build
+// rewrites 2400ms as 2.4s, so both units are read)
+function drawDuration(timeline: Element) {
+  const value = window
+    .getComputedStyle(timeline)
+    .getPropertyValue("--timeline-duration")
+    .trim();
+  const time = parseFloat(value);
+  if (!Number.isFinite(time)) return 1600;
+  return value.endsWith("ms") ? time : time * 1000;
+}
+
+// where the line (the track's ::before) runs, from 2026's stem to 1999's end
+function lineSpan(track: HTMLElement) {
+  const line = window.getComputedStyle(track, "::before");
+  return {
+    start: parseFloat(line.left) || 0,
+    length: parseFloat(line.width) || track.scrollWidth,
+  };
+}
+
 export default function Since() {
+  const timelineRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLOListElement>(null);
+  const [milestoneDelays, setMilestoneDelays] = useState<readonly number[]>(
+    [],
+  );
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isRiding, setIsRiding] = useState(false);
 
   const updateNavigation = useCallback(() => {
     const viewport = viewportRef.current;
@@ -130,6 +159,117 @@ export default function Since() {
     };
   }, [updateNavigation]);
 
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    const track = trackRef.current;
+    if (!timeline || !track) return;
+
+    // The line draws itself from the right (1999) when the timeline scrolls
+    // into view (since.module.css); each milestone comes in as the line
+    // reaches it, so its delay is its distance from the line's right end.
+    const measure = () => {
+      const { start, length } = lineSpan(track);
+      const duration = drawDuration(timeline);
+
+      setMilestoneDelays(
+        Array.from(track.children, (item) => {
+          const along =
+            (start + length - (item as HTMLElement).offsetLeft) / length;
+          return Math.round(Math.min(1, Math.max(0, along)) * duration);
+        }),
+      );
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  // On a phone the line starts drawing at 1999, off the screen to the right,
+  // so the first years came in unseen. While it draws, the view now rides
+  // along with its tip from 1999 to 2026, the tip about a third of the way
+  // in, easing off and in. A swipe along the timeline takes over at once; a
+  // swipe up or down the page does not stop it, or the view would be left
+  // halfway (leaving the screen does: the next reveal rides again).
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!timeline || !viewport || !track) return;
+
+    let frame = 0;
+    let expected = 0;
+
+    const stop = () => {
+      if (!frame) return;
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      viewport.style.removeProperty("scroll-snap-type");
+      viewport.style.removeProperty("scroll-behavior");
+      setIsRiding(false);
+    };
+
+    const ride = () => {
+      stop();
+      // hidden again, or on screen from the start ("instant"): no ride
+      const how = timeline.getAttribute("data-revealed");
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      if ((how !== "in" && how !== "from-above") || maxScroll <= EDGE_TOLERANCE) {
+        return;
+      }
+
+      const { start, length } = lineSpan(track);
+      const duration = drawDuration(timeline);
+      const lead = viewport.clientWidth / 3;
+      // when the tip is a third of the way into the view at its far right,
+      // and when at its far left
+      const timeAt = (x: number) =>
+        Math.min(duration, Math.max(0, ((start + length - x) / length) * duration));
+      const leaveAt = timeAt(maxScroll + lead);
+      const arriveAt = Math.max(leaveAt + 1, timeAt(lead));
+      const startedAt = performance.now();
+
+      viewport.style.scrollSnapType = "none";
+      viewport.style.scrollBehavior = "auto";
+      expected = maxScroll;
+      viewport.scrollLeft = expected;
+      setIsRiding(true);
+
+      const step = (now: number) => {
+        const k = Math.min(
+          1,
+          Math.max(0, (now - startedAt - leaveAt) / (arriveAt - leaveAt)),
+        );
+        expected = maxScroll * (1 - k * k * (3 - 2 * k));
+        viewport.scrollLeft = expected;
+        if (k < 1) frame = window.requestAnimationFrame(step);
+        else stop();
+      };
+      frame = window.requestAnimationFrame(step);
+    };
+
+    // the view moved somewhere the ride did not put it: the reader's swipe
+    const takeOver = () => {
+      if (frame && Math.abs(viewport.scrollLeft - expected) > EDGE_TOLERANCE + 1) {
+        stop();
+      }
+    };
+
+    const reveals = new MutationObserver(ride);
+    reveals.observe(timeline, {
+      attributes: true,
+      attributeFilter: ["data-revealed"],
+    });
+    viewport.addEventListener("scroll", takeOver, { passive: true });
+
+    return () => {
+      reveals.disconnect();
+      viewport.removeEventListener("scroll", takeOver);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   const scrollTimeline = (direction: -1 | 1) => {
     const viewport = viewportRef.current;
     if (!viewport) return;
@@ -150,16 +290,16 @@ export default function Since() {
     <section id="since" className={styles.section} aria-labelledby="since-title">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <h2 id="since-title" className={styles.title}>
+          <h2 id="since-title" className={styles.title} data-reveal>
             DIN 1999
           </h2>
-          <p className={styles.intro}>
+          <p className={styles.intro} data-reveal style={revealDelay(100)}>
             După două decenii ca și co-investitori în Moldova și România, am
             creat ENSŌ — propria noastră viziune despre un dezvoltator modern.
           </p>
         </header>
 
-        <div className={styles.timeline}>
+        <div ref={timelineRef} className={styles.timeline} data-reveal-group>
           <div
             id="since-timeline"
             ref={viewportRef}
@@ -168,7 +308,7 @@ export default function Since() {
             aria-label="Enso history timeline"
             tabIndex={0}
           >
-            <ol className={styles.track}>
+            <ol ref={trackRef} className={styles.track}>
               {milestones.map((milestone, index) => (
                 <li
                   className={`${styles.milestone} ${
@@ -180,6 +320,7 @@ export default function Since() {
                     {
                       "--milestone-width": `${milestone.width}rem`,
                       "--content-width": `${milestone.contentWidth}rem`,
+                      "--milestone-delay": `${milestoneDelays[index] ?? (milestones.length - 1 - index) * 240}ms`,
                     } as CSSProperties
                   }
                 >
@@ -194,7 +335,7 @@ export default function Since() {
             </ol>
           </div>
 
-          {canScrollLeft && (
+          {canScrollLeft && !isRiding && (
             <button
               className={`${styles.arrowButton} ${styles.arrowLeft}`}
               type="button"
@@ -213,7 +354,7 @@ export default function Since() {
             </button>
           )}
 
-          {canScrollRight && (
+          {canScrollRight && !isRiding && (
             <button
               className={`${styles.arrowButton} ${styles.arrowRight}`}
               type="button"

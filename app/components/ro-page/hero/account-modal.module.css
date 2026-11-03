@@ -9,7 +9,7 @@
   background: rgb(0 0 0 / 20%);
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
-  animation: account-overlay-in 180ms ease-out;
+  animation: account-overlay-in 300ms ease-out both;
 }
 
 /* Figma "Privat cabinet menu" (390 wide): logo at 21, icons centred at 36,
@@ -23,7 +23,13 @@
   color: #000;
   background: #fff;
   font-family: var(--font-inter), sans-serif;
-  animation: account-dialog-in 220ms ease-out;
+  /* unrolls down from the header (see the opening, at the end) */
+  animation: account-panel-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* and rolls back up into it */
+.closing .dialog {
+  animation: account-panel-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 .header {
@@ -92,27 +98,26 @@
 
 .closeButton span {
   position: absolute;
-  /* the menu's 28x20 cross, centred on x 360, y 36 */
-  right: -3.2rem;
-  width: 34.41rem;
-  height: 1rem;
+  /* the menu's cross: its burger strokes turned into a square X, 20.5 a
+     side, on the open menu's cross (x 359.5, y 36) */
+  top: 10.52rem;
+  left: 1rem;
+  width: 29rem;
+  height: 1px;
   background: currentColor;
   transform-origin: center;
 }
 
 .closeButton span:nth-child(1) {
-  top: 10.52rem;
-  transform: rotate(35.54deg);
+  transform: rotate(45deg);
 }
 
 .closeButton span:nth-child(2) {
-  top: 10.52rem;
   opacity: 0;
 }
 
 .closeButton span:nth-child(3) {
-  top: 10.52rem;
-  transform: rotate(-35.54deg);
+  transform: rotate(-45deg);
 }
 
 .content {
@@ -264,19 +269,6 @@
   border: 0;
 }
 
-@keyframes account-overlay-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes account-dialog-in {
-  from {
-    opacity: 0;
-    transform: translateY(12rem);
-  }
-}
-
 
 @media (prefers-reduced-motion: reduce) {
   .overlay,
@@ -294,7 +286,9 @@
  * Figma draws this card only at 390 wide — there is no desktop frame for it —
  * so the wide layout below is ours: the same card, centred, sized for the
  * 1920 grid. Without it the dialog inherited no styling at all and spilled,
- * unstyled, to the foot of the page.
+ * unstyled, to the foot of the page. It is a quarter larger than first drawn
+ * (the client's call): at 520 wide it came out 390 wide on a 1440 laptop,
+ * its 12px text smaller than the rest of the site's desktop type.
  */
 @media screen and (min-width: 641px) {
   .overlay {
@@ -308,25 +302,31 @@
     background: rgb(0 0 0 / 45%);
     -webkit-backdrop-filter: blur(4rem);
     backdrop-filter: blur(4rem);
-    animation: account-overlay-in 180ms ease-out;
+    animation: account-overlay-in 300ms ease-out both;
   }
 
   .dialog {
-    width: min(520rem, 100%);
+    width: min(650rem, 100%);
     max-height: calc(100dvh - 80rem);
-    padding: 36rem 48rem 40rem;
+    padding: 45rem 60rem 50rem;
     overflow-y: auto;
-    border-radius: 16rem;
+    border-radius: 20rem;
     color: #000;
     background: #fff;
-    box-shadow: 0 32rem 90rem rgb(0 0 0 / 24%);
+    box-shadow: 0 40rem 112rem rgb(0 0 0 / 24%);
     font-family: var(--font-inter), sans-serif;
-    animation: account-dialog-in 220ms ease-out;
+    /* rises into place (see the opening, at the end) */
+    animation: account-card-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* and sinks away */
+  .closing .dialog {
+    animation: account-card-out 200ms ease-in both;
   }
 
   .header {
     display: flex;
-    height: 28rem;
+    height: 35rem;
     align-items: center;
     justify-content: space-between;
   }
@@ -334,8 +334,8 @@
   .logoLink,
   .logoLink img {
     display: block;
-    width: 90rem;
-    height: 30rem;
+    width: 112.5rem;
+    height: 37.5rem;
   }
 
   /* The page header already carries these; the dialog only needs a way out. */
@@ -351,8 +351,8 @@
 
   .closeButton {
     position: relative;
-    width: 24rem;
-    height: 24rem;
+    width: 30rem;
+    height: 30rem;
     padding: 0;
     border: 0;
     background: transparent;
@@ -363,8 +363,8 @@
     position: absolute;
     top: 50%;
     left: 0;
-    width: 24rem;
-    height: 1.5rem;
+    width: 30rem;
+    height: 1.8rem;
     background: #111;
   }
 
@@ -381,44 +381,44 @@
   }
 
   .content {
-    margin-top: 32rem;
+    margin-top: 40rem;
   }
 
   .title {
     margin: 0;
-    font-size: 30rem;
+    font-size: 37.5rem;
     font-weight: 600;
-    line-height: 36rem;
+    line-height: 45rem;
   }
 
   .description {
-    margin: 12rem 0 0;
+    margin: 15rem 0 0;
     color: #444;
-    font-size: 16rem;
+    font-size: 20rem;
     font-weight: 400;
-    line-height: 22rem;
+    line-height: 27.5rem;
   }
 
   .form {
-    margin-top: 32rem;
+    margin-top: 40rem;
   }
 
   .googleButton,
   .continueButton {
     display: flex;
     width: 100%;
-    height: 48rem;
+    height: 60rem;
     align-items: center;
     justify-content: center;
     border-radius: 999rem;
     font-family: inherit;
-    font-size: 16rem;
-    line-height: 19rem;
+    font-size: 20rem;
+    line-height: 24rem;
     cursor: pointer;
   }
 
   .googleButton {
-    gap: 10rem;
+    gap: 12.5rem;
     border: 1rem solid #111;
     color: #000;
     background: #fff;
@@ -426,19 +426,19 @@
   }
 
   .googleButton svg {
-    width: 20rem;
-    height: 20rem;
+    width: 25rem;
+    height: 25rem;
     flex: none;
   }
 
   .divider {
     display: flex;
     align-items: center;
-    gap: 12rem;
-    margin: 16rem 0;
+    gap: 15rem;
+    margin: 20rem 0;
     color: #858585;
-    font-size: 16rem;
-    line-height: 19rem;
+    font-size: 20rem;
+    line-height: 24rem;
   }
 
   .divider::before,
@@ -451,21 +451,21 @@
 
   .input {
     width: 100%;
-    height: 48rem;
-    padding: 0 16rem;
+    height: 60rem;
+    padding: 0 20rem;
     border: 1rem solid transparent;
-    border-radius: 8rem;
+    border-radius: 10rem;
     color: #000;
     background: #f4f4f4;
     font-family: inherit;
-    font-size: 16rem;
-    line-height: 19rem;
+    font-size: 20rem;
+    line-height: 24rem;
     text-align: center;
     transition: border-color 160ms ease, background-color 160ms ease;
   }
 
   .input ~ .input {
-    margin-top: 10rem;
+    margin-top: 12.5rem;
   }
 
   .input::placeholder {
@@ -484,7 +484,7 @@
   }
 
   .continueButton {
-    margin-top: 16rem;
+    margin-top: 20rem;
     border: 0;
     color: #fff;
     background: #111;
@@ -499,10 +499,10 @@
   }
 
   .createAccount {
-    margin: 28rem 0 0;
+    margin: 35rem 0 0;
     color: #858585;
-    font-size: 16rem;
-    line-height: 19rem;
+    font-size: 20rem;
+    line-height: 24rem;
     text-align: center;
   }
 
@@ -547,5 +547,161 @@
     .input {
       transition: none;
     }
+  }
+}
+
+/*
+ * Opening, the client's call: on a phone the panel unrolls down from the
+ * header, on a desktop the card rises into place, while the burger's three
+ * strokes fold into the cross and the form comes up line by line. Closing
+ * plays it back, quicker; the dimming's fade ends last and takes the dialog
+ * away (account-modal.tsx). The keyframes sit out here: inside the phone
+ * block they never reached the desktop card, which opened with no motion.
+ */
+.title,
+.description,
+.googleButton,
+.divider,
+.input,
+.continueButton,
+.createAccount {
+  animation: account-item-in 420ms cubic-bezier(0.22, 1, 0.36, 1)
+    calc(120ms + var(--enter) * 40ms) both;
+}
+
+.title { --enter: 0; }
+.description { --enter: 1; }
+.googleButton { --enter: 2; }
+.divider { --enter: 3; }
+.input { --enter: 4; }
+.input ~ .input { --enter: 5; }
+.continueButton { --enter: 6; }
+.createAccount { --enter: 7; }
+
+/* once open, a field that sign-up adds comes straight in */
+.opened .input {
+  animation-delay: 0ms;
+}
+
+.closeButton span:nth-child(1) {
+  animation: account-cross-top 380ms cubic-bezier(0.65, 0, 0.35, 1) 100ms both;
+}
+
+.closeButton span:nth-child(2) {
+  animation: account-cross-middle 380ms cubic-bezier(0.65, 0, 0.35, 1) 100ms both;
+}
+
+.closeButton span:nth-child(3) {
+  animation: account-cross-bottom 380ms cubic-bezier(0.65, 0, 0.35, 1) 100ms both;
+}
+
+.overlay.closing {
+  animation: account-overlay-out 280ms ease-in both;
+}
+
+.closing .closeButton span:nth-child(1) {
+  animation: account-cross-top-out 220ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.closing .closeButton span:nth-child(2) {
+  animation: account-cross-middle-out 220ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.closing .closeButton span:nth-child(3) {
+  animation: account-cross-bottom-out 220ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+/* only the dimming comes and goes: fading the overlay itself faded the panel
+   with it, and on the way out the form ghosted over the page */
+@keyframes account-overlay-in {
+  from {
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes account-overlay-out {
+  to {
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes account-panel-in {
+  from { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes account-panel-out {
+  to { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes account-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(28rem) scale(0.96);
+  }
+}
+
+@keyframes account-card-out {
+  to {
+    opacity: 0;
+    transform: translateY(14rem) scale(0.98);
+  }
+}
+
+@keyframes account-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(14rem);
+  }
+}
+
+/* the cross starts as the burger: its strokes 10 apart, level (all in
+   transform: the CSS build dropped a separate translate next to it) */
+@keyframes account-cross-top {
+  from { transform: translateY(-10rem) rotate(0deg); }
+  to { transform: translateY(0) rotate(45deg); }
+}
+
+@keyframes account-cross-middle {
+  from { opacity: 1; }
+}
+
+@keyframes account-cross-bottom {
+  from { transform: translateY(10rem) rotate(0deg); }
+  to { transform: translateY(0) rotate(-45deg); }
+}
+
+@keyframes account-cross-top-out {
+  from { transform: translateY(0) rotate(45deg); }
+  to { transform: translateY(-10rem) rotate(0deg); }
+}
+
+@keyframes account-cross-middle-out {
+  to { opacity: 1; }
+}
+
+@keyframes account-cross-bottom-out {
+  from { transform: translateY(0) rotate(-45deg); }
+  to { transform: translateY(10rem) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay.closing,
+  .dialog,
+  .closing .dialog,
+  .title,
+  .description,
+  .googleButton,
+  .divider,
+  .input,
+  .continueButton,
+  .createAccount,
+  .closeButton span:nth-child(n),
+  .closing .closeButton span:nth-child(n) {
+    animation: none;
   }
 }

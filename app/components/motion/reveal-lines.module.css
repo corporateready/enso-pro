@@ -1,0 +1,46 @@
+/* inline-block so a word can move; the spaces between them still wrap the
+   lines exactly as plain text does */
+.word {
+  display: inline-block;
+}
+
+:global(html[data-motion]) :global([data-reveal-group]):not([data-revealed]) .word {
+  opacity: 0;
+}
+
+:global(html[data-motion]) :global([data-revealed="in"]) .word {
+  animation: reveal-line-rise 700ms cubic-bezier(0.22, 1, 0.36, 1)
+    calc(var(--reveal-delay, 0ms) + var(--line, 0) * 140ms) backwards;
+}
+
+:global(html[data-motion]) :global([data-revealed="from-above"]) .word {
+  animation: reveal-line-settle 700ms cubic-bezier(0.22, 1, 0.36, 1)
+    calc(
+      var(--reveal-delay, 0ms) + (var(--lines, 1) - 1 - var(--line, 0)) * 140ms
+    )
+    backwards;
+}
+
+@keyframes reveal-line-rise {
+  from {
+    opacity: 0;
+    translate: 0 18rem;
+  }
+}
+
+@keyframes reveal-line-settle {
+  from {
+    opacity: 0;
+    translate: 0 -18rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) :global([data-reveal-group]):not([data-revealed]) .word {
+    opacity: 1;
+  }
+
+  :global(html[data-motion]) :global([data-revealed]) .word {
+    animation: none;
+  }
+}

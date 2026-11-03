@@ -3,12 +3,13 @@
     display: none;
   }
 
+  /* 64 between blocks on phones, the client's call (Figma leaves 56–96): from the dark block above to the title */
   .section {
     position: relative;
     width: 390rem;
     height: 545rem;
     flex: 0 0 545rem;
-    margin-top: 60rem;
+    margin-top: 61.8rem;
     overflow: hidden;
     color: #000;
     background: #fff;

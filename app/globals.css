@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Tailwind 4 leaves buttons on the default arrow, so "Cont personal", the
+   BIM tabs, the journal filters and the call button showed no hand on hover
+   while the links beside them did. A block's own cursor rule still wins. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 @font-face {
   font-family: "Mignon";
   src: url("/fonts/Mignon-Regular.otf") format("opentype");
@@ -48,26 +58,33 @@ html {
   font-size: calc(100vw / (390 * 1));
 
   /* Sections built on the 394rem Figma grid (values, payway) are 4px wider
-     than the 390 viewport; body has overflow-x-hidden but the horizontal
-     scroll lives on <html>, so the page could be nudged sideways on mobile.
-     clip (not hidden) kills that without creating a scroll container. */
+     than the 390 viewport, and the horizontal scroll lives on <html>, so the
+     page could be nudged sideways on mobile. clip (not hidden) kills that
+     without creating a scroll container. */
   overflow-x: clip;
   /* Overlays lock scrolling with overflow: hidden here; keep the classic
      (Windows) scrollbar's gutter so the page does not jump sideways. */
   scrollbar-gutter: stable;
 
-  /* The phone header stays fixed at 64px: land anchors (menu items, "View
-     the projects") just below it instead of under it. */
+  /* The header stays fixed on top (64px on phones, 100px on desktop): land
+     anchors (menu items, header links, "View the projects") just below it
+     instead of under it, where "Pay your way" lost its whole title. */
   @media screen and (max-width: 640px) {
     scroll-padding-top: 64rem;
   }
 
   @media screen and (min-width: 641px) {
     font-size: calc(100vw / (1920 * 1));
+    scroll-padding-top: 100rem;
   }
 }
 body {
-  @apply w-full min-h-full relative mx-auto p-0 m-0 overflow-x-hidden;
+  @apply w-full min-h-full relative mx-auto p-0 m-0;
+
+  /* clip, not hidden: hidden made <body> a scroll container of its own, one
+     that never scrolls, and scroll-driven animations tie themselves to the
+     nearest one, so the parallax in Values and the CTA stood still */
+  overflow-x: clip;
 
   /* Every text in the Figma file is Inter (bar the Mignon eyebrows, which set
      their own family). Without a default here anything not styled explicitly
@@ -78,5 +95,108 @@ body {
     :root {
       --app-height: 100dvh;
     }
+  }
+}
+
+/*
+ * Scroll reveals (app/components/motion/scroll-reveal.tsx): hidden only once
+ * that has run, then brought into place with the site's ease-out, each after
+ * its --reveal-delay: risen from below on the way down, settled from above on
+ * the way back up. Only opacity and the individual translate property move,
+ * so an element keeps its own transform and ends exactly where it was. An
+ * element can come in sideways instead (--reveal-x, with --reveal-shift 0)
+ * and take longer over it (--reveal-duration).
+ */
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    translate: var(--reveal-x, 0) var(--reveal-shift);
+  }
+}
+
+@keyframes reveal-settle {
+  from {
+    opacity: 0;
+    translate: var(--reveal-x, 0) calc(-1 * var(--reveal-shift));
+  }
+}
+
+:root {
+  --reveal-shift: 24rem;
+
+  @media screen and (min-width: 641px) {
+    --reveal-shift: 40rem;
+  }
+}
+
+html[data-motion] [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+
+html[data-motion] [data-reveal][data-revealed="in"] {
+  animation: reveal-rise var(--reveal-duration, 800ms)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+html[data-motion] [data-reveal][data-revealed="from-above"] {
+  animation: reveal-settle var(--reveal-duration, 800ms)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+/*
+ * Buttons: a little lift under the mouse and a little give when pressed. The
+ * individual translate / scale properties leave each button's own transform
+ * alone, and the lift exists only where hovering does, so a tap on a phone no
+ * longer leaves a button raised. Doubled class: wins over the transition each
+ * button's module sets.
+ */
+.motion-button.motion-button {
+  transition:
+    translate 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 140ms ease,
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-button:hover {
+    translate: 0 -2rem;
+
+    @media screen and (min-width: 641px) {
+      translate: 0 -3rem;
+    }
+  }
+}
+
+.motion-button:active {
+  scale: 0.97;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-motion] [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+  }
+
+  html[data-motion] [data-reveal][data-revealed="in"],
+  html[data-motion] [data-reveal][data-revealed="from-above"] {
+    animation: none;
+  }
+
+  .motion-button.motion-button {
+    transition:
+      color 180ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      filter 180ms ease;
+  }
+
+  .motion-button.motion-button:hover,
+  .motion-button.motion-button:active {
+    translate: none;
+    scale: none;
   }
 }

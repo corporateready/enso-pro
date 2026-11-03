@@ -171,7 +171,6 @@
 
 .backToTop:hover {
   background: #fff;
-  transform: translateY(-2rem);
 }
 
 .backToTopIcon {

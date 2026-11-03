@@ -1,0 +1,13 @@
+/* Figma anchors the 1920x1263 animation at the hero's top-left corner and
+   lets the hero clip its bottom: cover, pinned to the top. */
+.frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+  user-select: none;
+}

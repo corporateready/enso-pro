@@ -9,6 +9,8 @@ import {
   useState,
 } from "react";
 
+import { revealDelay } from "./motion/reveal";
+
 type ProjectsScrollerProps = {
   children: ReactNode;
   itemCount: number;
@@ -140,6 +142,9 @@ export default function ProjectsScroller({
       <div
         ref={scrollerRef}
         className={scrollerClassName}
+        // the cards come in together as the row scrolls into view, even the
+        // ones still off to the side
+        data-reveal-group
         data-dragging={isDragging ? "true" : undefined}
         onScroll={scheduleProgressUpdate}
         onPointerDown={handlePointerDown}
@@ -159,7 +164,12 @@ export default function ProjectsScroller({
       >
         <div className={trackClassName}>{children}</div>
       </div>
-      <div className={scrollbarClassName} aria-hidden="true">
+      <div
+        className={scrollbarClassName}
+        aria-hidden="true"
+        data-reveal
+        style={revealDelay(300)}
+      >
         <span
           className={thumbClassName}
           style={{ left: `${thumbOffset}%`, width: `${thumbWidth}%` }}

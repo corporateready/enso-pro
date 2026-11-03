@@ -1,0 +1,17 @@
+/* an inline box (not inline-block) so the kerning into the suffix stays */
+.figure {
+  position: relative;
+}
+
+.placeholder {
+  opacity: 0;
+}
+
+/* line-height normal puts its baseline exactly on the figure's own */
+.running {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: normal;
+  white-space: nowrap;
+}

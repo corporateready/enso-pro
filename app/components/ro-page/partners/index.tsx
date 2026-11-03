@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 
+import { revealDelay } from "../../motion/reveal";
 import styles from "./partners.module.css";
 
 const partners = [
@@ -109,10 +110,10 @@ export default function Partners() {
       aria-labelledby="partners-title"
     >
       <header className={styles.header}>
-        <h2 id="partners-title" className={styles.title}>
+        <h2 id="partners-title" className={styles.title} data-reveal>
           PARTENERII NOȘTRI
         </h2>
-        <p className={styles.subtitle}>
+        <p className={styles.subtitle} data-reveal style={revealDelay(100)}>
           <span className={styles.subtitleLine}>
             Construim alături de echipe cu reputații
           </span>

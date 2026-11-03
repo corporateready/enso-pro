@@ -6,12 +6,14 @@
   .desktopImage {
     display: none;
   }
+  /* 64 between blocks on phones, the client's call (Figma leaves 56–96): from the dark block above to the title, and from where the
+     last card's shadow has faded (83 below the card) to the dark block below */
   .section {
     position: relative;
     width: 390rem;
-    height: 1037rem;
-    flex: 0 0 1037rem;
-    margin-top: 60rem;
+    height: 1060.9rem;
+    flex: 0 0 1060.9rem;
+    margin-top: 57.8rem;
     overflow: hidden;
     background: #fff;
   }
@@ -19,7 +21,7 @@
   .inner {
     position: relative;
     width: 390rem;
-    height: 1037rem;
+    height: 1060.9rem;
     overflow: hidden;
     background: #fff;
   }
@@ -71,48 +73,66 @@
     object-fit: cover;
   }
 
+  /* the picture and the life over it (building-life) move as one */
+  .buildingStage {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* The phone picture is the desktop one at 0.2864, 34.75 and 58.25 in, and
+     this box shows it cover-fitted (at 0.3625, 12.75 cut off either side):
+     the life, drawn on the desktop picture, goes where that would be. */
+  .buildingLife {
+    top: 21.116rem;
+    left: -0.153rem;
+    width: 324.75rem;
+    height: 181.88rem;
+  }
+
+  /* Figma draws only the "for investors" state, and leaves the second label
+     off centre. The black pill's edge (--tab-split) sits where both labels
+     get the same room on either side, 13 inside the pill and out of it,
+     whichever is chosen. */
   .tabs {
-    --first-tab-width: 142.286rem;
-    --second-tab-width: 146.714rem;
+    --tab-width: 289rem;
+    --tab-border: 0.884rem;
+    --tab-split: 136.66rem;
     position: absolute;
     z-index: 3;
     top: 423rem;
     left: 16rem;
     display: grid;
-    width: 289rem;
+    width: var(--tab-width);
     height: 34.679rem;
     box-sizing: border-box;
-    grid-template-columns: var(--first-tab-width) var(--second-tab-width);
+    grid-template-columns: calc(var(--tab-split) - 2 * var(--tab-border)) 1fr;
     padding: 0;
-    border: 0.884rem solid #000;
+    border: var(--tab-border) solid #000;
     border-radius: 17.679rem;
     background: #fff;
   }
 
+  /* The pill rides along with the cards as they are swiped across:
+     --tab-progress (index.tsx) runs from 0 with the first tab's cards in
+     view to 1 with the second's. */
   .tabIndicator {
     position: absolute;
     z-index: 0;
-    top: -0.884rem;
-    left: -0.884rem;
-    width: var(--first-tab-width);
+    top: calc(-1 * var(--tab-border));
+    left: calc(-1 * var(--tab-border));
+    width: calc(var(--tab-split) + (var(--tab-width) - 2 * var(--tab-split)) * var(--tab-progress, 0));
     height: 34.679rem;
     border-radius: 17.679rem;
     background: #000;
-    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateX(calc(var(--tab-split) * var(--tab-progress, 0)));
   }
 
-  .tabIndicatorBuyers {
-    width: var(--second-tab-width);
-    transform: translateX(var(--first-tab-width));
-  }
-
+  /* positioned to paint over the pill, but with no z-index: a stacking
+     context of its own would hide the pill from the label's blend */
   .tabButton {
     position: relative;
-    z-index: 1;
     padding: 0;
     border: 0;
-    color: #000;
     background: transparent;
     cursor: pointer;
     font-family: var(--font-inter), sans-serif;
@@ -120,16 +140,19 @@
     font-weight: 400;
     line-height: 1.2;
     white-space: nowrap;
-    transition: color 220ms ease;
   }
 
-  /* Figma sets the second label 3.75 left of its half's centre */
+  /* the second cell starts and ends a border's width before the pill: this
+     puts its label in the middle of the pill */
   .tabButton:last-of-type {
-    padding-right: 7.5rem;
+    padding-left: calc(2 * var(--tab-border));
   }
 
-  .tabButtonActive {
+  /* white, inverted against what lies under it: black on the control,
+     white on the pill, and split in two while the pill slides across it */
+  .tabLabel {
     color: #fff;
+    mix-blend-mode: difference;
   }
 
   .tabButton:focus-visible {
@@ -146,12 +169,33 @@
     height: 561rem;
   }
 
+  /* Each tab's cards fill the width, the two side by side: a swipe moves
+     from one tab to the other and the row snaps to whichever is nearer
+     (index.tsx keeps the tabs above in step). The row reaches 40 above the
+     cards, or the scrolling box would cut the top of the first card's
+     shadow; the tabs stay on top of that strip. */
+  .panels {
+    display: flex;
+    height: 601rem;
+    margin-top: -40rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .panels::-webkit-scrollbar {
+    display: none;
+  }
+
   .cards {
     display: grid;
-    width: 358rem;
-    margin-left: 16rem;
+    flex: 0 0 390rem;
+    align-content: start;
+    padding: 40rem 16rem 0;
     gap: 15rem;
-    animation: panel-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    scroll-snap-align: start;
   }
 
   .card {
@@ -160,15 +204,6 @@
     height: 157rem;
     background: #fff;
     box-shadow: 0 10rem 40rem rgb(113 113 113 / 20%);
-    animation: card-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .card:nth-child(2) {
-    animation-delay: 45ms;
-  }
-
-  .card:nth-child(3) {
-    animation-delay: 90ms;
   }
 
   .cardMeta {
@@ -206,11 +241,11 @@
     white-space: nowrap;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(1) .badge {
+  .cards[data-tab="investors"] .card:nth-child(1) .badge {
     width: 131rem;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(3) .badge {
+  .cards[data-tab="investors"] .card:nth-child(3) .badge {
     width: 133rem;
   }
 
@@ -236,50 +271,28 @@
     font-weight: 400;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(2) h3 {
+  .cards[data-tab="investors"] .card:nth-child(2) h3 {
     top: 74rem;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(2) p {
+  .cards[data-tab="investors"] .card:nth-child(2) p {
     top: 103rem;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(3) h3 {
+  .cards[data-tab="investors"] .card:nth-child(3) h3 {
     top: 73rem;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(3) p {
+  .cards[data-tab="investors"] .card:nth-child(3) p {
     top: 103rem;
   }
 
-  .cardsArea[data-active-tab="buyers"] .card h3 {
+  .cards[data-tab="buyers"] .card h3 {
     top: 70rem;
   }
 
-  .cardsArea[data-active-tab="buyers"] .card p {
+  .cards[data-tab="buyers"] .card p {
     top: 99rem;
-  }
-
-  @keyframes panel-enter {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes card-enter {
-    from {
-      opacity: 0;
-      transform: translateY(12rem);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 }
 
@@ -287,13 +300,15 @@
   /*
    * From the Figma frame (Desktop > WHY 3D). The title sits 160 below the
    * numbers plate; everything else is placed from the section top:
-   * image 109, intro 354, tabs 646, cards 738 (500x344, 50 apart).
+   * image 109, intro 354, tabs 646, cards 738 (500x344, 50 apart). The
+   * block ends 174.5 below the cards (Figma: 196), the gap between blocks
+   * on desktops, the client's call.
    */
   .section,
   .inner {
     position: relative;
     width: 100%;
-    height: 1278rem;
+    height: 1256.5rem;
     overflow: hidden;
     color: #000;
     background: #fff;
@@ -354,20 +369,32 @@
     object-fit: contain;
   }
 
-  /* RO labels are longer: Figma widens the control to 753-1180 (not centred)
-     with a 211 black pill. */
+  .buildingStage {
+    position: absolute;
+    inset: 0;
+  }
+
+  .buildingLife {
+    inset: 0;
+  }
+
+  /* RO labels are longer: Figma widens the control to 753-1180 (not centred).
+     Its black pill is 211 there; here its edge (--tab-split) sits where both
+     labels get the same room on either side, 17 inside the pill and out of
+     it, whichever is chosen. */
   .tabs {
-    --first-tab-width: 211rem;
-    --second-tab-width: 216rem;
+    --tab-width: 427rem;
+    --tab-border: 1.34rem;
+    --tab-split: 201.65rem;
     position: absolute;
     top: 646rem;
     left: 753rem;
     display: grid;
-    width: 427rem;
+    width: var(--tab-width);
     height: 52.4rem;
-    grid-template-columns: var(--first-tab-width) var(--second-tab-width);
+    grid-template-columns: calc(var(--tab-split) - 2 * var(--tab-border)) 1fr;
     padding: 0;
-    border: 1.34rem solid #000;
+    border: var(--tab-border) solid #000;
     border-radius: 999rem;
     background: #fff;
   }
@@ -375,9 +402,9 @@
   .tabIndicator {
     position: absolute;
     z-index: 0;
-    top: -1.34rem;
-    left: -1.34rem;
-    width: var(--first-tab-width);
+    top: calc(-1 * var(--tab-border));
+    left: calc(-1 * var(--tab-border));
+    width: var(--tab-split);
     height: 52.4rem;
     border-radius: 999rem;
     background: #000;
@@ -385,8 +412,8 @@
   }
 
   .tabIndicatorBuyers {
-    width: calc(var(--second-tab-width) + 1.34rem);
-    transform: translateX(var(--first-tab-width));
+    width: calc(var(--tab-width) - var(--tab-split));
+    transform: translateX(var(--tab-split));
   }
 
   .tabButton {
@@ -404,9 +431,10 @@
     color: #fff;
   }
 
-  /* Figma sets the second label 6.4 left of its half's centre. */
+  /* the second cell starts and ends a border's width before the pill: this
+     puts its label in the middle of the pill */
   .tabButton:last-of-type {
-    padding-right: 12.8rem;
+    padding-left: calc(2 * var(--tab-border));
   }
 
   .cardsArea {
@@ -420,6 +448,11 @@
     display: grid;
     grid-template-columns: repeat(3, 500rem);
     gap: 50rem;
+  }
+
+  /* one tab's cards at a time here */
+  .cards:not(.cardsActive) {
+    display: none;
   }
 
   .card {
@@ -464,11 +497,11 @@
   }
 
   /* RO investor badges are wider in Figma: 237 and 243 (others 208). */
-  .cardsArea[data-active-tab="investors"] .card:nth-child(1) .badge {
+  .cards[data-tab="investors"] .card:nth-child(1) .badge {
     width: 237rem;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(3) .badge {
+  .cards[data-tab="investors"] .card:nth-child(3) .badge {
     width: 243rem;
   }
 
@@ -489,7 +522,7 @@
     line-height: 1.2;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(-n + 2) h3 {
+  .cards[data-tab="investors"] .card:nth-child(-n + 2) h3 {
     font-size: 28rem;
   }
 
@@ -499,28 +532,71 @@
     line-height: 1.2;
   }
 
-  .cardsArea[data-active-tab="investors"] .card:nth-child(1) h3 { width: 396rem; }
-  .cardsArea[data-active-tab="investors"] .card:nth-child(1) p { width: 456rem; } /* Figma 447 is its widest line; every line is a hard break */
-  .cardsArea[data-active-tab="investors"] .card:nth-child(2) h3 { width: 401rem; }
-  .cardsArea[data-active-tab="investors"] .card:nth-child(2) p { width: 440rem; }
-  .cardsArea[data-active-tab="investors"] .card:nth-child(3) h3 { width: 396rem; }
-  .cardsArea[data-active-tab="investors"] .card:nth-child(3) p { width: 410rem; }
-  .cardsArea[data-active-tab="buyers"] .card:nth-child(1) h3 { width: 268rem; }
-  .cardsArea[data-active-tab="buyers"] .card:nth-child(1) p { width: 410rem; }
-  .cardsArea[data-active-tab="buyers"] .card:nth-child(2) h3 { width: 254rem; }
-  .cardsArea[data-active-tab="buyers"] .card:nth-child(2) p { width: 410rem; }
-  .cardsArea[data-active-tab="buyers"] .card:nth-child(3) h3 { width: 258rem; }
-  .cardsArea[data-active-tab="buyers"] .card:nth-child(3) p { width: 410rem; }
+  .cards[data-tab="investors"] .card:nth-child(1) h3 { width: 396rem; }
+  .cards[data-tab="investors"] .card:nth-child(1) p { width: 456rem; } /* Figma 447 is its widest line; every line is a hard break */
+  .cards[data-tab="investors"] .card:nth-child(2) h3 { width: 401rem; }
+  .cards[data-tab="investors"] .card:nth-child(2) p { width: 440rem; }
+  .cards[data-tab="investors"] .card:nth-child(3) h3 { width: 396rem; }
+  .cards[data-tab="investors"] .card:nth-child(3) p { width: 410rem; }
+  .cards[data-tab="buyers"] .card:nth-child(1) h3 { width: 268rem; }
+  .cards[data-tab="buyers"] .card:nth-child(1) p { width: 410rem; }
+  .cards[data-tab="buyers"] .card:nth-child(2) h3 { width: 254rem; }
+  .cards[data-tab="buyers"] .card:nth-child(2) p { width: 410rem; }
+  .cards[data-tab="buyers"] .card:nth-child(3) h3 { width: 258rem; }
+  .cards[data-tab="buyers"] .card:nth-child(3) p { width: 410rem; }
 }
 
-@media screen and (max-width: 640px) and (prefers-reduced-motion: reduce) {
-  .tabIndicator,
-  .tabButton {
-    transition: none;
+/* Under a mouse a card rises a little. */
+@media screen and (min-width: 641px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .cards,
-  .card {
+  .card:hover {
+    translate: 0 -6rem;
+  }
+}
+
+/*
+ * The 3D building floats: up a little and back on desktop, where it stands
+ * free; on the phone, where its box clips it, it breathes instead.
+ */
+/* only while it is on screen (data-revealed), so nothing ticks unseen; the
+   life laid over it goes along */
+:global(html[data-motion]) .buildingVisual[data-revealed] .buildingStage {
+  animation: design-float 7s ease-in-out infinite;
+}
+
+@media screen and (max-width: 640px) {
+  :global(html[data-motion]) .buildingVisual[data-revealed] .buildingStage {
+    animation-name: design-breathe;
+  }
+}
+
+@keyframes design-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -12rem;
+  }
+}
+
+@keyframes design-breathe {
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.04;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) .buildingVisual .buildingStage {
     animation: none;
   }
 }

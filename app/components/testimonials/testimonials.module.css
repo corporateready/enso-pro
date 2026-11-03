@@ -1,0 +1,250 @@
+.section {
+  width: 100%;
+  background: #fff;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.title {
+  margin: 0;
+  color: #000;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 20rem 0 0;
+  color: #000;
+  font-weight: 400;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: #f3f5f9;
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.mark {
+  display: block;
+  flex: none;
+  fill: #0e3477;
+}
+
+.since {
+  color: #717171;
+  line-height: 1.2;
+}
+
+.quote {
+  margin: 0;
+}
+
+.quote p {
+  margin: 0;
+  color: #000;
+  font-weight: 400;
+}
+
+/* every card as tall as the longest, the names level across them */
+.person {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  border-top: 1rem solid rgb(14 52 119 / 12%);
+}
+
+.avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  color: #0e3477;
+  background: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.name {
+  display: block;
+  color: #000;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.role {
+  display: block;
+  color: #717171;
+  line-height: 1.3;
+}
+
+/* A swipe row, with 300-wide cards so the next one shows at the edge. 64
+   below the cards to the journal's title (64 between blocks on phones, the
+   client's call). */
+@media screen and (max-width: 640px) {
+  .inner {
+    width: 100%;
+    max-width: 390rem;
+    margin: 0 auto;
+    padding: 0 16rem 62rem;
+  }
+
+  .title {
+    font-size: 34rem;
+    line-height: 37rem;
+  }
+
+  .subtitle {
+    font-size: 16rem;
+    line-height: 19.2rem;
+  }
+
+  .cards {
+    display: flex;
+    gap: 12rem;
+    margin: 19.8rem -16rem 0;
+    padding: 0 16rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 16rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 300rem;
+    padding: 24rem 22rem 20rem;
+    scroll-snap-align: start;
+  }
+
+  .mark {
+    width: 30rem;
+    height: 22rem;
+  }
+
+  .since {
+    font-size: 13rem;
+  }
+
+  .quote {
+    margin: 16rem 0 18rem;
+  }
+
+  .quote p {
+    font-size: 16rem;
+    line-height: 22.4rem;
+  }
+
+  .person {
+    gap: 12rem;
+    padding-top: 14rem;
+  }
+
+  .avatar {
+    width: 40rem;
+    height: 40rem;
+    font-size: 14rem;
+  }
+
+  .name {
+    font-size: 16rem;
+  }
+
+  .role {
+    margin-top: 2rem;
+    font-size: 13rem;
+  }
+}
+
+/* All three on the 1600 grid, and the journal's title 174.5 below them (the
+   gap between blocks on desktops, the client's call). */
+@media screen and (min-width: 641px) {
+  .inner {
+    width: 100%;
+    padding: 92.1rem 160rem 2.5rem;
+  }
+
+  .title {
+    font-size: 64rem;
+    line-height: 76.8rem;
+  }
+
+  .mobileBreak {
+    display: none;
+  }
+
+  .subtitle {
+    font-size: 36rem;
+    line-height: 43.2rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 500rem);
+    gap: 50rem;
+    margin-top: 60rem;
+  }
+
+  .card {
+    min-height: 500rem;
+    padding: 46rem 40rem 38rem;
+  }
+
+  .mark {
+    width: 53rem;
+    height: 39rem;
+  }
+
+  .since {
+    font-size: 21rem;
+  }
+
+  .quote {
+    margin: 30rem 0 34rem;
+  }
+
+  .quote p {
+    font-size: 28rem;
+    line-height: 39.2rem;
+  }
+
+  .person {
+    gap: 20rem;
+    padding-top: 28rem;
+  }
+
+  .avatar {
+    width: 68rem;
+    height: 68rem;
+    font-size: 24rem;
+  }
+
+  .name {
+    font-size: 28rem;
+  }
+
+  .role {
+    margin-top: 4rem;
+    font-size: 21rem;
+  }
+}
+
+/* Under a mouse a card rises a little. */
+@media screen and (min-width: 641px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card:hover {
+    translate: 0 -6rem;
+  }
+}

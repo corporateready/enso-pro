@@ -62,15 +62,19 @@
     white-space: nowrap;
   }
 
+  /* Right-aligned as on desktops, the client's call (Figma sets it from the
+     left): the title top left, the text bottom right, each 16 from the
+     screen's edge (the block is Figma's 394 wide, 4 past the screen). */
   .description {
     position: absolute;
     top: 379rem;
-    left: 19rem;
-    width: 361rem;
+    right: 20rem;
+    width: 358rem;
     margin: 0;
     font-size: 24rem;
     font-weight: 400;
     line-height: 1.3;
+    text-align: right;
     white-space: nowrap;
   }
 }
@@ -134,5 +138,42 @@
     font-size: 40.95rem;
     line-height: 53.2rem;
     text-align: right;
+  }
+}
+
+/*
+ * The photo drifts a little slower than the page as the section scrolls by:
+ * a scroll-driven animation, so the browser runs it off the main thread (and
+ * one without them keeps the photo still), on a 10% larger picture so its
+ * edges never show. Only once the site's motion is on (html[data-motion]).
+ */
+@supports (animation-timeline: view()) {
+  /* the section's own passage through the screen: the picture's view() would
+     look no further than the box that clips it */
+  .section {
+    view-timeline-name: --values-view;
+  }
+
+  :global(html[data-motion]) .background {
+    animation: values-drift linear both;
+    animation-timeline: --values-view;
+  }
+}
+
+@keyframes values-drift {
+  from {
+    translate: 0 -4%;
+    scale: 1.1;
+  }
+
+  to {
+    translate: 0 4%;
+    scale: 1.1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) .background {
+    animation: none;
   }
 }

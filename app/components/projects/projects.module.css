@@ -1,0 +1,309 @@
+.section {
+  width: 100%;
+  color: #000;
+  background: #fff;
+}
+
+.title {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+}
+
+.link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline: 2rem solid #2864d7;
+  outline-offset: 4rem;
+}
+
+.photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #d5d5d1;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.status {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999rem;
+  background: rgb(255 255 255 / 92%);
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.status::before {
+  border-radius: 50%;
+  background: var(--status-dot);
+  content: "";
+}
+
+/* green for the one about to start (the live badge's green), amber while it
+   is built, grey once it is finished */
+.soon {
+  --status-dot: #40854e;
+}
+
+.building {
+  --status-dot: #e39b2d;
+}
+
+.done {
+  --status-dot: #9a9a9a;
+}
+
+/* the arrow sits level with the name's first line, so it lines up across
+   the row even where a name takes two */
+.caption {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.copy,
+.name,
+.meta {
+  display: block;
+}
+
+.name {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.name span {
+  display: block;
+}
+
+.meta {
+  color: #6d6d6d;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.arrow {
+  display: grid;
+  flex: none;
+  place-items: center;
+  border-style: solid;
+  border-color: #000;
+  border-radius: 50%;
+  transition:
+    color 300ms ease,
+    background-color 300ms ease;
+}
+
+.arrow svg {
+  display: block;
+}
+
+/* Figma's title and swipe row, with 300-wide cards so the next one shows
+   at the edge */
+@media screen and (max-width: 640px) {
+  /* 64 between blocks on phones, the client's call (Figma leaves 56–96): the hero's edge to the title's capitals */
+  .section {
+    padding: 62.3rem 0 0;
+  }
+
+  .title {
+    margin: 0 15rem 20.2rem;
+    font-size: 32rem;
+    line-height: 28.8rem;
+    white-space: nowrap;
+  }
+
+  .scroller {
+    width: 100%;
+    padding: 0 15rem 24rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 15rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    gap: 12rem;
+  }
+
+  .card {
+    flex: 0 0 300rem;
+    scroll-snap-align: start;
+  }
+
+  .photo {
+    height: 375rem;
+  }
+
+  .status {
+    top: 12rem;
+    left: 12rem;
+    height: 28rem;
+    gap: 7rem;
+    padding: 0 11rem;
+    font-size: 13rem;
+  }
+
+  .status::before {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .caption {
+    gap: 12rem;
+    margin-top: 14rem;
+  }
+
+  .name {
+    font-size: 24rem;
+  }
+
+  .meta {
+    margin-top: 7rem;
+    font-size: 14rem;
+  }
+
+  .arrow {
+    width: 38rem;
+    height: 38rem;
+    margin-top: -7rem;
+    border-width: 1rem;
+  }
+
+  .arrow svg {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .scrollbar {
+    position: relative;
+    width: 360rem;
+    height: 4rem;
+    margin-left: 15rem;
+    overflow: hidden;
+    border-radius: 4rem;
+    background: #d9d9d9;
+  }
+
+  .scrollbarThumb {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 4rem;
+    background: #252525;
+    will-change: left;
+  }
+}
+
+/* Figma's title; all three cards on the 1600 grid, so nothing hides to the
+   side and the row needs no scrollbar. 174.5 between blocks on desktops, the
+   client's call (most of Figma's gaps; it runs them from 160 to 242): the
+   hero's edge to the title's capitals, and the captions to the next title */
+@media screen and (min-width: 641px) {
+  .section {
+    padding: 169rem 0 18.8rem;
+  }
+
+  .title {
+    margin: 0 0 26.4rem 160rem;
+    font-size: 64rem;
+    line-height: 0.9;
+  }
+
+  .scroller {
+    padding: 0 160rem;
+  }
+
+  .track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40rem;
+  }
+
+  .photo {
+    height: 620rem;
+  }
+
+  .status {
+    top: 22rem;
+    left: 22rem;
+    height: 40rem;
+    gap: 10rem;
+    padding: 0 18rem;
+    font-size: 18rem;
+  }
+
+  .status::before {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .caption {
+    gap: 20rem;
+    margin-top: 26rem;
+  }
+
+  .name {
+    font-size: 42rem;
+  }
+
+  .meta {
+    margin-top: 12rem;
+    font-size: 21rem;
+  }
+
+  .arrow {
+    width: 56rem;
+    height: 56rem;
+    margin-top: -7rem;
+    border-width: 1.5rem;
+  }
+
+  .arrow svg {
+    width: 24rem;
+    height: 24rem;
+  }
+
+  .scrollbar {
+    display: none;
+  }
+}
+
+/* under a mouse the arrow fills in, and the photo slowly closes in */
+@media (hover: hover) and (pointer: fine) {
+  .link:hover .arrow {
+    color: #fff;
+    background: #000;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .image {
+    transition: scale 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link:hover .image {
+    scale: 1.04;
+  }
+}

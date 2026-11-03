@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   // local subnet keeps device testing working. Dev only — builds ignore this.
   allowedDevOrigins: ["192.168.*.*", "10.*.*.*", "172.16.*.*", "*.local"],
   images: {
-    qualities: [75, 100],
+    qualities: [75, 90, 100],
     formats: ["image/avif", "image/webp"],
   },
   experimental: {

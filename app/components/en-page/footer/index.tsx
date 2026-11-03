@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import EnsoFooterLogo from "../../enso-footer-logo";
 import SocialIcon, { type SocialIconName } from "../../social-icon";
 import styles from "./footer.module.css";
 
@@ -76,22 +77,10 @@ export default function Footer() {
           ))}
         </div>
 
-        <Image
-          className={styles.brand}
-          src="/enso-footer.svg"
-          width={24}
-          height={30}
-          alt="ENSO Development"
-        />
+        <EnsoFooterLogo variant="mobile" className={styles.brand} />
         {/* The desktop logo is exported from Figma as drawn there (206x268);
             its proportions differ from the small mobile mark. */}
-        <Image
-          className={styles.brandDesktop}
-          src="/enso-footer-desktop.svg"
-          width={207}
-          height={269}
-          alt="ENSO Development"
-        />
+        <EnsoFooterLogo variant="desktop" className={styles.brandDesktop} />
 
         <div className={styles.legal}>
           <p className={styles.copyright}>
@@ -105,7 +94,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <a className={styles.backToTop} href="#top" aria-label="Back to top">
+        <a
+          className={`${styles.backToTop} motion-button`}
+          href="#top"
+          aria-label="Back to top"
+        >
           <Image
             className={styles.backToTopIcon}
             src="/to-top-arrow.svg"

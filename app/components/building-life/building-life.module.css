@@ -1,0 +1,162 @@
+/* The layer adds light to the picture beneath it (screen: black is no
+   change), and is not there at all, nothing in it ticking, unless the site's
+   motion is on and the picture is on screen (data-revealed). */
+.life {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+:global(html[data-motion]) [data-revealed] .life {
+  display: block;
+}
+
+.pipe,
+.room,
+.shaft {
+  position: absolute;
+}
+
+/* one straight piece of a pipe: its upright box clips the light, the track
+   inside is turned along it from its start */
+.pipe {
+  overflow: hidden;
+}
+
+.pipeTrack {
+  position: absolute;
+  transform-origin: 0 50%;
+}
+
+/* the light's rail (index.tsx): it moves its own length once a cycle */
+.pipeRail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  animation: building-pipe var(--every) linear var(--delay) infinite;
+}
+
+@keyframes building-pipe {
+  to {
+    translate: 100% 0;
+  }
+}
+
+/* a light with a tail and a bright head in front, a glow round it across
+   the pipe, at the start of its rail */
+.pipeLight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background:
+    radial-gradient(closest-side, rgb(255 255 250), rgb(255 242 204 / 80%) 35%, rgb(255 226 160 / 0%)) 100% 50% / 34% 100% no-repeat,
+    linear-gradient(
+      to right,
+      rgb(255 180 60 / 0%),
+      rgb(255 200 96 / 65%) 55%,
+      rgb(255 242 190) 86%,
+      rgb(255 242 190 / 0%)
+    );
+  mask-image: linear-gradient(
+    transparent,
+    rgb(0 0 0 / 20%) 18%,
+    rgb(0 0 0 / 60%) 32%,
+    #000 42% 58%,
+    rgb(0 0 0 / 60%) 68%,
+    rgb(0 0 0 / 20%) 82%,
+    transparent
+  );
+}
+
+/* A ceiling lamp (or a row of them, --lamps) flickering on, then off a few
+   seconds later: the lamp, its warm light down the room, and the pool it
+   leaves on the floor. */
+.room {
+  background:
+    radial-gradient(14% 9% at 50% 5%, rgb(255 250 225), rgb(255 236 180 / 0%)),
+    radial-gradient(75% 85% at 50% 0%, rgb(255 205 120 / 75%), rgb(255 180 80 / 0%)),
+    radial-gradient(70% 35% at 50% 100%, rgb(255 190 100 / 35%), rgb(255 190 100 / 0%));
+  background-size: calc(100% / var(--lamps)) 100%;
+  opacity: 0.01;
+  animation: building-room var(--every) ease-in-out var(--delay) infinite;
+}
+
+/* never quite out: a layer at 0 is not drawn, and has to be drawn afresh
+   when it comes on, a frame or two late */
+@keyframes building-room {
+  0%,
+  50%,
+  100% {
+    opacity: 0.01;
+  }
+
+  51% {
+    opacity: 0.7;
+  }
+
+  52% {
+    opacity: 0.25;
+  }
+
+  55%,
+  90% {
+    opacity: 1;
+  }
+
+  95% {
+    opacity: 0.01;
+  }
+}
+
+.shaft {
+  overflow: hidden;
+}
+
+/* The lit car with its glow, 90 tall in a shaft of 840: it waits at the
+   ground floor, rides up to the third, on to the top, back down to the
+   second and home, each car on its own time (index.tsx). Its stops are in
+   its own heights. */
+.lift {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10.714%;
+  background:
+    linear-gradient(rgb(240 251 255 / 85%), rgb(190 236 255 / 70%)) center / 50% 62% no-repeat,
+    radial-gradient(closest-side, rgb(150 225 255 / 50%), rgb(150 225 255 / 0%));
+  translate: 0 833%;
+  animation: building-lift var(--every) ease-in-out var(--delay) infinite;
+}
+
+@keyframes building-lift {
+  0%,
+  10%,
+  96%,
+  100% {
+    translate: 0 833%;
+  }
+
+  26%,
+  34% {
+    translate: 0 519%;
+  }
+
+  48%,
+  58% {
+    translate: 0 74%;
+  }
+
+  72%,
+  80% {
+    translate: 0 291%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) [data-revealed] .life {
+    display: none;
+  }
+}

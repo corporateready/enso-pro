@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Fragment, useRef, useState } from "react";
 
+import { revealDelay } from "../../motion/reveal";
 import styles from "./team.module.css";
 
 type TeamMember = {
@@ -123,24 +124,24 @@ export default function Team() {
     <section id="team" className={styles.section} aria-labelledby="team-title">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <h2 id="team-title" className={styles.title}>
+          <h2 id="team-title" className={styles.title} data-reveal>
             OUR TEAM
           </h2>
-          <p className={styles.intro}>
+          <p className={styles.intro} data-reveal style={revealDelay(100)}>
             We manage the whole journey in-house —{" "}
             <br />
             land, design, construction, sales, asset{" "}
             <br />
             management.
           </p>
-          <p className={styles.introSecondary}>
+          <p className={styles.introSecondary} data-reveal style={revealDelay(200)}>
             One team, one standard, full responsibility from{" "}
             <br />
             first sketch to final handover.
           </p>
         </header>
 
-        <div className={styles.pagination} aria-label="Team pages">
+        <div className={styles.pagination} data-reveal aria-label="Team pages">
           {teamSlides.map((_, index) => (
             <button
               className={`${styles.dot} ${
@@ -158,6 +159,7 @@ export default function Team() {
         <div
           ref={viewportRef}
           className={styles.viewport}
+          data-reveal-group
           onScroll={updateActiveSlide}
           aria-label="Team members"
           aria-roledescription="carousel"
@@ -172,8 +174,13 @@ export default function Team() {
                 aria-label={`${slideIndex + 1} of ${teamSlides.length}`}
                 aria-hidden={activeSlide !== slideIndex}
               >
-                {members.map((member) => (
-                  <article className={styles.member} key={member.name}>
+                {members.map((member, memberIndex) => (
+                  <article
+                    className={styles.member}
+                    key={member.name}
+                    data-reveal
+                    style={revealDelay(memberIndex * 120)}
+                  >
                     <TeamPhoto member={member} />
                     <div className={styles.memberContent}>
                       <h3>{member.name}</h3>
