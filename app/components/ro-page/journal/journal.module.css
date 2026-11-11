@@ -441,6 +441,10 @@
     text-underline-offset: 0.21em;
   }
 
+  /* The pill and the date at 15.5 where Figma has 17.21: at that size the
+     long "Ghid de cumpărare" pill leaves the date no room, and Figma breaks
+     it onto two lines. The client wanted it on one; both small cards take
+     the size so they still match. */
   .articleCard .articleCategory {
     top: 19.3rem;
     left: 406.5rem;
@@ -448,7 +452,7 @@
     padding: 0 14.61rem;
     border: 0.97rem solid #000;
     border-radius: 19rem;
-    font-size: 17.21rem;
+    font-size: 15.5rem;
     font-weight: 400;
     line-height: 20.6rem;
   }
@@ -457,7 +461,7 @@
     top: 30.1rem;
     right: 21.4rem;
     color: #000;
-    font-size: 17.21rem;
+    font-size: 15.5rem;
     line-height: 20.6rem;
   }
 
@@ -470,19 +474,11 @@
     line-height: 31rem;
   }
 
-  /* Figma: the long "Ghid de cumpărare" pill has 13 side padding, and the
-     date beside it is a 157-wide box, so it breaks onto two lines. */
+  /* Figma: the long "Ghid de cumpărare" pill has 13 side padding. */
   [id="journal-eminescu-offices"] .articleCategory {
     top: 19.1rem;
     left: 407rem;
     padding: 0 12.03rem;
-  }
-
-  [id="journal-eminescu-offices"] .articleMeta {
-    top: 29.1rem;
-    right: 2rem;
-    width: 157rem;
-    white-space: normal;
   }
 
   [id="journal-moldova-growth-leader"] .articleCategory {
