@@ -1,13 +1,20 @@
+import type { CSSProperties } from "react";
+
 import { revealDelay } from "../motion/reveal";
 import styles from "./testimonials.module.css";
 
 /*
  * What clients say, one block for both languages: Figma's three cards, all
  * in a row on a desktop and a swipe row on a phone, restyled at the client's
- * call. The cards are pale and flat in place of white with a shadow, a quote
- * mark stands where the five stars were, the role badge (which only repeated
- * the role) is gone, and the name sits by its initials at the foot.
+ * call. The cards are pale and flat in place of white with a shadow, the
+ * role badge (which only repeated the role) is gone, and the name sits by
+ * its initials at the foot. Figma's five stars lead each card (for a while
+ * a quote mark stood there; the client wanted the stars back), drawn here:
+ * the ★ character is not in the site's Inter and fell back to whatever font
+ * a device has.
  */
+
+const STARS = [0, 1, 2, 3, 4] as const;
 
 type Review = {
   quote: string;
@@ -21,6 +28,7 @@ const content: Record<
   {
     title: readonly [string, string];
     subtitle: string;
+    stars: string;
     since: string;
     reviews: readonly Review[];
   }
@@ -28,6 +36,7 @@ const content: Record<
   ro: {
     title: ["CE SPUN", "CLIENȚII NOȘTRI"],
     subtitle: "Partea care se vede după predare.",
+    stars: "5 din 5 stele",
     since: "Alături din",
     reviews: [
       {
@@ -56,6 +65,7 @@ const content: Record<
   en: {
     title: ["WHAT OUR", "CLIENTS SAY"],
     subtitle: "The part that shows up after handover.",
+    stars: "5 out of 5 stars",
     since: "With us since",
     reviews: [
       {
@@ -118,9 +128,19 @@ export default function Testimonials({ locale }: { locale: "ro" | "en" }) {
               style={revealDelay(index * 100)}
             >
               <div className={styles.cardTop}>
-                <svg className={styles.mark} viewBox="0 0 49 36" aria-hidden="true">
-                  <path d="M0 36V22.6C0 9.9 6.3 2.4 18.4 0l2 5.2C13.6 7.3 10.6 11.4 10.3 17H20v19H0Zm28 0V22.6C28 9.9 34.3 2.4 46.4 0l2 5.2c-6.8 2.1-9.8 6.2-10.1 11.8H48v19H28Z" />
-                </svg>
+                <span className={styles.stars} role="img" aria-label={text.stars}>
+                  {STARS.map((star) => (
+                    <svg
+                      key={star}
+                      className={styles.star}
+                      viewBox="0 0 19.02 18.09"
+                      aria-hidden="true"
+                      style={{ "--star": star } as CSSProperties}
+                    >
+                      <path d="M9.51 0 11.98 6.6 19.02 6.91 13.51 11.3 15.39 18.09 9.51 14.2 3.63 18.09 5.52 11.3 0 6.91 7.04 6.6Z" />
+                    </svg>
+                  ))}
+                </span>
                 <span className={styles.since}>
                   {text.since} {review.since}
                 </span>
