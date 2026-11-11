@@ -4,17 +4,20 @@
   inset: 0;
   display: grid;
   overflow-y: auto;
-  place-items: end center;
   background: rgb(0 0 0 / 20%);
   -webkit-backdrop-filter: blur(2rem);
   backdrop-filter: blur(2rem);
   animation: book-call-overlay-in 180ms ease-out;
 }
 
+/* Figma draws the form for phones only, a sheet on the bottom edge: so it
+   sits there, and on a screen too short for it scrolls from its top (auto
+   margins give way where an alignment would push it off the screen). */
 .dialog {
   position: relative;
   width: min(430rem, 100%);
   min-height: 574rem;
+  margin: auto auto 0;
   padding: 30rem 16rem 52rem;
   color: #000;
   background: #fff;
@@ -22,12 +25,25 @@
   animation: book-call-dialog-in 220ms ease-out;
 }
 
+/* on a desktop it stands in the middle of the screen, the client's call */
+@media screen and (min-width: 641px) {
+  .overlay {
+    padding: 40rem;
+  }
+
+  .dialog {
+    margin: auto;
+  }
+}
+
+/* Figma's cross: two hairlines corner to corner of a 26 box, 16 in from
+   the right and level with the title; a finger gets a 44 box round it */
 .closeButton {
   position: absolute;
-  top: 34rem;
+  top: 35rem;
   right: 16rem;
-  width: 28rem;
-  height: 28rem;
+  width: 26rem;
+  height: 26rem;
   padding: 0;
   border: 0;
   color: #000;
@@ -35,11 +51,17 @@
   cursor: pointer;
 }
 
+.closeButton::before {
+  position: absolute;
+  inset: -9rem;
+  content: "";
+}
+
 .closeButton span {
   position: absolute;
-  top: 13rem;
-  left: -1rem;
-  width: 30rem;
+  top: 12.5rem;
+  left: -5.385rem;
+  width: 36.77rem;
   height: 1rem;
   background: currentColor;
   transform-origin: center;
@@ -53,9 +75,12 @@
   transform: rotate(-45deg);
 }
 
+/* Figma's 26 (27 ran into the cross); it keeps clear of the cross, so the
+   Romanian title takes two lines in a phone's 358 */
 .title {
   margin: 0;
-  font-size: 27rem;
+  padding-right: 36rem;
+  font-size: 26rem;
   font-weight: 600;
   line-height: 33rem;
 }
