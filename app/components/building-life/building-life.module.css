@@ -14,7 +14,12 @@
 
 .pipe,
 .room,
-.shaft {
+.screen,
+.shaft,
+.glow,
+.lamp,
+.walk,
+.figure {
   position: absolute;
 }
 
@@ -70,6 +75,19 @@
   );
 }
 
+/* the same light in the glass's blue, for the slabs */
+.pipeLightCool {
+  background:
+    radial-gradient(closest-side, rgb(250 254 255), rgb(196 238 255 / 80%) 35%, rgb(150 220 255 / 0%)) 100% 50% / 34% 100% no-repeat,
+    linear-gradient(
+      to right,
+      rgb(70 170 255 / 0%),
+      rgb(110 200 255 / 60%) 55%,
+      rgb(205 242 255) 86%,
+      rgb(205 242 255 / 0%)
+    );
+}
+
 /* A ceiling lamp (or a row of them, --lamps) flickering on, then off a few
    seconds later: the lamp, its warm light down the room, and the pool it
    leaves on the floor. */
@@ -110,11 +128,214 @@
   }
 }
 
+/* A screen on in a room: its cold light on the walls, never steady, then
+   off for a while. */
+.screen {
+  background:
+    radial-gradient(22% 20% at 50% 46%, rgb(235 248 255), rgb(190 232 255 / 0%)),
+    radial-gradient(80% 75% at 50% 46%, rgb(120 200 255 / 80%), rgb(90 170 255 / 0%));
+  opacity: 0.01;
+  animation: building-screen var(--every) linear var(--delay) infinite;
+}
+
+@keyframes building-screen {
+  0%,
+  8%,
+  88%,
+  100% {
+    opacity: 0.01;
+  }
+
+  10%,
+  33%,
+  62% {
+    opacity: 0.9;
+  }
+
+  14%,
+  41%,
+  70% {
+    opacity: 0.5;
+  }
+
+  20%,
+  48%,
+  78% {
+    opacity: 0.8;
+  }
+
+  27%,
+  56%,
+  84% {
+    opacity: 0.4;
+  }
+}
+
+/* A machine running hot: its glow never settles. */
+.glow {
+  background: radial-gradient(closest-side, rgb(255 190 110 / 90%), rgb(255 130 40 / 45%) 55%, rgb(255 110 20 / 0%));
+  opacity: 0.35;
+  animation: building-glow var(--every) ease-in-out var(--delay) infinite;
+}
+
+.glowRed {
+  background: radial-gradient(closest-side, rgb(255 150 120 / 95%), rgb(255 50 30 / 50%) 55%, rgb(255 30 10 / 0%));
+}
+
+@keyframes building-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  12%,
+  60% {
+    opacity: 0.85;
+  }
+
+  20%,
+  72% {
+    opacity: 0.45;
+  }
+
+  34%,
+  86% {
+    opacity: 1;
+  }
+
+  47% {
+    opacity: 0.4;
+  }
+}
+
+/* A lamp on the plant: a bright point and its glow, as wide as set in
+   index.tsx and as tall. Most breathe; a beacon flashes twice and waits. */
+.lamp {
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, #fff, var(--lamp) 20%, var(--lamp-glow) 42%, transparent);
+  opacity: 0.12;
+  animation: building-lamp var(--every) ease-in-out var(--delay) infinite;
+}
+
+.lampRed {
+  --lamp: rgb(255 78 62);
+  --lamp-glow: rgb(255 60 40 / 45%);
+}
+
+.lampGreen {
+  --lamp: rgb(96 255 150);
+  --lamp-glow: rgb(60 240 120 / 40%);
+}
+
+.lampAmber {
+  --lamp: rgb(255 200 80);
+  --lamp-glow: rgb(255 170 40 / 45%);
+}
+
+.lampCyan {
+  --lamp: rgb(120 228 255);
+  --lamp-glow: rgb(80 200 255 / 45%);
+}
+
+.lampWhite {
+  --lamp: rgb(255 255 255);
+  --lamp-glow: rgb(220 240 255 / 45%);
+}
+
+.beacon {
+  animation-name: building-beacon;
+  animation-timing-function: step-end;
+}
+
+@keyframes building-lamp {
+  0%,
+  100% {
+    opacity: 0.12;
+  }
+
+  45%,
+  60% {
+    opacity: 1;
+  }
+}
+
+@keyframes building-beacon {
+  0%,
+  8%,
+  24% {
+    opacity: 0.08;
+  }
+
+  2%,
+  16% {
+    opacity: 1;
+  }
+}
+
+/* Someone walking a floor (index.tsx): the box moves its own size and back,
+   with a pause at either end, and carries the figure at its corner. */
+.walk {
+  animation: building-walk var(--every) ease-in-out var(--delay) infinite;
+}
+
+.walkUp {
+  animation-name: building-walk-up;
+}
+
+@keyframes building-walk {
+  0%,
+  7%,
+  93%,
+  100% {
+    translate: 0 0;
+  }
+
+  43%,
+  57% {
+    translate: 100% 100%;
+  }
+}
+
+@keyframes building-walk-up {
+  0%,
+  7%,
+  93%,
+  100% {
+    translate: 0 0;
+  }
+
+  43%,
+  57% {
+    translate: 100% -100%;
+  }
+}
+
+/* The figure, its middle on the box's far corner: a head and a body of
+   light, 66 tall in a box of 70 x 110, the rest of the box their glow. (A
+   drawn glow, not a filter: a filter on something that moves is redone each
+   frame.) */
+.figure {
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(closest-side, rgb(250 254 255) 78%, rgb(250 254 255 / 0%)) 50% 26.6% / 22.9% 14.6% no-repeat,
+    radial-gradient(closest-side, rgb(240 250 255) 72%, rgb(240 250 255 / 0%)) 50% 69% / 28.6% 43.6% no-repeat,
+    radial-gradient(closest-side, rgb(150 215 255 / 55%), rgb(150 215 255 / 0%));
+  translate: 50% 50%;
+}
+
+.walkUp .figure {
+  top: 0;
+  bottom: auto;
+  translate: 50% -50%;
+}
+
 .shaft {
   overflow: hidden;
 }
 
-/* The lit car with its glow, 90 tall in a shaft of 840: it waits at the
+/* The lit car with its glow, 90 tall in a shaft of 840 (the same share of
+   the shorter shaft at the right): it waits at the
    ground floor, rides up to the third, on to the top, back down to the
    second and home, each car on its own time (index.tsx). Its stops are in
    its own heights. */
