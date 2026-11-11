@@ -1,15 +1,15 @@
 /* The layer adds light to the picture beneath it (screen: black is no
-   change), and is not there at all, nothing in it ticking, unless the site's
-   motion is on and the picture is on screen (data-revealed). */
+   change). Its parts are there, and ticking, only while the picture is on
+   screen (index.tsx marks the layer data-on); without JavaScript the building
+   is as it was. */
 .life {
   position: absolute;
-  display: none;
   pointer-events: none;
   mix-blend-mode: screen;
 }
 
-:global(html[data-motion]) [data-revealed] .life {
-  display: block;
+.life:not([data-on]) > * {
+  display: none;
 }
 
 .pipe,
@@ -376,8 +376,11 @@
   }
 }
 
+/* With the device's animations off the life stays (index.tsx), the calm of
+   it: a beacon breathes like the other lamps and does not flash. */
 @media (prefers-reduced-motion: reduce) {
-  :global(html[data-motion]) [data-revealed] .life {
-    display: none;
+  .beacon {
+    animation-name: building-lamp;
+    animation-timing-function: ease-in-out;
   }
 }

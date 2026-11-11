@@ -1,4 +1,6 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useEffect, useRef, type CSSProperties } from "react";
 
 import styles from "./building-life.module.css";
 
@@ -10,9 +12,13 @@ import styles from "./building-life.module.css";
  * desktop picture's own pixels (3128 x 1752); the phone picture is the same
  * render, smaller, so the layer only has to be set where the building sits
  * in it (design.module.css).
- * Only opacity and translate are animated, and nothing shows without the
- * site's motion (html[data-motion]) or off screen: at rest the building is as
- * it was.
+ * Only opacity and translate are animated, and nothing is there off screen.
+ *
+ * The layer does not wait for the site's motion (html[data-motion]): a phone
+ * with its animations off, which on Android is often just its battery saver,
+ * turns the site's motion off, and the building stood dead on it. At the
+ * client's call it keeps this life there too; the picture's own float, like
+ * every other large movement, stays off.
  */
 
 const WIDTH = 3128;
@@ -337,8 +343,24 @@ const lampTones = {
 } as const;
 
 export default function BuildingLife({ className = "" }: { className?: string }) {
+  const layer = useRef<HTMLDivElement>(null);
+
+  // on only while the picture is on screen: off it, the layer's parts are
+  // not there to tick (building-life.module.css)
+  useEffect(() => {
+    const node = layer.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      node.toggleAttribute("data-on", entry.isIntersecting);
+    });
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={`${styles.life} ${className}`} aria-hidden="true">
+    <div ref={layer} className={`${styles.life} ${className}`} aria-hidden="true">
       {rooms.map((room, index) => (
         <RoomLight key={index} {...room} />
       ))}
