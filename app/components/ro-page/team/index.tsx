@@ -26,14 +26,14 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Dezvoltare",
       description:
         "16 ani de proiecte livrate, inclusiv\nARTIMA, NEWTON HOUSE\nși Eminescu Residence.",
-      imageSrc: "/team-avatar-2.png",
+      imageSrc: "/team-avatar-2.webp",
     },
     {
       name: "Denis Vasiliev",
       role: "Marketing & Vânzări",
       description:
         "12 ani în marketing și vânzări —\npeste 3.000 de apartamente vândute.",
-      imageSrc: "/team-avatar-3.png",
+      imageSrc: "/team-avatar-3.webp",
     },
   ],
   [
@@ -42,14 +42,14 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Relații\ncu clienții",
       description:
         "20 de ani de expertiză în relații\ncu clienții, pe întreg ciclul.",
-      imageSrc: "/team-avatar-4.png",
+      imageSrc: "/team-avatar-4.webp",
     },
     {
       name: "Vladimir Ostrovoi",
       role: "Arhitectură & Management de proiect",
       description:
         "18 ani de proiecte rezidențiale, comerciale și culturale.",
-      imageSrc: "/team-avatar-5.png",
+      imageSrc: "/team-avatar-5.webp",
     },
   ],
 ];

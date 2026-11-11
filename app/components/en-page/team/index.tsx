@@ -26,14 +26,14 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Development",
       description:
         "16 years delivering projects including ARTIMA, NEWTON HOUSE and Eminescu Residence.",
-      imageSrc: "/team-avatar-2.png",
+      imageSrc: "/team-avatar-2.webp",
     },
     {
       name: "Denis Vasiliev",
       role: "Marketing & Sales",
       description:
         "12 years driving marketing and sales — 3,000+ apartments brought to market.",
-      imageSrc: "/team-avatar-3.png",
+      imageSrc: "/team-avatar-3.webp",
     },
   ],
   [
@@ -42,14 +42,14 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Customer Relations\nDepartment",
       description:
         "20 years of expertise in driving full-cycle customer relations.",
-      imageSrc: "/team-avatar-4.png",
+      imageSrc: "/team-avatar-4.webp",
     },
     {
       name: "Vladimir Ostrovoi",
       role: "Architecture & Project Management",
       description:
         "18 years across residential, commercial and cultural projects.",
-      imageSrc: "/team-avatar-5.png",
+      imageSrc: "/team-avatar-5.webp",
     },
   ],
 ];

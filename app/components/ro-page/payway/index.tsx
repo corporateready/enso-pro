@@ -14,7 +14,7 @@ const benefits = [
       </>
     ),
     visualClassName: styles.firstRateVisual,
-    imageSrc: "/first-rate.png",
+    imageSrc: "/first-rate.webp",
     imageWidth: 468,
     imageHeight: 400,
     desktopSrc: "/payway-down-desktop.webp",
@@ -31,7 +31,7 @@ const benefits = [
       </>
     ),
     visualClassName: styles.secondRateVisual,
-    imageSrc: "/second-rate.png",
+    imageSrc: "/second-rate.webp",
     imageWidth: 469,
     imageHeight: 440,
     desktopSrc: "/payway-quarterly-desktop.webp",
@@ -48,7 +48,7 @@ const benefits = [
       </>
     ),
     visualClassName: styles.thirdRateVisual,
-    imageSrc: "/third-rate.png",
+    imageSrc: "/third-rate.webp",
     imageWidth: 516,
     imageHeight: 404,
     desktopSrc: "/payway-nobank-desktop.webp",
@@ -131,7 +131,7 @@ export default function Payway() {
           >
             <Image
               className={`absolute bottom-0 right-0 z-2`}
-              src="/zero-rate.png"
+              src="/zero-rate.webp"
               width={126}
               height={152}
               unoptimized

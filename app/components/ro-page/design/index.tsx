@@ -231,7 +231,7 @@ export default function Design() {
           <div className={styles.buildingStage}>
             <Image
               className={`${styles.sourceImage} ${styles.mobileImage}`}
-              src="/bim-design.png"
+              src="/bim-design.webp"
               width={1000}
               height={560}
               alt=""

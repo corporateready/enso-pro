@@ -15,9 +15,9 @@ export default function Values() {
         <div className={styles.background} aria-hidden="true">
           <Image
             className={`${styles.image} ${styles.mobileImage}`}
-            src="/values-bg-figma.avif"
-            width={1809}
-            height={2560}
+            src="/values-mobile-bg.avif"
+            width={1533}
+            height={2169}
             alt=""
             unoptimized
           />
