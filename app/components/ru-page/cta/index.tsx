@@ -57,9 +57,10 @@ export default function CTA() {
             Начнём с разговора
           </h2>
           <p className={styles.description} data-reveal style={revealDelay(100)}>
-            Запишитесь на 5-минутный звонок с консультантом ENSO —
-            <br className={styles.desktopBreak} /> онлайн или в одном из
-            наших офисов.
+            Запишитесь на 5-минутный звонок с{"\u00a0"}консультантом ENSO
+            {"\u00a0"}—
+            <br className={styles.desktopBreak} /> онлайн или в{"\u00a0"}одном
+            из{"\u00a0"}наших офисов.
           </p>
         </div>
 

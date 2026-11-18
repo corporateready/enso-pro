@@ -39,7 +39,7 @@ const benefits = [
     desktopHeight: 426,
   },
   {
-    title: "Без банков и переплат",
+    title: "Без банков и переплат",
     description: (
       <>
         Напрямую застройщику,

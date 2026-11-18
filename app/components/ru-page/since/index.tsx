@@ -37,8 +37,8 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Началась разработка концепции{" "}
-        <strong>одного из крупнейших проектов города</strong> — 18,5 га
-        на Чеканах.
+        <strong>одного из крупнейших проектов города</strong> — 18,5{"\u00a0"}га
+        на{"\u00a0"}Чеканах.
       </>
     ),
     width: 141,
@@ -70,8 +70,8 @@ const milestones: readonly Milestone[] = [
     year: "2019",
     description: (
       <>
-        После <strong>20 лет</strong> в роли соинвесторов создали ENSŌ —
-        наше видение <strong>современного девелопера.</strong>
+        После <strong>20 лет</strong> в роли соинвесторов создали
+        ENSŌ{"\u00a0"}— наше видение <strong>современного девелопера.</strong>
       </>
     ),
     width: 113,
@@ -81,12 +81,14 @@ const milestones: readonly Milestone[] = [
     year: "1999",
     description: (
       <>
-        Инвестируем в недвижимость <strong>с 1999 года</strong> как партнёры
-        и соинвесторы в <strong>Молдове и Румынии</strong>.
+        Инвестируем в{"\u00a0"}недвижимость{" "}
+        <strong>с{"\u00a0"}1999{"\u00a0"}года</strong> как партнёры
+        и{"\u00a0"}соинвесторы в{"\u00a0"}
+        <strong>Молдове и{"\u00a0"}Румынии</strong>.
       </>
     ),
-    width: 262,
-    contentWidth: 245,
+    width: 272,
+    contentWidth: 255,
   },
 ];
 
@@ -294,8 +296,8 @@ export default function Since() {
             С 1999 ГОДА
           </h2>
           <p className={styles.intro} data-reveal style={revealDelay(100)}>
-            После двух десятилетий в роли соинвесторов в Молдове и Румынии мы
-            создали ENSŌ — собственное видение современного девелопера.
+            После двадцати лет в роли соинвесторов в{"\u00a0"}Молдове и Румынии
+            мы создали ENSŌ — своё видение современного девелопера.
           </p>
         </header>
 

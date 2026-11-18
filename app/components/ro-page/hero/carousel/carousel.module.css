@@ -1013,12 +1013,3 @@
     transition: none;
   }
 }
-
-/* The Russian page shares this file (ru-page/hero): its "Получить
-   предложение" is longer than "Solicită ofertă" and needs a wider button */
-@media screen and (min-width: 641px) {
-  .slide:not(:nth-child(3)) .primaryAction:lang(ru) {
-    width: 350rem !important;
-    min-width: 350rem !important;
-  }
-}

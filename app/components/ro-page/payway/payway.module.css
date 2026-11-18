@@ -448,3 +448,16 @@
     animation: none;
   }
 }
+
+/* The Russian page shares this file (ru-page/payway). On a desktop the
+   title boxes above are the widths of the Romanian lines; "Первый" and
+   "Квартальные" are longer words and get boxes that hold them. */
+@media screen and (min-width: 641px) {
+  .benefitCard:nth-child(1) h3:lang(ru) {
+    width: 170rem;
+  }
+
+  .benefitCard:nth-child(2) h3:lang(ru) {
+    width: 290rem;
+  }
+}

@@ -8,7 +8,7 @@ const partners = [
   {
     name: "Archimatika",
     description:
-      "Более 5 млн м² проектов.\nЖильё с международными\nнаградами.",
+      "Более 5\u00a0млн\u00a0м² проектов.\nЖильё с\u00a0международными\nнаградами.",
     logoSrc: "/arch 2.png",
     logoWidth: 760,
     logoHeight: 108,
@@ -17,7 +17,7 @@ const partners = [
   {
     name: "INAMSTRO",
     description:
-      "70 жилых домов сдано \nв 5 странах за 20 лет.",
+      "70 жилых домов сдано \nв\u00a05\u00a0странах за\u00a020\u00a0лет.",
     logoSrc: "/inamstro.png",
     logoWidth: 666,
     logoHeight: 112,
@@ -44,7 +44,7 @@ const partners = [
   {
     name: "Estate Invest Company",
     description:
-      "11 лет и более 400 000 м²\u2028в 50 проектах в Кишинёве.",
+      "11\u00a0лет и более 400\u00a0000\u00a0м²\u2028в\u00a050\u00a0проектах в\u00a0Кишинёве.",
     logoSrc: "/eic.png",
     logoWidth: 500,
     logoHeight: 184,

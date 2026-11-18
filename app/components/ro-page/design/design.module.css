@@ -601,10 +601,32 @@
   }
 }
 
-/* The Russian page shares this file (ru-page/design). The buyers' title
-   boxes above are the widths of the Romanian lines; the Russian titles break
-   where their own "\n" says, so their boxes only have to be wide enough. */
+/* The Russian page shares this file (ru-page/design). */
+@media screen and (max-width: 640px) {
+  /* the two wider pills above are the widths of the Romanian labels: the
+     first Russian one keeps the same room at its sides, the third ("Актив на
+     годы") is short and takes the pill every other label has */
+  .cards[data-tab="investors"] .card:nth-child(1) .badge:lang(ru) {
+    width: 121.6rem;
+  }
+
+  .cards[data-tab="investors"] .card:nth-child(3) .badge:lang(ru) {
+    width: 116.841rem;
+  }
+}
+
 @media screen and (min-width: 641px) {
+  .cards[data-tab="investors"] .card:nth-child(1) .badge:lang(ru) {
+    width: 220.2rem;
+  }
+
+  .cards[data-tab="investors"] .card:nth-child(3) .badge:lang(ru) {
+    width: 208rem;
+  }
+
+  /* The buyers' title boxes above are the widths of the Romanian lines; the
+     Russian titles break where their own "\n" says, so their boxes only
+     have to be wide enough. */
   .cards[data-tab="buyers"] .card:nth-child(n) h3:lang(ru) {
     width: 410rem;
   }

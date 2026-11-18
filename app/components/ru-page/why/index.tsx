@@ -55,8 +55,8 @@ export default function Why() {
               quality={90}
             />
             <div className={styles.awardText}>
-              <p className={styles.awardKicker}>НЕДВИЖИМОСТЬ</p>
-              <p className={styles.awardTitle}>ЛИДЕР ПРОДАЖ</p>
+              <p className={styles.awardKicker}>ЛИДЕР ПРОДАЖ</p>
+              <p className={styles.awardTitle}>НЕДВИЖИМОСТИ</p>
               <p className={styles.awardPlace}>в Молдове</p>
             </div>
           </div>

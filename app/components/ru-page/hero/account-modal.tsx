@@ -135,12 +135,14 @@ export default function AccountModal({
 
         <div className={styles.content}>
           <h2 id="personal-account-title-ru" className={styles.title}>
-            {isSignUp ? "СОЗДАЙТЕ" : "ВОЙДИТЕ В"}
+            {/* the preposition goes down with its noun: a lone "В" is not
+                left at the end of the first line */}
+            {isSignUp ? "СОЗДАЙТЕ" : "ВОЙДИТЕ"}
             <br />
-            ЛИЧНЫЙ КАБИНЕТ
+            {isSignUp ? "ЛИЧНЫЙ КАБИНЕТ" : "В\u00a0ЛИЧНЫЙ КАБИНЕТ"}
           </h2>
           <p className={styles.description}>
-            Платежи, документы и переписка с командой — всё в одном месте.
+            Платежи, документы и переписка с{"\u00a0"}командой — всё в{"\u00a0"}одном месте.
           </p>
 
           <form className={styles.form} onSubmit={handleSubmit}>

@@ -43,7 +43,7 @@ export const siteArticles: readonly JournalArticle[] = [
     badge: "Изнутри",
     // Line breaks as set in Figma; the phone cards keep them (pre-line).
     title:
-      "BIM — международный\nстандарт в каждом проекте\nENSŌ Development",
+      "Международный стандарт\nBIM\u00a0— в\u00a0каждом проекте\nENSŌ Development",
     date: "3 июня",
     readTime: "5 мин чтения",
     src: "/journal-post-image.avif",
@@ -55,7 +55,7 @@ export const siteArticles: readonly JournalArticle[] = [
     category: "buying-guide",
     badge: "Гид покупателя",
     title:
-      "ENSŌ Development завершает выход из инвестиции в Eminescu Offices",
+      "ENSŌ Development завершает выход из инвестиции в\u00a0Eminescu Offices",
     date: "2 июня",
     readTime: "5 мин чтения",
     src: "/journal-eminescu-square.avif",
@@ -66,7 +66,7 @@ export const siteArticles: readonly JournalArticle[] = [
     id: "moldova-growth-leader",
     category: "market",
     badge: "Рынок",
-    title: "Молдова — №1 в Европе\nпо росту рынка\nнедвижимости в 2025 году",
+    title: "Молдова\u00a0— №1 в\u00a0Европе\nпо\u00a0росту рынка жилья,\n2025",
     date: "2 июня",
     readTime: "5 мин чтения",
     src: "/journal-moldova-square.avif",

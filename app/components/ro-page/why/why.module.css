@@ -313,24 +313,46 @@
   }
 }
 
-/* The Russian page shares this file (ru-page/why): its "ЛИДЕР ПРОДАЖ" is
-   wider than "IMOBILIARE" and is set smaller to stay inside the wreath */
+/* The Russian page shares this file (ru-page/why). Its emphasised word,
+   "НЕДВИЖИМОСТИ", is two letters longer than "IMOBILIARE" and far wider, so
+   it is set at the size that gives it the Romanian word's width (190.8 on a
+   phone, 267 on a desktop) and stays clear of the wreath. The three lines
+   keep the Romanian gaps between them (3 and 4, 4.2 and 5.6) and, being
+   shorter together, are centred in the room the Romanian ones take. */
 @media screen and (max-width: 640px) {
-  .awardTitle:lang(ru) {
-    /* lowered by half of what the line lost, to stay between its neighbours */
-    top: 27.5rem;
-    font-size: 24rem;
+  .awardKicker:lang(ru) {
+    top: 6.3rem;
   }
 
-  /* "где строим" is wider than "activăm": the third number starts further
-     left so its label keeps clear of the screen's edge */
+  .awardTitle:lang(ru) {
+    top: 29.3rem;
+    font-size: 20.4rem;
+  }
+
+  .awardPlace:lang(ru) {
+    top: 53.7rem;
+  }
+
+  /* "где строим" is wider than "țări în care": the third number starts 8
+     further left, which leaves its label the Romanian one's 8 to the
+     screen's edge */
   .metrics li:nth-child(3):lang(ru) {
-    left: 282rem;
+    left: 294rem;
   }
 }
 
 @media screen and (min-width: 641px) {
+  .awardKicker:lang(ru) {
+    top: 2.9rem;
+  }
+
   .awardTitle:lang(ru) {
-    font-size: 33rem;
+    top: 35.1rem;
+    font-size: 28.6rem;
+    line-height: 28.6rem;
+  }
+
+  .awardPlace:lang(ru) {
+    top: 69.3rem;
   }
 }

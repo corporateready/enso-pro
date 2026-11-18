@@ -726,3 +726,51 @@
     translate: 4rem 0;
   }
 }
+
+/* The Russian page shares this file (ru-page/journal). The filter pills
+   above are as wide as the Romanian labels need; the Russian ones get the
+   same room at each side of theirs (14.5 on a phone; 13.3, 14.1, 34.3 and
+   33.6 on a desktop). */
+@media screen and (max-width: 640px) {
+  .filterButton:nth-child(1):lang(ru) {
+    width: 54.6rem;
+  }
+
+  .filterButton:nth-child(2):lang(ru) {
+    width: 136rem;
+  }
+
+  .filterButton:nth-child(3):lang(ru) {
+    width: 73.2rem;
+  }
+
+  .filterButton:nth-child(4):lang(ru) {
+    width: 86.8rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  /* the Romanian row, started at 983, ends on the block's right edge; the
+     Russian pills are narrower together, so their row is hung from that
+     edge instead */
+  .filters:lang(ru) {
+    right: 0;
+    left: auto;
+  }
+
+  .filterButton:nth-child(1):lang(ru) {
+    width: 62.5rem;
+  }
+
+  .filterButton:nth-child(2):lang(ru) {
+    width: 179.6rem;
+  }
+
+  .filterButton:nth-child(3):lang(ru) {
+    width: 130.4rem;
+  }
+
+  .filterButton:nth-child(4):lang(ru) {
+    width: 148.4rem;
+  }
+}

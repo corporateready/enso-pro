@@ -37,7 +37,7 @@ const Index = () => {
       eyebrow: "ENSO ESTATE",
       title: "НОВЫЙ СТАНДАРТ\nКАЖДОГО ДНЯ",
       primaryAction: {
-        label: "Получить предложение",
+        label: "Оставить заявку",
         href: "#request-offer",
         onClick: () => setIsOfferModalOpen(true),
       },
@@ -76,8 +76,8 @@ const Index = () => {
         },
         primaryAction: {
           position: "relative",
-          width: "205rem",
-          minWidth: "205rem",
+          width: "185rem",
+          minWidth: "185rem",
           height: "47rem",
           padding: "0rem",
           borderRadius: "999rem",
@@ -86,8 +86,8 @@ const Index = () => {
           lineHeight: "19rem",
         },
         secondaryAction: {
-          width: "130rem",
-          minWidth: "130rem",
+          width: "164rem",
+          minWidth: "164rem",
           height: "47rem",
           gap: "10rem",
           padding: "0rem",
@@ -113,7 +113,7 @@ const Index = () => {
       eyebrow: "ENSO LIVING",
       title: "ПРЕМИУМ-ПРОЕКТ\nС ВИДОМ НА КАРПАТЫ",
       primaryAction: {
-        label: "Получить предложение",
+        label: "Оставить заявку",
         href: "#request-offer",
         onClick: () => setIsOfferModalOpen(true),
       },
@@ -140,7 +140,10 @@ const Index = () => {
         title: {
           width: "100%",
           fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "30rem",
+          // 28 where the Romanian slide has 30: "С ВИДОМ НА КАРПАТЫ" is
+          // wider than "VEDERE SPRE CARPAȚI" and has to keep to one line.
+          // The line box is the Romanian one, so nothing else moves.
+          fontSize: "28rem",
           fontWeight: 600,
           lineHeight: "36.31rem",
           letterSpacing: "0rem",
@@ -152,8 +155,8 @@ const Index = () => {
           marginLeft: "3rem",
         },
         primaryAction: {
-          width: "205rem",
-          minWidth: "205rem",
+          width: "185rem",
+          minWidth: "185rem",
           height: "47rem",
           padding: "0rem",
           borderRadius: "999rem",
@@ -162,8 +165,8 @@ const Index = () => {
           lineHeight: "19rem",
         },
         secondaryAction: {
-          width: "130rem",
-          minWidth: "130rem",
+          width: "164rem",
+          minWidth: "164rem",
           height: "47rem",
           gap: "10rem",
           padding: "0rem",
