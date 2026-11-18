@@ -10,9 +10,10 @@ import styles from "./projects.module.css";
  * row on a desktop, the same cards in the swipe row on a phone. The photo
  * fills the card, the status is a small pill on it, and the name sits under
  * it with the city and the kind of project ("\n" breaks a name: ARTIMA's
- * brand is the whole "ARTIMA Business & Lifestyle"). The cards lead nowhere
- * yet. The title is the client's in place of Figma's "Our projects"; on a
- * phone it keeps to one line, so a new one has to fit 360 wide at 32px.
+ * brand is the whole "ARTIMA Business & Lifestyle"). ARTIMA's card opens its
+ * site (PROJECT_SITES); the others lead nowhere yet. The title is the
+ * client's in place of Figma's "Our projects"; on a phone it keeps to one
+ * line, so a new one has to fit 360 wide at 32px.
  */
 
 type Tone = "soon" | "building" | "done";
@@ -28,6 +29,12 @@ const SIDE_BEARINGS: Record<string, number> = {
   // Cyrillic: the upright stems of Б and К stand where B's and E's do
   Б: 0.0879,
   К: 0.0879,
+};
+
+// The projects with a site of their own: the card opens it in a new tab.
+// The others have no page yet.
+const PROJECT_SITES: Record<string, string | undefined> = {
+  artima: "https://artima.md/",
 };
 
 function onPhotoEdge(line: string) {
@@ -165,7 +172,14 @@ export default function Projects({ locale }: { locale: "ro" | "ru" | "en" }) {
             data-reveal
             style={revealDelay(index * 100)}
           >
-            <a className={styles.link} href="#request-offer">
+            <a
+              className={styles.link}
+              href={PROJECT_SITES[project.id] ?? "#request-offer"}
+              {...(PROJECT_SITES[project.id] && {
+                target: "_blank",
+                rel: "noopener noreferrer",
+              })}
+            >
               <span className={styles.photo}>
                 {/* the name below says what it shows */}
                 <Image
