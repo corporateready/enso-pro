@@ -1,6 +1,5 @@
 .desktopNav,
 .desktopOfferButton,
-.desktopLanguage,
 .desktopCarousel {
   display: none;
 }
@@ -57,10 +56,6 @@
   .headerWhite .desktopNav a,
   .headerWhite .desktopOfferButton {
     color: #000;
-  }
-
-  .headerWhite .languageLink {
-    color: #000 !important;
   }
 
   .logo {
@@ -131,21 +126,6 @@
     display: none;
   }
 
-  .languageLink {
-    min-width: 32rem !important;
-    min-height: 32rem !important;
-    color: #fff !important;
-    font-size: 18rem !important;
-  }
-
-  .mobileLanguage {
-    display: none;
-  }
-
-  .desktopLanguage {
-    display: inline;
-  }
-
   .mobileMenuShell {
     display: block;
     width: 30rem;
@@ -154,19 +134,20 @@
 }
 
 @media screen and (max-width: 640px) {
-  /* Figma mobile "Head": 64 tall, logo at 21, and the account icon, language
-     and menu at x 229, 283 and 345, all centred 36 from the top (2.5 below
-     the logo's centre). */
+  /* Figma mobile "Head": 64 tall, logo at 21, and the account icon and menu
+     at x 229 and 345, all centred 36 from the top (2.5 below the logo's
+     centre). The language menu (its code and arrow) is half way between
+     the two. */
   .headerActions {
     gap: 0 !important;
     margin-top: 5rem;
   }
 
   .accountButton {
-    margin-right: 32.06rem;
+    margin-right: 28rem;
   }
 
-  .languageLink {
-    margin-right: 33rem;
+  .languageMenu {
+    margin-right: 28rem;
   }
 }

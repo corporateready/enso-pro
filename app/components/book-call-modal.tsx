@@ -8,7 +8,7 @@ import styles from "./book-call-modal.module.css";
 import { lockPageScroll } from "./scroll-lock";
 
 type BookCallModalProps = {
-  locale: "ro" | "en";
+  locale: "ro" | "ru" | "en";
   onClose: () => void;
 };
 
@@ -25,6 +25,19 @@ const copy = {
     date: "Data preferată",
     notes: "Altceva de adăugat?",
     submit: "Programează întâlnirea",
+  },
+  ru: {
+    title: "ЗАКАЗАТЬ ЗВОНОК",
+    close: "Закрыть форму",
+    subtitle: "Оставьте пару деталей, и консультант скоро свяжется с вами.",
+    name: "Имя и фамилия",
+    email: "E-mail",
+    phone: "Номер телефона",
+    either: "Любой",
+    project: "Интересующий проект",
+    date: "Удобная дата",
+    notes: "Хотите что-то добавить?",
+    submit: "Записаться на встречу",
   },
   en: {
     title: "BOOK A CALL",

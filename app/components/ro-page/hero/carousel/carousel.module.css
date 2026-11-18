@@ -17,96 +17,179 @@
 }
 
 /*
- * The red dot on the slide-3 button beats while that slide is shown, the way
- * the client's reference recording does it, once every 2s: the dot swells by
- * an eighth into each beat and settles back after it, and at the beat a wave
- * of the same red leaves it (::before, under the dot), spreading out to 1.78
- * times the dot as it fades. Every stop is measured off that recording, frame
- * by frame. Both start mid-rest, so the first beat comes 0.8s after the slide
- * does. Figma draws the dot still.
+ * The red mark on the slide-3 button beats while that slide is shown, drawn
+ * and timed the way the client's reference recording does it (measured off
+ * it frame by frame, as shares of the disc at rest and of the 2s cycle):
+ *
+ * - a small solid dot that keeps still, a third of the disc across;
+ * - a see-through disc round it (77% there), three quarters of the button's
+ *   height, its middle on the button's rounded corner. It grows by a tenth
+ *   over the second before a beat, jumps to 1.14 at it and eases back;
+ * - at the beat a second disc, the wave, appears on it at the same strength,
+ *   so the mark flashes, and spreads to 1.8 times the disc as it fades out
+ *   over a second.
+ *
+ * Both start mid-rest, so the first beat comes 0.8s after the slide does.
+ * Figma draws one solid dot, still.
+ *
+ * Three layers and no markup for them: the wave is the button's ::before,
+ * the disc the ::after of whichever of its two labels shows, the dot the
+ * button's ::after. They paint in that order.
  */
 @keyframes payment-dot-beat {
   0% {
-    scale: 1.107;
+    scale: 1.13;
+  }
+
+  5% {
+    scale: 1.145;
   }
 
   12.5% {
-    scale: 1.125;
+    scale: 1.137;
   }
 
   17.5% {
-    scale: 1.123;
+    scale: 1.134;
+  }
+
+  22.5% {
+    scale: 1.122;
   }
 
   27.5% {
-    scale: 1.099;
+    scale: 1.107;
+  }
+
+  32.5% {
+    scale: 1.081;
   }
 
   37.5% {
-    scale: 1.046;
+    scale: 1.052;
+  }
+
+  42.5% {
+    scale: 1.029;
   }
 
   47.5% {
-    scale: 1.007;
+    scale: 1.014;
   }
 
-  52.5%,
+  52.5% {
+    scale: 1.008;
+  }
+
+  57.5%,
   67.5% {
     scale: 1;
   }
 
+  72.5% {
+    scale: 1.009;
+  }
+
   77.5% {
-    scale: 1.019;
+    scale: 1.02;
+  }
+
+  82.5% {
+    scale: 1.037;
   }
 
   87.5% {
-    scale: 1.053;
+    scale: 1.06;
+  }
+
+  92.5% {
+    scale: 1.085;
   }
 
   97.5% {
-    scale: 1.098;
+    scale: 1.101;
   }
 
   100% {
-    scale: 1.107;
+    scale: 1.13;
   }
 }
 
 @keyframes payment-dot-wave {
   0% {
-    opacity: 0.6;
-    scale: 1.107;
+    opacity: 1;
+    scale: 1.18;
+  }
+
+  2.5% {
+    opacity: 0.95;
+    scale: 1.21;
+  }
+
+  5% {
+    opacity: 0.89;
+    scale: 1.24;
+  }
+
+  7.5% {
+    opacity: 0.83;
+    scale: 1.28;
   }
 
   10% {
-    opacity: 0.51;
-    scale: 1.275;
+    opacity: 0.77;
+    scale: 1.32;
+  }
+
+  15% {
+    opacity: 0.67;
+    scale: 1.4;
   }
 
   20% {
-    opacity: 0.38;
-    scale: 1.434;
+    opacity: 0.57;
+    scale: 1.48;
+  }
+
+  25% {
+    opacity: 0.46;
+    scale: 1.545;
   }
 
   30% {
-    opacity: 0.24;
-    scale: 1.564;
+    opacity: 0.37;
+    scale: 1.6;
+  }
+
+  35% {
+    opacity: 0.29;
+    scale: 1.665;
   }
 
   40% {
-    opacity: 0.135;
-    scale: 1.67;
+    opacity: 0.21;
+    scale: 1.71;
+  }
+
+  45% {
+    opacity: 0.15;
+    scale: 1.76;
   }
 
   50% {
-    opacity: 0.058;
-    scale: 1.744;
+    opacity: 0.1;
+    scale: 1.79;
   }
 
-  57.5%,
+  52.5% {
+    opacity: 0.04;
+    scale: 1.81;
+  }
+
+  55%,
   100% {
     opacity: 0;
-    scale: 1.775;
+    scale: 1.82;
   }
 }
 
@@ -115,7 +198,7 @@
   opacity: 0;
 }
 
-.slideActive :global(.paymentPlanAction)::after {
+.slideActive :global(.paymentPlanAction) > span::after {
   animation: payment-dot-beat 2s linear -1.2s infinite;
 }
 
@@ -301,17 +384,30 @@
   background: white;
 }
 
+/* The mark's middle is on the button's outline where its top right corner
+   rounds, 7 in and 7 down: a disc of 36 (the button is 50 tall) with its
+   wave, and the dot, 12, on top. Whole pixels throughout: a box set on a
+   half has its edges rounded apart and comes out an oval. */
 :global(.paymentPlanAction)::before,
+:global(.paymentPlanAction) > span::after,
 :global(.paymentPlanAction)::after {
   position: absolute;
-  top: -7rem;
-  right: -4rem;
-  width: 20rem;
-  height: 20rem;
+  top: -11rem;
+  right: -11rem;
+  width: 36rem;
+  height: 36rem;
   border-radius: 50%;
-  background: #df332d;
+  background: rgb(255 104 94 / 77%);
   content: "";
   pointer-events: none;
+}
+
+:global(.paymentPlanAction)::after {
+  top: 1rem;
+  right: 1rem;
+  width: 12rem;
+  height: 12rem;
+  background: #d22f27;
 }
 
 .secondaryAction {
@@ -824,17 +920,28 @@
     padding: 0 60rem !important;
   }
 
+  /* the same on the desktop button, 69 tall: the middle 10 in and 10 down,
+     a disc of 52 and a dot of 18 */
   :global(.paymentPlanAction)::before,
+  :global(.paymentPlanAction) > span::after,
   :global(.paymentPlanAction)::after {
     position: absolute;
-    top: -10.9rem;
-    right: -22.5rem;
-    width: 39rem;
-    height: 39.2rem;
+    top: -16rem;
+    right: -16rem;
+    width: 52rem;
+    height: 52rem;
     border-radius: 50%;
-    background: #d22f27;
+    background: rgb(255 104 94 / 77%);
     content: "";
     pointer-events: none;
+  }
+
+  :global(.paymentPlanAction)::after {
+    top: 1rem;
+    right: 1rem;
+    width: 18rem;
+    height: 18rem;
+    background: #d22f27;
   }
 
   .slide:nth-child(3) .secondaryAction {
@@ -870,7 +977,7 @@
   }
 
   .slideActive :global(.paymentPlanAction)::before,
-  .slideActive :global(.paymentPlanAction)::after {
+  .slideActive :global(.paymentPlanAction) > span::after {
     animation: none;
   }
 }
@@ -904,5 +1011,14 @@
   :global(html[data-motion]) .slideActive .image {
     scale: none;
     transition: none;
+  }
+}
+
+/* The Russian page shares this file (ru-page/hero): its "Получить
+   предложение" is longer than "Solicită ofertă" and needs a wider button */
+@media screen and (min-width: 641px) {
+  .slide:not(:nth-child(3)) .primaryAction:lang(ru) {
+    width: 350rem !important;
+    min-width: 350rem !important;
   }
 }

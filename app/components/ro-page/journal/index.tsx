@@ -1,24 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
 import styles from "./journal.module.css";
 
 type JournalCategory = "all" | "buying-guide" | "market" | "inside-enso";
 
-type JournalArticle = {
+export type JournalArticle = {
   id: string;
   category: Exclude<JournalCategory, "all">;
   badge: string;
   title: string;
-  desktopSrc: string;
-  desktopWidth: number;
-  desktopHeight: number;
-  imageClassName: string;
-  cardClassName: string;
-  isFeature?: boolean;
+  date: string;
+  readTime: string;
+  src: string;
+  width: number;
+  height: number;
 };
 
 const categories: readonly { id: JournalCategory; label: string }[] = [
@@ -28,20 +27,28 @@ const categories: readonly { id: JournalCategory; label: string }[] = [
   { id: "inside-enso", label: "Din interior" },
 ];
 
-const articles: readonly JournalArticle[] = [
+// Newest first. Whichever comes first among those shown is the leading
+// article, large on the left; up to four more go beside it (two as cards,
+// three or four as lower rows), and any beyond that are left to "all
+// articles". So the block is one screen tall however many there are, and a
+// filter's result is laid out the same way. The two older articles'
+// pictures are squares cut from photographs Figma sets as collages with a
+// caption.
+const maxShown = 5;
+
+export const siteArticles: readonly JournalArticle[] = [
   {
     id: "bim-standard",
     category: "inside-enso",
     badge: "Din interior",
-    // Line breaks as set in Figma; the desktop card keeps them (pre-line).
+    // Line breaks as set in Figma; the phone cards keep them (pre-line).
     title:
       "BIM is the international\nstandard applied in every\nENSŌ Development project",
-    desktopSrc: "/journal-post-image.avif",
-    desktopWidth: 3200,
-    desktopHeight: 2520,
-    imageClassName: styles.featureImage,
-    cardClassName: styles.featureCard,
-    isFeature: true,
+    date: "3 Iunie",
+    readTime: "5 min de citit",
+    src: "/journal-post-image.avif",
+    width: 3200,
+    height: 2520,
   },
   {
     id: "eminescu-offices",
@@ -49,74 +56,94 @@ const articles: readonly JournalArticle[] = [
     badge: "Ghid de cumpărare",
     title:
       "ENSŌ Development completes the investment exit from Eminescu Offices",
-    desktopSrc: "/journal-post-buying-guide.avif",
-    desktopWidth: 1541,
-    desktopHeight: 878,
-    imageClassName: styles.buyingGuideImage,
-    cardClassName: styles.articleCard,
+    date: "2 Iunie",
+    readTime: "5 min de citit",
+    src: "/journal-eminescu-square.avif",
+    width: 690,
+    height: 690,
   },
   {
     id: "moldova-growth-leader",
     category: "market",
     badge: "Piață",
     title: "Moldova — #1 in Europe\nReal Estate Growth\nLeader 2025",
-    desktopSrc: "/journal-post-market.avif",
-    desktopWidth: 1541,
-    desktopHeight: 878,
-    imageClassName: styles.marketImage,
-    cardClassName: styles.articleCard,
+    date: "2 Iunie",
+    readTime: "5 min de citit",
+    src: "/journal-moldova-square.avif",
+    width: 588,
+    height: 588,
   },
 ];
 
-function ArticleVisual({ article }: { article: JournalArticle }) {
+function ArticleVisual({
+  article,
+  leading,
+}: {
+  article: JournalArticle;
+  leading: boolean;
+}) {
   return (
     <article
       id={`journal-${article.id}`}
-      className={`${styles.card} ${article.cardClassName}`}
+      className={`${styles.card} ${leading ? styles.featureCard : styles.articleCard}`}
     >
       <div className={styles.imageArea}>
         <Image
-          className={`${styles.sourceImage} ${styles.mobileImage} ${article.imageClassName}`}
-          src="/journal-ro.png"
-          width={438}
-          height={779}
-          sizes="438px"
+          className={styles.sourceImage}
+          src={article.src}
+          width={article.width}
+          height={article.height}
+          sizes={
+            leading
+              ? "(min-width: 641px) 30vw, 92vw"
+              : "(min-width: 641px) 14vw, 27vw"
+          }
           alt=""
-          aria-hidden="true"
-        />
-        <Image
-          className={`${styles.sourceImage} ${styles.desktopImage} ${article.imageClassName}`}
-          src={article.desktopSrc}
-          width={article.desktopWidth}
-          height={article.desktopHeight}
-          sizes="(min-width: 641px) 42vw, 1px"
-          alt=""
-          aria-hidden="true"
         />
       </div>
       <div className={styles.articleCopy}>
         <span className={styles.articleCategory}>{article.badge}</span>
-        <span className={styles.articleMeta}>{article.isFeature ? "3 Iunie · 5 min de citit" : "2 Iunie · 5 min de citit"}</span>
+        <span className={styles.articleMeta}>
+          {article.date}
+          <span className={styles.readTime}> · {article.readTime}</span>
+        </span>
         <h3>{article.title}</h3>
-        {article.isFeature && (
+        {leading && (
           <a className={styles.readArticle} href={`#journal-${article.id}`}>
             Citește articolul <span className="inter-arrow">→</span>
           </a>
         )}
       </div>
-      <h3 className={styles.visuallyHidden}>{article.title}</h3>
     </article>
   );
 }
 
-export default function Journal() {
+export default function Journal({
+  articles = siteArticles,
+  layout = "side",
+}: {
+  /* the block's own articles unless a working page shows it with more */
+  articles?: readonly JournalArticle[];
+  /* "side": the leading article on the left, the others in a column on its
+     right (the site's). "rows": the leading one across the top, the others
+     in a row under it; desktop only, shown on the working page. */
+  layout?: "side" | "rows";
+}) {
   const [activeCategory, setActiveCategory] =
     useState<JournalCategory>("all");
 
-  const visibleArticles = articles.filter(
-    (article) =>
-      activeCategory === "all" || article.category === activeCategory,
-  );
+  const visibleArticles = articles
+    .filter(
+      (article) =>
+        activeCategory === "all" || article.category === activeCategory,
+    )
+    .slice(0, maxShown);
+  // how many go beside the leading one, and in how many rows
+  const beside = visibleArticles.length - 1;
+  const layoutClass = [
+    beside > 2 ? styles.cardsCompact : beside < 1 ? styles.cardsSingle : "",
+    layout === "rows" && beside > 0 ? styles.cardsRows : "",
+  ].join(" ");
 
   return (
     <section
@@ -160,12 +187,22 @@ export default function Journal() {
         <div className={styles.contentArea} data-reveal style={revealDelay(100)}>
           <div
             id="journal-articles"
-            className={styles.cards}
+            className={`${styles.cards} ${layoutClass}`}
+            style={
+              {
+                "--journal-rows": Math.max(2, beside),
+                "--journal-columns": Math.max(2, beside),
+              } as CSSProperties
+            }
             key={activeCategory}
             aria-live="polite"
           >
-            {visibleArticles.map((article) => (
-              <ArticleVisual article={article} key={article.id} />
+            {visibleArticles.map((article, index) => (
+              <ArticleVisual
+                article={article}
+                leading={index === 0}
+                key={article.id}
+              />
             ))}
           </div>
 

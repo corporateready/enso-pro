@@ -312,3 +312,25 @@
     line-height: 1.2;
   }
 }
+
+/* The Russian page shares this file (ru-page/why): its "ЛИДЕР ПРОДАЖ" is
+   wider than "IMOBILIARE" and is set smaller to stay inside the wreath */
+@media screen and (max-width: 640px) {
+  .awardTitle:lang(ru) {
+    /* lowered by half of what the line lost, to stay between its neighbours */
+    top: 27.5rem;
+    font-size: 24rem;
+  }
+
+  /* "где строим" is wider than "activăm": the third number starts further
+     left so its label keeps clear of the screen's edge */
+  .metrics li:nth-child(3):lang(ru) {
+    left: 282rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .awardTitle:lang(ru) {
+    font-size: 33rem;
+  }
+}

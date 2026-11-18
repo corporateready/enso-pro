@@ -1,75 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
+import { teamSlides, type TeamMember } from "./members";
 import styles from "./team.module.css";
 
-type TeamMember = {
-  name: string;
-  role: string;
-  description: string;
-  imageSrc?: string;
-};
+// "role · years" in small capitals, set the same way for everyone: the role
+// and the count of years on the first line ("Partener director · 16 ani"),
+// what the years were spent in on the next ("în dezvoltare imobiliară").
+// The dot is tied to the word before it and to the count after it, so a
+// line never starts with the dot or ends with the bare number.
+function RoleLine({ member }: { member: TeamMember }) {
+  const [, count = member.years, field] =
+    member.years.match(/^(\d+ (?:de )?(?:ani|years))(?: (.+))?$/) ?? [];
 
-const teamSlides: readonly (readonly TeamMember[])[] = [
-  [
-    {
-      name: "Viorel Benderschi",
-      role: "Investiții & Finanțe",
-      description:
-        "27 de ani în managementul\ninvestițiilor și dezvoltare imobiliară.",
-    },
-    {
-      name: "Maxim Dumbrava",
-      role: "Dezvoltare",
-      description:
-        "16 ani de proiecte livrate, inclusiv\nARTIMA, NEWTON HOUSE\nși Eminescu Residence.",
-      imageSrc: "/team-avatar-2.webp",
-    },
-    {
-      name: "Denis Vasiliev",
-      role: "Marketing & Vânzări",
-      description:
-        "12 ani în marketing și vânzări —\npeste 3.000 de apartamente vândute.",
-      imageSrc: "/team-avatar-3.webp",
-    },
-  ],
-  [
-    {
-      name: "Zinaida Dumbrava",
-      role: "Relații\ncu clienții",
-      description:
-        "20 de ani de expertiză în relații\ncu clienții, pe întreg ciclul.",
-      imageSrc: "/team-avatar-4.webp",
-    },
-    {
-      name: "Vladimir Ostrovoi",
-      role: "Arhitectură & Management de proiect",
-      description:
-        "18 ani de proiecte rezidențiale, comerciale și culturale.",
-      imageSrc: "/team-avatar-5.webp",
-    },
-  ],
-];
-
-/*
- * "\n" marks a line break Figma's desktop layout has; on mobile the text
- * wraps freely, so the break is desktop-only.
- */
-function desktopLines(text: string) {
-  return text.split("\n").map((line, index) => (
-    <Fragment key={index}>
-      {index > 0 && (
+  return (
+    <>
+      {`${member.role}\u00a0·\u00a0${count.replace(/ /g, "\u00a0")}`}
+      {field && (
         <>
-          {" "}
-          <br className={styles.desktopBreak} />
+          <br />
+          {field}
         </>
       )}
-      {line}
-    </Fragment>
-  ));
+    </>
+  );
 }
 
 function TeamPhoto({ member }: { member: TeamMember }) {
@@ -186,10 +143,10 @@ export default function Team() {
                     <TeamPhoto member={member} />
                     <div className={styles.memberContent}>
                       <h3>{member.name}</h3>
-                      <p className={styles.role}>{desktopLines(member.role)}</p>
-                      <p className={styles.description}>
-                        {desktopLines(member.description)}
+                      <p className={styles.role}>
+                        <RoleLine member={member} />
                       </p>
+                      <p className={styles.description}>{member.about}</p>
                     </div>
                   </article>
                 ))}

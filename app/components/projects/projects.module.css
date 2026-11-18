@@ -307,3 +307,11 @@
     scale: 1.04;
   }
 }
+
+/* Russian: Cyrillic capitals are wider, and the title keeps to one line on a
+   phone */
+@media (max-width: 640px) {
+  .title:lang(ru) {
+    font-size: 30rem;
+  }
+}

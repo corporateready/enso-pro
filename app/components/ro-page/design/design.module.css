@@ -600,3 +600,12 @@
     animation: none;
   }
 }
+
+/* The Russian page shares this file (ru-page/design). The buyers' title
+   boxes above are the widths of the Romanian lines; the Russian titles break
+   where their own "\n" says, so their boxes only have to be wide enough. */
+@media screen and (min-width: 641px) {
+  .cards[data-tab="buyers"] .card:nth-child(n) h3:lang(ru) {
+    width: 410rem;
+  }
+}

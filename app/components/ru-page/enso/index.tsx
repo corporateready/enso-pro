@@ -1,0 +1,160 @@
+"use client";
+
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
+
+import EnsoFeatureIcon, {
+  type EnsoFeatureIconName,
+} from "../../enso-feature-icon";
+import { revealDelay } from "../../motion/reveal";
+import styles from "../../ro-page/enso/enso.module.css";
+
+const features: readonly {
+  icon: EnsoFeatureIconName;
+  text: string;
+  className: string;
+}[] = [
+  { icon: "tag", text: "Смотрите цены", className: styles.featureOne },
+  {
+    icon: "property",
+    text: "Покупка, продажа, аренда",
+    className: styles.featureTwo,
+  },
+  {
+    icon: "message",
+    text: "Прямая связь с командой",
+    className: styles.featureThree,
+  },
+  {
+    icon: "construction",
+    text: "Следите за стройкой",
+    className: styles.featureFour,
+  },
+];
+
+export default function Enso() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const [animatedPathname, setAnimatedPathname] = useState<string | null>(null);
+  const featuresVisible = animatedPathname === pathname;
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        setAnimatedPathname(pathname);
+        observer.unobserve(section);
+      },
+      { threshold: 0.2 },
+    );
+
+    let scrollEndTimer: number | undefined;
+
+    const startObserving = () => {
+      window.removeEventListener("scroll", waitForRouteScrollEnd);
+      observer.observe(section);
+    };
+
+    const waitForRouteScrollEnd = () => {
+      if (scrollEndTimer) window.clearTimeout(scrollEndTimer);
+      scrollEndTimer = window.setTimeout(startObserving, 150);
+    };
+
+    window.addEventListener("scroll", waitForRouteScrollEnd, { passive: true });
+    waitForRouteScrollEnd();
+
+    return () => {
+      if (scrollEndTimer) window.clearTimeout(scrollEndTimer);
+      window.removeEventListener("scroll", waitForRouteScrollEnd);
+      observer.disconnect();
+    };
+  }, [pathname]);
+
+  return (
+    <section
+      id="my-enso"
+      ref={sectionRef}
+      className={`${styles.section} ${featuresVisible ? styles.featuresVisible : ""}`}
+      aria-labelledby="my-enso-title"
+    >
+      <div className={styles.inner}>
+        <Image
+          className={`${styles.background} ${styles.mobileImage}`}
+          // the phone in the picture shows the Romanian sign-in: there is no
+          // Russian export of it
+          src="/enso-mobile-bg-ro.webp"
+          width={1576}
+          height={2591}
+          sizes="(max-width: 639px) 100vw, 394px"
+          alt=""
+        />
+        <Image
+          className={`${styles.background} ${styles.desktopImage}`}
+          src="/enso-desktop-bg.avif"
+          width={7680}
+          height={3332}
+          sizes="(min-width: 641px) 100vw, 1px"
+          alt=""
+        />
+        <Image
+          className={styles.laptopImage}
+          src="/enso-laptop-desktop.avif"
+          // slides in from the right edge it sits against
+          data-reveal
+          style={
+            {
+              "--reveal-x": "160rem",
+              "--reveal-shift": "0rem",
+              "--reveal-duration": "1100ms",
+            } as CSSProperties
+          }
+          width={3352}
+          height={2724}
+          // a 3352px source for an 838px picture: let the optimiser size it
+          sizes="(min-width: 641px) 44vw, 1px"
+          quality={90}
+          alt=""
+        />
+
+        <div className={styles.content}>
+          <h2 id="my-enso-title" className={styles.title} data-reveal>
+            MY ENSO
+          </h2>
+          <p className={styles.intro} data-reveal style={revealDelay(100)}>
+            Всё о вашей недвижимости в одном месте: <br />
+            цены, документы и ваша команда ENSO.
+          </p>
+
+          <ul className={styles.features}>
+            {features.map((feature) => (
+              <li
+                className={`${styles.feature} ${feature.className}`}
+                key={feature.text}
+              >
+                <EnsoFeatureIcon
+                  className={styles.featureIcon}
+                  name={feature.icon}
+                />
+                <span>{feature.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <a
+          id="create-account"
+          className={`${styles.accountLink} motion-button`}
+          data-reveal
+          href="#create-account"
+        >
+          Создать аккаунт
+        </a>
+      </div>
+    </section>
+  );
+}

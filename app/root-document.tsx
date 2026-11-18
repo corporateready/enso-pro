@@ -1,30 +1,42 @@
-import { Inter } from "next/font/google";
+import { menuHandoverScript } from "./components/menu-handover";
 import ScrollReveal from "./components/motion/scroll-reveal";
+import { settlePageScaleScript } from "./components/page-scale";
 import "./globals.css";
 
-// latin-ext carries ă, ș, ț and the Ō of ENSŌ. Listed as a subset it is
-// preloaded with the rest; left out, those letters showed in the fallback
-// font first and jumped once the file arrived.
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "latin-ext"],
-});
-
 /*
- * The document both languages share. Each language has its own root layout
- * (app/(ro), app/(en)) so that <html lang> says what the page is written in:
- * one layout for both had the Romanian page declared English.
+ * The document the languages share. Each language has its own root layout
+ * (app/(ro), app/(en), app/(ru)) so that <html lang> says what the page is
+ * written in: one layout for all had the Romanian page declared English.
+ * The layout also hands over its Inter (app/fonts): the Russian page's
+ * preloads the Cyrillic file, the others' do not.
  */
 export default function RootDocument({
   lang,
+  fontVariable,
   children,
 }: {
-  lang: "ro" | "en";
+  lang: "ro" | "en" | "ru";
+  /* the class of the layout's Inter that sets --font-inter */
+  fontVariable: string;
   children: React.ReactNode;
 }) {
   return (
-    <html lang={lang} className={`${inter.variable} h-full antialiased`}>
+    // suppressHydrationWarning: the script below may mark <html> before React
+    // has seen it
+    <html
+      lang={lang}
+      className={`${fontVariable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* keeps the menu open through a change of language, see
+            components/menu-handover.ts */}
+        <script dangerouslySetInnerHTML={{ __html: menuHandoverScript }} />
+      </head>
       <body className="min-h-full flex flex-col">
+        {/* one scale for the page from the first paint, see
+            components/page-scale.ts */}
+        <script dangerouslySetInnerHTML={{ __html: settlePageScaleScript }} />
         {children}
         <ScrollReveal />
       </body>

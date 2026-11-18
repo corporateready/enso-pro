@@ -171,9 +171,15 @@
    * below it, cards 464.3x277.9 every 505.9 with Figma's blue glow; every logo
    * keeps its own size and spot in the card, as Figma draws it.
    */
+  /* The cards' glow can be seen for 69 below them. The strip used to end
+     there, cutting the glow off in a line, and the next block's title stood
+     174.5 from the cards, so some 107 from where the glow ended: a smaller
+     gap than between the other blocks. The strip now has 69.2 more below the
+     cards: the glow fades out whole, and the title is 174.5 from the last of
+     it that shows. */
   .section {
     width: 100%;
-    height: 782rem;
+    height: 851.2rem;
     padding-top: 160rem;
     overflow: hidden;
     color: #000;
@@ -203,9 +209,9 @@
 
   .viewport {
     width: 100%;
-    height: 414rem;
+    height: 483.2rem;
     margin-top: 4.6rem;
-    padding: 68.2rem 0;
+    padding: 68.2rem 0 137.4rem;
     overflow: hidden;
   }
 

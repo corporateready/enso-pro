@@ -80,9 +80,14 @@
     transition-delay: 0s;
   }
 
+  /* The menu's header lies over the page's: its logo, account icon and
+     language sit exactly where the page's are, at the same size, so nothing
+     jumps or changes size as the menu opens (the logo was 145 against the
+     page's 149, the language 29 to the left). The page's logo is centred in
+     the header's 99 above its hairline. */
   .activeHeader {
     position: absolute;
-    top: 25rem;
+    top: 24.67rem;
     right: 160rem;
     left: 160rem;
     height: 50rem;
@@ -90,7 +95,6 @@
 
   .logoButton,
   .accountButton,
-  .languageButton,
   .navigation button,
   .loginLink,
   .createAccountLink {
@@ -102,36 +106,33 @@
   }
 
   .logoButton,
-  .logoButton img {
+  .logoButton svg {
     display: block;
-    width: 145rem;
+    width: 149rem;
     height: auto;
   }
 
+  /* the header's white logo, black here */
+  .logoButton svg {
+    filter: invert(1);
+  }
+
+  /* the language 36 before the burger, as on the page; the account icon
+     where the "Cont personal" pill has its own (19 and the pill's hairline
+     in from its edge) */
   .activeHeaderControls {
     position: absolute;
-    top: 10rem;
-    right: 95rem;
+    top: 8.83rem;
+    right: 66rem;
     display: flex;
     align-items: center;
-    gap: 36rem;
+    gap: 56rem;
   }
 
   .accountButton,
   .accountButton svg {
-    width: 20rem;
-    height: 22rem;
-  }
-
-  .languageButton {
-    display: flex;
-    width: 32rem;
-    height: 32rem;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 18rem;
-    text-decoration: none;
+    width: 18rem;
+    height: 20rem;
   }
 
   /*
@@ -315,7 +316,6 @@
 
 .logoButton,
 .accountButton,
-.languageButton,
 .navigation button,
 .loginLink,
 .createAccountLink {
@@ -332,46 +332,35 @@
   height: 25rem;
 }
 
-.logoButton img {
+.logoButton svg {
   display: block;
   width: 75rem;
   height: 25rem;
+  /* the header's white logo, black here */
+  filter: invert(1);
 }
 
+/* The page header's own places for the icon and the language, so neither
+   moves as the menu opens. (Figma's menu frame has the language 4 further
+   right than its page header does; on the site the label jumped.) */
 .activeHeaderControls {
   position: absolute;
-  top: 4.5rem;
-  /* Figma: icon path at x 229, "RO" at x 287 */
-  right: 61.94rem;
+  top: -1rem;
+  right: 57.5rem;
   display: flex;
   align-items: center;
-  gap: 39.5rem;
+  gap: 28rem;
 }
 
 .accountButton {
   width: 19rem;
   height: 21rem;
-  margin-top: -1rem;
 }
 
 .accountButton svg {
   display: block;
   width: 19rem;
   height: 21rem;
-}
-
-.languageButton {
-  display: flex;
-  min-width: 22rem;
-  height: 22rem;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 18rem;
-  font-weight: 300;
-  line-height: 22rem;
-  text-decoration: none;
-  text-transform: uppercase;
 }
 
 /* The bottom padding keeps the list clear of the account block pinned to the
@@ -445,7 +434,6 @@
 
 .logoButton:focus-visible,
 .accountButton:focus-visible,
-.languageButton:focus-visible,
 .navigation button:focus-visible,
 .loginLink:focus-visible,
 .createAccountLink:focus-visible {
@@ -476,4 +464,38 @@
     transition: none;
   }
 }
+}
+
+/* A page loaded by a choice of language in the other language's open menu
+   (../../menu-handover.ts): the menu and its cross are drawn open from the
+   very first paint, with nothing fading or turning, until the menu's own
+   code is running and holds it open itself. */
+:global(html[data-menu-open]) .menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+}
+
+:global(html[data-menu-open]) .trigger {
+  color: #000;
+  transition: none;
+}
+
+:global(html[data-menu-open]) .triggerLine {
+  transition: none;
+}
+
+:global(html[data-menu-open]) .triggerLine:nth-child(1) {
+  top: 10rem;
+  transform: rotate(45deg);
+}
+
+:global(html[data-menu-open]) .triggerLine:nth-child(2) {
+  opacity: 0;
+}
+
+:global(html[data-menu-open]) .triggerLine:nth-child(3) {
+  top: 10rem;
+  transform: rotate(-45deg);
 }

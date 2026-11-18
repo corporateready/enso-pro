@@ -5,7 +5,7 @@ import ProjectsScroller from "../projects-scroller";
 import styles from "./projects.module.css";
 
 /*
- * The featured projects block, one for both languages, with photo-first
+ * The featured projects block, one for all the languages, with photo-first
  * cards the client chose over Figma's white frames: all three projects in one
  * row on a desktop, the same cards in the swipe row on a phone. The photo
  * fills the card, the status is a small pill on it, and the name sits under
@@ -25,6 +25,9 @@ const SIDE_BEARINGS: Record<string, number> = {
   B: 0.0879,
   C: 0.0596,
   E: 0.0879,
+  // Cyrillic: the upright stems of Б and К stand where B's and E's do
+  Б: 0.0879,
+  К: 0.0879,
 };
 
 function onPhotoEdge(line: string) {
@@ -57,6 +60,35 @@ const content = {
         name: "ARTIMA\nBusiness & Lifestyle",
         meta: "Chișinău, Moldova",
         status: "Finalizat",
+        tone: "done",
+      },
+    ],
+  },
+  ru: {
+    title: "ИЗБРАННЫЕ ПРОЕКТЫ",
+    projects: [
+      {
+        id: "enso-estate",
+        src: "/projects-slide-1.webp",
+        name: "ENSO ESTATE",
+        meta: "Кишинёв · Жилой комплекс",
+        status: "Скоро старт",
+        tone: "soon",
+      },
+      {
+        id: "enso-living",
+        src: "/projects-slide-2.webp",
+        name: "ENSO LIVING",
+        meta: "Брашов · Многофункциональный",
+        status: "Строится",
+        tone: "building",
+      },
+      {
+        id: "artima",
+        src: "/projects-slide-3.webp",
+        name: "ARTIMA\nBusiness & Lifestyle",
+        meta: "Кишинёв",
+        status: "Сдан",
         tone: "done",
       },
     ],
@@ -105,7 +137,7 @@ const content = {
   }
 >;
 
-export default function Projects({ locale }: { locale: "ro" | "en" }) {
+export default function Projects({ locale }: { locale: "ro" | "ru" | "en" }) {
   const text = content[locale];
 
   return (

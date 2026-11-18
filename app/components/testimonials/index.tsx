@@ -4,7 +4,7 @@ import { revealDelay } from "../motion/reveal";
 import styles from "./testimonials.module.css";
 
 /*
- * What clients say, one block for both languages: Figma's three cards, all
+ * What clients say, one block for all the languages: Figma's three cards, all
  * in a row on a desktop and a swipe row on a phone, restyled at the client's
  * call. The cards are pale and flat in place of white with a shadow, the
  * role badge (which only repeated the role) is gone, and the name sits by
@@ -24,7 +24,7 @@ type Review = {
 };
 
 const content: Record<
-  "ro" | "en",
+  "ro" | "ru" | "en",
   {
     title: readonly [string, string];
     subtitle: string;
@@ -58,6 +58,35 @@ const content: Record<
           "Am ales graficul de plată înainte să alegem etajul. Doi ani mai târziu, nicio rată nu s-a schimbat.",
         name: "Denis Covalenco",
         role: "Proprietar de apartament",
+        since: 2022,
+      },
+    ],
+  },
+  ru: {
+    title: ["ЧТО ГОВОРЯТ", "НАШИ КЛИЕНТЫ"],
+    subtitle: "То, что видно уже после сдачи.",
+    stars: "5 звёзд из 5",
+    since: "С нами с",
+    reviews: [
+      {
+        quote:
+          "Исключительный подход к делу. За семь лет сотрудничества не осталось ни одного нерешённого вопроса.",
+        name: "Николай Чобану",
+        role: "Инвестор в недвижимость",
+        since: 2016,
+      },
+      {
+        quote:
+          "План, который я подписала, — это квартира, которую я получила. Каждый сантиметр совпал с проектом — на стройке ничего не пришлось пересогласовывать.",
+        name: "Мариана Ангел",
+        role: "Владелица квартиры",
+        since: 2019,
+      },
+      {
+        quote:
+          "Мы выбрали график платежей раньше, чем этаж. Прошло два года — ни один платёж не изменился.",
+        name: "Денис Коваленко",
+        role: "Владелец квартиры",
         since: 2022,
       },
     ],
@@ -100,7 +129,7 @@ const initials = (name: string) =>
     .join("")
     .slice(0, 2);
 
-export default function Testimonials({ locale }: { locale: "ro" | "en" }) {
+export default function Testimonials({ locale }: { locale: "ro" | "ru" | "en" }) {
   const text = content[locale];
 
   return (

@@ -7,8 +7,8 @@
   .section {
     position: relative;
     width: 390rem;
-    height: 545rem;
-    flex: 0 0 545rem;
+    height: 558rem;
+    flex: 0 0 558rem;
     margin-top: 61.8rem;
     overflow: hidden;
     color: #000;
@@ -18,7 +18,7 @@
   .inner {
     position: relative;
     width: 390rem;
-    height: 545rem;
+    height: 558rem;
     overflow: hidden;
   }
 
@@ -97,7 +97,7 @@
     top: 220rem;
     left: 0;
     width: 390rem;
-    height: 333rem;
+    height: 332rem;
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
@@ -115,60 +115,38 @@
   .track {
     display: flex;
     width: 780rem;
-    height: 333rem;
+    height: 332rem;
   }
 
+  /* A page of the team: three members down it. Each is a photo and, beside
+     it and centred on it, the name, a line of small grey capitals with the
+     role and the years, and a sentence on the work. A longer text makes its row taller and the
+     rows below move down. (Figma set every member at its own spot, for the
+     shorter texts it had; the client's texts of November 2026 are longer.) */
   .slide {
-    position: relative;
+    display: flex;
     width: 390rem;
-    height: 333rem;
+    height: 100%;
     flex: 0 0 390rem;
+    flex-direction: column;
+    gap: 16rem;
+    padding: 18rem 16rem 0;
     scroll-snap-align: start;
   }
 
   .member {
-    position: absolute;
-    width: 338rem;
-    height: 85rem;
-  }
-
-  .slide:first-child .member:nth-child(1) {
-    top: 18rem;
-    left: 17rem;
-  }
-
-  .slide:first-child .member:nth-child(2) {
-    top: 123rem;
-    left: 19rem;
-    width: 336rem;
-    height: 88rem;
-  }
-
-  .slide:first-child .member:nth-child(3) {
-    top: 231rem;
-    left: 17rem;
-  }
-
-  .slide:nth-child(2) .member:nth-child(1) {
-    top: 18rem;
-    left: 16rem;
-    height: 98rem;
-  }
-
-  .slide:nth-child(2) .member:nth-child(2) {
-    top: 136rem;
-    left: 16rem;
-    height: 93rem;
+    display: grid;
+    grid-template-columns: 80rem 1fr;
+    align-items: center;
+    column-gap: 16rem;
   }
 
   .photo,
   .photoPlaceholder {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     display: block;
-    width: 85rem;
-    height: 85rem;
+    width: 80rem;
+    height: 80rem;
     overflow: hidden;
     border-radius: 50%;
     background: #f0f0ee;
@@ -178,12 +156,6 @@
     background: #263958;
   }
 
-  .slide:first-child .member:nth-child(2) .photo {
-    top: 4rem;
-    width: 81rem;
-    height: 81rem;
-  }
-
   .avatarImage {
     width: 100%;
     height: 100%;
@@ -191,25 +163,7 @@
   }
 
   .memberContent {
-    position: absolute;
-    top: 6rem;
-    left: 111rem;
-    width: 227rem;
     font-family: var(--font-inter), sans-serif;
-  }
-
-  .slide:first-child .member:nth-child(2) .memberContent {
-    top: 0;
-    left: 109rem;
-  }
-
-  .slide:nth-child(2) .member:nth-child(1) .memberContent {
-    left: 111rem;
-  }
-
-  .slide:nth-child(2) .member:nth-child(2) .memberContent {
-    top: 0;
-    left: 111rem;
   }
 
   .memberContent h3,
@@ -218,26 +172,32 @@
     margin: 0;
   }
 
+  /* the name leads: larger than Figma's 16, with the line under it and the
+     text under that set small */
   .memberContent h3 {
-    font-size: 16rem;
+    font-size: 18rem;
     font-weight: 700;
     line-height: 1.2;
   }
 
+  /* the role and the years in small, spaced grey capitals */
   .role {
-    margin-top: 3.8rem;
+    margin-top: 3rem;
     color: #717171;
-    font-size: 16rem;
+    font-size: 11rem;
     font-weight: 400;
-    line-height: 1.2;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
     text-transform: uppercase;
+    text-wrap: balance;
   }
 
   .description {
-    margin-top: 3.8rem;
+    margin-top: 4rem;
     font-size: 12rem;
     font-weight: 400;
     line-height: 14rem;
+    text-wrap: balance;
   }
 }
 
@@ -262,7 +222,7 @@
   .inner {
     position: relative;
     width: 100%;
-    height: 992rem;
+    height: 990rem;
     overflow: hidden;
     color: #000;
     background: #fff;
@@ -302,7 +262,7 @@
 
   .pagination {
     position: absolute;
-    top: 957rem;
+    top: 955rem;
     left: 1393rem;
     display: flex;
     gap: 16rem;
@@ -335,7 +295,7 @@
     top: 277rem;
     left: 960rem;
     width: 800rem;
-    height: 615rem;
+    height: 613rem;
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
@@ -353,33 +313,29 @@
     height: 100%;
   }
 
+  /* three members down a page, as on the phone: the photo, and the text
+     beside it centred on it */
   .slide {
-    position: relative;
-    display: block;
+    display: flex;
     width: 800rem;
-    height: 615rem;
+    height: 613rem;
     flex: 0 0 800rem;
+    flex-direction: column;
+    gap: 36rem;
+    padding-left: 34.9rem;
     scroll-snap-align: start;
   }
 
   .member {
-    position: absolute;
-    left: 34.9rem;
-    width: 693.3rem;
-    height: 174.4rem;
+    display: grid;
+    grid-template-columns: 174.4rem 1fr;
+    align-items: center;
+    column-gap: 53.3rem;
   }
-
-  .slide:nth-child(1) .member:nth-child(1) { top: 0; }
-  .slide:nth-child(1) .member:nth-child(2) { top: 219.5rem; }
-  .slide:nth-child(1) .member:nth-child(3) { top: 436.9rem; }
-  .slide:nth-child(2) .member:nth-child(1) { top: 0; }
-  .slide:nth-child(2) .member:nth-child(2) { top: 246.2rem; }
 
   .photo,
   .photoPlaceholder {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     display: block;
     width: 174.4rem;
     height: 174.4rem;
@@ -397,24 +353,7 @@
   }
 
   .memberContent {
-    position: absolute;
-    top: 87.2rem;
-    left: 227.7rem;
-    width: 465.6rem;
     font-family: var(--font-inter), sans-serif;
-    transform: translateY(-50%);
-  }
-
-  /* Slide 2 has two-line roles; Figma doesn't centre that text on the
-     avatar but starts it 12.2 below (first) and 4.1 above (second) it. */
-  .slide:nth-child(2) .member:nth-child(1) .memberContent {
-    top: 12.2rem;
-    transform: none;
-  }
-
-  .slide:nth-child(2) .member:nth-child(2) .memberContent {
-    top: -4.1rem;
-    transform: none;
   }
 
   .memberContent h3,
@@ -424,22 +363,25 @@
   }
 
   .memberContent h3 {
-    font-size: 32.82rem;
+    font-size: 38rem;
     font-weight: 700;
     line-height: 1.2;
   }
 
   .role {
-    margin-top: 5.8rem;
+    margin-top: 6rem;
     color: #717171;
-    font-size: 32.82rem;
-    line-height: 1.2;
+    font-size: 19rem;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
     text-transform: uppercase;
+    text-wrap: balance;
   }
 
   .description {
-    margin-top: 7.7rem;
-    font-size: 24.62rem;
-    line-height: 1.2;
+    margin-top: 9rem;
+    font-size: 21rem;
+    line-height: 1.25;
+    text-wrap: balance;
   }
 }

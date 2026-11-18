@@ -1,75 +1,91 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
 import styles from "./team.module.css";
 
 type TeamMember = {
   name: string;
+  // the role and the years make one line, "role · years", as the client's
+  // text has them
   role: string;
-  description: string;
+  years: string;
+  about: string;
   imageSrc?: string;
 };
 
 const teamSlides: readonly (readonly TeamMember[])[] = [
   [
     {
-      name: "Viorel Benderschi",
-      role: "Investments & Finance",
-      description:
-        "27 years in investment management and real estate development.",
+      name: "Viorel Benderschi, MBA",
+      role: "Co-founder",
+      years: "27 years in investment and finance",
+      about: "Developed projects for NCH Capital, ZORILE and ARTIMA.",
     },
     {
       name: "Maxim Dumbrava",
-      role: "Development",
-      description:
-        "16 years delivering projects including ARTIMA, NEWTON HOUSE and Eminescu Residence.",
+      role: "Managing partner",
+      years: "16 years in real estate development",
+      about:
+        "Led Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE and ENSO LIVING Brasov.",
       imageSrc: "/team-avatar-2.webp",
     },
     {
       name: "Denis Vasiliev",
-      role: "Marketing & Sales",
-      description:
-        "12 years driving marketing and sales — 3,000+ apartments brought to market.",
+      role: "Marketing, sales and IT",
+      years: "12 years",
+      about:
+        "Strategies for projects totalling over 3,000 apartments and 20,000 m² of offices.",
       imageSrc: "/team-avatar-3.webp",
     },
   ],
   [
     {
+      name: "Vladimir Ostrovoi",
+      role: "Architecture, project management",
+      years: "18 years",
+      about:
+        "Residential, commercial and cultural developments, including for the Presidential Administration of the Republic of Moldova.",
+      imageSrc: "/team-avatar-5.webp",
+    },
+    {
       name: "Zinaida Dumbrava",
-      role: "Customer Relations\nDepartment",
-      description:
-        "20 years of expertise in driving full-cycle customer relations.",
+      role: "Client relations",
+      years: "20 years",
+      about: "Two decades of experience in client relationship management.",
       imageSrc: "/team-avatar-4.webp",
     },
     {
-      name: "Vladimir Ostrovoi",
-      role: "Architecture & Project Management",
-      description:
-        "18 years across residential, commercial and cultural projects.",
-      imageSrc: "/team-avatar-5.webp",
+      name: "Vitalie Șeremet",
+      role: "Construction management, condominium administration",
+      years: "20 years",
+      about: "Economist; has led teams of up to 800 people.",
     },
   ],
 ];
 
-/*
- * "\n" marks a line break Figma's desktop layout has; on mobile the text
- * wraps freely, so the break is desktop-only.
- */
-function desktopLines(text: string) {
-  return text.split("\n").map((line, index) => (
-    <Fragment key={index}>
-      {index > 0 && (
+// "role · years" in small capitals, set the same way for everyone: the role
+// and the count of years on the first line ("Partener director · 16 ani"),
+// what the years were spent in on the next ("în dezvoltare imobiliară").
+// The dot is tied to the word before it and to the count after it, so a
+// line never starts with the dot or ends with the bare number.
+function RoleLine({ member }: { member: TeamMember }) {
+  const [, count = member.years, field] =
+    member.years.match(/^(\d+ (?:de )?(?:ani|years))(?: (.+))?$/) ?? [];
+
+  return (
+    <>
+      {`${member.role}\u00a0·\u00a0${count.replace(/ /g, "\u00a0")}`}
+      {field && (
         <>
-          {" "}
-          <br className={styles.desktopBreak} />
+          <br />
+          {field}
         </>
       )}
-      {line}
-    </Fragment>
-  ));
+    </>
+  );
 }
 
 function TeamPhoto({ member }: { member: TeamMember }) {
@@ -184,10 +200,10 @@ export default function Team() {
                     <TeamPhoto member={member} />
                     <div className={styles.memberContent}>
                       <h3>{member.name}</h3>
-                      <p className={styles.role}>{desktopLines(member.role)}</p>
-                      <p className={styles.description}>
-                        {desktopLines(member.description)}
+                      <p className={styles.role}>
+                        <RoleLine member={member} />
                       </p>
+                      <p className={styles.description}>{member.about}</p>
                     </div>
                   </article>
                 ))}

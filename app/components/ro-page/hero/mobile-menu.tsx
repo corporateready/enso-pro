@@ -1,9 +1,13 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
+import LanguageMenu, { siteLanguages } from "../../language-menu";
+import {
+  endMenuHandover,
+  keepMenuOpenOnNextPage,
+  takeMenuHandover,
+} from "../../menu-handover";
 import { lockPageScroll } from "../../scroll-lock";
 import styles from "./mobile-menu.module.css";
 
@@ -33,8 +37,21 @@ export default function MobileMenu({
 }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Loaded by a choice of language in the other language's open menu: the
+  // page comes up with the menu drawn open (menu-handover.ts), and before
+  // the next paint the menu is open in earnest. The note is in the
+  // browser's storage, which the server's render cannot see, so the state
+  // can only be set once the page is in the browser.
+  useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (takeMenuHandover()) setIsOpen(true);
+    else endMenuHandover();
+  }, []);
+
   useEffect(() => {
     if (!isOpen) return;
+
+    endMenuHandover();
 
     const unlockPageScroll = lockPageScroll();
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -99,13 +116,12 @@ export default function MobileMenu({
             onClick={closeMenu}
             aria-label="Go to home page"
           >
-            <Image
-              src="/black-logo.svg"
-              width={75}
-              height={25}
-              alt="Enso Development"
-              priority
-            />
+            {/* The page header's own logo (hero/index.tsx), drawn again and
+                turned black in the CSS: a picture file came a moment after
+                the menu when the page was loaded with the menu open. */}
+            <svg viewBox="0 0 75 25" aria-hidden="true">
+              <use href="#enso-header-logo" />
+            </svg>
           </button>
 
           <div className={styles.activeHeaderControls}>
@@ -124,14 +140,17 @@ export default function MobileMenu({
               </svg>
             </button>
 
-            <Link
-              className={styles.languageButton}
-              href="/en"
-              onClick={closeMenu}
-              aria-label="Switch to English"
-            >
-              EN
-            </Link>
+            <LanguageMenu
+              look="names"
+              tone="onWhite"
+              current="ro"
+              languages={siteLanguages}
+              label="Limba"
+              // the menu stays open, and opens on the other language's page
+              onChoose={(code) => {
+                if (code !== "ro") keepMenuOpenOnNextPage();
+              }}
+            />
           </div>
         </header>
 

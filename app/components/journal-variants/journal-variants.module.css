@@ -1,0 +1,120 @@
+/* The working page that shows the journal block with three to six articles
+   (index.tsx). The block is the site's own; here are only the page's top and
+   the note over each example, the client's working notes, set plainly. */
+
+.page {
+  width: 100%;
+  background: #fff;
+}
+
+.top,
+.tag {
+  color: #555;
+  font-family: system-ui, sans-serif;
+}
+
+.topTitle,
+.topNote {
+  margin: 0;
+}
+
+.topTitle {
+  color: #000;
+  font-weight: 700;
+}
+
+.topLinks {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.topLinks a {
+  color: #0e3477;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.tag {
+  display: flex;
+  flex-direction: column;
+  background: #f3f5f9;
+  border-top: 1px solid rgb(0 0 0 / 8%);
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+.tag strong {
+  color: #000;
+}
+
+@media screen and (max-width: 640px) {
+  .top {
+    padding: 20rem 16rem;
+    font-size: 13rem;
+    line-height: 1.35;
+  }
+
+  .topTitle {
+    font-size: 20rem;
+  }
+
+  .topNote {
+    margin-top: 6rem;
+  }
+
+  .topLinks {
+    gap: 6rem 16rem;
+    margin-top: 10rem;
+  }
+
+  .tag {
+    gap: 3rem;
+    margin-bottom: 40rem;
+    padding: 14rem 16rem;
+    font-size: 13rem;
+    line-height: 1.35;
+  }
+
+  .tag strong {
+    font-size: 15rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .top {
+    padding: 34rem 160rem;
+    font-size: 19rem;
+    line-height: 1.35;
+  }
+
+  .topTitle {
+    font-size: 30rem;
+  }
+
+  .topNote {
+    max-width: 1200rem;
+    margin-top: 8rem;
+  }
+
+  .topLinks {
+    gap: 8rem 28rem;
+    margin-top: 14rem;
+  }
+
+  .tag {
+    gap: 5rem;
+    padding: 20rem 160rem;
+    font-size: 19rem;
+    line-height: 1.35;
+  }
+
+  .tag strong {
+    font-size: 23rem;
+  }
+
+  /* the note sits right over the block: less of the block's own 160 above
+     its heading, so an example and its note are in view together */
+  .set > section {
+    height: auto;
+    padding-top: 50rem;
+  }
+}

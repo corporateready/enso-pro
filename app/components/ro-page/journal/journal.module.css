@@ -1,8 +1,4 @@
 @media screen and (max-width: 640px) {
-  .desktopImage,
-  .articleCopy {
-    display: none;
-  }
   .section {
     width: 100%;
     overflow: hidden;
@@ -117,6 +113,9 @@
     animation: journal-cards-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  /* The cards are type over real pictures: the leading article's title lies
+     on its picture, the two under it have a picture of the same shape
+     (358 x 282) beside the text. Sizes as Figma draws the phone cards. */
   .card {
     position: relative;
     width: 358rem;
@@ -133,25 +132,122 @@
     height: 102rem;
   }
 
-  .sourceImage {
+  .imageArea {
     position: absolute;
-    left: -40rem;
-    width: 438rem;
-    max-width: none;
-    height: 779rem;
-    object-fit: fill;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
   }
 
-  .featureImage {
-    top: -147rem;
+  .featureCard .imageArea {
+    width: 100%;
   }
 
-  .buyingGuideImage {
-    top: -449rem;
+  /* The picture goes dark under the title, as Figma has it (clear down to
+     170 of the 282, three quarters black from 210). The light shade at the
+     top is not Figma's: the white date lies on the bright sky there. */
+  .featureCard .imageArea::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgb(0 0 0 / 32%), rgb(0 0 0 / 0%) 22%),
+      linear-gradient(180deg, rgb(0 0 0 / 0%) 60%, rgb(0 0 0 / 75%) 75%);
+    content: "";
   }
 
-  .marketImage {
-    top: -571rem;
+  /* a square, the card's height */
+  .articleCard .imageArea {
+    width: 102rem;
+  }
+
+  .sourceImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .articleCopy {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .articleCategory {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 7.3rem;
+    border: 0.5rem solid #000;
+    border-radius: 10rem;
+    color: #000;
+    background: #fff;
+    font-size: 8.6rem;
+    font-weight: 400;
+    line-height: 10rem;
+    white-space: nowrap;
+  }
+
+  .articleMeta {
+    position: absolute;
+    top: 14.25rem;
+    font-size: 8.6rem;
+    font-weight: 400;
+    line-height: 10rem;
+    white-space: nowrap;
+  }
+
+  .articleCopy h3 {
+    position: absolute;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  .featureCard .articleCategory {
+    top: 10.5rem;
+    left: 20rem;
+    height: 18rem;
+  }
+
+  .featureCard .articleMeta {
+    right: 20.5rem;
+    color: #fff;
+  }
+
+  .featureCard .articleCopy h3 {
+    right: 20rem;
+    bottom: 20rem;
+    left: 20rem;
+    color: #fff;
+    font-size: 20rem;
+    font-weight: 700;
+    line-height: 24rem;
+  }
+
+  .articleCard .articleCategory {
+    top: 9.25rem;
+    left: 112rem;
+    height: 18.25rem;
+  }
+
+  .articleCard .articleMeta {
+    right: 10.5rem;
+    color: #000;
+  }
+
+  .articleCard .articleCopy h3 {
+    top: 49.4rem;
+    right: 10rem;
+    left: 112rem;
+    color: #000;
+    font-size: 12rem;
+    font-weight: 400;
+    line-height: 14rem;
+    text-wrap: balance;
+  }
+
+  /* the phone card has no "read the article" line */
+  .readArticle {
+    display: none;
   }
 
   .viewAllButton {
@@ -193,18 +289,6 @@
     outline-offset: 3rem;
   }
 
-  .visuallyHidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
   @keyframes journal-cards-enter {
     from {
       opacity: 0;
@@ -219,10 +303,14 @@
 }
 
 @media screen and (min-width: 641px) {
-  /* Geometry from the Figma "Journal" frame (1600x1213 below a 160 gap). */
+  /* The heading and the pills as in the Figma "Journal" frame (1600 wide
+     below a 160 gap); the cards are laid out to fit one screen, see .cards.
+     The header's "Journal" link lands with the title 30 under the header,
+     not 160: so the whole block is in view at once. */
   .section {
     width: 100%;
-    height: 1373rem;
+    scroll-margin-top: -130rem;
+    height: 1044.7rem;
     padding-top: 160rem;
     overflow: hidden;
     color: #000;
@@ -232,7 +320,7 @@
   .inner {
     position: relative;
     width: 1600rem;
-    height: 1213rem;
+    height: 884.7rem;
     margin: 0 auto;
   }
 
@@ -316,47 +404,63 @@
     width: 1600rem;
   }
 
+  /* One screen: the leading article on the left, the others one over the
+     other on its right, so the title, the pills and every card fit under
+     the header of a 1920 x 1080 window (209 + 570 of the 850 it leaves).
+     Every picture is a square with the text beside it; Figma stacks them,
+     1064 tall. The right column's 570 is shared by as many rows as there
+     are articles in it (--journal-rows, set in index.tsx: 2 to 4). */
   .cards {
+    --journal-rows: 2;
+    --journal-gap: 40rem;
+    --journal-row: calc(
+      (570rem - (var(--journal-rows) - 1) * var(--journal-gap)) /
+        var(--journal-rows)
+    );
+
     display: grid;
-    grid-template-columns: repeat(2, 770rem);
-    column-gap: 60rem;
-    row-gap: 48.9rem;
+    grid-template-columns: 1010rem 530rem;
+    grid-template-rows: repeat(var(--journal-rows), var(--journal-row));
+    gap: var(--journal-gap) 60rem;
+  }
+
+  /* three or four on the right: closer together */
+  .cardsCompact {
+    --journal-gap: 20rem;
   }
 
   .card {
     position: relative;
     display: flex;
-    width: auto;
     overflow: hidden;
     background: #fff;
   }
 
   .featureCard {
-    grid-column: 1 / 3;
-    height: 630rem;
+    grid-row: 1 / -1;
     box-shadow: 0 22.35rem 89.39rem rgb(113 113 113 / 20%);
   }
 
+  /* a filter that leaves one article: the card takes the whole width */
+  .cardsSingle .featureCard {
+    grid-column: 1 / -1;
+  }
+
   .articleCard {
-    height: 219.4rem;
     box-shadow: 0 21.51rem 86.03rem rgb(113 113 113 / 20%);
   }
 
   .imageArea {
     position: relative;
-    flex: 0 0 800rem;
+    flex: 0 0 570rem;
     overflow: hidden;
   }
 
   .articleCard .imageArea {
-    flex-basis: 385.2rem;
+    flex-basis: var(--journal-row);
   }
 
-  .mobileImage {
-    display: none;
-  }
-
-  .desktopImage {
+  .sourceImage {
     position: absolute;
     inset: 0;
     display: block;
@@ -365,129 +469,213 @@
     object-fit: cover;
   }
 
-  /* The small-card photo overhangs its frame by 8.6 x 2.2 in Figma. */
-  .articleCard .desktopImage {
-    top: -2.2rem;
-    left: -8.6rem;
-    width: 393.8rem;
-    height: 221.4rem;
-  }
-
+  /* the section's pill at the top, the title under it, the date at the foot */
   .articleCopy {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22rem;
     font-family: var(--font-inter), sans-serif;
   }
 
+  .featureCard .articleCopy {
+    padding: 40rem;
+  }
+
   .articleCategory {
-    position: absolute;
     display: inline-flex;
+    flex: none;
     align-items: center;
     white-space: nowrap;
     color: #000;
   }
 
   .articleMeta {
-    position: absolute;
+    order: 1;
+    margin-top: auto;
     font-weight: 400;
     white-space: nowrap;
   }
 
+  /* the column is narrow: the lines break where they fall, evenly */
   .articleCopy h3 {
-    position: absolute;
     margin: 0;
     color: #000;
-    white-space: pre-line;
+    text-wrap: balance;
   }
 
   .featureCard .articleCategory {
-    top: 50rem;
-    left: 850rem;
-    height: 54rem;
-    padding: 0 14.99rem;
+    height: 46rem;
+    padding: 0 16rem;
     border: 1.01rem solid #000;
     border-radius: 60rem;
-    font-size: 28rem;
+    font-size: 22rem;
     font-weight: 400;
-    line-height: 33.6rem;
+    line-height: 26rem;
   }
 
   .featureCard .articleMeta {
-    top: 60rem;
-    right: 34rem;
     color: #717171;
-    font-size: 28rem;
-    line-height: 33.6rem;
+    font-size: 22rem;
+    line-height: 26rem;
   }
 
   .featureCard .articleCopy h3 {
-    top: 164rem;
-    left: 855rem;
-    width: 714.6rem;
-    font-size: 44.69rem;
+    margin-top: 44rem;
+    font-size: 32rem;
     font-weight: 700;
-    line-height: 53.6rem;
+    line-height: 40rem;
   }
 
   .readArticle {
-    position: absolute;
-    top: 386rem;
-    left: 855rem;
+    margin-top: 30rem;
     color: #000;
-    font-size: 28rem;
+    font-size: 24rem;
     font-weight: 400;
-    line-height: 33.6rem;
+    line-height: 29rem;
     text-decoration: underline;
     /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
     text-decoration-thickness: 0.047em;
     text-underline-offset: 0.21em;
   }
 
-  /* The pill and the date at 15.5 where Figma has 17.21: at that size the
-     long "Ghid de cumpărare" pill leaves the date no room, and Figma breaks
-     it onto two lines. The client wanted it on one; both small cards take
-     the size so they still match. */
   .articleCard .articleCategory {
-    top: 19.3rem;
-    left: 406.5rem;
     height: 40.5rem;
     padding: 0 14.61rem;
     border: 0.97rem solid #000;
     border-radius: 19rem;
-    font-size: 15.5rem;
+    font-size: 17.21rem;
     font-weight: 400;
     line-height: 20.6rem;
   }
 
   .articleCard .articleMeta {
-    top: 30.1rem;
-    right: 21.4rem;
     color: #000;
-    font-size: 15.5rem;
+    font-size: 17.21rem;
     line-height: 20.6rem;
   }
 
   .articleCard .articleCopy h3 {
-    top: 107.5rem;
-    left: 406.5rem;
-    width: 335.5rem;
-    font-size: 25.81rem;
+    margin-top: 22rem;
+    font-size: 21rem;
     font-weight: 400;
-    line-height: 31rem;
+    line-height: 26rem;
   }
 
   /* Figma: the long "Ghid de cumpărare" pill has 13 side padding. */
   [id="journal-eminescu-offices"] .articleCategory {
-    top: 19.1rem;
-    left: 407rem;
     padding: 0 12.03rem;
   }
 
-  [id="journal-moldova-growth-leader"] .articleCategory {
-    top: 21.5rem;
+  /* The other layout, "rows", as a news site's front page has it: the
+     leading article across the top, the others in one row under it, the
+     same 570 in all. Not on the site: the working page shows it beside the
+     site's own for the client to choose (journal-variants). */
+  .cardsRows {
+    grid-template-columns: repeat(var(--journal-columns, 2), 1fr);
+    grid-template-rows: 250rem 290rem;
+    gap: 30rem;
   }
 
-  [id="journal-moldova-growth-leader"] .articleMeta {
-    top: 31.3rem;
-    right: 27rem;
+  .cardsRows .featureCard {
+    grid-row: 1;
+    grid-column: 1 / -1;
+  }
+
+  .cardsRows .featureCard .imageArea {
+    flex-basis: 400rem;
+  }
+
+  /* the section and the date on one line, the title under them */
+  .cardsRows .featureCard .articleCopy {
+    flex-flow: row wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40rem;
+  }
+
+  .cardsRows .featureCard .articleMeta {
+    order: 0;
+    margin-top: 0;
+  }
+
+  .cardsRows .featureCard .articleCopy h3 {
+    flex: 0 0 100%;
+    margin-top: 22rem;
+    font-size: 36rem;
+    line-height: 44rem;
+  }
+
+  .cardsRows .featureCard .readArticle {
+    margin-top: 18rem;
+  }
+
+  /* one or two under it: a square picture, the text beside it */
+  .cardsRows .articleCard .imageArea {
+    flex-basis: 290rem;
+  }
+
+  .cardsRows .articleCard .articleCopy {
+    padding: 28rem;
+  }
+
+  .cardsRows .articleCard .articleCopy h3 {
+    font-size: 24rem;
+    line-height: 30rem;
+  }
+
+  /* Three or four rows on the right are too low for the card's three
+     lines of text: the section and the date share the first line, the
+     reading time is left out, and the title has the rest, three lines at
+     the most. */
+  .cardsCompact .articleCard .articleCopy {
+    flex-flow: row wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20rem;
+  }
+
+  .cardsCompact .articleCard .articleCategory {
+    height: 32rem;
+    padding: 0 12rem;
+    font-size: 16rem;
+    line-height: 19rem;
+  }
+
+  .cardsCompact .articleCard .articleMeta {
+    order: 0;
+    margin-top: 0;
+    font-size: 16rem;
+    line-height: 19rem;
+  }
+
+  .cardsCompact .articleCard .readTime {
+    display: none;
+  }
+
+  .cardsCompact .articleCard .articleCopy h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    flex: 0 0 100%;
+    margin-top: 12rem;
+    font-size: 18rem;
+    line-height: 23rem;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* "rows" with three or four under the leading article: the picture over
+     the text */
+  .cardsRows.cardsCompact .articleCard {
+    flex-direction: column;
+  }
+
+  .cardsRows.cardsCompact .articleCard .imageArea {
+    flex-basis: 170rem;
   }
 
   .viewAllButton {
@@ -505,14 +693,6 @@
     text-decoration-thickness: 0.047em;
     text-underline-offset: 0.21em;
   }
-
-  .visuallyHidden {
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-  }
 }
 
 @media screen and (max-width: 640px) and (prefers-reduced-motion: reduce) {
@@ -527,7 +707,7 @@
 }
 
 /* Under a mouse an article's picture slowly closes in and "Read article"
-   points its arrow. Desktop layout only: the phone pictures are a sprite. */
+   points its arrow. Desktop layout only. */
 @media screen and (min-width: 641px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .sourceImage {
     transition: scale 900ms cubic-bezier(0.22, 1, 0.36, 1);

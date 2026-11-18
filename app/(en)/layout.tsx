@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { inter } from "../fonts/latin";
 import RootDocument from "../root-document";
 
 export const metadata: Metadata = {
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function EnglishLayout({ children }: LayoutProps<"/">) {
-  return <RootDocument lang="en">{children}</RootDocument>;
+  return <RootDocument lang="en" fontVariable={inter.variable}>{children}</RootDocument>;
 }

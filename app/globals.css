@@ -78,6 +78,15 @@ html {
     scroll-padding-top: 100rem;
   }
 }
+/* A page loaded with its menu open (components/menu-handover.ts) holds still
+   from its first paint, as it will once the menu's own code locks it: left
+   to scroll until then, it showed its scrollbar for a moment in the room the
+   page being left had kept empty. */
+html[data-menu-open],
+html[data-menu-open] body {
+  overflow: hidden;
+}
+
 body {
   @apply w-full min-h-full relative mx-auto p-0 m-0;
 
