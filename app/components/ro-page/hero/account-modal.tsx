@@ -7,7 +7,10 @@ import {
   endAccountHandover,
   keepAccountOpenOnNextPage,
 } from "../../account-handover";
-import LanguageMenu, { siteLanguages } from "../../language-menu";
+import LanguageMenu, {
+  type LanguageOption,
+  siteLanguages,
+} from "../../language-menu";
 import { lockPageScroll } from "../../scroll-lock";
 import styles from "./account-modal.module.css";
 
@@ -22,6 +25,8 @@ type AccountModalProps = {
   /* open with the page: loaded from this dialog in another language, it
      stands as it stood there, and its opening is not played again */
   arrived?: boolean;
+  /* where its language menu leads: this page in the other languages */
+  languages?: readonly LanguageOption[];
 };
 
 export default function AccountModal({
@@ -29,6 +34,7 @@ export default function AccountModal({
   onClose,
   initialMode = "signin",
   arrived = false,
+  languages = siteLanguages,
 }: AccountModalProps) {
   const [mode, setMode] = useState<AccountMode>(initialMode);
   const [identifier, setIdentifier] = useState("");
@@ -140,7 +146,7 @@ export default function AccountModal({
               look="names"
               tone="onWhite"
               current="ro"
-              languages={siteLanguages}
+              languages={languages}
               label="Limba"
               // the dialog stays open, and opens on the other language's page
               onChoose={(code) => {

@@ -2,6 +2,7 @@
 
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
+import { glideTo } from "../motion/glide";
 import styles from "./testimonials.module.css";
 
 /*
@@ -26,8 +27,11 @@ export default function ReviewsRow({
   const [activePage, setActivePage] = useState(0);
 
   // one page further on: the row's width and the gap after its last card
+  // (the grid of cards inside the row has the gap)
   const measure = (row: HTMLDivElement) => {
-    const step = row.clientWidth + parseFloat(getComputedStyle(row).columnGap);
+    const cards = row.firstElementChild ?? row;
+    const step =
+      row.clientWidth + (parseFloat(getComputedStyle(cards).columnGap) || 0);
     const end = row.scrollWidth - row.clientWidth;
 
     return { step, end };
@@ -63,19 +67,14 @@ export default function ReviewsRow({
     };
   }, []);
 
+  // a dot slides the row over with the site's own ease (motion/glide.ts):
+  // the browser's smooth scroll jumped a screenful of cards too abruptly
   const showPage = (index: number) => {
     const row = rowRef.current;
     if (!row) return;
 
     const { step, end } = measure(row);
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    row.scrollTo({
-      left: Math.min(index * step, end),
-      behavior: reduceMotion ? "auto" : "smooth",
-    });
+    glideTo(row, Math.min(index * step, end));
   };
 
   return (
@@ -97,8 +96,8 @@ export default function ReviewsRow({
         </div>
       )}
 
-      <div ref={rowRef} className={styles.cards} data-reveal-group>
-        {children}
+      <div ref={rowRef} className={styles.row} data-reveal-group>
+        <div className={styles.cards}>{children}</div>
       </div>
     </>
   );

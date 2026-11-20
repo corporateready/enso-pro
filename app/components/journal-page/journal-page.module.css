@@ -1,0 +1,346 @@
+/*
+ * The journal's own page (index.tsx). Figma has no frame for it, so it is
+ * drawn from the home page's journal block: its title, subtitle and
+ * category pills at the same sizes, and cards in the same white with the
+ * site's soft shadow, each with its picture in the leading article's shape
+ * (1.27 : 1), the category and date over the title.
+ */
+
+.section {
+  width: 100%;
+  color: #000;
+  background: #fff;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0;
+  font-weight: 400;
+}
+
+.filters {
+  display: flex;
+}
+
+.filter {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-style: solid;
+  border-color: #000;
+  border-radius: 999rem;
+  color: #000;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 400;
+  white-space: nowrap;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease;
+
+  /* they come in sideways, from the right, one after another */
+  --reveal-x: 18rem;
+  --reveal-shift: 0rem;
+}
+
+.filterActive {
+  color: #fff;
+  background: #000;
+}
+
+.filter:focus-visible,
+.more:focus-visible {
+  outline: 2rem solid #2864d7;
+  outline-offset: 3rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.gridChanged {
+  animation: journal-page-cards 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10rem 40rem rgb(113 113 113 / 20%);
+}
+
+.picture {
+  aspect-ratio: 800 / 630;
+  overflow: hidden;
+  background: #f0f0ee;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-style: solid;
+  border-color: #000;
+  border-radius: 999rem;
+  white-space: nowrap;
+}
+
+.date {
+  color: #717171;
+  white-space: nowrap;
+}
+
+.cardTitle {
+  margin: 0;
+  font-weight: 600;
+  text-wrap: pretty;
+}
+
+.empty {
+  margin: 0;
+  color: #717171;
+}
+
+.more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  border-radius: 999rem;
+  color: #000;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* A phone: one card under another; the pills a row to swipe, as on the
+   home page. The block starts under the fixed header (64), and the footer
+   comes 64 below it, the gap between blocks on phones. */
+@media screen and (max-width: 640px) {
+  .section {
+    padding: 64rem 0 64rem;
+  }
+
+  .header {
+    padding: 40rem 16rem 0;
+  }
+
+  .title {
+    font-size: 34rem;
+    line-height: 30.6rem;
+  }
+
+  .subtitle {
+    margin-top: 20.4rem;
+    font-size: 16rem;
+    line-height: 19rem;
+  }
+
+  .subtitleDesktop {
+    display: none;
+  }
+
+  /* 6 above and below is room for a pill's focus ring, which a scrolling
+     row would cut; the 16 at the right end is a piece of the row, as Safari
+     leaves out a scrolling box's end padding (12 and the gap of 4) */
+  .filters {
+    gap: 4rem;
+    margin: 16rem 0 -6rem;
+    padding: 6rem 0 6rem 16rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 16rem;
+    scrollbar-width: none;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters::after {
+    flex: 0 0 12rem;
+    content: "";
+  }
+
+  .filter {
+    height: 34.7rem;
+    padding: 0 13.26rem;
+    border-width: 0.884rem;
+    font-size: 14.14rem;
+    line-height: 32.9rem;
+  }
+
+  .grid {
+    gap: 20rem;
+    padding: 29rem 16rem 0;
+  }
+
+  .copy {
+    gap: 12rem;
+    padding: 14rem 16rem 20rem;
+  }
+
+  .badge {
+    height: 20rem;
+    padding: 0 8rem;
+    border-width: 0.5rem;
+    font-size: 10rem;
+  }
+
+  .date {
+    font-size: 10rem;
+  }
+
+  .cardTitle {
+    font-size: 18rem;
+    line-height: 22rem;
+  }
+
+  .empty {
+    padding: 29rem 16rem 0;
+    font-size: 16rem;
+    line-height: 19.2rem;
+  }
+
+  .more {
+    width: 358rem;
+    height: 50rem;
+    margin: 24rem 16rem 0;
+    font-size: 20rem;
+  }
+}
+
+/* A desktop: three cards to a row on the 1600 grid, the title and pills as
+   the home block has them. The footer comes 174.5 below, the gap between
+   blocks on desktops. */
+@media screen and (min-width: 641px) {
+  .section {
+    padding: 100rem 0 174.5rem;
+  }
+
+  .header {
+    padding: 92rem 160rem 0;
+  }
+
+  .title {
+    font-size: 64rem;
+    line-height: 76.8rem;
+  }
+
+  .subtitle {
+    margin-top: 40.2rem;
+    font-size: 36rem;
+    line-height: 43.2rem;
+  }
+
+  .subtitlePhone {
+    display: none;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    gap: 15rem;
+    margin: 50rem 160rem 0;
+  }
+
+  .filter {
+    height: 53rem;
+    padding: 0 24rem;
+    border-width: 1.24rem;
+    font-size: 19.89rem;
+    line-height: 23.9rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 60rem 50rem;
+    padding: 60rem 160rem 0;
+  }
+
+  .copy {
+    gap: 20rem;
+    padding: 26rem 32rem 36rem;
+  }
+
+  .badge {
+    height: 32rem;
+    padding: 0 14rem;
+    border-width: 1rem;
+    font-size: 15rem;
+  }
+
+  .date {
+    font-size: 16rem;
+  }
+
+  .cardTitle {
+    font-size: 28rem;
+    line-height: 35rem;
+  }
+
+  .empty {
+    padding: 60rem 160rem 0;
+    font-size: 24rem;
+    line-height: 30rem;
+  }
+
+  .more {
+    width: 500rem;
+    height: 80rem;
+    margin: 60rem auto 0;
+    font-size: 28rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .more:hover {
+    color: #fff;
+    background: #111;
+  }
+}
+
+@keyframes journal-page-cards {
+  from {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gridChanged {
+    animation: none;
+  }
+
+  .filter {
+    transition: none;
+  }
+}

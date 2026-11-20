@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Fragment, useEffect, useRef, useState, type KeyboardEvent } from "react";
 
 import BuildingLife from "../../building-life";
+import { dragToSwipe, glideTo } from "../../motion/glide";
 import { revealDelay } from "../../motion/reveal";
 import styles from "./design.module.css";
 
@@ -27,7 +28,7 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
     },
     {
       number: "02",
-      badge: "Modelled upfront",
+      badge: "No surprises",
       title: "Feasibility checked before\nyou commit",
       description:
         "Costs and returns are modelled before construction —\ncheck the numbers before\nyou commit.",
@@ -96,8 +97,11 @@ export default function Design() {
   // scroll must not hand the choice back to the tab they are leaving
   const headingTo = useRef<number | null>(null);
 
-  // On a phone each tab's cards fill the width and sit side by side, so a
-  // tab is a sideways scroll away, and a swipe gets there as well as a tap.
+  // Each tab's cards fill the width and sit side by side, so a tab is a
+  // sideways scroll away, and a swipe gets there as well as a tap: on a
+  // phone from the start, on a desktop since 2026-11-20 (the client asked
+  // for the cards to slide there as they do on a phone; a mouse drags them,
+  // motion/glide.ts). A tapped tab glides the cards over.
   const selectTab = (tab: DesignTab) => {
     setActiveTab(tab);
 
@@ -108,12 +112,7 @@ export default function Design() {
     if (Math.abs(panels.scrollLeft - left) < 2) return;
 
     headingTo.current = left;
-    panels.scrollTo({
-      left,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
+    glideTo(panels, left);
   };
 
   // The pill rides along with the cards (--tab-progress: 0 with the first
@@ -146,8 +145,8 @@ export default function Design() {
       headingTo.current = null;
     };
 
-    // the chosen tab's cards stay in view when the page changes width: a
-    // phone turned, or back from the desktop layout, which shows one tab only
+    // the chosen tab's cards stay in view when the page changes width (a
+    // phone turned, a window resized)
     let width = window.innerWidth;
     const keepChosenTab = () => {
       if (window.innerWidth === width) return;
@@ -164,7 +163,15 @@ export default function Design() {
     panels.addEventListener("wheel", takeOver, { passive: true });
     window.addEventListener("resize", keepChosenTab);
 
+    // a mouse drags the cards from one tab's to the other's
+    const undoDrag = dragToSwipe(panels, (page) => {
+      const left = page * panels.clientWidth;
+      if (Math.abs(panels.scrollLeft - left) >= 2) headingTo.current = left;
+      setActiveTab(tabs[page].id);
+    });
+
     return () => {
+      undoDrag();
       panels.removeEventListener("scroll", follow);
       panels.removeEventListener("pointerdown", takeOver);
       panels.removeEventListener("wheel", takeOver);
@@ -249,18 +256,11 @@ export default function Design() {
         </div>
 
         <div ref={tabListRef} className={styles.tabs} data-reveal role="tablist" aria-label="BIM benefits">
-          <span
-            className={`${styles.tabIndicator} ${
-              activeTab === "buyers" ? styles.tabIndicatorBuyers : ""
-            }`}
-            aria-hidden="true"
-          />
+          <span className={styles.tabIndicator} aria-hidden="true" />
           {tabs.map((tab) => (
             <button
               id={`design-tab-${tab.id}`}
-              className={`${styles.tabButton} ${
-                activeTab === tab.id ? styles.tabButtonActive : ""
-              }`}
+              className={styles.tabButton}
               key={tab.id}
               type="button"
               role="tab"
@@ -285,9 +285,7 @@ export default function Design() {
             {tabs.map((tab) => (
               <div
                 id={`design-benefits-${tab.id}`}
-                className={`${styles.cards} ${
-                  activeTab === tab.id ? styles.cardsActive : ""
-                }`}
+                className={styles.cards}
                 key={tab.id}
                 data-tab={tab.id}
                 role="tabpanel"

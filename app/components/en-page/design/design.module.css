@@ -363,6 +363,7 @@
     --tab-border: 1.34rem;
     --tab-split: 181.33rem;
     position: absolute;
+    z-index: 3;
     top: 646rem;
     left: 50%;
     display: grid;
@@ -376,36 +377,31 @@
     transform: translateX(-50%);
   }
 
+  /* The pill rides along with the cards as they slide over, as on a phone:
+     --tab-progress (index.tsx) runs from 0 with the first tab's cards in
+     view to 1 with the second's. */
   .tabIndicator {
     position: absolute;
     z-index: 0;
     top: calc(-1 * var(--tab-border));
     left: calc(-1 * var(--tab-border));
-    width: var(--tab-split);
+    width: calc(var(--tab-split) + (var(--tab-width) - 2 * var(--tab-split)) * var(--tab-progress, 0));
     height: 52.4rem;
     border-radius: 999rem;
     background: #000;
-    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateX(calc(var(--tab-split) * var(--tab-progress, 0)));
   }
 
-  .tabIndicatorBuyers {
-    width: calc(var(--tab-width) - var(--tab-split));
-    transform: translateX(var(--tab-split));
-  }
-
+  /* positioned to paint over the pill, but with no z-index: a stacking
+     context of its own would hide the pill from the label's blend */
   .tabButton {
     position: relative;
-    z-index: 1;
     border: 0;
-    color: #000;
     background: transparent;
+    cursor: pointer;
     font-family: var(--font-inter), sans-serif;
     font-size: 21.37rem;
     line-height: 1.2;
-  }
-
-  .tabButtonActive {
-    color: #fff;
   }
 
   /* the second cell starts and ends a border's width before the pill: this
@@ -414,22 +410,53 @@
     padding-left: calc(2 * var(--tab-border));
   }
 
+  /* white, inverted against what lies under it: black on the control,
+     white on the pill, and split in two while the pill slides across it */
+  .tabLabel {
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+
+  /* Both tabs' cards side by side, a page each, as on a phone (since
+     2026-11-20, the client's call): a trackpad's swipe or a mouse's drag
+     (motion/glide.ts) slides from one tab's to the other's, and the row
+     snaps to whichever is nearer. The row spans the page and reaches 60
+     above the cards and 120 below, or the scrolling box would cut their
+     shadows and the rise under the mouse; the tabs stay on top of that
+     strip. */
   .cardsArea {
     position: absolute;
     top: 738rem;
-    left: 160rem;
-    width: 1600rem;
+    left: 0;
+    width: 100%;
   }
 
+  .panels {
+    display: flex;
+    margin: -60rem 0 -120rem;
+    padding: 60rem 0 120rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .panels::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* a page is the row's own width, even where a scrollbar's room makes
+     that a hair less than the 1920 the cards are laid out on */
   .cards {
     display: grid;
+    flex: 0 0 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0 160rem;
     grid-template-columns: repeat(3, 500rem);
     gap: 50rem;
-  }
-
-  /* one tab's cards at a time here */
-  .cards:not(.cardsActive) {
-    display: none;
+    scroll-snap-align: start;
   }
 
   .card {
@@ -512,6 +539,18 @@
   .cards[data-tab="buyers"] .card:nth-child(2) p { width: 410rem; }
   .cards[data-tab="buyers"] .card:nth-child(3) h3 { width: 246rem; }
   .cards[data-tab="buyers"] .card:nth-child(3) p { width: 410rem; }
+}
+
+/* The cards can be dragged with a mouse (index.tsx): the hand says so. */
+@media screen and (min-width: 641px) and (hover: hover) and (pointer: fine) {
+  .panels {
+    cursor: grab;
+  }
+
+  .panels[data-dragging] {
+    cursor: grabbing;
+    user-select: none;
+  }
 }
 
 /* Under a mouse a card rises a little. */

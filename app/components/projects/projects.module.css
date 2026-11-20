@@ -64,6 +64,71 @@
   --status-dot: #9a9a9a;
 }
 
+/* The two projects still under way are live: every 2s a wave leaves the
+   dot and fades as it spreads, the way the payment mark on the hero's third
+   slide beats; the two cards beat half a cycle apart. A finished project's
+   dot keeps still. The wave is the pill's ::after, laid over the dot
+   (--status-pad and --status-dot-size place it, per screen below). */
+.status::after {
+  position: absolute;
+  top: 50%;
+  left: var(--status-pad);
+  width: var(--status-dot-size);
+  height: var(--status-dot-size);
+  margin-top: calc(var(--status-dot-size) / -2);
+  border-radius: 50%;
+  background: var(--status-dot);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.soon::after,
+.building::after {
+  animation: project-status-wave 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.building::after {
+  animation-delay: -1s;
+}
+
+@keyframes project-status-wave {
+  0% {
+    opacity: 0.5;
+    scale: 1;
+  }
+
+  75%,
+  100% {
+    opacity: 0;
+    scale: 2.8;
+  }
+}
+
+/* With the device's animations off the dot stays alive, calmly (as the BIM
+   building's lamps do): no wave, the dot itself breathes. */
+@media (prefers-reduced-motion: reduce) {
+  .soon::after,
+  .building::after {
+    animation: none;
+  }
+
+  .soon::before,
+  .building::before {
+    animation: project-status-breathe 2.4s ease-in-out infinite;
+  }
+
+  .building::before {
+    animation-delay: -1.2s;
+  }
+}
+
+@keyframes project-status-breathe {
+  50% {
+    opacity: 0.45;
+  }
+}
+
 /* the arrow sits level with the name's first line, so it lines up across
    the row even where a name takes two */
 .caption {
@@ -127,9 +192,12 @@
     white-space: nowrap;
   }
 
+  /* The 15 at each end of the row is the track's own, not the scrolling
+     box's: Safari leaves out the box's end padding when it scrolls, so on
+     an iPhone the last card ran into the screen's right edge. */
   .scroller {
     width: 100%;
-    padding: 0 15rem 24rem;
+    padding: 0 0 24rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-padding-inline: 15rem;
@@ -145,6 +213,7 @@
     display: flex;
     width: max-content;
     gap: 12rem;
+    padding: 0 15rem;
   }
 
   .card {
@@ -157,17 +226,19 @@
   }
 
   .status {
+    --status-pad: 11rem;
+    --status-dot-size: 7rem;
     top: 12rem;
     left: 12rem;
     height: 28rem;
     gap: 7rem;
-    padding: 0 11rem;
+    padding: 0 var(--status-pad);
     font-size: 13rem;
   }
 
   .status::before {
-    width: 7rem;
-    height: 7rem;
+    width: var(--status-dot-size);
+    height: var(--status-dot-size);
   }
 
   .caption {
@@ -246,17 +317,19 @@
   }
 
   .status {
+    --status-pad: 18rem;
+    --status-dot-size: 10rem;
     top: 22rem;
     left: 22rem;
     height: 40rem;
     gap: 10rem;
-    padding: 0 18rem;
+    padding: 0 var(--status-pad);
     font-size: 18rem;
   }
 
   .status::before {
-    width: 10rem;
-    height: 10rem;
+    width: var(--status-dot-size);
+    height: var(--status-dot-size);
   }
 
   .caption {

@@ -1,3 +1,9 @@
+/* The p of "development" hangs below the box the footer gives the logo
+   (207×269, 24×30), the old capitals' baseline being its bottom edge. */
+.logo {
+  overflow: visible;
+}
+
 /* At rest (and without the reveals) the whole logo shows. */
 .brush {
   stroke-dasharray: 1 2;
@@ -22,7 +28,7 @@
 
 /* Coming in with enso.ro/living's own timings (its logo component): the
    circle in 0.8s, easeInOut; ENSŌ from 0.8s, a letter every 0.1s, 0.5s each,
-   and DEVELOPMENT from 1.3s, a letter every 0.1s, 0.3s each, every letter
+   and "development" from 1.3s, a letter every 0.1s, 0.3s each, every letter
    fading in as it rises the last 10px into place, ease-out. --rise is that
    10px in the logo's own units: 10 for the desktop logo, its share of the
    small phone mark. */

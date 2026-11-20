@@ -25,18 +25,25 @@
    quote and the name, and each card takes its lines from it (subgrid), so
    the quotes start level and the names stand level across the cards even
    when one card's caption runs to a second line. */
-.cards {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: auto 1fr auto;
+.row {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 
-.cards::-webkit-scrollbar {
+.row::-webkit-scrollbar {
   display: none;
+}
+
+/* the grid inside the scrolling row, as wide as its cards: the room at its
+   ends is its own padding, as Safari leaves a scrolling box's end padding
+   out and the last card met the screen's edge */
+.cards {
+  display: grid;
+  width: max-content;
+  grid-auto-flow: column;
+  grid-template-rows: auto 1fr auto;
 }
 
 .card {
@@ -148,12 +155,15 @@
     line-height: 19.2rem;
   }
 
+  .row {
+    margin: 19.8rem -16rem 0;
+    scroll-padding-inline: 16rem;
+  }
+
   .cards {
     grid-auto-columns: 300rem;
     column-gap: 12rem;
-    margin: 19.8rem -16rem 0;
     padding: 0 16rem;
-    scroll-padding-inline: 16rem;
   }
 
   .card {
@@ -234,11 +244,14 @@
 
   /* 60 under the subtitle; 6 of it is inside the row, the room a card
      rises into under the mouse (a scrolling row cuts off what leaves it) */
+  .row {
+    margin-top: 54rem;
+    padding-top: 6rem;
+  }
+
   .cards {
     grid-auto-columns: 500rem;
     column-gap: 50rem;
-    margin-top: 54rem;
-    padding-top: 6rem;
   }
 
   /* the dots of the team block, level with the subtitle at the right end

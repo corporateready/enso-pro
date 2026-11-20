@@ -8,7 +8,7 @@ const partners = [
   {
     name: "Archimatika",
     description:
-      "Architecture Over 5 million m²\ndesigned. Internationally awarded\nresidential developments.",
+      "Over 5 million m² designed.\nInternationally awarded\nresidential developments.",
     logoSrc: "/arch 2.png",
     logoWidth: 760,
     logoHeight: 108,
@@ -17,7 +17,7 @@ const partners = [
   {
     name: "INAMSTRO",
     description:
-      "Construction 70 residential buildings\ndelivered across 5 countries\nin 20 years.",
+      "70 residential buildings delivered\nacross 5 countries in 20 years.",
     logoSrc: "/inamstro.png",
     logoWidth: 666,
     logoHeight: 112,
@@ -26,7 +26,7 @@ const partners = [
   {
     name: "acla",
     description:
-      "Landscape Green spaces designed\nas ecosystems, not decoration.",
+      "Green spaces conceived\nas ecosystems, not decor.",
     logoSrc: "/acla.png",
     logoWidth: 376,
     logoHeight: 128,
@@ -35,7 +35,7 @@ const partners = [
   {
     name: "ARUTIN BUREAU",
     description:
-      "Interior design Interiors\nand finishes built to a premium\nstandard.",
+      "Interiors and finishes built\nto a premium standard.",
     logoSrc: "/abureau.png",
     logoWidth: 731,
     logoHeight: 68,
@@ -44,7 +44,7 @@ const partners = [
   {
     name: "Estate Invest Company",
     description:
-      "11 years and over 400,000 m² built across 50 developments\nin Chișinău.",
+      "11 years, over 400,000 m² built\nacross 50 developments in Chișinău.",
     logoSrc: "/eic.png",
     logoWidth: 500,
     logoHeight: 184,

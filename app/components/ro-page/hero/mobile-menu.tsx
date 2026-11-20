@@ -1,8 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 
-import LanguageMenu, { siteLanguages } from "../../language-menu";
+import LanguageMenu, {
+  type LanguageOption,
+  siteLanguages,
+} from "../../language-menu";
 import {
   endMenuHandover,
   keepMenuOpenOnNextPage,
@@ -29,12 +33,20 @@ type MobileMenuProps = {
   dark?: boolean;
   /* The header owns the dialog so its own controls can open it too. */
   onOpenAccount: (mode: "signin" | "signup") => void;
+  /* on a page without the home page's sections (the journal's): where
+     they are */
+  home?: string;
+  /* where the language menu leads: this page in the other languages */
+  languages?: readonly LanguageOption[];
 };
 
 export default function MobileMenu({
   dark = false,
   onOpenAccount,
+  home,
+  languages = siteLanguages,
 }: MobileMenuProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   // Open because the page arrived that way (a change of language), not by
   // a tap: the items are already in place and do not come in again.
@@ -76,6 +88,11 @@ export default function MobileMenu({
   const closeMenu = () => setIsOpen(false);
   const goToSection = (target: string) => {
     setIsOpen(false);
+    // a section this page does not have: the home page's
+    if (home && !document.getElementById(target)) {
+      router.push(`${home}#${target}`);
+      return;
+    }
     // Scroll once the menu has closed and let go of the page: two frames
     // covers the re-render and the effect clean-up that unlocks scrolling.
     window.requestAnimationFrame(() => {
@@ -154,7 +171,7 @@ export default function MobileMenu({
               look="names"
               tone="onWhite"
               current="ro"
-              languages={siteLanguages}
+              languages={languages}
               label="Limba"
               // the menu stays open, and opens on the other language's page
               onChoose={(code) => {

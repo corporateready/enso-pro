@@ -39,6 +39,15 @@ export const siteLanguages: readonly LanguageOption[] = [
   { code: "en", name: "English", href: "/en" },
 ];
 
+// The journal's own page in each language (app/(ro)/journal and the rest):
+// on it the language menus lead to the journal in the other language, not
+// to the home page.
+export const journalLanguages: readonly LanguageOption[] = [
+  { code: "ro", name: "Română", href: "/journal" },
+  { code: "ru", name: "Русский", href: "/ru/journal" },
+  { code: "en", name: "English", href: "/en/journal" },
+];
+
 type LanguageMenuProps = {
   look: LanguageMenuLook;
   current: LanguageCode;

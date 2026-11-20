@@ -18,7 +18,7 @@ const menuLinks = [
 
 const projectLinks = [
   { label: "ENSO LIVING", href: "https://enso.ro/living" },
-  { label: "ENSO ESTATE", href: "#enso-estate" },
+  { label: "ENSO CITY", href: "#enso-city" },
   { label: "ARTIMA Business & Lifestyle", href: "https://artima.md/" },
 ] as const;
 
@@ -35,7 +35,16 @@ const socialLinks: {
   { name: "LinkedIn", icon: "linkedin", className: styles.linkedin },
 ];
 
-export default function Footer() {
+export default function Footer({
+  home,
+}: {
+  /* on a page without the home page's sections (the journal's): where the
+     links to them lead */
+  home?: string;
+} = {}) {
+  const to = (href: string) =>
+    home && href.startsWith("#") && href !== "#top" ? `${home}${href}` : href;
+
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
@@ -44,7 +53,7 @@ export default function Footer() {
           <ul>
             {menuLinks.map((link) => (
               <li key={link.label}>
-                <a href={link.href}>{link.label}</a>
+                <a href={to(link.href)}>{link.label}</a>
               </li>
             ))}
           </ul>
@@ -58,7 +67,7 @@ export default function Footer() {
           <ul>
             {projectLinks.map((link) => (
               <li key={link.label}>
-                <a href={link.href}>{link.label}</a>
+                <a href={to(link.href)}>{link.label}</a>
               </li>
             ))}
           </ul>
@@ -68,7 +77,7 @@ export default function Footer() {
           {socialLinks.map((social) => (
             <a
               className={`${styles.socialLink} ${social.className}`}
-              href="#contact"
+              href={to("#contact")}
               aria-label={social.name}
               key={social.name}
             >
@@ -89,8 +98,8 @@ export default function Footer() {
           </p>
 
           <div className={styles.legalLinks}>
-            <a href="#terms">Условия использования</a>
-            <a href="#privacy">Конфиденциальность</a>
+            <a href={to("#terms")}>Условия использования</a>
+            <a href={to("#privacy")}>Конфиденциальность</a>
           </div>
         </div>
 

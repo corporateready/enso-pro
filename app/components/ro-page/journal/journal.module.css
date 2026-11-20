@@ -46,7 +46,7 @@
        edge to edge and keeps the page's 16 at both ends; 6 above and below
        is room for a button's focus ring, which a scrolling row would cut. */
     margin: 16rem 0 -6rem;
-    padding: 6rem 16rem;
+    padding: 6rem 0 6rem 16rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-padding-inline: 16rem;
@@ -55,6 +55,14 @@
 
   .filters::-webkit-scrollbar {
     display: none;
+  }
+
+  /* the row's 16 at its right end, as a piece of the row: Safari leaves
+     out a scrolling box's end padding, and the last button met the screen's
+     edge (12 and the row's gap of 4) */
+  .filters::after {
+    flex: 0 0 12rem;
+    content: "";
   }
 
   /* Figma pills: 14.14 a side (border included), widths as drawn */

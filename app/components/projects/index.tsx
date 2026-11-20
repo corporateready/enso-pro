@@ -10,8 +10,11 @@ import styles from "./projects.module.css";
  * row on a desktop, the same cards in the swipe row on a phone. The photo
  * fills the card, the status is a small pill on it, and the name sits under
  * it with the city and the kind of project ("\n" breaks a name: ARTIMA's
- * brand is the whole "ARTIMA Business & Lifestyle"). ARTIMA's card opens its
- * site (PROJECT_SITES); the others lead nowhere yet. The title is the
+ * brand is the whole "ARTIMA Business & Lifestyle", broken after "Business"
+ * at the client's request). ARTIMA's card opens its site (PROJECT_SITES);
+ * the others lead nowhere yet. ENSO CITY was ENSO ESTATE until 2026-11-20:
+ * the client renamed it and chose an aerial render of the quarter for it
+ * (Drive «11. ENSO ESTATE / Rendore schematice», 1.1). The title is the
  * client's in place of Figma's "Our projects"; on a phone it keeps to one
  * line, so a new one has to fit 360 wide at 32px.
  */
@@ -26,6 +29,8 @@ const SIDE_BEARINGS: Record<string, number> = {
   B: 0.0879,
   C: 0.0596,
   E: 0.0879,
+  // the ampersand that opens ARTIMA's second line
+  "&": 0.051,
   // Cyrillic: the upright stems of Б and К stand where B's and E's do
   Б: 0.0879,
   К: 0.0879,
@@ -46,9 +51,9 @@ const content = {
     title: "PROIECTE SELECTATE",
     projects: [
       {
-        id: "enso-estate",
-        src: "/projects-slide-1.webp",
-        name: "ENSO ESTATE",
+        id: "enso-city",
+        src: "/projects-enso-city.webp",
+        name: "ENSO CITY",
         meta: "Chișinău, Moldova · Rezidențial",
         status: "În curând",
         tone: "soon",
@@ -64,8 +69,8 @@ const content = {
       {
         id: "artima",
         src: "/projects-slide-3.webp",
-        name: "ARTIMA\nBusiness & Lifestyle",
-        meta: "Chișinău, Moldova",
+        name: "ARTIMA Business\n& Lifestyle",
+        meta: "Chișinău, Moldova · Comercial",
         status: "Finalizat",
         tone: "done",
       },
@@ -75,9 +80,9 @@ const content = {
     title: "ИЗБРАННЫЕ ПРОЕКТЫ",
     projects: [
       {
-        id: "enso-estate",
-        src: "/projects-slide-1.webp",
-        name: "ENSO ESTATE",
+        id: "enso-city",
+        src: "/projects-enso-city.webp",
+        name: "ENSO CITY",
         meta: "Кишинёв · Жилой комплекс",
         status: "Скоро старт",
         tone: "soon",
@@ -93,8 +98,8 @@ const content = {
       {
         id: "artima",
         src: "/projects-slide-3.webp",
-        name: "ARTIMA\nBusiness & Lifestyle",
-        meta: "Кишинёв",
+        name: "ARTIMA Business\n& Lifestyle",
+        meta: "Кишинёв · Коммерческий",
         status: "Сдан",
         tone: "done",
       },
@@ -104,9 +109,9 @@ const content = {
     title: "FEATURED PROJECTS",
     projects: [
       {
-        id: "enso-estate",
-        src: "/projects-slide-1.webp",
-        name: "ENSO ESTATE",
+        id: "enso-city",
+        src: "/projects-enso-city.webp",
+        name: "ENSO CITY",
         meta: "Chisinau, Moldova · Residential",
         status: "Starting soon",
         tone: "soon",
@@ -122,8 +127,8 @@ const content = {
       {
         id: "artima",
         src: "/projects-slide-3.webp",
-        name: "ARTIMA\nBusiness & Lifestyle",
-        meta: "Chisinau, Moldova",
+        name: "ARTIMA Business\n& Lifestyle",
+        meta: "Chisinau, Moldova · Commercial",
         status: "Ready to move in",
         tone: "done",
       },

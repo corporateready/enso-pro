@@ -528,7 +528,7 @@
   background: white;
   transform: scaleY(0);
   transform-origin: top;
-  animation: carousel-dot-progress 3.33s linear forwards;
+  animation: carousel-dot-progress var(--slide-duration, 3.33s) linear forwards;
 }
 
 .dotProgressPaused {
@@ -815,7 +815,7 @@
     background: #fff;
     transform: scaleX(0);
     transform-origin: left center;
-    animation: carousel-dot-progress-x 3.33s linear forwards;
+    animation: carousel-dot-progress-x var(--slide-duration, 3.33s) linear forwards;
   }
 
   .dotProgressPaused {

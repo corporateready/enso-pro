@@ -19,7 +19,10 @@ import { AuroraVideo } from "@/app/components/animated-slide-background/aurora-v
 import styles from "./carousel.module.css";
 
 type EmblaApi = NonNullable<UseEmblaCarouselType[1]>;
-const SLIDE_PROGRESS_DURATION = 3333;
+// How long each slide stays before the next one comes in: 3.33s until
+// 2026-11-20, when the client asked for a longer pause between the slides.
+// The dots' progress bars (carousel.module.css) take it from --slide-duration.
+const SLIDE_PROGRESS_DURATION = 6000;
 
 export type HeroCarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 
@@ -624,6 +627,9 @@ export function HeroCarousel({
     <section
       ref={carouselRef}
       className={`${styles.carousel} ${className ?? ""} relative z-0`}
+      style={
+        { "--slide-duration": `${SLIDE_PROGRESS_DURATION}ms` } as CSSProperties
+      }
       role="region"
       aria-roledescription="carousel"
       aria-label={ariaLabel}

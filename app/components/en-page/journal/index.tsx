@@ -6,7 +6,7 @@ import { type CSSProperties, useState } from "react";
 import { revealDelay } from "../../motion/reveal";
 import styles from "./journal.module.css";
 
-type JournalCategory = "all" | "buying-guide" | "market" | "inside-enso";
+export type JournalCategory = "all" | "buying-guide" | "market" | "inside-enso";
 
 export type JournalArticle = {
   id: string;
@@ -18,9 +18,15 @@ export type JournalArticle = {
   src: string;
   width: number;
   height: number;
+  /* the picture in the leading article's shape (1.27 : 1), for the cards of
+     the journal's own page (components/journal-page); src where missing */
+  cover?: { src: string; width: number; height: number };
 };
 
-const categories: readonly { id: JournalCategory; label: string }[] = [
+export const journalCategories: readonly {
+  id: JournalCategory;
+  label: string;
+}[] = [
   { id: "all", label: "All" },
   { id: "buying-guide", label: "Buying guide" },
   { id: "market", label: "Market" },
@@ -36,7 +42,7 @@ const categories: readonly { id: JournalCategory; label: string }[] = [
 // caption.
 const maxShown = 5;
 
-const siteArticles: readonly JournalArticle[] = [
+export const siteArticles: readonly JournalArticle[] = [
   {
     id: "bim-standard",
     category: "inside-enso",
@@ -49,6 +55,7 @@ const siteArticles: readonly JournalArticle[] = [
     src: "/journal-post-image.avif",
     width: 3200,
     height: 2520,
+    cover: { src: "/journal-post-image.avif", width: 3200, height: 2520 },
   },
   {
     id: "eminescu-offices",
@@ -61,6 +68,7 @@ const siteArticles: readonly JournalArticle[] = [
     src: "/journal-eminescu-square.avif",
     width: 690,
     height: 690,
+    cover: { src: "/journal-eminescu.avif", width: 690, height: 543 },
   },
   {
     id: "moldova-growth-leader",
@@ -72,6 +80,7 @@ const siteArticles: readonly JournalArticle[] = [
     src: "/journal-moldova-square.avif",
     width: 588,
     height: 588,
+    cover: { src: "/journal-moldova.avif", width: 746, height: 588 },
   },
 ];
 
@@ -160,7 +169,7 @@ export default function Journal({
         </header>
 
         <div className={styles.filters} data-reveal-group aria-label="Filter journal articles">
-          {categories.map((category, index) => (
+          {journalCategories.map((category, index) => (
             <button
               className={`${styles.filterButton} motion-button ${
                 activeCategory === category.id ? styles.filterButtonActive : ""
@@ -214,7 +223,10 @@ export default function Journal({
             ))}
           </div>
 
-          <a className={`${styles.viewAllButton} motion-button`} href="#journal">
+          <a
+            className={`${styles.viewAllButton} motion-button`}
+            href="/en/journal"
+          >
             View all articles <span className="inter-arrow">→</span>
           </a>
         </div>

@@ -62,7 +62,7 @@ export default function BookCallModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [project, setProject] = useState("enso-estate");
+  const [project, setProject] = useState("enso-city");
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
   const nameRef = useRef<HTMLInputElement>(null);
@@ -174,7 +174,7 @@ export default function BookCallModal({
             <legend className={styles.visuallyHidden}>{text.project}</legend>
             {[
               ["enso-living", "ENSO LIVING"],
-              ["enso-estate", "ENSO ESTATE"],
+              ["enso-city", "ENSO CITY"],
               ["either", text.either],
             ].map(([value, label]) => (
               <label
