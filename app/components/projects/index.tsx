@@ -55,7 +55,7 @@ const content = {
       },
       {
         id: "enso-living",
-        src: "/projects-slide-2.webp",
+        src: "/projects-enso-living.webp",
         name: "ENSO LIVING",
         meta: "Brașov, Romania · Multifuncțional",
         status: "În construcție",
@@ -84,7 +84,7 @@ const content = {
       },
       {
         id: "enso-living",
-        src: "/projects-slide-2.webp",
+        src: "/projects-enso-living.webp",
         name: "ENSO LIVING",
         meta: "Брашов · Многофункциональный",
         status: "Строится",
@@ -113,7 +113,7 @@ const content = {
       },
       {
         id: "enso-living",
-        src: "/projects-slide-2.webp",
+        src: "/projects-enso-living.webp",
         name: "ENSO LIVING",
         meta: "Brasov, Romania · Mixed-use",
         status: "Under construction",

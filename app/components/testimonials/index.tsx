@@ -1,12 +1,15 @@
 import type { CSSProperties } from "react";
 
 import { revealDelay } from "../motion/reveal";
+import ReviewsRow from "./reviews-row";
 import styles from "./testimonials.module.css";
 
 /*
- * What clients say, one block for all the languages: Figma's three cards, all
- * in a row on a desktop and a swipe row on a phone, restyled at the client's
- * call. The cards are pale and flat in place of white with a shadow, the
+ * What clients say, one block for all the languages: Figma's cards, three to
+ * a screen on a desktop and a swipe row on a phone (reviews-row.tsx), restyled
+ * at the client's call. Figma had three; the investors' words from the
+ * client's presentation (November 2026) were added to them, and the reviews
+ * stand in the order of the year each has been with ENSO since. The cards are pale and flat in place of white with a shadow, the
  * role badge (which only repeated the role) is gone, and the name sits by
  * its initials at the foot. Figma's five stars lead each card (for a while
  * a quote mark stood there; the client wanted the stars back), drawn here:
@@ -30,6 +33,8 @@ const content: Record<
     subtitle: string;
     stars: string;
     since: string;
+    pages: string;
+    page: string;
     reviews: readonly Review[];
   }
 > = {
@@ -38,6 +43,8 @@ const content: Record<
     subtitle: "Partea care se vede după predare.",
     stars: "5 din 5 stele",
     since: "Alături din",
+    pages: "Paginile cu recenzii",
+    page: "Afișează recenziile, pagina",
     reviews: [
       {
         quote:
@@ -48,10 +55,24 @@ const content: Record<
       },
       {
         quote:
+          "Cei mai constructivi profesioniști cu care am avut ocazia să colaborez în domeniul investițiilor imobiliare.",
+        name: "Moti Frenkel",
+        role: "Antreprenor, investitor diversificat, Israel",
+        since: 2018,
+      },
+      {
+        quote:
           "Planul pe care l-am semnat este apartamentul pe care l-am primit. Fiecare centimetru a corespuns proiectului — nu a fost nimic de renegociat pe șantier.",
         name: "Mariana Anghel",
         role: "Proprietar de apartament",
         since: 2019,
+      },
+      {
+        quote:
+          "Am colaborat în trei proiecte. Am fost impresionat de profesionalismul lor.",
+        name: "Igor Corman",
+        role: "Fost ambasador al Republicii Moldova în Germania",
+        since: 2020,
       },
       {
         quote:
@@ -67,6 +88,8 @@ const content: Record<
     subtitle: "То, что видно уже после сдачи.",
     stars: "5 звёзд из 5",
     since: "С нами с",
+    pages: "Страницы отзывов",
+    page: "Показать отзывы, страница",
     reviews: [
       {
         quote:
@@ -77,10 +100,24 @@ const content: Record<
       },
       {
         quote:
+          "Самые конструктивные профессионалы, с которыми мне доводилось работать в сфере инвестиций в недвижимость.",
+        name: "Моти Френкель",
+        role: "Предприниматель и инвестор, Израиль",
+        since: 2018,
+      },
+      {
+        quote:
           "План, который я подписала, и есть квартира, которую я получила. Каждый сантиметр совпал с проектом, на стройке ничего не пришлось менять.",
         name: "Мариана Ангел",
         role: "Владелица квартиры",
         since: 2019,
+      },
+      {
+        quote:
+          "Мы сотрудничали в трёх проектах. Меня впечатлил их профессионализм.",
+        name: "Игорь Корман",
+        role: "Бывший посол Республики Молдова в Германии",
+        since: 2020,
       },
       {
         quote:
@@ -96,6 +133,8 @@ const content: Record<
     subtitle: "The part that shows up after handover.",
     stars: "5 out of 5 stars",
     since: "With us since",
+    pages: "Review pages",
+    page: "Show reviews, page",
     reviews: [
       {
         quote:
@@ -106,10 +145,24 @@ const content: Record<
       },
       {
         quote:
+          "The most constructive professionals I have had the chance to work with in real estate investment.",
+        name: "Moti Frenkel",
+        role: "Entrepreneur, diversified investor, Israel",
+        since: 2018,
+      },
+      {
+        quote:
           "The plan I signed is the apartment I received. Every centimetre matched the drawings — nothing had to be renegotiated on site.",
         name: "Mariana Anghel",
         role: "Apartment owner",
         since: 2019,
+      },
+      {
+        quote:
+          "We have worked together on three projects. I was impressed by their professionalism.",
+        name: "Igor Corman",
+        role: "Former ambassador of the Republic of Moldova to Germany",
+        since: 2020,
       },
       {
         quote:
@@ -148,13 +201,17 @@ export default function Testimonials({ locale }: { locale: "ro" | "ru" | "en" })
           {text.subtitle}
         </p>
 
-        <div className={styles.cards} data-reveal-group>
+        <ReviewsRow
+          count={text.reviews.length}
+          labels={{ pages: text.pages, page: text.page }}
+        >
           {text.reviews.map((review, index) => (
             <figure
               className={styles.card}
               key={review.name}
               data-reveal
-              style={revealDelay(index * 100)}
+              // the cards past the first screen do not wait their turn
+              style={revealDelay(Math.min(index, 2) * 100)}
             >
               <div className={styles.cardTop}>
                 <span className={styles.stars} role="img" aria-label={text.stars}>
@@ -188,7 +245,7 @@ export default function Testimonials({ locale }: { locale: "ro" | "ru" | "en" })
               </figcaption>
             </figure>
           ))}
-        </div>
+        </ReviewsRow>
       </div>
     </section>
   );

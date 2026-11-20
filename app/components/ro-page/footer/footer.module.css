@@ -469,3 +469,15 @@
     height: 100rem;
   }
 }
+
+/*
+ * The footer's columns come in as the footer does, one after another. They
+ * are marked data-reveal-edge in the markup: the footer is the last thing on
+ * the page and never climbs far enough up the screen for the usual reveal.
+ * The social links are left as they are: on a desktop their box has no
+ * height of its own (the icons are placed one by one), so it would never be
+ * seen arriving and they would stay hidden.
+ */
+.projects {
+  --reveal-delay: 100ms;
+}

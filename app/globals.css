@@ -78,12 +78,15 @@ html {
     scroll-padding-top: 100rem;
   }
 }
-/* A page loaded with its menu open (components/menu-handover.ts) holds still
-   from its first paint, as it will once the menu's own code locks it: left
-   to scroll until then, it showed its scrollbar for a moment in the room the
+/* A page loaded with its menu or its account dialog open (components/
+   menu-handover.ts, account-handover.ts) holds still from its first paint,
+   as it will once the menu's or the dialog's own code locks it: left to
+   scroll until then, it showed its scrollbar for a moment in the room the
    page being left had kept empty. */
 html[data-menu-open],
-html[data-menu-open] body {
+html[data-menu-open] body,
+html[data-account-open],
+html[data-account-open] body {
   overflow: hidden;
 }
 

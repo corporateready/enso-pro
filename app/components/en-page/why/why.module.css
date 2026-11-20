@@ -317,3 +317,39 @@
     line-height: 1.2;
   }
 }
+
+/*
+ * Desktop: the building grows a touch toward the reader as the block scrolls
+ * by (scroll-driven, as the photo in Values), from its bottom right corner,
+ * where it meets the edge of the screen and the foot of the block, so no
+ * gap ever opens there. Only once the site's motion is on.
+ */
+@supports (animation-timeline: view()) {
+  @media screen and (min-width: 641px) {
+    .section {
+      view-timeline-name: --why-view;
+    }
+
+    :global(html[data-motion]) .buildingImage {
+      transform-origin: 100% 100%;
+      animation: why-building-rise linear both;
+      animation-timeline: --why-view;
+    }
+  }
+}
+
+@keyframes why-building-rise {
+  from {
+    scale: 1;
+  }
+
+  to {
+    scale: 1.04;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion]) .buildingImage {
+    animation: none;
+  }
+}

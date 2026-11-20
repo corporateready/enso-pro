@@ -26,7 +26,7 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "16 ani în dezvoltare imobiliară",
       about:
         "A coordonat Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE și ENSO LIVING Brașov.",
-      imageSrc: "/team-avatar-2.webp",
+      imageSrc: "/team-maxim-dumbrava.webp",
     },
     {
       name: "Denis Vasiliev",
@@ -34,7 +34,7 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "12 ani",
       about:
         "Strategii pentru proiecte însumând peste 3 000 de apartamente și 20 000 m² de birouri.",
-      imageSrc: "/team-avatar-3.webp",
+      imageSrc: "/team-denis-vasiliev.webp",
     },
   ],
   [
@@ -44,7 +44,7 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "18 ani",
       about:
         "Dezvoltări rezidențiale, comerciale și culturale, inclusiv pentru Administrația Prezidențială a Republicii Moldova.",
-      imageSrc: "/team-avatar-5.webp",
+      imageSrc: "/team-vladimir-ostrovoi.webp",
       longRole: true,
     },
     {
@@ -53,13 +53,14 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "20 de ani",
       about:
         "Două decenii de experiență în managementul relațiilor cu clienții.",
-      imageSrc: "/team-avatar-4.webp",
+      imageSrc: "/team-zinaida-dumbrava.webp",
     },
     {
       name: "Vitalie Șeremet",
       role: "Managementul construcțiilor,\nadministrarea condominiilor",
       years: "20 de ani",
       about: "Economist; a condus echipe de până la 800 de angajați.",
+      imageSrc: "/team-vitalie-seremet.webp",
       longRole: true,
     },
   ],

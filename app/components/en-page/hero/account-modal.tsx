@@ -1,23 +1,34 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { createPortal } from "react-dom";
 
-import styles from "../../ro-page/hero/account-modal.module.css";
+import {
+  type AccountMode,
+  endAccountHandover,
+  keepAccountOpenOnNextPage,
+} from "../../account-handover";
+import LanguageMenu, { siteLanguages } from "../../language-menu";
 import { lockPageScroll } from "../../scroll-lock";
-
-type AccountMode = "signin" | "signup";
+import styles from "../../ro-page/hero/account-modal.module.css";
 
 type AccountModalProps = {
+  /* The dialog is on the page from the start, out of sight while closed,
+     so that a page loaded from it in another language can draw it open
+     from its first paint (account-handover.ts). The header mounts it afresh
+     for each opening (a new key), which plays the opening from the start. */
+  open: boolean;
   onClose: () => void;
   initialMode?: AccountMode;
+  /* open with the page: loaded from this dialog in another language, it
+     stands as it stood there, and its opening is not played again */
+  arrived?: boolean;
 };
 
 export default function AccountModal({
+  open,
   onClose,
   initialMode = "signin",
+  arrived = false,
 }: AccountModalProps) {
   const [mode, setMode] = useState<AccountMode>(initialMode);
   const [identifier, setIdentifier] = useState("");
@@ -28,7 +39,8 @@ export default function AccountModal({
     ? Boolean(fullName.trim() && identifier.trim())
     : Boolean(identifier.trim());
   const identifierRef = useRef<HTMLInputElement>(null);
-  const [hasOpened, setHasOpened] = useState(false);
+  const dialogRef = useRef<HTMLElement>(null);
+  const [hasOpened, setHasOpened] = useState(arrived);
   const [isClosing, setIsClosing] = useState(false);
 
   // Closing plays the opening back (account-modal.module.css): the overlay's
@@ -50,29 +62,40 @@ export default function AccountModal({
   }, [isClosing, onClose]);
 
   useEffect(() => {
+    if (!open) return;
+
+    endAccountHandover();
+
     const unlockPageScroll = lockPageScroll();
+    // Opened by a press, the dialog takes the reader to its field; come
+    // with the page, it holds still and takes the focus itself.
     const focusFrame = window.requestAnimationFrame(() => {
-      identifierRef.current?.focus();
+      if (arrived) dialogRef.current?.focus({ preventScroll: true });
+      else identifierRef.current?.focus();
     });
 
     return () => {
       window.cancelAnimationFrame(focusFrame);
       unlockPageScroll();
     };
-  }, []);
+  }, [open, arrived]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
-  return createPortal(
+  return (
     <div
-      className={`${styles.overlay} ${isClosing ? styles.closing : ""}`}
+      className={`${styles.overlay} ${open ? "" : styles.closed} ${
+        arrived ? styles.arrived : ""
+      } ${isClosing ? styles.closing : ""}`}
       onAnimationEnd={(event) => {
         if (isClosing && event.target === event.currentTarget) onClose();
       }}
     >
       <section
+        ref={dialogRef}
+        tabIndex={-1}
         className={`${styles.dialog} ${hasOpened ? styles.opened : ""}`}
         onAnimationEnd={(event) => {
           if (event.target === event.currentTarget) setHasOpened(true);
@@ -87,13 +110,13 @@ export default function AccountModal({
             href="#top"
             aria-label="Go to the top of the page"
           >
-            <Image
-              src="/black-logo.svg"
-              width={75}
-              height={25}
-              alt="Enso Development"
-              priority
-            />
+            {/* The page header's own logo (hero/index.tsx), drawn again and
+                turned black in the CSS, as in the open menu: a picture file
+                could come a moment after a dialog drawn from the page's
+                first paint. */}
+            <svg viewBox="0 0 75 25" aria-hidden="true">
+              <use href="#enso-header-logo" />
+            </svg>
           </a>
 
           <div className={styles.headerControls}>
@@ -112,13 +135,18 @@ export default function AccountModal({
               </svg>
             </button>
 
-            <Link
+            <LanguageMenu
               className={styles.language}
-              href="/"
-              aria-label="Treci la limba română"
-            >
-              RO
-            </Link>
+              look="names"
+              tone="onWhite"
+              current="en"
+              languages={siteLanguages}
+              label="Language"
+              // the dialog stays open, and opens on the other language's page
+              onChoose={(code) => {
+                if (code !== "en") keepAccountOpenOnNextPage(mode);
+              }}
+            />
 
             <button
               className={styles.closeButton}
@@ -235,7 +263,6 @@ export default function AccountModal({
           </p>
         </div>
       </section>
-    </div>,
-    document.body,
+    </div>
   );
 }

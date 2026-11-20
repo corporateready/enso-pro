@@ -30,7 +30,7 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "16 years in real estate development",
       about:
         "Led Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE and ENSO LIVING Brasov.",
-      imageSrc: "/team-avatar-2.webp",
+      imageSrc: "/team-maxim-dumbrava.webp",
     },
     {
       name: "Denis Vasiliev",
@@ -38,7 +38,7 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "12 years",
       about:
         "Strategies for projects totalling over 3,000 apartments and 20,000 m² of offices.",
-      imageSrc: "/team-avatar-3.webp",
+      imageSrc: "/team-denis-vasiliev.webp",
     },
   ],
   [
@@ -48,20 +48,21 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "18 years",
       about:
         "Residential, commercial and cultural developments, including for the Presidential Administration of the Republic of Moldova.",
-      imageSrc: "/team-avatar-5.webp",
+      imageSrc: "/team-vladimir-ostrovoi.webp",
     },
     {
       name: "Zinaida Dumbrava",
       role: "Client relations",
       years: "20 years",
       about: "Two decades of experience in client relationship management.",
-      imageSrc: "/team-avatar-4.webp",
+      imageSrc: "/team-zinaida-dumbrava.webp",
     },
     {
       name: "Vitalie Șeremet",
       role: "Construction management, condominium administration",
       years: "20 years",
       about: "Economist; has led teams of up to 800 people.",
+      imageSrc: "/team-vitalie-seremet.webp",
     },
   ],
 ];

@@ -1,17 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import HeroCarousel, { type HeroCarouselSlide } from "../../ro-page/hero/carousel";
 import AccountModal from "./account-modal";
 import MobileMenu from "./mobile-menu";
 import OfferModal from "./offer-modal";
 import LanguageMenu, { siteLanguages } from "../../language-menu";
+import {
+  type AccountMode,
+  endAccountHandover,
+  takeAccountHandover,
+} from "../../account-handover";
 import styles from "../../ro-page/hero/hero.module.css";
 
 const Index = () => {
-  const [accountMode, setAccountMode] = useState<
-    "signin" | "signup" | null
-  >(null);
+  // The account's dialog: its mode while open, null while closed; a new key
+  // for each opening, which mounts it afresh and plays its opening
+  // (account-modal.tsx); arrived when the page came with it open.
+  const [account, setAccount] = useState<{
+    mode: AccountMode | null;
+    key: number;
+    arrived: boolean;
+  }>({ mode: null, key: 0, arrived: false });
+  const openAccount = useCallback(
+    (mode: AccountMode) =>
+      setAccount(({ key }) => ({ mode, key: key + 1, arrived: false })),
+    [],
+  );
+  const closeAccount = useCallback(
+    () => setAccount((current) => ({ ...current, mode: null })),
+    [],
+  );
+
+  // Loaded by a choice of language in the other language's dialog: the
+  // page came up with the dialog drawn open (account-handover.ts), and
+  // before the next paint it is open in earnest, in the mode it was in.
+  // The note is in the browser's storage, which the server's render cannot
+  // see, so this can only happen once the page is in the browser.
+  useLayoutEffect(() => {
+    const mode = takeAccountHandover();
+
+    if (!mode) {
+      endAccountHandover();
+      return;
+    }
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setAccount(({ key }) => ({
+      mode,
+      // the page drew the sign-in form; sign-up is mounted in its place
+      key: mode === "signup" ? key + 1 : key,
+      arrived: true,
+    }));
+  }, []);
   const [isSticky, setIsSticky] = useState(false);
   const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
   // Once the page moves the bar turns frosted white with black type, the
@@ -391,7 +432,7 @@ const Index = () => {
           <button
             type="button"
             className={styles.desktopOfferButton}
-            onClick={() => setAccountMode("signin")}
+            onClick={() => openAccount("signin")}
           >
             <span>Личный кабинет</span>
             <svg viewBox="0 0 19 21" fill="none" aria-hidden="true">
@@ -404,7 +445,7 @@ const Index = () => {
           </button>
           <button
             type="button"
-            onClick={() => setAccountMode("signin")}
+            onClick={() => openAccount("signin")}
             aria-label="Открыть личный кабинет"
             className={`${styles.accountButton} transition-colors duration-300 ${isWhiteBar ? "text-black" : "text-white"}`}
           >
@@ -430,7 +471,7 @@ const Index = () => {
             label="Язык"
           />
           <span className={styles.mobileMenuShell}>
-            <MobileMenu dark={isWhiteBar} onOpenAccount={setAccountMode} />
+            <MobileMenu dark={isWhiteBar} onOpenAccount={openAccount} />
           </span>
         </div>
       </header>
@@ -446,12 +487,13 @@ const Index = () => {
         <OfferModal onClose={() => setIsOfferModalOpen(false)} />
       )}
 
-      {accountMode && (
-        <AccountModal
-          initialMode={accountMode}
-          onClose={() => setAccountMode(null)}
-        />
-      )}
+      <AccountModal
+        key={account.key}
+        open={account.mode !== null}
+        initialMode={account.mode ?? "signin"}
+        arrived={account.arrived}
+        onClose={closeAccount}
+      />
       
     </div>
   );

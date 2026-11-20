@@ -38,7 +38,20 @@
     z-index: 2;
     display: flex;
     gap: 3.33rem;
-    margin: 22rem 16rem 0;
+    /* A row to swipe: the four do not fit a phone, and the last used to be
+       cut off at the screen's edge with no way to reach it. The row runs
+       edge to edge and keeps the page's 16 at both ends; 6 above and below
+       is room for a button's focus ring, which a scrolling row would cut. */
+    margin: 16rem 0 -6rem;
+    padding: 6rem 16rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 16rem;
+    scrollbar-width: none;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
   }
 
   /* Figma pills: 14.14 a side (border included), widths as drawn */
@@ -99,7 +112,7 @@
   .contentArea {
     position: relative;
     z-index: 1;
-    min-height: 652rem;
+    min-height: 696rem;
     margin-top: -10rem;
     padding: 29rem 16rem 0rem;
     background: transparent;
@@ -114,7 +127,10 @@
 
   /* The cards are type over real pictures: the leading article's title lies
      on its picture, the two under it have a picture of the same shape
-     (358 x 282) beside the text. Sizes as Figma draws the phone cards. */
+     (358 x 282) beside the text. Sizes as Figma draws the phone cards,
+     but for the two lower ones: the client had them made larger (124 tall
+     for Figma's 102, the picture a square that size) and their titles set
+     larger across the whole width, so less of the card is left white. */
   .card {
     position: relative;
     width: 358rem;
@@ -128,7 +144,7 @@
   }
 
   .articleCard {
-    height: 102rem;
+    height: 124rem;
   }
 
   .imageArea {
@@ -157,7 +173,7 @@
 
   /* a square, the card's height */
   .articleCard .imageArea {
-    width: 102rem;
+    width: 124rem;
   }
 
   .sourceImage {
@@ -223,25 +239,35 @@
   }
 
   .articleCard .articleCategory {
-    top: 9.25rem;
-    left: 112rem;
+    top: 12rem;
+    left: 138rem;
     height: 18.25rem;
   }
 
   .articleCard .articleMeta {
-    right: 10.5rem;
+    top: 16.1rem;
+    right: 12rem;
     color: #000;
   }
 
+  /* The title runs the width of the card and breaks where it must (the
+     line breaks written into it are for the desktop card); a title longer
+     than four lines is cut short with an ellipsis. */
   .articleCard .articleCopy h3 {
-    top: 49.4rem;
-    right: 10rem;
-    left: 112rem;
+    top: 40rem;
+    right: 12rem;
+    left: 138rem;
+    display: -webkit-box;
+    overflow: hidden;
     color: #000;
-    font-size: 12rem;
+    font-size: 15rem;
     font-weight: 400;
-    line-height: 14rem;
-    text-wrap: balance;
+    line-height: 19rem;
+    white-space: normal;
+    text-wrap: pretty;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
   }
 
   /* the phone card has no "read the article" line */
@@ -716,4 +742,11 @@
   .card:hover .readArticle :global(.inter-arrow) {
     translate: 4rem 0;
   }
+}
+
+/* The filter buttons come in sideways, from the right, one after another
+   (data-reveal on each, see globals.css): the way the row is swiped. */
+.filterButton {
+  --reveal-x: 18rem;
+  --reveal-shift: 0rem;
 }

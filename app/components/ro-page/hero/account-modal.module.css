@@ -40,7 +40,7 @@
 }
 
 .logoLink,
-.logoLink img {
+.logoLink svg {
   display: block;
   width: 75rem;
   height: 25rem;
@@ -53,12 +53,16 @@
   margin-top: 5rem;
 }
 
+/* The page header's spacing (hero.module.css): as the panel unrolls over
+   the header, its account icon and language menu stand where the header's
+   are. The cross stands half a pixel left of the burger (its strokes on the
+   burger's), so the language comes half a pixel closer to it. */
 .accountIcon {
-  margin-right: 39.4rem;
+  margin-right: 28rem;
 }
 
 .language {
-  margin-right: 32rem;
+  margin-right: 27.5rem;
 }
 
 .accountIcon,
@@ -75,19 +79,6 @@
   display: block;
   width: 19rem;
   height: 21rem;
-}
-
-.language {
-  display: flex;
-  min-width: 22rem;
-  min-height: 32rem;
-  align-items: center;
-  justify-content: center;
-  color: inherit;
-  font-size: 18rem;
-  font-weight: 300;
-  line-height: 29rem;
-  text-decoration: none;
 }
 
 .closeButton {
@@ -248,7 +239,6 @@
 
 .logoLink:focus-visible,
 .accountIcon:focus-visible,
-.language:focus-visible,
 .closeButton:focus-visible,
 .googleButton:focus-visible,
 .input:focus-visible,
@@ -332,16 +322,26 @@
   }
 
   .logoLink,
-  .logoLink img {
+  .logoLink svg {
     display: block;
     width: 112.5rem;
     height: 37.5rem;
   }
 
-  /* The page header already carries these; the dialog only needs a way out. */
-  .accountIcon,
-  .language {
+  /* The account icon would only point at the field below it. The language
+     menu stays: the page header's own is under the dimming while the dialog
+     is open, and there was no way to change the language from here. */
+  .accountIcon {
     display: none;
+  }
+
+  .language {
+    margin-right: 36rem;
+  }
+
+  /* its code at the size of the card's own type */
+  .language > button {
+    font-size: 20rem;
   }
 
   .headerControls {
@@ -550,6 +550,30 @@
   }
 }
 
+/* the page header's white logo (hero/index.tsx), black here */
+.logoLink svg {
+  filter: invert(1);
+}
+
+/* the dialog takes the focus itself when it comes with the page: no ring
+   around the whole card */
+.dialog:focus {
+  outline: none;
+}
+
+/*
+ * Closed, the dialog is still on the page, out of sight, so that a page
+ * loaded from it in another language can draw it open from its first paint
+ * (account-handover.ts marks <html> before anything is drawn).
+ */
+.overlay.closed {
+  display: none;
+}
+
+:global(html[data-account-open]) .overlay.closed {
+  display: grid;
+}
+
 /*
  * Opening, the client's call: on a phone the panel unrolls down from the
  * header, on a desktop the card rises into place, while the burger's three
@@ -629,11 +653,16 @@
   }
 }
 
+/* inset to inset: between an inset and the panel's own "none" the clip
+   cannot move, so it jumped open part way through and the panel showed
+   whole at once, where it was to unroll */
 @keyframes account-panel-in {
   from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0); }
 }
 
 @keyframes account-panel-out {
+  from { clip-path: inset(0); }
   to { clip-path: inset(0 0 100% 0); }
 }
 
@@ -686,6 +715,36 @@
 @keyframes account-cross-bottom-out {
   from { transform: translateY(0) rotate(-45deg); }
   to { transform: translateY(10rem) rotate(0deg); }
+}
+
+/*
+ * A dialog that came with the page stands as it stood on the page that was
+ * left: none of its opening plays, neither while the mark on <html> draws it
+ * nor once the header's code has it open (.arrived). Its closing plays as
+ * ever: the panel, the dimming and the cross let go of "none" as it starts,
+ * while the form, which has no closing of its own, keeps it.
+ */
+:global(html[data-account-open]) .overlay,
+:global(html[data-account-open]) .dialog,
+:global(html[data-account-open]) .closeButton span:nth-child(n),
+:global(html[data-account-open]) .title,
+:global(html[data-account-open]) .description,
+:global(html[data-account-open]) .googleButton,
+:global(html[data-account-open]) .divider,
+:global(html[data-account-open]) .input,
+:global(html[data-account-open]) .continueButton,
+:global(html[data-account-open]) .createAccount,
+.arrived:not(.closing),
+.arrived:not(.closing) .dialog,
+.arrived:not(.closing) .closeButton span:nth-child(n),
+.arrived .title,
+.arrived .description,
+.arrived .googleButton,
+.arrived .divider,
+.arrived .input,
+.arrived .continueButton,
+.arrived .createAccount {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

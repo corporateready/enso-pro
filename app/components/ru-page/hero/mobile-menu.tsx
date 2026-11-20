@@ -36,6 +36,9 @@ export default function MobileMenu({
   onOpenAccount,
 }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  // Open because the page arrived that way (a change of language), not by
+  // a tap: the items are already in place and do not come in again.
+  const [arrivedOpen, setArrivedOpen] = useState(false);
 
   // Loaded by a choice of language in the other language's open menu: the
   // page comes up with the menu drawn open (menu-handover.ts), and before
@@ -43,9 +46,13 @@ export default function MobileMenu({
   // browser's storage, which the server's render cannot see, so the state
   // can only be set once the page is in the browser.
   useLayoutEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (takeMenuHandover()) setIsOpen(true);
-    else endMenuHandover();
+    if (takeMenuHandover()) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsOpen(true);
+      setArrivedOpen(true);
+    } else {
+      endMenuHandover();
+    }
   }, []);
 
   useEffect(() => {
@@ -94,7 +101,10 @@ export default function MobileMenu({
       <button
         className={`${styles.trigger} ${dark ? styles.triggerDark : ""} ${isOpen ? styles.triggerOpen : ""}`}
         type="button"
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={() => {
+          setArrivedOpen(false);
+          setIsOpen((current) => !current);
+        }}
         aria-expanded={isOpen}
         aria-controls="mobile-navigation"
         aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
@@ -106,7 +116,7 @@ export default function MobileMenu({
 
       <div
         id="mobile-navigation"
-        className={`${styles.menu} ${isOpen ? styles.menuOpen : ""}`}
+        className={`${styles.menu} ${isOpen ? styles.menuOpen : ""} ${arrivedOpen ? styles.menuArrived : ""}`}
         aria-hidden={!isOpen}
       >
         <header className={styles.activeHeader}>

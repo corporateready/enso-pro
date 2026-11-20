@@ -16,12 +16,44 @@
   font-weight: 400;
 }
 
+.inner {
+  position: relative;
+}
+
+/* One row of cards, however many there are: what does not fit is scrolled
+   to (reviews-row.tsx). The row is a grid of three lines, the stars, the
+   quote and the name, and each card takes its lines from it (subgrid), so
+   the quotes start level and the names stand level across the cards even
+   when one card's caption runs to a second line. */
+.cards {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto 1fr auto;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.cards::-webkit-scrollbar {
+  display: none;
+}
+
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
+  grid-row: 1 / span 3;
   margin: 0;
   background: #f3f5f9;
+  scroll-snap-align: start;
+}
+
+@supports (grid-template-rows: subgrid) {
+  .card {
+    display: grid;
+    grid-template-rows: subgrid;
+  }
 }
 
 .cardTop {
@@ -60,9 +92,15 @@
 /* every card as tall as the longest, the names level across them */
 .person {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-top: auto;
   border-top: 1rem solid rgb(14 52 119 / 12%);
+}
+
+@supports (grid-template-rows: subgrid) {
+  .person {
+    margin-top: 0;
+  }
 }
 
 .avatar {
@@ -111,25 +149,20 @@
   }
 
   .cards {
-    display: flex;
-    gap: 12rem;
+    grid-auto-columns: 300rem;
+    column-gap: 12rem;
     margin: 19.8rem -16rem 0;
     padding: 0 16rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
     scroll-padding-inline: 16rem;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .cards::-webkit-scrollbar {
-    display: none;
   }
 
   .card {
-    flex: 0 0 300rem;
     padding: 24rem 22rem 20rem;
-    scroll-snap-align: start;
+  }
+
+  /* a phone has the swipe and the next card showing at the edge */
+  .pages {
+    display: none;
   }
 
   .stars {
@@ -177,8 +210,8 @@
   }
 }
 
-/* All three on the 1600 grid, and the journal's title 174.5 below them (the
-   gap between blocks on desktops, the client's call). */
+/* Three to a screen on the 1600 grid, and the journal's title 174.5 below
+   them (the gap between blocks on desktops, the client's call). */
 @media screen and (min-width: 641px) {
   .inner {
     width: 100%;
@@ -199,11 +232,44 @@
     line-height: 43.2rem;
   }
 
+  /* 60 under the subtitle; 6 of it is inside the row, the room a card
+     rises into under the mouse (a scrolling row cuts off what leaves it) */
   .cards {
-    display: grid;
-    grid-template-columns: repeat(3, 500rem);
-    gap: 50rem;
-    margin-top: 60rem;
+    grid-auto-columns: 500rem;
+    column-gap: 50rem;
+    margin-top: 54rem;
+    padding-top: 6rem;
+  }
+
+  /* the dots of the team block, level with the subtitle at the right end
+     of the grid */
+  .pages {
+    position: absolute;
+    top: 200.5rem;
+    right: 160rem;
+    display: flex;
+    gap: 16rem;
+  }
+
+  .pageDot {
+    width: 20rem;
+    height: 20rem;
+    flex: 0 0 20rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d9d9d9;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+  }
+
+  .pageDotActive {
+    background: #000;
+  }
+
+  .pageDot:focus-visible {
+    outline: 2rem solid #2864d7;
+    outline-offset: 3rem;
   }
 
   .card {

@@ -96,7 +96,7 @@ function ArticleVisual({
           sizes={
             leading
               ? "(min-width: 641px) 30vw, 92vw"
-              : "(min-width: 641px) 14vw, 27vw"
+              : "(min-width: 641px) 14vw, 32vw"
           }
           alt=""
         />
@@ -167,8 +167,8 @@ export default function Journal({
           </p>
         </header>
 
-        <div className={styles.filters} data-reveal style={revealDelay(150)} aria-label="Фильтр статей журнала">
-          {categories.map((category) => (
+        <div className={styles.filters} data-reveal-group aria-label="Фильтр статей журнала">
+          {categories.map((category, index) => (
             <button
               className={`${styles.filterButton} motion-button ${
                 activeCategory === category.id ? styles.filterButtonActive : ""
@@ -177,7 +177,23 @@ export default function Journal({
               type="button"
               aria-pressed={activeCategory === category.id}
               aria-controls="journal-articles"
-              onClick={() => setActiveCategory(category.id)}
+              // the row's buttons come in one after another, from the right
+              data-reveal
+              style={revealDelay(150 + index * 70)}
+              onClick={(event) => {
+                setActiveCategory(category.id);
+                // on a phone the row is swiped: the chosen one comes fully
+                // into view
+                event.currentTarget.scrollIntoView({
+                  behavior: window.matchMedia(
+                    "(prefers-reduced-motion: reduce)",
+                  ).matches
+                    ? "auto"
+                    : "smooth",
+                  block: "nearest",
+                  inline: "center",
+                });
+              }}
             >
               {category.label}
             </button>

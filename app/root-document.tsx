@@ -1,3 +1,4 @@
+import { accountHandoverScript } from "./components/account-handover";
 import { menuHandoverScript } from "./components/menu-handover";
 import ScrollReveal from "./components/motion/scroll-reveal";
 import { settlePageScaleScript } from "./components/page-scale";
@@ -29,9 +30,11 @@ export default function RootDocument({
       suppressHydrationWarning
     >
       <head>
-        {/* keeps the menu open through a change of language, see
-            components/menu-handover.ts */}
+        {/* keep the menu and the account's dialog open through a change of
+            language, see components/menu-handover.ts and
+            components/account-handover.ts */}
         <script dangerouslySetInnerHTML={{ __html: menuHandoverScript }} />
+        <script dangerouslySetInnerHTML={{ __html: accountHandoverScript }} />
       </head>
       <body className="min-h-full flex flex-col">
         {/* one scale for the page from the first paint, see

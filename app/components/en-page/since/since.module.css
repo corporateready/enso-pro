@@ -165,10 +165,12 @@
   font-weight: 700;
 }
 
+/* The arrows ride the line: the point of each chevron is on the line's own
+   middle (the line is 1 thick, hence the half). */
 .arrowButton {
   position: absolute;
   z-index: 3;
-  top: var(--timeline-line-position);
+  top: calc(var(--timeline-line-position) + 0.5rem);
   right: 23rem;
   width: 57rem;
   height: 49rem;
@@ -200,8 +202,11 @@
   left: 23rem;
 }
 
+/* Mirrored, not turned over: the picture has more room above the chevrons
+   than below (for their shadow), so turned upside down they stood 4.5 above
+   the line while the right pair sat on it. */
 .arrowLeft .arrowIcon {
-  transform: rotate(180deg);
+  transform: scaleX(-1);
 }
 }
 
@@ -498,5 +503,44 @@
   :global(html[data-motion]) .timeline[data-revealed]:not([data-revealed="instant"]) .stem,
   :global(html[data-motion]) .timeline[data-revealed]:not([data-revealed="instant"]) .milestoneContent {
     animation: none;
+  }
+}
+
+/*
+ * The arrows on a phone lean the way they lead, every couple of seconds:
+ * a hint that the line goes on. The individual translate property, so the
+ * left pair keeps its mirroring.
+ */
+@media screen and (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+  :global(html[data-motion]) .arrowIcon {
+    animation: since-arrow-nudge 2200ms ease-in-out infinite;
+  }
+
+  :global(html[data-motion]) .arrowLeft .arrowIcon {
+    animation-name: since-arrow-nudge-left;
+  }
+}
+
+@keyframes since-arrow-nudge {
+  0%,
+  55%,
+  100% {
+    translate: 0 0;
+  }
+
+  28% {
+    translate: 5rem 0;
+  }
+}
+
+@keyframes since-arrow-nudge-left {
+  0%,
+  55%,
+  100% {
+    translate: 0 0;
+  }
+
+  28% {
+    translate: -5rem 0;
   }
 }

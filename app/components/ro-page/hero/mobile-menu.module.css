@@ -499,3 +499,67 @@
   top: 10rem;
   transform: rotate(-45deg);
 }
+
+/*
+ * Opened by a tap, the menu's items come in one after another, rising a
+ * little. Not when the page arrives with its menu open, after a change of
+ * language (.menuArrived, set in mobile-menu.tsx): there the menu must stand
+ * exactly as it stood on the page being left.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .menuOpen:not(.menuArrived) .navigation button,
+  .menuOpen:not(.menuArrived) .accountActions {
+    animation: menu-item-in 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(1) {
+    animation-delay: 60ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(2) {
+    animation-delay: 105ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(3) {
+    animation-delay: 150ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(4) {
+    animation-delay: 195ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(5) {
+    animation-delay: 240ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(6) {
+    animation-delay: 285ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(7) {
+    animation-delay: 330ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(8) {
+    animation-delay: 375ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(9) {
+    animation-delay: 420ms;
+  }
+
+  .menuOpen:not(.menuArrived) .navigation button:nth-child(10) {
+    animation-delay: 465ms;
+  }
+
+  .menuOpen:not(.menuArrived) .accountActions {
+    animation-delay: 500ms;
+  }
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    translate: 0 14rem;
+  }
+}

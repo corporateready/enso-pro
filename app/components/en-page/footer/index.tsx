@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <nav className={`${styles.column} ${styles.menu}`} aria-label="Footer menu">
+        <nav className={`${styles.column} ${styles.menu}`} data-reveal data-reveal-edge aria-label="Footer menu">
           <p className={styles.columnTitle}>Menu</p>
           <ul>
             {menuLinks.map((link) => (
@@ -51,7 +51,7 @@ export default function Footer() {
         </nav>
 
         <nav
-          className={`${styles.column} ${styles.projects}`}
+          className={`${styles.column} ${styles.projects}`} data-reveal data-reveal-edge
           aria-label="Projects"
         >
           <p className={styles.columnTitle}>Projects</p>
