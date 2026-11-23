@@ -194,7 +194,11 @@
 }
 
 @media screen and (min-width: 641px) {
-  /* Figma "Футтер": 1920x1045 on #717171. */
+  /* Figma "Футтер" (1920x1045 on #717171), made more compact at the
+     client's call (2026-11-23): its 36 type is 24 here, 20 on the legal
+     line, the gaps and circles shrink with it, and the footer is 736 high
+     instead of 1045. The grid stays: the menu at 160, the projects at 706,
+     the logo and the arrow up against the right edge at 1760. */
   .footer {
     width: 100%;
     background: #717171;
@@ -204,14 +208,14 @@
     position: relative;
     width: 100%;
     max-width: none;
-    height: 1045rem;
+    height: 736rem;
     margin: 0;
     font-family: var(--font-inter), sans-serif;
   }
 
   .column {
     position: absolute;
-    top: 196rem;
+    top: 96rem;
   }
 
   /* Figma draws each column rule as its own 1px line, not as a border:
@@ -226,143 +230,144 @@
 
   .menu {
     left: 160rem;
-    padding-left: 32.4rem;
+    padding-left: 24rem;
   }
 
   .menu::before {
     top: 0;
-    height: 631.3rem;
+    height: 472rem;
   }
 
   .projects {
-    left: 693rem;
-    padding-left: 31rem;
+    left: 706rem;
+    padding-left: 24rem;
   }
 
   .projects::before {
-    top: 1.9rem;
-    height: 267.1rem;
+    top: 1.5rem;
+    height: 190rem;
   }
 
   .columnTitle {
     margin: 0;
     color: #d9d9d9;
-    font-size: 36rem;
+    font-size: 24rem;
     font-weight: 400;
-    line-height: 32.4rem;
+    line-height: 28.8rem;
   }
 
   .column ul {
     display: grid;
-    gap: 31.9rem;
-    margin: 58.7rem 0 0;
+    gap: 18rem;
+    margin: 40rem 0 0;
     padding: 0;
     color: #fff;
     list-style: none;
   }
 
   .projects ul {
-    gap: 36.3rem;
-    margin-top: 64.9rem;
+    gap: 18rem;
+    margin-top: 40rem;
   }
 
   .column a {
     display: block;
     color: #fff;
-    font-size: 36rem;
+    font-size: 24rem;
     font-weight: 400;
-    line-height: 32.4rem;
+    line-height: 28.8rem;
     text-decoration: none;
     white-space: nowrap;
   }
 
-  /* Circles are 60 in Figma with a centred 2px stroke: 62 outside. */
+  /* Circles are 60 in Figma with a centred 2px stroke, 62 outside; 48
+     here, the compact footer's. */
   .socialLink {
     position: absolute;
     display: block;
-    width: 62rem;
-    height: 62rem;
-    border: 2rem solid #fff;
+    width: 48rem;
+    height: 48rem;
+    border: 1.5rem solid #fff;
     border-radius: 50%;
     text-decoration: none;
   }
 
   .tiktok {
-    top: 687rem;
-    left: 713rem;
+    top: 456rem;
+    left: 730rem;
   }
 
   .x {
-    top: 687rem;
-    left: 803rem;
+    top: 456rem;
+    left: 794rem;
   }
 
   .instagram {
-    top: 765rem;
-    left: 713rem;
+    top: 520rem;
+    left: 730rem;
   }
 
   .facebook {
-    top: 765rem;
-    left: 799.3rem;
+    top: 520rem;
+    left: 794rem;
   }
 
   .youtube {
-    top: 765rem;
-    left: 885.7rem;
+    top: 520rem;
+    left: 858rem;
   }
 
   .linkedin {
-    top: 765rem;
-    left: 972rem;
+    top: 520rem;
+    left: 922rem;
   }
 
-  /* Glyph boxes as placed in Figma (the component sets the mobile size
-     inline, hence !important). */
+  /* Glyph boxes as placed in Figma, scaled from its 62 circles to 48 (the
+     component sets the mobile size inline, hence !important). */
   .socialIcon {
     position: absolute;
   }
 
   .tiktok .socialIcon {
-    top: 13rem;
-    left: 15rem;
-    width: 27.3rem !important;
-    height: 32rem !important;
+    top: 10.1rem;
+    left: 11.6rem;
+    width: 21.1rem !important;
+    height: 24.8rem !important;
   }
 
   .x .socialIcon {
-    top: 15rem;
-    left: 15rem;
-    width: 30rem !important;
-    height: 28rem !important;
+    top: 11.6rem;
+    left: 11.6rem;
+    width: 23.2rem !important;
+    height: 21.7rem !important;
   }
 
   .instagram .socialIcon {
-    top: 15.3rem;
-    left: 15.3rem;
-    width: 29.5rem !important;
-    height: 29.5rem !important;
+    top: 11.8rem;
+    left: 11.8rem;
+    width: 22.8rem !important;
+    height: 22.8rem !important;
   }
 
   .facebook .socialIcon {
-    top: 11.7rem;
-    left: 18.9rem;
-    width: 19.9rem !important;
-    height: 36.2rem !important;
+    top: 9.1rem;
+    left: 14.6rem;
+    width: 15.4rem !important;
+    height: 28rem !important;
   }
 
   .youtube .socialIcon {
-    top: 15.3rem;
-    left: 9.9rem;
-    width: 39.2rem !important;
-    height: 27.5rem !important;
+    top: 11.8rem;
+    left: 7.7rem;
+    width: 30.3rem !important;
+    height: 21.3rem !important;
   }
 
   .linkedin .socialIcon {
-    top: 11.6rem;
-    left: 13.4rem;
-    width: 31.3rem !important;
-    height: 31.1rem !important;
+    top: 9rem;
+    left: 10.4rem;
+    width: 24.2rem !important;
+    height: 24.1rem !important;
   }
 
   .brand {
@@ -371,23 +376,23 @@
 
   .brandDesktop {
     position: absolute;
-    top: 108rem;
-    left: 1554rem;
+    top: 98rem;
+    left: 1611rem;
     display: block;
-    width: 207rem;
-    height: 269rem;
+    width: 150rem;
+    height: 195rem;
   }
 
   /* One line in Figma: copyright | Privacy policy | Terms & conditions. */
   .legal {
     position: absolute;
-    top: 893rem;
+    top: 640rem;
     left: 160rem;
     display: flex;
     color: #fff;
-    font-size: 32rem;
+    font-size: 20rem;
     font-weight: 400;
-    line-height: 28.8rem;
+    line-height: 24rem;
     white-space: pre;
   }
 
@@ -397,9 +402,9 @@
     display: flex;
     margin: 0;
     color: #fff;
-    font-size: 32rem;
+    font-size: 20rem;
     font-weight: 400;
-    line-height: 28.8rem;
+    line-height: 24rem;
   }
 
   .copyMobile {
@@ -408,9 +413,9 @@
 
   .legalLinks a {
     color: #fff;
-    font-size: 32rem;
+    font-size: 20rem;
     font-weight: 400;
-    line-height: 28.8rem;
+    line-height: 24rem;
     text-decoration: underline;
     /* Figma's underline: 0.21em below the baseline, 1.3-1.8px at 28-38px */
     text-decoration-thickness: 0.047em;
@@ -444,13 +449,13 @@
 
   .backToTop {
     position: absolute;
-    top: 826rem;
+    top: 616rem;
     right: auto;
-    left: 1659rem;
+    left: 1689rem;
     display: block;
-    width: 100rem;
-    height: 100rem;
-    border: 2rem solid #fff;
+    width: 72rem;
+    height: 72rem;
+    border: 1.5rem solid #fff;
     border-radius: 50%;
   }
 
@@ -460,11 +465,11 @@
 
   .backToTopIconDesktop {
     position: absolute;
-    top: -2rem;
-    left: -2rem;
+    top: -1.5rem;
+    left: -1.5rem;
     display: block;
-    width: 100rem;
-    height: 100rem;
+    width: 72rem;
+    height: 72rem;
   }
 }
 

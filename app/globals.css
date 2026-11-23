@@ -141,6 +141,21 @@ body {
   }
 }
 
+/*
+ * The gap between blocks on desktops: from one block's last line, card or
+ * picture to the next one's title (or picture). 174.5 from October 2026, the
+ * client's call over Figma's 160-242; 140 since 2026-11-23, when the client
+ * found it too big. The blocks keep Figma's numbers and take --block-gap-cut
+ * off the ones that make the gap, so this one line sets it for the whole
+ * page. Phones keep their 64.
+ */
+:root {
+  @media screen and (min-width: 641px) {
+    --block-gap: 140rem;
+    --block-gap-cut: calc(174.5rem - var(--block-gap));
+  }
+}
+
 html[data-motion] [data-reveal]:not([data-revealed]) {
   opacity: 0;
 }

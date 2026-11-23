@@ -223,7 +223,7 @@
   .inner {
     position: relative;
     width: 100%;
-    height: 990rem;
+    height: calc(990rem - var(--block-gap-cut));
     overflow: hidden;
     color: #000;
     background: #fff;
@@ -231,7 +231,7 @@
 
   .header {
     position: absolute;
-    top: 160rem;
+    top: calc(160rem - var(--block-gap-cut));
     left: 160rem;
     width: 753rem;
     font-family: var(--font-inter), sans-serif;
@@ -263,7 +263,7 @@
 
   .pagination {
     position: absolute;
-    top: 955rem;
+    top: calc(955rem - var(--block-gap-cut));
     left: 1393rem;
     display: flex;
     gap: 16rem;
@@ -293,7 +293,7 @@
 
   .viewport {
     position: absolute;
-    top: 277rem;
+    top: calc(277rem - var(--block-gap-cut));
     left: 960rem;
     width: 800rem;
     height: 613rem;

@@ -243,8 +243,8 @@
   }
 
   .section {
-    height: 978rem;
-    padding-top: 145rem;
+    height: calc(978rem - var(--block-gap-cut));
+    padding-top: calc(145rem - var(--block-gap-cut));
   }
 
   .mobileImage {

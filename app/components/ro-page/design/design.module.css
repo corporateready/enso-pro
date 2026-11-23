@@ -301,14 +301,15 @@
    * From the Figma frame (Desktop > WHY 3D). The title sits 160 below the
    * numbers plate; everything else is placed from the section top:
    * image 109, intro 354, tabs 646, cards 738 (500x344, 50 apart). The
-   * block ends 174.5 below the cards (Figma: 196), the gap between blocks
-   * on desktops, the client's call.
+   * block ends the gap between blocks on desktops below the cards (Figma:
+   * 196). Both gaps, above and below, are 174.5 less --block-gap-cut
+   * (globals.css): the tops here and the height take it off.
    */
   .section,
   .inner {
     position: relative;
     width: 100%;
-    height: 1256.5rem;
+    height: calc(1256.5rem - 2 * var(--block-gap-cut));
     overflow: hidden;
     color: #000;
     background: #fff;
@@ -316,7 +317,7 @@
 
   .header {
     position: absolute;
-    top: 160rem;
+    top: calc(160rem - var(--block-gap-cut));
     left: 160rem;
   }
 
@@ -345,7 +346,7 @@
      frame's top (160 here). Letterboxing it in the full box set it 25 high. */
   .buildingVisual {
     position: absolute;
-    top: 160rem;
+    top: calc(160rem - var(--block-gap-cut));
     left: 980rem;
     width: 782rem;
     height: 438rem;
@@ -388,7 +389,7 @@
     --tab-split: 201.65rem;
     position: absolute;
     z-index: 3;
-    top: 646rem;
+    top: calc(646rem - var(--block-gap-cut));
     left: 753rem;
     display: grid;
     width: var(--tab-width);
@@ -449,7 +450,7 @@
      strip. */
   .cardsArea {
     position: absolute;
-    top: 738rem;
+    top: calc(738rem - var(--block-gap-cut));
     left: 0;
     width: 100%;
   }

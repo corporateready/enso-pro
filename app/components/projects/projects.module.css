@@ -64,41 +64,72 @@
   --status-dot: #9a9a9a;
 }
 
-/* The two projects still under way are live: every 2s a wave leaves the
-   dot and fades as it spreads, the way the payment mark on the hero's third
-   slide beats; the two cards beat half a cycle apart. A finished project's
-   dot keeps still. The wave is the pill's ::after, laid over the dot
-   (--status-pad and --status-dot-size place it, per screen below). */
+/* The two projects still under way are live, all the time and not only
+   under a mouse: every 2s the dot beats, a glow blooms round it and a thin
+   ring runs out from it and fades, like a live sign; the two cards beat
+   half a cycle apart. (The first wave, 2026-11-20, a pale disc that was
+   gone in a blink, went unseen: the client asked again for a live
+   animation, 2026-11-23.) A finished project's dot keeps still. The ring
+   is the pill's ::after, laid over the dot (--status-pad and
+   --status-dot-size place it, per screen below); the glow is the dot's own
+   shadow. */
 .status::after {
   position: absolute;
   top: 50%;
   left: var(--status-pad);
+  box-sizing: border-box;
   width: var(--status-dot-size);
   height: var(--status-dot-size);
   margin-top: calc(var(--status-dot-size) / -2);
+  border: calc(var(--status-dot-size) * 0.12) solid var(--status-dot);
   border-radius: 50%;
-  background: var(--status-dot);
   content: "";
   opacity: 0;
   pointer-events: none;
 }
 
-.soon::after,
-.building::after {
-  animation: project-status-wave 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+.soon::before,
+.building::before {
+  animation: project-status-beat 2s cubic-bezier(0.25, 0.6, 0.4, 1) infinite;
 }
 
+.soon::after,
+.building::after {
+  animation: project-status-ring 2s cubic-bezier(0.25, 0.6, 0.4, 1) infinite;
+}
+
+.building::before,
 .building::after {
   animation-delay: -1s;
 }
 
-@keyframes project-status-wave {
+@keyframes project-status-beat {
   0% {
-    opacity: 0.5;
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-dot) 45%, transparent);
+    scale: 1.25;
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 calc(var(--status-dot-size) * 0.75)
+      color-mix(in srgb, var(--status-dot) 0%, transparent);
+    scale: 1;
+  }
+}
+
+@keyframes project-status-ring {
+  0% {
+    opacity: 0.9;
     scale: 1;
   }
 
-  75%,
+  35% {
+    opacity: 0.55;
+  }
+
+  /* 2.8 dots across at most: it stops just short of the label's first
+     letter */
+  85%,
   100% {
     opacity: 0;
     scale: 2.8;
@@ -288,16 +319,17 @@
 }
 
 /* Figma's title; all three cards on the 1600 grid, so nothing hides to the
-   side and the row needs no scrollbar. 174.5 between blocks on desktops, the
-   client's call (most of Figma's gaps; it runs them from 160 to 242): the
-   hero's edge to the title's capitals, and the captions to the next title */
+   side and the row needs no scrollbar. The gap between blocks on desktops
+   (--block-gap, globals.css) from the hero's edge to the title's capitals,
+   and the cards 64 under the title, as every block's content starts (the
+   client's call, 2026-11-23; Figma had 32) */
 @media screen and (min-width: 641px) {
   .section {
-    padding: 169rem 0 18.8rem;
+    padding: calc(169rem - var(--block-gap-cut)) 0 18.8rem;
   }
 
   .title {
-    margin: 0 0 26.4rem 160rem;
+    margin: 0 0 58rem 160rem;
     font-size: 64rem;
     line-height: 0.9;
   }

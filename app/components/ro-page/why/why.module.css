@@ -154,14 +154,17 @@
    * From the Figma frame (Desktop > Numbers + "фиолетовое здание поверх"):
    * the building starts 190 above the plate, the plate is 1920x825; text
    * offsets are from that plate. Figma lifts the building to 30 above the
-   * bottom of the button over it; here its roof keeps the 174.5 between
-   * blocks on desktops below the button (the client's call).
+   * bottom of the button over it; here its roof keeps the gap between
+   * blocks on desktops below the button (--block-gap, globals.css). The
+   * title is 29 lower and the award 29.5 higher than Figma has them, so
+   * the award starts 64 under the title as every block's content does
+   * (the client's call, 2026-11-23).
    */
   .section {
     position: relative;
     width: 100%;
     height: 1015rem;
-    margin-top: 174.5rem;
+    margin-top: var(--block-gap);
     background: transparent;
   }
 
@@ -207,7 +210,7 @@
 
   .title {
     position: absolute;
-    top: 270rem;
+    top: 299rem;
     left: 160rem;
     margin: 0;
     font-size: 64rem;
@@ -221,7 +224,7 @@
 
   .award {
     position: absolute;
-    top: 529.9rem;
+    top: 500.4rem;
     left: 160rem;
     width: 379.4rem;
     height: 166.1rem;

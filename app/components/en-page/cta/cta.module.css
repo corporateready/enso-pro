@@ -106,11 +106,12 @@
 @media screen and (min-width: 641px) {
   /* Figma "CTA" frame: 1920x800. The sky starts 1 below the frame top,
      where the title already sits. Figma lifts the building beside it to the
-     journal's last link; here its roof keeps the 174.5 between blocks on
-     desktops below that link (the client's call). */
+     journal's last link; here its roof keeps the gap between blocks on
+     desktops below that link (--block-gap in globals.css: Figma's 334.3
+     less --block-gap-cut). */
   .section {
     width: 100%;
-    margin-top: 334.3rem;
+    margin-top: calc(334.3rem - var(--block-gap-cut));
     background: #fff;
   }
 

@@ -237,8 +237,8 @@
      inner height or the button falls past the bottom and gets cut.
      960 = 145 padding + 815 inner. */
   .section {
-    height: 978rem;
-    padding-top: 145rem;
+    height: calc(978rem - var(--block-gap-cut));
+    padding-top: calc(145rem - var(--block-gap-cut));
   }
 
   .mobileImage {

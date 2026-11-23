@@ -1,6 +1,6 @@
 /*
  * Sideways rows the site moves itself (the reviews' dots, the BIM tabs, the
- * end of a mouse drag) slide there with an ease of their own, slow at both
+ * end of a mouse drag on either) slide there with an ease of their own, slow at both
  * ends, rather than with the browser's smooth scroll, which is quick and
  * abrupt over a screenful of cards (the client asked for a smoother slide,
  * 2026-11-20). While a row glides its snapping is off, or every step would
@@ -71,14 +71,17 @@ export function glideTo(row: HTMLElement, left: number) {
 /*
  * A mouse has no sideways swipe, so on a desktop the row is dragged: it
  * follows the pointer, and on release glides on to the next page the way
- * it was dragged when the drag went a tenth of a page (or was a quick
- * flick), else back to its page. A row's page is its own width. Touch and
- * trackpads scroll the row themselves and are left to it. onPage hears
- * where the row is going. Returns the undo.
+ * it was dragged when the drag went a tenth of the row (or was a quick
+ * flick), else back to its page. A page is the row's own width unless
+ * stepOf says how far one is (the reviews: the row and the gap after its
+ * last card); the last page stops where the row ends. Touch and trackpads
+ * scroll the row themselves and are left to it. onPage hears where the row
+ * is going. Returns the undo.
  */
 export function dragToSwipe(
   row: HTMLElement,
-  onPage: (page: number) => void,
+  onPage?: (page: number) => void,
+  stepOf: (row: HTMLElement) => number = (r) => r.clientWidth,
 ) {
   let drag: {
     id: number;
@@ -89,10 +92,16 @@ export function dragToSwipe(
   } | null = null;
   let moved = 0;
 
+  // pages from the step and how far the row scrolls; a row a hair wider
+  // than its pages (rounding) has no extra page
+  const pagesOf = (step: number, end: number) =>
+    end > 1 ? Math.ceil(end / step - 0.02) + 1 : 1;
+
   const down = (event: PointerEvent) => {
     if (event.pointerType !== "mouse" || event.button !== 0) return;
-    const width = row.clientWidth;
-    if (row.scrollWidth - width < 1) return;
+    const end = row.scrollWidth - row.clientWidth;
+    if (end < 1) return;
+    const step = stepOf(row);
 
     // a glide under way stops here (and its own listener for this press
     // with it, so it cannot turn the snapping back on mid-drag)
@@ -103,7 +112,10 @@ export function dragToSwipe(
       x: event.clientX,
       left: row.scrollLeft,
       at: performance.now(),
-      page: Math.round(row.scrollLeft / width),
+      page:
+        row.scrollLeft >= end - 1
+          ? pagesOf(step, end) - 1
+          : Math.round(row.scrollLeft / step),
     };
     moved = 0;
     row.setPointerCapture(event.pointerId);
@@ -119,14 +131,15 @@ export function dragToSwipe(
 
   const up = (event: PointerEvent) => {
     if (!drag || event.pointerId !== drag.id) return;
-    const width = row.clientWidth;
+    const end = row.scrollWidth - row.clientWidth;
+    const step = stepOf(row);
     // a cancelled drag goes back to its page
     const dx = event.type === "pointercancel" ? 0 : event.clientX - drag.x;
     const flick =
       Math.abs(dx) > 20 && Math.abs(dx) / (performance.now() - drag.at) > 0.6;
-    const pages = Math.max(1, Math.round(row.scrollWidth / width));
+    const pages = pagesOf(step, end);
     let page = drag.page;
-    if (Math.abs(dx) > width * 0.1 || flick) page += dx < 0 ? 1 : -1;
+    if (Math.abs(dx) > row.clientWidth * 0.1 || flick) page += dx < 0 ? 1 : -1;
     page = Math.max(0, Math.min(pages - 1, page));
 
     if (row.hasPointerCapture(event.pointerId)) {
@@ -134,8 +147,8 @@ export function dragToSwipe(
     }
     delete row.dataset.dragging;
     drag = null;
-    glideTo(row, page * width);
-    onPage(page);
+    glideTo(row, Math.min(page * step, end));
+    onPage?.(page);
   };
 
   // a drag is not a click on whatever it started on

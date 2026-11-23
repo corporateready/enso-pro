@@ -225,8 +225,8 @@
    */
   .section {
     width: 100%;
-    height: 996rem;
-    padding-top: 145rem;
+    height: calc(1026rem - var(--block-gap-cut));
+    padding-top: calc(145rem - var(--block-gap-cut));
     overflow: hidden;
     color: #000;
     background: #fff;
@@ -245,9 +245,11 @@
     line-height: 0.9;
   }
 
+  /* 64 under the title, where every block's content starts (the client's
+     call, 2026-11-23; Figma had 34); the block is 30 taller for it */
   .intro {
     width: 1412rem;
-    margin: 20.4rem 0 0;
+    margin: 50.4rem 0 0;
     font-family: var(--font-inter), sans-serif;
     font-size: 36rem;
     line-height: 1.2;

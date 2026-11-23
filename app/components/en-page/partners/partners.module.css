@@ -175,12 +175,12 @@
      there, cutting the glow off in a line, and the next block's title stood
      174.5 from the cards, so some 107 from where the glow ended: a smaller
      gap than between the other blocks. The strip now has 69.2 more below the
-     cards: the glow fades out whole, and the title is 174.5 from the last of
-     it that shows. */
+     cards: the glow fades out whole, and the title is the gap between blocks
+     (--block-gap, globals.css) from the last of it that shows. */
   .section {
     width: 100%;
-    height: 851.2rem;
-    padding-top: 160rem;
+    height: calc(851.2rem - var(--block-gap-cut));
+    padding-top: calc(160rem - var(--block-gap-cut));
     overflow: hidden;
     color: #000;
     background: #fff;

@@ -353,9 +353,9 @@
      not 160: so the whole block is in view at once. */
   .section {
     width: 100%;
-    scroll-margin-top: -130rem;
-    height: 1035.7rem;
-    padding-top: 160rem;
+    scroll-margin-top: calc(var(--block-gap-cut) - 130rem);
+    height: calc(1035.7rem - var(--block-gap-cut));
+    padding-top: calc(160rem - var(--block-gap-cut));
     overflow: hidden;
     color: #000;
     background: #fff;

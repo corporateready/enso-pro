@@ -19,7 +19,7 @@
   .section {
     width: 100%;
     height: auto;
-    padding-top: 65rem;
+    padding-top: calc(65rem - var(--block-gap-cut));
     color: #000;
     background: #fff;
   }
@@ -29,8 +29,10 @@
     margin: 0 auto;
   }
 
+  /* the green card 64 under the title, where every block's content starts
+     (the client's call, 2026-11-23; Figma had 66.4) */
   .title {
-    margin: 0 0 60.4rem;
+    margin: 0 0 58rem;
     font-family: var(--font-inter), sans-serif;
     font-size: 64rem;
     font-weight: 600;

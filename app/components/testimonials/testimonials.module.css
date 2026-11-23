@@ -220,12 +220,14 @@
   }
 }
 
-/* Three to a screen on the 1600 grid, and the journal's title 174.5 below
-   them (the gap between blocks on desktops, the client's call). */
+/* Three to a screen on the 1600 grid, and the journal's title the gap
+   between blocks on desktops below them (--block-gap, globals.css). The
+   subtitle starts 64 under the title, as every block's content does (the
+   client's call, 2026-11-23). */
 @media screen and (min-width: 641px) {
   .inner {
     width: 100%;
-    padding: 92.1rem 160rem 2.5rem;
+    padding: calc(92.1rem - var(--block-gap-cut)) 160rem 2.5rem;
   }
 
   .title {
@@ -240,6 +242,7 @@
   .subtitle {
     font-size: 36rem;
     line-height: 43.2rem;
+    margin-top: 40.2rem;
   }
 
   /* 60 under the subtitle; 6 of it is inside the row, the room a card
@@ -258,7 +261,7 @@
      of the grid */
   .pages {
     position: absolute;
-    top: 200.5rem;
+    top: calc(220.7rem - var(--block-gap-cut));
     right: 160rem;
     display: flex;
     gap: 16rem;
@@ -330,6 +333,19 @@
   .role {
     margin-top: 4rem;
     font-size: 21rem;
+  }
+}
+
+/* Under a mouse the row is dragged sideways when there is more of it
+   (reviews-row.tsx): the hand says so. */
+@media screen and (min-width: 641px) and (hover: hover) and (pointer: fine) {
+  .row[data-draggable] {
+    cursor: grab;
+  }
+
+  .row[data-dragging] {
+    cursor: grabbing;
+    user-select: none;
   }
 }
 

@@ -2,13 +2,15 @@
 
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
-import { glideTo } from "../motion/glide";
+import { dragToSwipe, glideTo } from "../motion/glide";
 import styles from "./testimonials.module.css";
 
 /*
  * The row of review cards. It holds as many as there are: three fill a
  * desktop, and from the fourth on the row scrolls a screenful at a time, by
- * the dots at the top right of the block (the team's dots) or by a swipe.
+ * the dots at the top right of the block (the team's dots), by a swipe, or
+ * on a desktop by dragging it with the mouse (the client's call,
+ * 2026-11-23), which glides on to the next screenful as the dots do.
  * On a phone it is the swipe row it always was, and the dots are not shown.
  */
 export default function ReviewsRow({
@@ -28,7 +30,7 @@ export default function ReviewsRow({
 
   // one page further on: the row's width and the gap after its last card
   // (the grid of cards inside the row has the gap)
-  const measure = (row: HTMLDivElement) => {
+  const measure = (row: HTMLElement) => {
     const cards = row.firstElementChild ?? row;
     const step =
       row.clientWidth + (parseFloat(getComputedStyle(cards).columnGap) || 0);
@@ -60,10 +62,13 @@ export default function ReviewsRow({
     const observer = new ResizeObserver(update);
     observer.observe(row);
     row.addEventListener("scroll", update, { passive: true });
+    // the dots follow the row as it glides (update, above)
+    const undoDrag = dragToSwipe(row, undefined, (r) => measure(r).step);
 
     return () => {
       observer.disconnect();
       row.removeEventListener("scroll", update);
+      undoDrag();
     };
   }, []);
 
@@ -96,7 +101,12 @@ export default function ReviewsRow({
         </div>
       )}
 
-      <div ref={rowRef} className={styles.row} data-reveal-group>
+      <div
+        ref={rowRef}
+        className={styles.row}
+        data-reveal-group
+        data-draggable={pages > 1 ? "" : undefined}
+      >
         <div className={styles.cards}>{children}</div>
       </div>
     </>
