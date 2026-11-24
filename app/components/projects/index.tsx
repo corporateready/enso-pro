@@ -14,8 +14,11 @@ import styles from "./projects.module.css";
  * at the client's request). ARTIMA's card opens its site (PROJECT_SITES);
  * the others lead nowhere yet. ENSO CITY was ENSO ESTATE until 2026-11-20:
  * the client renamed it and chose an aerial render of the quarter for it
- * (Drive «11. ENSO ESTATE / Rendore schematice», 1.1; since 2026-11-24 the
- * brown one from higher up, 1.2, cut 400-1680 of its 2668). The title is the
+ * (Drive «11. ENSO ESTATE / Rendore schematice», 1.1, then 1.2). Since
+ * 2026-11-24 it is the evening aerial of the quarter from Archimatika's
+ * brochure (Drive «11. ENSO ESTATE / 14.PREZENTĂRI / ENS2502. Architectural
+ * Brochure», v5: the cover's picture, without its words, on page 46),
+ * cut 400-1841 of its 2977. The title is the
  * client's in place of Figma's "Our projects"; on a phone it keeps to one
  * line, so a new one has to fit 360 wide at 32px.
  */
@@ -53,7 +56,7 @@ const content = {
     projects: [
       {
         id: "enso-city",
-        src: "/projects-enso-city-aerial.webp",
+        src: "/projects-enso-city-evening.webp",
         name: "ENSO CITY",
         meta: "Chișinău, Moldova · Rezidențial",
         status: "În curând",
@@ -63,7 +66,7 @@ const content = {
         id: "enso-living",
         src: "/projects-enso-living.webp",
         name: "ENSO LIVING",
-        meta: "Brașov, Romania · Multifuncțional",
+        meta: "Brașov, România · Multifuncțional",
         status: "În construcție",
         tone: "building",
       },
@@ -82,7 +85,7 @@ const content = {
     projects: [
       {
         id: "enso-city",
-        src: "/projects-enso-city-aerial.webp",
+        src: "/projects-enso-city-evening.webp",
         name: "ENSO CITY",
         meta: "Кишинёв · Жилой комплекс",
         status: "Скоро старт",
@@ -111,7 +114,7 @@ const content = {
     projects: [
       {
         id: "enso-city",
-        src: "/projects-enso-city-aerial.webp",
+        src: "/projects-enso-city-evening.webp",
         name: "ENSO CITY",
         meta: "Chisinau, Moldova · Residential",
         status: "Starting soon",
