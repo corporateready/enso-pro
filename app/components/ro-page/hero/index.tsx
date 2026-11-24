@@ -20,7 +20,12 @@ type HeroProps = {
   /* On a page other than the home page (the journal's): the header alone,
      white from the start, its links leading to the home page's sections
      and its language menus to this page in the other languages. */
-  page?: { home: string; languages: readonly LanguageOption[] };
+  page?: {
+    home: string;
+    languages: readonly LanguageOption[];
+    /* where "Journal" leads: an article's page sends it to the journal's */
+    journal?: string;
+  };
 };
 
 const Index = ({ page }: HeroProps) => {
@@ -71,7 +76,11 @@ const Index = ({ page }: HeroProps) => {
   const languages = page?.languages ?? siteLanguages;
   // a section of the home page; the journal is this page's own on its page
   const toSection = (id: string) =>
-    page && id !== "journal" ? `${page.home}#${id}` : `#${id}`;
+    id === "journal" && page?.journal
+      ? page.journal
+      : page && id !== "journal"
+        ? `${page.home}#${id}`
+        : `#${id}`;
 
   useEffect(() => {
     const updateHeader = () => setIsSticky(window.scrollY > 8);

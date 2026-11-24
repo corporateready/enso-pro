@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import * as en from "../en-page/journal";
+import { journalPath } from "../journal-article/content";
 import { revealDelay } from "../motion/reveal";
 import * as ro from "../ro-page/journal";
 import * as ru from "../ru-page/journal";
@@ -74,9 +75,12 @@ const content: Record<
 function ArticleCard({
   article,
   index,
+  href,
 }: {
   article: ro.JournalArticle;
   index: number;
+  /* its own page (journal-article) */
+  href: string;
 }) {
   // the picture in the leading article's shape, the same for every card
   const cover = article.cover ?? {
@@ -93,6 +97,8 @@ function ArticleCard({
       // one after another along a desktop's row of three
       style={revealDelay((index % 3) * 100)}
     >
+      {/* the whole card leads to the article; the title is the keyboard's link */}
+      <a className={styles.cardCover} href={href} tabIndex={-1} aria-hidden="true" />
       <div className={styles.picture}>
         <Image
           className={styles.image}
@@ -114,7 +120,11 @@ function ArticleCard({
           </span>
         </div>
         {/* the line breaks written into the titles are the home block's */}
-        <h2 className={styles.cardTitle}>{article.title}</h2>
+        <h2 className={styles.cardTitle}>
+          <a className={styles.cardLink} href={href}>
+            {article.title}
+          </a>
+        </h2>
       </div>
     </article>
   );
@@ -192,7 +202,12 @@ export default function JournalPage({ locale }: { locale: Locale }) {
             key={category}
           >
             {visible.map((article, index) => (
-              <ArticleCard article={article} index={index} key={article.id} />
+              <ArticleCard
+                article={article}
+                index={index}
+                href={`${journalPath[locale]}/${article.id}`}
+                key={article.id}
+              />
             ))}
           </div>
         ) : (

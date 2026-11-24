@@ -70,6 +70,7 @@
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -343,4 +344,29 @@
   .filter {
     transition: none;
   }
+}
+
+/* Each card leads to its article's page (journal-article, since 2026-11-24):
+   a link laid over the whole card (.cardCover), and its title a link for the
+   keyboard. Nothing moves under the mouse; the title takes the site's navy. */
+.cardLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.cardCover {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+}
+
+.card:hover .cardLink,
+.cardLink:focus-visible {
+  color: #0e3477;
+}
+
+.cardLink:focus-visible {
+  outline: 2rem solid #2864d7;
+  outline-offset: 2rem;
 }

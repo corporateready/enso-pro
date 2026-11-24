@@ -426,11 +426,11 @@
 
   /* Figma's desktop footer lists the privacy policy before the terms;
      its mobile footer has them the other way round, which the markup keeps. */
-  .legalLinks a[href="#privacy"] {
+  .legalLinks a[href$="#privacy"] {
     order: 1;
   }
 
-  .legalLinks a[href="#terms"] {
+  .legalLinks a[href$="#terms"] {
     order: 2;
   }
 
@@ -441,11 +441,11 @@
     white-space: pre;
   }
 
-  .legalLinks a[href="#privacy"]::before {
+  .legalLinks a[href$="#privacy"]::before {
     content: "   |   ";
   }
 
-  .legalLinks a[href="#terms"]::before {
+  .legalLinks a[href$="#terms"]::before {
     content: "  |  ";
   }
 

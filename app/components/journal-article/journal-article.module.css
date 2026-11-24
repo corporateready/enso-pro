@@ -1,0 +1,533 @@
+/*
+ * An article's page. The site's type (Inter) and greys; the journal's pills
+ * for the label; the title as large as the blocks' titles on the home page;
+ * the text in a column of some 70 characters, as long reading wants. Nothing
+ * moves under the mouse (the client's rule, 2026-11-24): links change colour.
+ */
+.article {
+  width: 100%;
+  color: #000;
+  background: #fff;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.header,
+.body,
+.more {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  color: #6d6d6d;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.back:hover,
+.back:focus-visible {
+  color: #000;
+}
+
+/* Inter has no ←: the site's own → turned round */
+.backArrow {
+  display: inline-block;
+  scale: -1 1;
+}
+
+.meta,
+.moreMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1rem solid #000;
+  border-radius: 999rem;
+  color: #000;
+  white-space: nowrap;
+}
+
+.date {
+  color: #6d6d6d;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0;
+  color: #1d1d1d;
+  text-wrap: pretty;
+}
+
+.head {
+  position: relative;
+  overflow: hidden;
+  margin-right: auto;
+  margin-left: auto;
+  background: #d5d5d1;
+}
+
+.headImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  color: #1a1a1a;
+}
+
+/* the column's own rhythm (per screen below): a gap between paragraphs,
+   more before a heading, most round a quotation or a picture */
+.body > * {
+  margin: 0;
+}
+
+.body p,
+.body li {
+  text-wrap: pretty;
+}
+
+.body h2 {
+  color: #000;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.body strong {
+  font-weight: 600;
+}
+
+.body a,
+.lead a,
+.source a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color 180ms ease;
+}
+
+.body a:hover,
+.lead a:hover,
+.source a:hover {
+  color: #0e3477;
+}
+
+/* a quotation: set off by the site's navy */
+.quote {
+  margin: 0;
+  border-left: solid #0e3477;
+}
+
+.quote blockquote {
+  margin: 0;
+  font-style: italic;
+}
+
+.source {
+  display: block;
+  color: #6d6d6d;
+}
+
+.figure {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+}
+
+.figurePair {
+  align-items: flex-start;
+}
+
+.figureImage {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #e6e6e6;
+}
+
+.more {
+  border-top: 1px solid #e3e3e3;
+}
+
+.moreHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.moreTitle {
+  margin: 0;
+  font-weight: 600;
+}
+
+.allButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rem solid #000;
+  border-radius: 999rem;
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.allButton:hover,
+.allButton:focus-visible {
+  color: #fff;
+  background: #000;
+}
+
+.moreGrid {
+  display: grid;
+}
+
+.moreCard {
+  position: relative;
+}
+
+.morePicture {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.27;
+  background: #d5d5d1;
+}
+
+.morePictureImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.moreCardTitle {
+  margin: 0;
+  font-weight: 600;
+}
+
+.moreLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+/* the whole card leads to the article */
+.moreLink::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.moreCard:hover .moreLink,
+.moreLink:focus-visible {
+  color: #0e3477;
+}
+
+.moreLink:focus-visible {
+  outline: none;
+}
+
+.moreLink:focus-visible::after {
+  outline: 2rem solid #2864d7;
+  outline-offset: 4rem;
+}
+
+/* Phones: the 390 grid, 15 at each side; the picture runs edge to edge. */
+@media screen and (max-width: 640px) {
+  .article {
+    padding: 92rem 0 64rem;
+  }
+
+  .header,
+  .body,
+  .more {
+    width: 360rem;
+  }
+
+  .back {
+    gap: 8rem;
+    font-size: 14rem;
+  }
+
+  .meta {
+    gap: 10rem;
+    margin-top: 28rem;
+  }
+
+  .badge {
+    height: 30rem;
+    padding: 0 12rem;
+    font-size: 13rem;
+  }
+
+  .date {
+    font-size: 13rem;
+  }
+
+  .title {
+    margin-top: 18rem;
+    font-size: 30rem;
+    line-height: 1.12;
+  }
+
+  .lead {
+    margin-top: 18rem;
+    font-size: 17rem;
+    line-height: 1.5;
+  }
+
+  .lead + .lead {
+    margin-top: 12rem;
+  }
+
+  .head {
+    width: 390rem;
+    height: 250rem;
+    margin-top: 32rem;
+  }
+
+  .body {
+    margin-top: 32rem;
+    font-size: 16.5rem;
+    line-height: 1.6;
+  }
+
+  .body > * + * {
+    margin-top: 16rem;
+  }
+
+  .body > h2 {
+    margin-top: 40rem;
+    font-size: 22rem;
+    line-height: 1.22;
+  }
+
+  .body > .quote,
+  .body > .figure {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .body > :first-child {
+    margin-top: 0;
+  }
+
+  .body ul {
+    padding-left: 20rem;
+  }
+
+  .body li + li {
+    margin-top: 8rem;
+  }
+
+  .quote {
+    padding-left: 16rem;
+    border-left-width: 2rem;
+  }
+
+  .quote blockquote {
+    font-size: 18rem;
+    line-height: 1.45;
+  }
+
+  .source {
+    margin-top: 10rem;
+    font-size: 13rem;
+    line-height: 1.45;
+  }
+
+  .figurePair {
+    flex-direction: column;
+    align-items: center;
+    gap: 16rem;
+  }
+
+  .more {
+    margin-top: 56rem;
+    padding-top: 32rem;
+  }
+
+  .moreTitle {
+    font-size: 26rem;
+  }
+
+  .allButton {
+    height: 40rem;
+    padding: 0 16rem;
+    font-size: 14rem;
+  }
+
+  .moreGrid {
+    gap: 32rem;
+    margin-top: 24rem;
+  }
+
+  .moreMeta {
+    gap: 10rem;
+    margin-top: 14rem;
+  }
+
+  .moreCardTitle {
+    margin-top: 10rem;
+    font-size: 19rem;
+    line-height: 1.25;
+  }
+}
+
+/* Desktops: the 1600 grid; the text in an 840 column in the middle. */
+@media screen and (min-width: 641px) {
+  .article {
+    padding: 172rem 0 140rem;
+  }
+
+  .header,
+  .more {
+    width: 1600rem;
+  }
+
+  .back {
+    gap: 10rem;
+    font-size: 18rem;
+  }
+
+  .meta {
+    gap: 18rem;
+    margin-top: 44rem;
+  }
+
+  .badge {
+    height: 40rem;
+    padding: 0 16rem;
+    font-size: 18rem;
+  }
+
+  .date {
+    font-size: 18rem;
+  }
+
+  .title {
+    max-width: 1240rem;
+    margin-top: 28rem;
+    font-size: 64rem;
+    line-height: 1.08;
+  }
+
+  .lead {
+    max-width: 1120rem;
+    margin-top: 36rem;
+    font-size: 28rem;
+    line-height: 1.45;
+  }
+
+  .lead + .lead {
+    margin-top: 20rem;
+  }
+
+  .head {
+    width: 1600rem;
+    height: 800rem;
+    margin-top: 72rem;
+  }
+
+  .body {
+    width: 840rem;
+    margin-top: 88rem;
+    font-size: 22rem;
+    line-height: 1.65;
+  }
+
+  .body > * + * {
+    margin-top: 26rem;
+  }
+
+  .body > h2 {
+    margin-top: 72rem;
+    font-size: 36rem;
+    line-height: 1.2;
+  }
+
+  .body > .quote,
+  .body > .figure {
+    margin-top: 48rem;
+    margin-bottom: 48rem;
+  }
+
+  .body > :first-child {
+    margin-top: 0;
+  }
+
+  .body ul {
+    padding-left: 26rem;
+  }
+
+  .body li + li {
+    margin-top: 10rem;
+  }
+
+  .quote {
+    padding-left: 32rem;
+    border-left-width: 3rem;
+  }
+
+  .quote blockquote {
+    font-size: 26rem;
+    line-height: 1.45;
+  }
+
+  .source {
+    margin-top: 16rem;
+    font-size: 16rem;
+    line-height: 1.5;
+  }
+
+  .figurePair {
+    gap: 24rem;
+  }
+
+  .more {
+    margin-top: 140rem;
+    padding-top: 72rem;
+  }
+
+  .moreTitle {
+    font-size: 48rem;
+  }
+
+  .allButton {
+    height: 56rem;
+    padding: 0 28rem;
+    font-size: 20rem;
+  }
+
+  .moreGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40rem;
+    margin-top: 48rem;
+  }
+
+  .moreMeta {
+    gap: 16rem;
+    margin-top: 22rem;
+  }
+
+  .moreCardTitle {
+    margin-top: 14rem;
+    font-size: 30rem;
+    line-height: 1.22;
+  }
+}

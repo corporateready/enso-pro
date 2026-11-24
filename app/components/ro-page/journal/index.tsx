@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { type CSSProperties, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
@@ -49,9 +50,9 @@ export const siteArticles: readonly JournalArticle[] = [
     badge: "Din interior",
     // Line breaks as set in Figma; the phone cards keep them (pre-line).
     title:
-      "BIM is the international\nstandard applied in every\nENSŌ Development project",
+      "BIM\u00a0— standardul\ninternațional aplicat în\nfiecare proiect ENSŌ Development",
     date: "3 Iunie",
-    readTime: "5 min de citit",
+    readTime: "3 min de citit",
     src: "/journal-post-image.avif",
     width: 3200,
     height: 2520,
@@ -62,9 +63,9 @@ export const siteArticles: readonly JournalArticle[] = [
     category: "buying-guide",
     badge: "Ghid de cumpărare",
     title:
-      "ENSŌ Development completes the investment exit from Eminescu Offices",
+      "Exit investițional realizat cu succes în proiectul Eminescu Offices",
     date: "2 Iunie",
-    readTime: "5 min de citit",
+    readTime: "2 min de citit",
     src: "/journal-eminescu-square.avif",
     width: 690,
     height: 690,
@@ -74,9 +75,9 @@ export const siteArticles: readonly JournalArticle[] = [
     id: "moldova-growth-leader",
     category: "market",
     badge: "Piață",
-    title: "Moldova — #1 in Europe\nReal Estate Growth\nLeader 2025",
+    title: "Moldova\u00a0— locul\u00a01 în Europa\nla creșterea pieței\nimobiliare în 2025",
     date: "2 Iunie",
-    readTime: "5 min de citit",
+    readTime: "3 min de citit",
     src: "/journal-moldova-square.avif",
     width: 588,
     height: 588,
@@ -96,6 +97,13 @@ function ArticleVisual({
       id={`journal-${article.id}`}
       className={`${styles.card} ${leading ? styles.featureCard : styles.articleCard}`}
     >
+      {/* the whole card leads to the article; the title is the keyboard's link */}
+      <a
+        className={styles.cardCover}
+        href={`/journal/${article.id}`}
+        tabIndex={-1}
+        aria-hidden="true"
+      />
       <div className={styles.imageArea}>
         <Image
           className={styles.sourceImage}
@@ -116,9 +124,19 @@ function ArticleVisual({
           {article.date}
           <span className={styles.readTime}> · {article.readTime}</span>
         </span>
-        <h3>{article.title}</h3>
+        <h3>
+          <a className={styles.cardLink} href={`/journal/${article.id}`}>
+            {article.title}
+          </a>
+        </h3>
         {leading && (
-          <a className={styles.readArticle} href={`#journal-${article.id}`}>
+          <a
+            className={styles.readArticle}
+            href={`/journal/${article.id}`}
+            // the card's title already leads there: one stop for the keyboard
+            tabIndex={-1}
+            aria-hidden="true"
+          >
             Citește articolul <span className="inter-arrow">→</span>
           </a>
         )}
@@ -231,12 +249,12 @@ export default function Journal({
             ))}
           </div>
 
-          <a
+          <Link
             className={`${styles.viewAllButton} motion-button`}
             href="/journal"
           >
             Vezi toate articolele <span className="inter-arrow">→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

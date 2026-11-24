@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { type CSSProperties, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
@@ -51,7 +52,7 @@ export const siteArticles: readonly JournalArticle[] = [
     title:
       "Международный стандарт\nBIM\u00a0— в\u00a0каждом проекте\nENSŌ Development",
     date: "3 июня",
-    readTime: "5 мин чтения",
+    readTime: "3 мин чтения",
     src: "/journal-post-image.avif",
     width: 3200,
     height: 2520,
@@ -64,7 +65,7 @@ export const siteArticles: readonly JournalArticle[] = [
     title:
       "ENSŌ Development завершает выход из инвестиции в\u00a0Eminescu Offices",
     date: "2 июня",
-    readTime: "5 мин чтения",
+    readTime: "2 мин чтения",
     src: "/journal-eminescu-square.avif",
     width: 690,
     height: 690,
@@ -76,7 +77,7 @@ export const siteArticles: readonly JournalArticle[] = [
     badge: "Рынок",
     title: "Молдова\u00a0— №1 в\u00a0Европе\nпо\u00a0росту рынка жилья,\n2025",
     date: "2 июня",
-    readTime: "5 мин чтения",
+    readTime: "3 мин чтения",
     src: "/journal-moldova-square.avif",
     width: 588,
     height: 588,
@@ -96,6 +97,13 @@ function ArticleVisual({
       id={`journal-${article.id}`}
       className={`${styles.card} ${leading ? styles.featureCard : styles.articleCard}`}
     >
+      {/* the whole card leads to the article; the title is the keyboard's link */}
+      <a
+        className={styles.cardCover}
+        href={`/ru/journal/${article.id}`}
+        tabIndex={-1}
+        aria-hidden="true"
+      />
       <div className={styles.imageArea}>
         <Image
           className={styles.sourceImage}
@@ -116,9 +124,19 @@ function ArticleVisual({
           {article.date}
           <span className={styles.readTime}> · {article.readTime}</span>
         </span>
-        <h3>{article.title}</h3>
+        <h3>
+          <a className={styles.cardLink} href={`/ru/journal/${article.id}`}>
+            {article.title}
+          </a>
+        </h3>
         {leading && (
-          <a className={styles.readArticle} href={`#journal-${article.id}`}>
+          <a
+            className={styles.readArticle}
+            href={`/ru/journal/${article.id}`}
+            // the card's title already leads there: one stop for the keyboard
+            tabIndex={-1}
+            aria-hidden="true"
+          >
             Читать статью <span className="inter-arrow">→</span>
           </a>
         )}
@@ -231,12 +249,12 @@ export default function Journal({
             ))}
           </div>
 
-          <a
+          <Link
             className={`${styles.viewAllButton} motion-button`}
             href="/ru/journal"
           >
             Все статьи <span className="inter-arrow">→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -26,7 +26,7 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "16 лет в девелопменте недвижимости",
       about:
         "Руководил проектами Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE и ENSO LIVING Брашов.",
-      imageSrc: "/team-maxim-dumbrava.webp",
+      imageSrc: "/team-maxim-dumbrava-v2.webp",
     },
     {
       name: "Денис Васильев",
@@ -34,7 +34,7 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "12 лет",
       about:
         "Стратегии для проектов общим объёмом более 3 000 квартир и 20 000 м² офисов.",
-      imageSrc: "/team-denis-vasiliev.webp",
+      imageSrc: "/team-denis-vasiliev-v2.webp",
     },
   ],
   [
@@ -44,21 +44,21 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "18 лет",
       about:
         "Жилые, коммерческие и культурные объекты, в том числе для Администрации Президента Республики Молдова.",
-      imageSrc: "/team-vladimir-ostrovoi.webp",
+      imageSrc: "/team-vladimir-ostrovoi-v2.webp",
     },
     {
       name: "Зинаида Думбрава",
       role: "Работа с клиентами",
       years: "20 лет",
       about: "Два десятилетия опыта в управлении отношениями с клиентами.",
-      imageSrc: "/team-zinaida-dumbrava.webp",
+      imageSrc: "/team-zinaida-dumbrava-v2.webp",
     },
     {
       name: "Виталий Шеремет",
       role: "Управление строительством и кондоминиумами",
       years: "20 лет",
       about: "Экономист; руководил командами до 800 человек.",
-      imageSrc: "/team-vitalie-seremet.webp",
+      imageSrc: "/team-vitalie-seremet-v2.webp",
     },
   ],
 ];

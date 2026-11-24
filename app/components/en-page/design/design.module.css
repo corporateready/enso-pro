@@ -96,7 +96,11 @@
      whichever is chosen. */
   .tabs {
     --tab-width: 225rem;
-    --tab-border: 0.884rem;
+    /* a whole pixel, as the browser draws the frame anyway: the black pill
+       sits a border's width out over it, and a fraction (Figma's 0.884rem)
+       left it a pixel past the frame at some window widths (the client
+       saw it, 2026-11-24) */
+    --tab-border: 1px;
     --tab-split: 119.99rem;
     position: absolute;
     z-index: 3;
@@ -361,7 +365,11 @@
      either side, 27 inside the pill and out of it, whichever is chosen. */
   .tabs {
     --tab-width: 340rem;
-    --tab-border: 1.34rem;
+    /* a whole pixel, as the browser draws the frame anyway: the black pill
+       sits a border's width out over it, and a fraction (Figma's 1.34rem)
+       left it a pixel past the frame at some window widths (the client
+       saw it, 2026-11-24) */
+    --tab-border: 1px;
     --tab-split: 181.33rem;
     position: absolute;
     z-index: 3;
