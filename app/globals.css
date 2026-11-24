@@ -171,11 +171,10 @@ html[data-motion] [data-reveal][data-revealed="from-above"] {
 }
 
 /*
- * Buttons: a little lift under the mouse and a little give when pressed. The
- * individual translate / scale properties leave each button's own transform
- * alone, and the lift exists only where hovering does, so a tap on a phone no
- * longer leaves a button raised. Doubled class: wins over the transition each
- * button's module sets.
+ * Buttons: a little give when pressed. They used to lift a little under the
+ * mouse too; since 2026-11-24 nothing moves under the mouse (the client's
+ * call). The individual scale property leaves each button's own transform
+ * alone. Doubled class: wins over the transition each button's module sets.
  */
 .motion-button.motion-button {
   transition:
@@ -186,16 +185,6 @@ html[data-motion] [data-reveal][data-revealed="from-above"] {
     border-color 180ms ease,
     box-shadow 180ms ease,
     filter 180ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .motion-button:hover {
-    translate: 0 -2rem;
-
-    @media screen and (min-width: 641px) {
-      translate: 0 -3rem;
-    }
-  }
 }
 
 .motion-button:active {

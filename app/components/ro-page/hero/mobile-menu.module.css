@@ -48,12 +48,15 @@
     transition: top 220ms ease, opacity 160ms ease, transform 220ms ease;
   }
 
+  /* the strokes 10 apart in whole pixels (round): 10rem is a fraction of a
+     pixel on most screens, and each stroke was rounded on its own, 9 apart
+     above and 10 below (the client saw it, 2026-11-24) */
   .triggerLine:nth-child(1) { top: 0; }
-  .triggerLine:nth-child(2) { top: 10rem; }
-  .triggerLine:nth-child(3) { top: 20rem; }
-  .triggerOpen .triggerLine:nth-child(1) { top: 10rem; transform: rotate(45deg); }
+  .triggerLine:nth-child(2) { top: 10rem; top: round(10rem, 1px); }
+  .triggerLine:nth-child(3) { top: 20rem; top: calc(2 * round(10rem, 1px)); }
+  .triggerOpen .triggerLine:nth-child(1) { top: 10rem; top: round(10rem, 1px); transform: rotate(45deg); }
   .triggerOpen .triggerLine:nth-child(2) { opacity: 0; }
-  .triggerOpen .triggerLine:nth-child(3) { top: 10rem; transform: rotate(-45deg); }
+  .triggerOpen .triggerLine:nth-child(3) { top: 10rem; top: round(10rem, 1px); transform: rotate(-45deg); }
 
   .menu {
     position: fixed;
@@ -153,10 +156,20 @@
     gap: 18rem;
     padding: 96rem 160rem 0;
     overflow-y: auto;
+    /* No scrollbar of its own (a wheel or a trackpad still scrolls a list
+       too tall for the window). With always-on scrollbars one came and went
+       while the items rose into place, below the list's edge for a moment:
+       the list narrowed by its width and jumped back right at the end (the
+       client saw it, 2026-11-24). */
+    scrollbar-width: none;
     font-family: var(--font-inter), sans-serif;
     font-size: 48rem;
     font-weight: 600;
     line-height: 1.2;
+  }
+
+  .navigation::-webkit-scrollbar {
+    display: none;
   }
 
   .navigation button {
@@ -247,16 +260,19 @@
     transform 220ms ease;
 }
 
+/* the strokes 10 apart in whole pixels (round), as on desktops */
 .triggerLine:nth-child(1) {
   top: 0;
 }
 
 .triggerLine:nth-child(2) {
   top: 10rem;
+  top: round(10rem, 1px);
 }
 
 .triggerLine:nth-child(3) {
   top: 20rem;
+  top: calc(2 * round(10rem, 1px));
 }
 
 .triggerOpen {
@@ -268,6 +284,7 @@
      side. Figma squeezes it into the burger's 28x20 box (strokes at 35.54deg),
      which read lopsided; the client asked for a better one. */
   top: 10rem;
+  top: round(10rem, 1px);
   transform: rotate(45deg);
 }
 
@@ -277,6 +294,7 @@
 
 .triggerOpen .triggerLine:nth-child(3) {
   top: 10rem;
+  top: round(10rem, 1px);
   transform: rotate(-45deg);
 }
 
@@ -488,6 +506,7 @@
 
 :global(html[data-menu-open]) .triggerLine:nth-child(1) {
   top: 10rem;
+  top: round(10rem, 1px);
   transform: rotate(45deg);
 }
 
@@ -497,6 +516,7 @@
 
 :global(html[data-menu-open]) .triggerLine:nth-child(3) {
   top: 10rem;
+  top: round(10rem, 1px);
   transform: rotate(-45deg);
 }
 

@@ -50,10 +50,11 @@
   content: "";
 }
 
-/* green for the one about to start (the live badge's green), amber while it
-   is built, grey once it is finished */
+/* the site's blue for the one about to start (the navy of the reviews'
+   stars and the BIM badges), amber while it is built, green once it is
+   finished (the client's call, 2026-11-24; until then green, amber, grey) */
 .soon {
-  --status-dot: #40854e;
+  --status-dot: #0e3477;
 }
 
 .building {
@@ -61,7 +62,7 @@
 }
 
 .done {
-  --status-dot: #9a9a9a;
+  --status-dot: #40854e;
 }
 
 /* The two projects still under way are live, all the time and not only
@@ -395,21 +396,12 @@
   }
 }
 
-/* under a mouse the arrow fills in, and the photo slowly closes in */
+/* under a mouse the arrow fills in; nothing moves (the photo used to close
+   in: the client wants no movement under the mouse, 2026-11-24) */
 @media (hover: hover) and (pointer: fine) {
   .link:hover .arrow {
     color: #fff;
     background: #000;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .image {
-    transition: scale 900ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .link:hover .image {
-    scale: 1.04;
   }
 }
 

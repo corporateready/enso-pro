@@ -40,7 +40,7 @@ const content: Record<
 > = {
   ro: {
     title: ["CE SPUN", "CLIENȚII NOȘTRI"],
-    subtitle: "Partea care se vede după predare.",
+    subtitle: "Partea care se vede după predare",
     stars: "5 din 5 stele",
     since: "Alături din",
     pages: "Paginile cu recenzii",
@@ -85,7 +85,7 @@ const content: Record<
   },
   ru: {
     title: ["ЧТО ГОВОРЯТ", "НАШИ КЛИЕНТЫ"],
-    subtitle: "То, что видно уже после сдачи.",
+    subtitle: "То, что видно уже после сдачи",
     stars: "5 звёзд из 5",
     since: "С нами с",
     pages: "Страницы отзывов",
@@ -130,7 +130,7 @@ const content: Record<
   },
   en: {
     title: ["WHAT OUR", "CLIENTS SAY"],
-    subtitle: "The part that shows up after handover.",
+    subtitle: "The part that shows up after handover",
     stars: "5 out of 5 stars",
     since: "With us since",
     pages: "Review pages",

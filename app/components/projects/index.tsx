@@ -14,7 +14,8 @@ import styles from "./projects.module.css";
  * at the client's request). ARTIMA's card opens its site (PROJECT_SITES);
  * the others lead nowhere yet. ENSO CITY was ENSO ESTATE until 2026-11-20:
  * the client renamed it and chose an aerial render of the quarter for it
- * (Drive «11. ENSO ESTATE / Rendore schematice», 1.1). The title is the
+ * (Drive «11. ENSO ESTATE / Rendore schematice», 1.1; since 2026-11-24 the
+ * brown one from higher up, 1.2, cut 400-1680 of its 2668). The title is the
  * client's in place of Figma's "Our projects"; on a phone it keeps to one
  * line, so a new one has to fit 360 wide at 32px.
  */
@@ -52,7 +53,7 @@ const content = {
     projects: [
       {
         id: "enso-city",
-        src: "/projects-enso-city.webp",
+        src: "/projects-enso-city-aerial.webp",
         name: "ENSO CITY",
         meta: "Chișinău, Moldova · Rezidențial",
         status: "În curând",
@@ -81,7 +82,7 @@ const content = {
     projects: [
       {
         id: "enso-city",
-        src: "/projects-enso-city.webp",
+        src: "/projects-enso-city-aerial.webp",
         name: "ENSO CITY",
         meta: "Кишинёв · Жилой комплекс",
         status: "Скоро старт",
@@ -110,7 +111,7 @@ const content = {
     projects: [
       {
         id: "enso-city",
-        src: "/projects-enso-city.webp",
+        src: "/projects-enso-city-aerial.webp",
         name: "ENSO CITY",
         meta: "Chisinau, Moldova · Residential",
         status: "Starting soon",

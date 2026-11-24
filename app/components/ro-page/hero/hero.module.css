@@ -122,6 +122,15 @@
     height: 20rem;
   }
 
+  /* Centred by its capitals the label looked low in the pill: it is mostly
+     small letters, and the p hangs below (the client saw it, 2026-11-24).
+     1.5 up, the pill's middle falls between the capitals' middle and the
+     small letters'. */
+  .desktopOfferButton span {
+    position: relative;
+    top: -1.5rem;
+  }
+
   .accountButton {
     display: none;
   }
