@@ -225,6 +225,12 @@
 
 .body ul {
   padding-left: 1.2em;
+  /* the site's reset (Tailwind) takes the markers off every list */
+  list-style: disc;
+}
+
+.body li::marker {
+  color: #0e3477;
 }
 
 .body li + li {
