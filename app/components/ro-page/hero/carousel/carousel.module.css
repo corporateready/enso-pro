@@ -691,8 +691,10 @@
   }
 
   .eyebrow {
-    /* the gap under the eyebrow is the title's line gap (45 to the ink) */
-    margin: 0 0 14.4rem !important;
+    /* the gap under the eyebrow is the title's line gap (45 to the ink;
+       8.4 with Mignon itself, 14.4 had been set for the Times it fell back
+       to while the font's files were missing, 2026-11-25) */
+    margin: 0 0 8.4rem !important;
     font-family: "Mignon", serif !important;
     font-size: 64rem !important;
     font-weight: 400 !important;

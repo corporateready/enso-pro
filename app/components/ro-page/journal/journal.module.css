@@ -538,8 +538,9 @@
     line-height: 40rem;
   }
 
-  /* a long title stops at its sixth line, a card's beside it at its third:
-     the date stays on the card (the client's titles run long) */
+  /* a long title stops at its sixth line, a card's beside it at its
+     fourth (third in the lower rows, below): the date stays on the card
+     (the client's titles run long) */
   .featureCard .articleCopy h3,
   .articleCard .articleCopy h3 {
     display: -webkit-box;
@@ -549,7 +550,7 @@
   }
 
   .articleCard .articleCopy h3 {
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
   }
 
   .readArticle {

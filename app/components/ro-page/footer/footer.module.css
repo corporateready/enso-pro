@@ -129,6 +129,11 @@
   grid-area: 2 / 2;
 }
 
+/* the f set by eye (see the desktop rule below) */
+.facebook .socialIcon {
+  translate: 0.5rem 0.7rem;
+}
+
 .youtube {
   grid-area: 2 / 3;
 }
@@ -374,9 +379,12 @@
     height: 22.8rem !important;
   }
 
+  /* the f set by eye, not by its box: its stem sat 0.75 left of the
+     circle's middle and the hook made it look high (the client saw it off
+     centre, 2026-11-25) */
   .facebook .socialIcon {
-    top: 9.1rem;
-    left: 14.6rem;
+    top: 10.1rem;
+    left: 15.35rem;
     width: 15.4rem !important;
     height: 28rem !important;
   }

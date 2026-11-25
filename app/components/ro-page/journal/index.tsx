@@ -23,13 +23,15 @@ export const siteArticles = journalArticles.ro;
 export const journalCategories = categoriesFor("ro", siteArticles);
 
 // Newest first. Whichever comes first among those shown is the leading
-// article, large on the left; up to four more go beside it (two as cards,
-// three or four as lower rows), and any beyond that are left to "all
-// articles". So the block is one screen tall however many there are, and a
-// filter's result is laid out the same way. The two older articles'
-// pictures are squares cut from photographs Figma sets as collages with a
-// caption.
-const maxShown = 5;
+// article, large on the left, and the next two go beside it as cards: three
+// in all, as the block was drawn (the client's call, 2026-11-25: «как было
+// одна главная и потом 2 статьи»); the rest are on the journal's own page
+// ("all articles"). A filter's result is laid out the same way. The block
+// can still take three or four lower rows beside the leading one (the
+// working page, journal-variants, shows them with `max`). The two older
+// articles' pictures are squares cut from photographs Figma sets as
+// collages with a caption.
+const maxShown = 3;
 
 function ArticleVisual({
   article,
@@ -94,9 +96,12 @@ function ArticleVisual({
 export default function Journal({
   articles = siteArticles,
   layout = "side",
+  max = maxShown,
 }: {
   /* the block's own articles unless a working page shows it with more */
   articles?: readonly JournalArticle[];
+  /* how many it shows at the most (the working page's examples, more) */
+  max?: number;
   /* "side": the leading article on the left, the others in a column on its
      right (the site's). "rows": the leading one across the top, the others
      in a row under it; desktop only, shown on the working page. */
@@ -114,7 +119,7 @@ export default function Journal({
       (article) =>
         activeCategory === "all" || article.category === activeCategory,
     )
-    .slice(0, maxShown);
+    .slice(0, max);
   // how many go beside the leading one, and in how many rows
   const beside = visibleArticles.length - 1;
   const layoutClass = [

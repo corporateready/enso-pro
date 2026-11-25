@@ -63,6 +63,11 @@
     width: 359rem;
     height: 216rem;
     overflow: hidden;
+    /* the model a little smaller in its place: more room between it and
+       the words above, the tabs below and the card's sides (the client's
+       call, 2026-11-25: «сделай больше отступ 3д модели в моб версии»);
+       transform, not scale: the stage inside breathes with scale */
+    transform: scale(0.84);
   }
 
   .sourceImage {

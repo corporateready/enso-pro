@@ -144,6 +144,7 @@ export default function JournalVariants() {
           </div>
           <Journal
             articles={[...siteArticles, ...examples].slice(0, count)}
+            max={count}
             layout={layout}
           />
         </div>

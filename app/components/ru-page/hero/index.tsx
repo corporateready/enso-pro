@@ -118,9 +118,10 @@ const Index = ({ page }: HeroProps) => {
           textAlign: "left",
         },
         // eyebrow, title lines and buttons one gap apart: the title's own
-        // line gap, measured to the ink
+        // line gap, measured to the ink (re-measured 2026-11-25 with the
+        // eyebrow's own Mignon, 3 less than with the Times it fell back to)
         eyebrow: {
-          margin: "0 0 4.4rem",
+          margin: "0 0 1.4rem",
           fontSize: "24rem",
           lineHeight: "21.6rem",
           letterSpacing: "0rem",
@@ -194,9 +195,10 @@ const Index = ({ page }: HeroProps) => {
           textAlign: "left",
         },
         // eyebrow, title lines and buttons one gap apart: the title's own
-        // line gap, measured to the ink
+        // line gap, measured to the ink (re-measured 2026-11-25 with the
+        // eyebrow's own Mignon, 3 less than with the Times it fell back to)
         eyebrow: {
-          margin: "0 0 3.4rem",
+          margin: "0 0 0.4rem",
           fontSize: "24rem",
           lineHeight: "21.6rem",
           letterSpacing: "0rem",
