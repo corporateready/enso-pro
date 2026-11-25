@@ -13,12 +13,12 @@ const menuLinks = [
   { label: "Our values", href: "#values" },
   { label: "Our team", href: "#team" },
   { label: "Our partners", href: "#partners" },
-  { label: "ENSO journal", href: "#journal" },
+  { label: "ENSO Journal", href: "#journal" },
 ] as const;
 
 const projectLinks = [
-  { label: "ENSO LIVING", href: "#enso-living" },
   { label: "ENSO CITY", href: "#enso-city" },
+  { label: "ENSO LIVING", href: "#enso-living" },
   { label: "ARTIMA Business & Lifestyle", href: "#artima" },
 ] as const;
 

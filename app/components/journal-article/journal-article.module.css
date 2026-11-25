@@ -1,21 +1,19 @@
 /*
  * An article's page. The site's type (Inter) and greys; the journal's pills
- * for the label; the title as large as the blocks' titles on the home page;
- * the text in a column of some 70 characters, as long reading wants. Nothing
- * moves under the mouse (the client's rule, 2026-11-24): links change colour.
+ * for the category; the text in a column some 70 characters wide, as long
+ * reading wants. The site's rem follows the window (1/1920 of it on a
+ * desktop), so on a laptop the text would shrink to 15 px: the reading
+ * sizes have a floor in px. Nothing moves under the mouse (the client's
+ * rule, 2026-11-24): links and buttons change colour.
  */
 .article {
+  /* the reading column: header, text and the end share it */
+  --column: 360rem;
+
   width: 100%;
   color: #000;
   background: #fff;
   font-family: var(--font-inter), sans-serif;
-}
-
-.header,
-.body,
-.more {
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .back {
@@ -37,36 +35,121 @@
   scale: -1 1;
 }
 
-.meta,
-.moreMeta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+.kicker {
+  margin: 0;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  border: 1rem solid #000;
+  border: 1px solid #000;
   border-radius: 999rem;
   color: #000;
   white-space: nowrap;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0;
+  color: #333;
+  text-wrap: pretty;
+}
+
+.lead a {
+  color: inherit;
+}
+
+/* who publishes it, when, how long it reads; the sharing buttons */
+.byline {
+  display: flex;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  display: block;
+  flex: none;
+  border: 1px solid #e6e6e6;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.authorText {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  color: #000;
+  font-weight: 600;
 }
 
 .date {
   color: #6d6d6d;
 }
 
-.title {
-  margin: 0;
-  font-weight: 600;
-  text-wrap: balance;
+.share {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.lead {
-  margin: 0;
-  color: #1d1d1d;
-  text-wrap: pretty;
+.shareButton {
+  display: grid;
+  padding: 0;
+  place-items: center;
+  border: 1px solid #d4d4d4;
+  border-radius: 50%;
+  color: #1a1a1a;
+  background: #fff;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.shareButton:hover,
+.shareButton:focus-visible {
+  border-color: #000;
+  color: #fff;
+  background: #000;
+}
+
+.shareButton:focus-visible {
+  outline: 2px solid #2864d7;
+  outline-offset: 2px;
+}
+
+/* the footer's white glyphs as masks: they take the button's colour */
+.shareIcon {
+  display: block;
+  background: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.shareLink {
+  display: block;
+}
+
+/* "copied" under the buttons, so nothing beside them moves */
+.shareNote {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: #6d6d6d;
+  white-space: nowrap;
 }
 
 .head {
@@ -84,14 +167,40 @@
   object-fit: cover;
 }
 
+.body,
+.end {
+  width: var(--column);
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .body {
   color: #1a1a1a;
 }
 
-/* the column's own rhythm (per screen below): a gap between paragraphs,
-   more before a heading, most round a quotation or a picture */
+/* the column's own rhythm, in em so it follows the type's floor: a gap
+   between paragraphs, more before a heading, most round a quotation or a
+   picture */
 .body > * {
   margin: 0;
+}
+
+.body > * + * {
+  margin-top: 1.15em;
+}
+
+.body > h2 {
+  margin-top: 2.1em;
+}
+
+.body > .quote,
+.body > .figure {
+  margin-top: 1.8em;
+  margin-bottom: 1.8em;
+}
+
+.body > :first-child {
+  margin-top: 0;
 }
 
 .body p,
@@ -102,11 +211,24 @@
 .body h2 {
   color: #000;
   font-weight: 600;
+  letter-spacing: -0.005em;
   text-wrap: balance;
+}
+
+.body h2 + * {
+  margin-top: 0.7em;
 }
 
 .body strong {
   font-weight: 600;
+}
+
+.body ul {
+  padding-left: 1.2em;
+}
+
+.body li + li {
+  margin-top: 0.45em;
 }
 
 .body a,
@@ -158,7 +280,35 @@
   border: 1px solid #e6e6e6;
 }
 
+/* a photo: wider than the text, one under another */
+.figureWide {
+  flex-direction: column;
+}
+
+.figurePhoto {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+  background: #d5d5d1;
+}
+
+/* sharing again at the end of the text */
+.end {
+  display: flex;
+  border-top: 1px solid #e6e6e6;
+}
+
+.endLabel {
+  margin: 0;
+  font-weight: 600;
+}
+
 .more {
+  margin-right: auto;
+  margin-left: auto;
   border-top: 1px solid #e3e3e3;
 }
 
@@ -215,9 +365,16 @@
   object-fit: cover;
 }
 
+.moreMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .moreCardTitle {
   margin: 0;
   font-weight: 600;
+  text-wrap: balance;
 }
 
 .moreLink {
@@ -247,16 +404,18 @@
   outline-offset: 4rem;
 }
 
-/* Phones: the 390 grid, 15 at each side; the picture runs edge to edge. */
+/* Phones: the 390 grid, 15 at each side; the head picture and the photos
+   run edge to edge. */
 @media screen and (max-width: 640px) {
   .article {
     padding: 92rem 0 64rem;
   }
 
   .header,
-  .body,
   .more {
     width: 360rem;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .back {
@@ -264,8 +423,7 @@
     font-size: 14rem;
   }
 
-  .meta {
-    gap: 10rem;
+  .kicker {
     margin-top: 28rem;
   }
 
@@ -275,18 +433,14 @@
     font-size: 13rem;
   }
 
-  .date {
-    font-size: 13rem;
-  }
-
   .title {
-    margin-top: 18rem;
+    margin-top: 16rem;
     font-size: 30rem;
     line-height: 1.12;
   }
 
   .lead {
-    margin-top: 18rem;
+    margin-top: 16rem;
     font-size: 17rem;
     line-height: 1.5;
   }
@@ -295,10 +449,57 @@
     margin-top: 12rem;
   }
 
+  .byline {
+    flex-direction: column;
+    gap: 16rem;
+    margin-top: 24rem;
+    padding: 16rem 0;
+  }
+
+  .author {
+    gap: 12rem;
+  }
+
+  .avatar {
+    width: 40rem;
+    height: 40rem;
+  }
+
+  .authorName {
+    font-size: 15rem;
+    line-height: 1.3;
+  }
+
+  .date {
+    font-size: 13rem;
+    line-height: 1.4;
+  }
+
+  .share {
+    gap: 8rem;
+  }
+
+  .shareButton {
+    width: 40rem;
+    height: 40rem;
+  }
+
+  .shareIcon,
+  .shareLink {
+    width: 17rem;
+    height: 17rem;
+  }
+
+  .shareNote {
+    position: static;
+    margin-left: 6rem;
+    font-size: 13rem;
+  }
+
   .head {
     width: 390rem;
     height: 250rem;
-    margin-top: 32rem;
+    margin-top: 28rem;
   }
 
   .body {
@@ -307,32 +508,18 @@
     line-height: 1.6;
   }
 
-  .body > * + * {
-    margin-top: 16rem;
-  }
-
   .body > h2 {
-    margin-top: 40rem;
     font-size: 22rem;
     line-height: 1.22;
   }
 
-  .body > .quote,
-  .body > .figure {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
+  .body > .figureWide {
+    width: 390rem;
+    margin-left: -15rem;
   }
 
-  .body > :first-child {
-    margin-top: 0;
-  }
-
-  .body ul {
-    padding-left: 20rem;
-  }
-
-  .body li + li {
-    margin-top: 8rem;
+  .figureWide {
+    gap: 8rem;
   }
 
   .quote {
@@ -355,6 +542,18 @@
     flex-direction: column;
     align-items: center;
     gap: 16rem;
+  }
+
+  .end {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14rem;
+    margin-top: 40rem;
+    padding-top: 24rem;
+  }
+
+  .endLabel {
+    font-size: 16rem;
   }
 
   .more {
@@ -382,6 +581,10 @@
     margin-top: 14rem;
   }
 
+  .moreMeta .date {
+    font-size: 13rem;
+  }
+
   .moreCardTitle {
     margin-top: 10rem;
     font-size: 19rem;
@@ -389,94 +592,133 @@
   }
 }
 
-/* Desktops: the 1600 grid; the text in an 840 column in the middle. */
+/* Desktops: the 1600 grid. The text in a column of 720, some 65-70
+   characters a line at its 22 (never under 600 px, the type never under
+   18 px; 840 gave 77-85, the client's other session measured, 2026-11-25);
+   the headline, the lead and the byline in the same column, so the
+   headline never ends past the byline's rules; the head picture across
+   the grid. */
 @media screen and (min-width: 641px) {
   .article {
-    padding: 172rem 0 140rem;
+    --column: min(max(720rem, 600px), calc(100% - 64px));
+
+    padding: 150rem 0 140rem;
   }
 
-  .header,
-  .more {
-    width: 1600rem;
+  .header {
+    width: var(--column);
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .back {
     gap: 10rem;
-    font-size: 18rem;
+    font-size: max(18rem, 14px);
   }
 
-  .meta {
-    gap: 18rem;
-    margin-top: 44rem;
+  .kicker {
+    margin-top: 48rem;
   }
 
   .badge {
-    height: 40rem;
-    padding: 0 16rem;
-    font-size: 18rem;
-  }
-
-  .date {
-    font-size: 18rem;
+    height: max(40rem, 30px);
+    padding: 0 max(16rem, 12px);
+    font-size: max(18rem, 14px);
   }
 
   .title {
-    max-width: 1240rem;
-    margin-top: 28rem;
-    font-size: 64rem;
-    line-height: 1.08;
+    margin-top: 24rem;
+    font-size: max(50rem, 34px);
+    line-height: 1.12;
   }
 
   .lead {
-    max-width: 1120rem;
-    margin-top: 36rem;
-    font-size: 28rem;
-    line-height: 1.45;
+    margin-top: 28rem;
+    font-size: max(26rem, 19px);
+    line-height: 1.5;
   }
 
   .lead + .lead {
-    margin-top: 20rem;
+    margin-top: 16rem;
+  }
+
+  .byline {
+    align-items: center;
+    justify-content: space-between;
+    gap: 24rem;
+    margin-top: 40rem;
+    padding: max(22rem, 16px) 0;
+  }
+
+  .author {
+    gap: max(14rem, 11px);
+  }
+
+  .avatar {
+    width: max(52rem, 40px);
+    height: max(52rem, 40px);
+  }
+
+  .authorName {
+    font-size: max(19rem, 15px);
+    line-height: 1.3;
+  }
+
+  .date {
+    font-size: max(17rem, 13px);
+    line-height: 1.4;
+  }
+
+  .share {
+    gap: max(10rem, 8px);
+  }
+
+  .shareButton {
+    width: max(46rem, 36px);
+    height: max(46rem, 36px);
+  }
+
+  .shareIcon,
+  .shareLink {
+    width: max(19rem, 15px);
+    height: max(19rem, 15px);
+  }
+
+  .shareNote {
+    margin-top: 8rem;
+    font-size: max(15rem, 13px);
   }
 
   .head {
     width: 1600rem;
     height: 800rem;
-    margin-top: 72rem;
+    margin-top: 64rem;
   }
 
   .body {
-    width: 840rem;
-    margin-top: 88rem;
-    font-size: 22rem;
+    margin-top: 80rem;
+    font-size: max(22rem, 18px);
     line-height: 1.65;
   }
 
-  .body > * + * {
-    margin-top: 26rem;
-  }
-
   .body > h2 {
-    margin-top: 72rem;
-    font-size: 36rem;
-    line-height: 1.2;
+    font-size: max(34rem, 24px);
+    line-height: 1.22;
   }
 
-  .body > .quote,
-  .body > .figure {
-    margin-top: 48rem;
-    margin-bottom: 48rem;
+  /* photos break out of the column, 1200 across, centred on it */
+  .body > .figureWide {
+    width: max(1200rem, var(--column));
+    margin-left: calc((var(--column) - max(1200rem, var(--column))) / 2);
   }
 
-  .body > :first-child {
-    margin-top: 0;
+  .figureWide {
+    gap: 16rem;
   }
 
-  .body ul {
-    padding-left: 26rem;
-  }
-
-  .body li + li {
-    margin-top: 10rem;
+  /* an upright photo stops at about a screen's height, centred */
+  .figurePhoto {
+    max-height: 900rem;
   }
 
   .quote {
@@ -485,13 +727,13 @@
   }
 
   .quote blockquote {
-    font-size: 26rem;
+    font-size: max(25rem, 19px);
     line-height: 1.45;
   }
 
   .source {
-    margin-top: 16rem;
-    font-size: 16rem;
+    margin-top: 14rem;
+    font-size: max(16rem, 13px);
     line-height: 1.5;
   }
 
@@ -499,8 +741,21 @@
     gap: 24rem;
   }
 
+  .end {
+    align-items: center;
+    justify-content: space-between;
+    gap: 24rem;
+    margin-top: 72rem;
+    padding-top: 32rem;
+  }
+
+  .endLabel {
+    font-size: max(20rem, 16px);
+  }
+
   .more {
-    margin-top: 140rem;
+    width: 1600rem;
+    margin-top: 120rem;
     padding-top: 72rem;
   }
 
@@ -515,19 +770,29 @@
   }
 
   .moreGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 40rem;
     margin-top: 48rem;
   }
 
   .moreMeta {
-    gap: 16rem;
-    margin-top: 22rem;
+    gap: 14rem;
+    margin-top: 20rem;
+  }
+
+  .moreMeta .badge {
+    height: 36rem;
+    padding: 0 14rem;
+    font-size: 16rem;
+  }
+
+  .moreMeta .date {
+    font-size: 16rem;
   }
 
   .moreCardTitle {
     margin-top: 14rem;
-    font-size: 30rem;
-    line-height: 1.22;
+    font-size: 26rem;
+    line-height: 1.25;
   }
 }

@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties, useId } from "react";
 
 import styles from "./enso-footer-logo.module.css";
 
@@ -101,7 +101,11 @@ export default function EnsoFooterLogo({
   className?: string;
 }) {
   const logo = LOGOS[variant];
-  const mask = `enso-footer-brush-${variant}`;
+  // the mask's own id: with the footer on a page more than once (a working
+  // page of variants, as the footer's of 2026-11-24) every logo would
+  // otherwise draw through the first one's mask, and show no circle until
+  // that one came in
+  const mask = `enso-footer-brush-${variant}-${useId()}`;
 
   return (
     <svg

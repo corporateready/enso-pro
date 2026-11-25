@@ -116,7 +116,8 @@ function ArticleCard({
         <div className={styles.meta}>
           <span className={styles.badge}>{article.badge}</span>
           <span className={styles.date}>
-            {article.date} · {article.readTime}
+            <time dateTime={article.dateTime}>{article.date}</time> ·{" "}
+            {article.readTime}
           </span>
         </div>
         {/* the line breaks written into the titles are the home block's */}

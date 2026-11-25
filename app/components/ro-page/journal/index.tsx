@@ -4,35 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { type CSSProperties, useState } from "react";
 
+import {
+  categoriesFor,
+  type JournalArticle,
+  journalArticles,
+  type JournalCategory,
+} from "../../journal-article/catalog";
 import { revealDelay } from "../../motion/reveal";
 import styles from "./journal.module.css";
 
-export type JournalCategory = "all" | "buying-guide" | "market" | "inside-enso";
+// The journal's articles and their categories: one list for the three
+// languages (journal-article/catalog.ts), newest first.
+export type { JournalArticle, JournalCategory };
 
-export type JournalArticle = {
-  id: string;
-  category: Exclude<JournalCategory, "all">;
-  badge: string;
-  title: string;
-  date: string;
-  readTime: string;
-  src: string;
-  width: number;
-  height: number;
-  /* the picture in the leading article's shape (1.27 : 1), for the cards of
-     the journal's own page (components/journal-page); src where missing */
-  cover?: { src: string; width: number; height: number };
-};
+export const siteArticles = journalArticles.ro;
 
-export const journalCategories: readonly {
-  id: JournalCategory;
-  label: string;
-}[] = [
-  { id: "all", label: "Toate" },
-  { id: "buying-guide", label: "Ghid de cumpărare" },
-  { id: "market", label: "Piață" },
-  { id: "inside-enso", label: "Din interior" },
-];
+/* "all" and every category that has an article */
+export const journalCategories = categoriesFor("ro", siteArticles);
 
 // Newest first. Whichever comes first among those shown is the leading
 // article, large on the left; up to four more go beside it (two as cards,
@@ -42,48 +30,6 @@ export const journalCategories: readonly {
 // pictures are squares cut from photographs Figma sets as collages with a
 // caption.
 const maxShown = 5;
-
-export const siteArticles: readonly JournalArticle[] = [
-  {
-    id: "bim-standard",
-    category: "inside-enso",
-    badge: "Din interior",
-    // Line breaks as set in Figma; the phone cards keep them (pre-line).
-    title:
-      "BIM\u00a0— standardul\ninternațional aplicat în\nfiecare proiect ENSŌ Development",
-    date: "3 Iunie",
-    readTime: "3 min de citit",
-    src: "/journal-post-image.avif",
-    width: 3200,
-    height: 2520,
-    cover: { src: "/journal-post-image.avif", width: 3200, height: 2520 },
-  },
-  {
-    id: "eminescu-offices",
-    category: "buying-guide",
-    badge: "Ghid de cumpărare",
-    title:
-      "Exit investițional realizat cu succes în proiectul Eminescu Offices",
-    date: "2 Iunie",
-    readTime: "2 min de citit",
-    src: "/journal-eminescu-square.avif",
-    width: 690,
-    height: 690,
-    cover: { src: "/journal-eminescu.avif", width: 690, height: 543 },
-  },
-  {
-    id: "moldova-growth-leader",
-    category: "market",
-    badge: "Piață",
-    title: "Moldova\u00a0— locul\u00a01 în Europa\nla creșterea pieței\nimobiliare în 2025",
-    date: "2 Iunie",
-    readTime: "3 min de citit",
-    src: "/journal-moldova-square.avif",
-    width: 588,
-    height: 588,
-    cover: { src: "/journal-moldova.avif", width: 746, height: 588 },
-  },
-];
 
 function ArticleVisual({
   article,
@@ -121,7 +67,7 @@ function ArticleVisual({
       <div className={styles.articleCopy}>
         <span className={styles.articleCategory}>{article.badge}</span>
         <span className={styles.articleMeta}>
-          {article.date}
+          <time dateTime={article.dateTime}>{article.date}</time>
           <span className={styles.readTime}> · {article.readTime}</span>
         </span>
         <h3>
@@ -159,7 +105,11 @@ export default function Journal({
   const [activeCategory, setActiveCategory] =
     useState<JournalCategory>("all");
 
-  const visibleArticles = articles
+  // the home page shows the pieces meant for it (catalog.ts: onHome)
+  const homeArticles = articles.filter((article) => article.onHome !== false);
+  const categories = categoriesFor("ro", homeArticles);
+
+  const visibleArticles = homeArticles
     .filter(
       (article) =>
         activeCategory === "all" || article.category === activeCategory,
@@ -195,7 +145,7 @@ export default function Journal({
         </header>
 
         <div className={styles.filters} data-reveal-group aria-label="Filter journal articles">
-          {journalCategories.map((category, index) => (
+          {categories.map((category, index) => (
             <button
               className={`${styles.filterButton} motion-button ${
                 activeCategory === category.id ? styles.filterButtonActive : ""

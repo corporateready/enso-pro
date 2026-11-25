@@ -89,23 +89,10 @@
     background: #000;
   }
 
-  .filterButton:nth-child(1) {
-    width: 45.29rem;
-  }
 
-  .filterButton:nth-child(2) {
-    width: 115.29rem;
-  }
 
   /* Figma's third gap is 4.04, the others 3.33 */
-  .filterButton:nth-child(3) {
-    width: 75.29rem;
-    margin-left: 0.71rem;
-  }
 
-  .filterButton:nth-child(4) {
-    width: 111.29rem;
-  }
 
   .filterButton:focus-visible {
     outline: 2rem solid #2864d7;
@@ -392,7 +379,7 @@
     position: absolute;
     z-index: 2;
     top: 98rem;
-    left: 1056rem;
+    right: 0;
     display: flex;
     gap: 5.1rem;
   }
@@ -402,7 +389,7 @@
     height: 53rem;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 0 22rem;
     border: 1.24rem solid #000;
     border-radius: 25rem;
     color: #000;
@@ -415,22 +402,9 @@
   }
 
   /* Figma gives each pill a fixed width with the label centred. */
-  .filterButton:nth-child(1) {
-    width: 69.2rem;
-  }
 
-  .filterButton:nth-child(2) {
-    width: 176.2rem;
-  }
 
-  .filterButton:nth-child(3) {
-    width: 115.1rem;
-    margin-left: 1.1rem;
-  }
 
-  .filterButton:nth-child(4) {
-    width: 170.1rem;
-  }
 
   .filterButtonActive {
     border-color: #000;
@@ -482,10 +456,9 @@
     box-shadow: 0 22.35rem 89.39rem rgb(113 113 113 / 20%);
   }
 
-  /* a filter that leaves one article: the card takes the whole width */
-  .cardsSingle .featureCard {
-    grid-column: 1 / -1;
-  }
+  /* a filter that leaves one article keeps it in the leading card's shape
+     and place, as under "all"; the column beside it stays empty (the
+     client's call, 2026-11-24: the full-width card read as another format) */
 
   .articleCard {
     box-shadow: 0 21.51rem 86.03rem rgb(113 113 113 / 20%);
@@ -568,6 +541,20 @@
     font-size: 32rem;
     font-weight: 700;
     line-height: 40rem;
+  }
+
+  /* a long title stops at its sixth line, a card's beside it at its third:
+     the date stays on the card (the client's titles run long) */
+  .featureCard .articleCopy h3,
+  .articleCard .articleCopy h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+  }
+
+  .articleCard .articleCopy h3 {
+    -webkit-line-clamp: 3;
   }
 
   .readArticle {
@@ -689,7 +676,9 @@
     line-height: 19rem;
   }
 
-  .cardsCompact .articleCard .readTime {
+  /* the cards beside the leading one give the date alone: with the year
+     (since 2026-11-24) date and reading time no longer share their line */
+  .articleCard .readTime {
     display: none;
   }
 

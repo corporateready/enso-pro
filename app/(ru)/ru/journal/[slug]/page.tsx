@@ -5,11 +5,14 @@ import JournalArticle from "../../../../components/journal-article";
 import {
   articleIds,
   articleLanguages,
-  articleTexts,
   isArticleId,
   journalPath,
-  plainText,
 } from "../../../../components/journal-article/content";
+import {
+  articleJsonLd,
+  articleMetadata,
+  jsonLdHtml,
+} from "../../../../components/journal-article/seo";
 import Footer from "../../../../components/ru-page/footer";
 import Hero from "../../../../components/ru-page/hero";
 
@@ -28,12 +31,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   if (!isArticleId(slug)) return {};
-  const text = articleTexts.ru[slug];
 
-  return {
-    title: `${text.title} · ENSO JOURNAL`,
-    description: plainText(text.lead[0]),
-  };
+  return articleMetadata("ru", slug);
 }
 
 export default async function RussianArticle({
@@ -54,6 +53,10 @@ export default async function RussianArticle({
         }}
       />
       <main className="flex flex-col w-full">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdHtml(articleJsonLd("ru", slug))}
+        />
         <JournalArticle locale="ru" id={slug} />
       </main>
       <Footer home="/ru" />

@@ -15,7 +15,15 @@
  * in the journal's list (*-page/journal/index.tsx, same id).
  */
 
-export type ArticleId = "bim-standard" | "eminescu-offices" | "moldova-growth-leader";
+import {
+  type ArticleId,
+  articleIds,
+  type Locale,
+} from "./catalog";
+import * as added from "./articles";
+
+export type { ArticleId, Locale };
+export { articleIds };
 
 export type Inline = string | { text: string; href: string } | { strong: string };
 
@@ -31,7 +39,9 @@ export type Block =
   | { kind: "h2"; text: string }
   | { kind: "quote"; text: readonly Inline[]; source?: readonly Inline[] }
   | { kind: "list"; items: readonly (readonly Inline[])[] }
-  | { kind: "figure"; pictures: readonly ArticlePicture[] };
+  /* wide: a photo, running wider than the text; else a screenshot, at its
+     own size */
+  | { kind: "figure"; pictures: readonly ArticlePicture[]; wide?: boolean };
 
 export type ArticleText = {
   title: string;
@@ -40,18 +50,19 @@ export type ArticleText = {
   body: readonly Block[];
 };
 
-export type Locale = "ro" | "ru" | "en";
-
-export const articleIds: readonly ArticleId[] = [
-  "bim-standard",
-  "eminescu-offices",
-  "moldova-growth-leader",
-];
-
 /* the picture across the top of each article: the BIM photo of the
    journal's leading card; for the other two the originals the cards' small
    pictures were cut from (Drive «50. ARCHIVE / 5. EMINESCU OFFICES» drone
    shot DJI_0382, and the Shutterstock photo of Chișinău in ClickUp) */
+/* the later articles: the photo or render their covers were made from,
+   without the cover's words (public/journal/<id>.webp, 2400 x 1200) */
+const headOf = (id: string): ArticlePicture => ({
+  src: `/journal/${id}.webp`,
+  width: 2400,
+  height: 1200,
+  alt: "",
+});
+
 export const articleHeads: Record<ArticleId, ArticlePicture & { position?: string }> = {
   "bim-standard": {
     src: "/journal-post-image.avif",
@@ -72,6 +83,21 @@ export const articleHeads: Record<ArticleId, ArticlePicture & { position?: strin
     height: 1200,
     alt: "",
   },
+  "cucorilor-tender-chisinau": headOf("cucorilor-tender-chisinau"),
+  "iasi-cicoarei-residential": headOf("iasi-cicoarei-residential"),
+  // the largest render there is of it
+  "carpathia-brasov-investment": {
+    ...headOf("carpathia-brasov-investment"),
+    width: 1920,
+    height: 960,
+  },
+  "azimut-copou-exit": headOf("azimut-copou-exit"),
+  "diminetii-iasi-investment": headOf("diminetii-iasi-investment"),
+  "newton-house-sold-out": headOf("newton-house-sold-out"),
+  "artima-business-lifestyle-opening": headOf("artima-business-lifestyle-opening"),
+  "enso-living-construction-start": headOf("enso-living-construction-start"),
+  "brasov-mixed-use-acquisition": headOf("brasov-mixed-use-acquisition"),
+  "archimatika-partnership": headOf("archimatika-partnership"),
 };
 
 const BCA =
@@ -101,7 +127,11 @@ const levelsEurope = (alt: string): ArticlePicture => ({
   alt,
 });
 
-export const articleTexts: Record<Locale, Record<ArticleId, ArticleText>> = {
+/* the first three articles' words; the others' are in ./articles */
+const ownTexts: Record<
+  Locale,
+  Record<"bim-standard" | "eminescu-offices" | "moldova-growth-leader", ArticleText>
+> = {
   ro: {
     "bim-standard": {
       title:
@@ -689,6 +719,12 @@ export const articleTexts: Record<Locale, Record<ArticleId, ArticleText>> = {
     },
   },
 };
+
+export const articleTexts = {
+  ro: { ...ownTexts.ro, ...added.textsIn("ro") },
+  ru: { ...ownTexts.ru, ...added.textsIn("ru") },
+  en: { ...ownTexts.en, ...added.textsIn("en") },
+} as Record<Locale, Record<ArticleId, ArticleText>>;
 
 /* an article's words as plain text, for its page's description */
 export const plainText = (parts: readonly Inline[]) =>

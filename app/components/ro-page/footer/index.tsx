@@ -13,12 +13,12 @@ const menuLinks = [
   { label: "Valorile noastre", href: "#values" },
   { label: "Echipa noastră", href: "#team" },
   { label: "Partenerii noștri", href: "#partners" },
-  { label: "ENSO journal", href: "#journal" },
+  { label: "ENSO Journal", href: "#journal" },
 ] as const;
 
 const projectLinks = [
-  { label: "ENSO LIVING", href: "https://enso.ro/living" },
   { label: "ENSO CITY", href: "#enso-city" },
+  { label: "ENSO LIVING", href: "https://enso.ro/living" },
   { label: "ARTIMA Business & Lifestyle", href: "https://artima.md/" },
 ] as const;
 
