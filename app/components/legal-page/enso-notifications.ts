@@ -4,9 +4,14 @@
  * what it is and where to get help, its privacy policy and its terms. In
  * English only, as the listing is (2026-11-26).
  *
+ * Until this site replaces it on enso.ro, the current site
+ * (corporateready/enso_living) serves the same pages at the same addresses,
+ * from its own copy of these words: lib/enso-notifications.js. Change the
+ * two together.
+ *
  * What the privacy policy says the app receives and keeps is what its
  * backend does (ENSO Operations: app/api/google-chat/events in
- * corporateready/sops). Change the two together.
+ * corporateready/sops). Change that together with them too.
  */
 
 import type { LanguageOption } from "../language-menu";
