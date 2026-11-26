@@ -22,16 +22,34 @@ const projectLinks = [
   { label: "ARTIMA Business & Lifestyle", href: "https://artima.md/" },
 ] as const;
 
+// ENSO's own pages (the three linked from enso.ro, 2026-11-25); the others
+// still lead to the contacts until their addresses are known
 const socialLinks: {
   name: string;
   icon: SocialIconName;
   className: string;
+  href?: string;
 }[] = [
   { name: "TikTok", icon: "tiktok", className: styles.tiktok },
   { name: "X", icon: "x", className: styles.x },
-  { name: "Instagram", icon: "instagram", className: styles.instagram },
-  { name: "Facebook", icon: "facebook", className: styles.facebook },
-  { name: "YouTube", icon: "youtube", className: styles.youtube },
+  {
+    name: "Instagram",
+    icon: "instagram",
+    className: styles.instagram,
+    href: "https://www.instagram.com/ensodevelopment.ro",
+  },
+  {
+    name: "Facebook",
+    icon: "facebook",
+    className: styles.facebook,
+    href: "https://www.facebook.com/profile.php?id=61580179168995",
+  },
+  {
+    name: "YouTube",
+    icon: "youtube",
+    className: styles.youtube,
+    href: "https://www.youtube.com/@ensodevelopmentro",
+  },
   { name: "LinkedIn", icon: "linkedin", className: styles.linkedin },
 ];
 
@@ -46,7 +64,7 @@ export default function Footer({
     home && href.startsWith("#") && href !== "#top" ? `${home}${href}` : href;
 
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${home ? styles.footerOnWhite : ""}`}>
       <div className={styles.inner}>
         <nav className={`${styles.column} ${styles.menu}`} data-reveal data-reveal-edge aria-label="Footer menu">
           <p className={styles.columnTitle}>Meniu</p>
@@ -77,7 +95,10 @@ export default function Footer({
           {socialLinks.map((social) => (
             <a
               className={`${styles.socialLink} ${social.className}`}
-              href={to("#contact")}
+              href={social.href ?? to("#contact")}
+              {...(social.href
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               aria-label={social.name}
               key={social.name}
             >
@@ -94,7 +115,7 @@ export default function Footer({
         <div className={styles.legal}>
           <p className={styles.copyright}>
             <span className={styles.copyDesktop}>© 2026 Toate drepturile rezervate</span>
-            <span className={styles.copyMobile}>© 2026 Toate drepturile rezervate.</span>
+            <span className={styles.copyMobile}>© 2026 Toate drepturile rezervate</span>
           </p>
 
           <div className={styles.legalLinks}>

@@ -118,11 +118,11 @@ const Index = ({ page }: HeroProps) => {
           maxWidth: "360rem",
           textAlign: "left",
         },
-        // eyebrow, title lines and buttons one gap apart: the title's own
-        // line gap, measured to the ink (re-measured 2026-11-25 with the
-        // eyebrow's own Mignon, 3 less than with the Times it fell back to)
+        // never one gap throughout (2026-11-25 meeting): the name 20 above
+        // the title, the title's lines one phrase (11 apart), the buttons
+        // 24 below it, all to the ink
         eyebrow: {
-          margin: "0 0 1.4rem",
+          margin: "0 0 7.9rem",
           fontSize: "24rem",
           lineHeight: "21.6rem",
           letterSpacing: "0rem",
@@ -132,13 +132,13 @@ const Index = ({ page }: HeroProps) => {
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "34rem",
           fontWeight: 600,
-          lineHeight: "41.15rem",
+          lineHeight: "36.15rem",
           letterSpacing: "0rem",
         },
         actions: {
           flexWrap: "nowrap",
           gap: "10rem",
-          marginTop: "7.7rem",
+          marginTop: "18.2rem",
         },
         primaryAction: {
           position: "relative",
@@ -177,7 +177,10 @@ const Index = ({ page }: HeroProps) => {
       alt: "Carpathian View residential project",
       objectPosition: "center center",
       eyebrow: "ENSO LIVING",
-      title: "PREMIUM PROJECT\nCARPATHIAN VIEW",
+      // "with ... views" (2026-11-25 meeting: the old line read as broken
+      // English); on phones it breaks as the Romanian does, after "with"
+      title: "PREMIUM PROJECT WITH \nCARPATHIAN VIEWS",
+      desktopTitle: "PREMIUM PROJECT\nWITH CARPATHIAN VIEWS",
       primaryAction: {
         label: "Request offer",
         href: "#request-offer",
@@ -192,11 +195,11 @@ const Index = ({ page }: HeroProps) => {
           maxWidth: "345rem",
           textAlign: "left",
         },
-        // eyebrow, title lines and buttons one gap apart: the title's own
-        // line gap, measured to the ink (re-measured 2026-11-25 with the
-        // eyebrow's own Mignon, 3 less than with the Times it fell back to)
+        // never one gap throughout (2026-11-25 meeting): the name 20 above
+        // the title, the title's lines one phrase (11 apart), the buttons
+        // 24 below it, all to the ink
         eyebrow: {
-          margin: "0 0 1.4rem",
+          margin: "0 0 8.9rem",
           fontSize: "24rem",
           lineHeight: "21.6rem",
           letterSpacing: "0rem",
@@ -204,15 +207,16 @@ const Index = ({ page }: HeroProps) => {
         title: {
           maxWidth: "345rem",
           fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "34rem",
+          // 27: "PREMIUM PROJECT WITH" fills the 345 column (341)
+          fontSize: "27rem",
           fontWeight: 600,
-          lineHeight: "41.15rem",
+          lineHeight: "29rem",
           letterSpacing: "0rem",
         },
         actions: {
           flexWrap: "nowrap",
           gap: "10rem",
-          marginTop: "7.7rem",
+          marginTop: "19.2rem",
           marginLeft: "3rem",
         },
         primaryAction: {
@@ -250,7 +254,7 @@ const Index = ({ page }: HeroProps) => {
       animatedBackground: true,
       alt: "Enso Development blue visual identity",
       objectPosition: "center center",
-      title: "0% INSTALMENT",
+      title: "0% INSTALLMENTS",
       description: "Directly from the developer",
       primaryAction: {
         label: "Build my payment plan",
@@ -266,10 +270,10 @@ const Index = ({ page }: HeroProps) => {
         primaryAction: "paymentPlanAction",
       },
       styles: {
-        // title, subtitle, button and link one gap apart (16 to the ink, as
-        // on slides 1-2); the block starts lower so the button stays put
+        // Figma's own place and gaps: title and subtitle a pair, the button
+        // apart, its link close under it (2026-11-25 meeting: no even gaps)
         content: {
-          top: "314.9rem",
+          top: "306rem",
           right: "0rem",
           bottom: "auto",
           left: "0rem",
@@ -279,14 +283,16 @@ const Index = ({ page }: HeroProps) => {
         },
         title: {
           fontFamily: "var(--font-inter), sans-serif",
-          fontSize: "38rem",
+          // 32, not the Romanian 38: "0% INSTALLMENTS" is twice as long as
+          // "RATE 0%" and must clear the slide bars on the right
+          fontSize: "32rem",
           fontWeight: 600,
-          lineHeight: "46rem",
+          lineHeight: "39rem",
           letterSpacing: "0rem",
         },
         description: {
           position: "relative",
-          top: "3rem",
+          top: "4rem",
           margin: "0rem",
           fontFamily: "var(--font-inter), sans-serif",
           fontSize: "20rem",
@@ -297,8 +303,8 @@ const Index = ({ page }: HeroProps) => {
           flexDirection: "column",
           flexWrap: "nowrap",
           alignItems: "center",
-          gap: "7.4rem",
-          marginTop: "14.1rem",
+          gap: "10.8rem",
+          marginTop: "30rem",
         },
         primaryAction: {
           position: "relative",

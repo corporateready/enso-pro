@@ -25,8 +25,11 @@
   }
 
   .inner {
+    /* 160 from the left, as the blocks set by left: 160rem: centred, the
+       column moved by half a scrollbar where one takes room off the page
+       and the rem does not follow (2026-11-25, one line for every block) */
     width: 1600rem;
-    margin: 0 auto;
+    margin: 0 0 0 160rem;
   }
 
   /* the green card 64 under the title, where every block's content starts
@@ -450,5 +453,25 @@
 
   .benefitCard:nth-child(2) h3:lang(ru) {
     width: 290rem;
+  }
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  .requestButton {
+    padding-bottom: 3rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .requestButton {
+    padding-bottom: 5.9rem;
   }
 }

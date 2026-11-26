@@ -26,7 +26,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Запуск <strong>TRIUMF Botanica</strong> в секторе Ботаника,
-        Кишинёв.
+        Кишинёв
       </>
     ),
     width: 99,
@@ -38,7 +38,7 @@ const milestones: readonly Milestone[] = [
       <>
         Началась разработка концепции{" "}
         <strong>одного из крупнейших проектов города</strong> — 18,5{"\u00a0"}га
-        на{"\u00a0"}Чеканах.
+        на{"\u00a0"}Чеканах
       </>
     ),
     width: 141,
@@ -49,7 +49,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Подписали контракты более чем на <strong>20 гектаров</strong> в
-        Кишинёве и начали <strong>первый проект в Брашове.</strong>
+        Кишинёве и начали <strong>первый проект в Брашове</strong>
       </>
     ),
     width: 124,
@@ -60,7 +60,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Начали развивать проекты, отражающие <strong>наши ценности и стандарт</strong>,
-        {" "}обязательный для нас.
+        {" "}обязательный для нас
       </>
     ),
     width: 145,
@@ -71,7 +71,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         После <strong>20 лет</strong> в роли соинвесторов создали
-        ENSŌ{"\u00a0"}— наше видение <strong>современного девелопера.</strong>
+        ENSŌ{"\u00a0"}— наше видение <strong>современного девелопера</strong>
       </>
     ),
     width: 113,
@@ -84,7 +84,7 @@ const milestones: readonly Milestone[] = [
         Инвестируем в{"\u00a0"}недвижимость{" "}
         <strong>с{"\u00a0"}1999{"\u00a0"}года</strong> как партнёры
         и{"\u00a0"}соинвесторы в{"\u00a0"}
-        <strong>Молдове и{"\u00a0"}Румынии</strong>.
+        <strong>Молдове и{"\u00a0"}Румынии</strong>
       </>
     ),
     width: 272,
@@ -297,7 +297,7 @@ export default function Since() {
           </h2>
           <p className={styles.intro} data-reveal style={revealDelay(100)}>
             После двадцати лет в роли соинвесторов в{"\u00a0"}Молдове и Румынии
-            мы создали ENSŌ — своё видение современного девелопера.
+            мы создали ENSŌ — своё видение современного девелопера
           </p>
         </header>
 

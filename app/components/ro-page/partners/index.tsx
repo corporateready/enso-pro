@@ -8,7 +8,7 @@ const partners = [
   {
     name: "Archimatika",
     description:
-      "Peste 5 milioane m² proiectați.\nDezvoltări rezidențiale premiate\ninternațional.",
+      "Peste 5 milioane m² proiectați,\nproiecte premiate internațional",
     logoSrc: "/arch 2.png",
     logoWidth: 760,
     logoHeight: 108,
@@ -17,7 +17,7 @@ const partners = [
   {
     name: "INAMSTRO",
     description:
-      "70 de clădiri rezidențiale livrate \nîn 5 țări, în 20 de ani.",
+      "70 de clădiri rezidențiale livrate \nîn 5 țări, în 20 de ani",
     logoSrc: "/inamstro.png",
     logoWidth: 666,
     logoHeight: 112,
@@ -26,7 +26,7 @@ const partners = [
   {
     name: "acla",
     description:
-      "Spații verzi gândite ca ecosisteme,\nnu ca decor.",
+      "Spații verzi gândite ca ecosisteme,\nnu ca decor",
     logoSrc: "/acla.png",
     logoWidth: 376,
     logoHeight: 128,
@@ -35,7 +35,7 @@ const partners = [
   {
     name: "ARUTIN BUREAU",
     description:
-      "Interioare și finisaje executate \nla standard premium.",
+      "Interioare și finisaje executate \nla standard premium",
     logoSrc: "/abureau.png",
     logoWidth: 731,
     logoHeight: 68,
@@ -44,7 +44,7 @@ const partners = [
   {
     name: "Estate Invest Company",
     description:
-      "11 ani și peste 400.000 m² construiți,\u2028în 50 de dezvoltări în Chișinău.",
+      "11 ani, peste 400.000 m² construiți,\nîn 50 de dezvoltări în Chișinău",
     logoSrc: "/eic.png",
     logoWidth: 500,
     logoHeight: 184,
@@ -114,11 +114,14 @@ export default function Partners() {
           PARTENERII NOȘTRI
         </h2>
         <p className={styles.subtitle} data-reveal style={revealDelay(100)}>
+          {/* the break falls before the dash, where the sentence divides
+              (2026-11-25 meeting); one sentence, so no full stop */}
           <span className={styles.subtitleLine}>
-            Construim alături de echipe cu reputații
+            Construim alături de echipe
+            <br className={styles.mobileBreak} /> cu reputații confirmate
           </span>
           <span className={styles.subtitleLine}>
-            confirmate — fiecare, expert în domeniul său.
+            — fiecare, expert în domeniul său
           </span>
         </p>
       </header>

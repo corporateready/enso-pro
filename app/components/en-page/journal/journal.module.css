@@ -349,10 +349,13 @@
   }
 
   .inner {
+    /* 160 from the left, as the blocks set by left: 160rem: centred, the
+       column moved by half a scrollbar where one takes room off the page
+       and the rem does not follow (2026-11-25, one line for every block) */
     position: relative;
     width: 1600rem;
     height: 875.7rem;
-    margin: 0 auto;
+    margin: 0 0 0 160rem;
   }
 
   .header {
@@ -745,12 +748,54 @@
   inset: 0;
 }
 
-.card:hover .cardLink,
-.cardLink:focus-visible {
-  color: #0e3477;
-}
+/* no colour change under the mouse: the title stays black, the hand
+   cursor is the sign (2026-11-25 meeting) */
 
 .cardLink:focus-visible {
   outline: 2rem solid #2864d7;
   outline-offset: 2rem;
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  /* centred as a flex box, as on desktops: a plain button kept its line
+     where it was whatever the padding */
+  .filterButton {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.6rem;
+  }
+
+  .articleCategory {
+    padding-bottom: 1.6rem;
+  }
+
+  .viewAllButton {
+    padding-bottom: 3rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .filterButton {
+    padding-bottom: 1.6rem;
+  }
+
+  .featureCard .articleCategory {
+    padding-bottom: 4rem;
+  }
+
+  .articleCard .articleCategory {
+    padding-bottom: 2rem;
+  }
+
+  .cardsCompact .articleCard .articleCategory {
+    padding-bottom: 1.85rem;
+  }
 }

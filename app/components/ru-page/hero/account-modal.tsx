@@ -176,7 +176,7 @@ export default function AccountModal({
             {isSignUp ? "ЛИЧНЫЙ КАБИНЕТ" : "В\u00a0ЛИЧНЫЙ КАБИНЕТ"}
           </h2>
           <p className={styles.description}>
-            Платежи, документы и переписка с{"\u00a0"}командой — всё в{"\u00a0"}одном месте.
+            Платежи, документы и переписка с{"\u00a0"}командой — всё в{"\u00a0"}одном месте
           </p>
 
           <form className={styles.form} onSubmit={handleSubmit}>

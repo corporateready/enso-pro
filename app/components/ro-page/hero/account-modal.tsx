@@ -174,7 +174,7 @@ export default function AccountModal({
             CONTUL PERSONAL
           </h2>
           <p className={styles.description}>
-            Plăți, documente și mesaje cu echipa — totul într-un singur loc.
+            Plăți, documente și mesaje cu echipa — totul într-un singur loc
           </p>
 
           <form className={styles.form} onSubmit={handleSubmit}>

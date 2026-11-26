@@ -8,7 +8,7 @@ const partners = [
   {
     name: "Archimatika",
     description:
-      "Over 5 million m² designed.\nInternationally awarded\nresidential developments.",
+      "Over 5 million m² designed,\ninternationally awarded projects",
     logoSrc: "/arch 2.png",
     logoWidth: 760,
     logoHeight: 108,
@@ -17,7 +17,7 @@ const partners = [
   {
     name: "INAMSTRO",
     description:
-      "70 residential buildings delivered\nacross 5 countries in 20 years.",
+      "70 residential buildings delivered\nacross 5 countries in 20 years",
     logoSrc: "/inamstro.png",
     logoWidth: 666,
     logoHeight: 112,
@@ -26,7 +26,7 @@ const partners = [
   {
     name: "acla",
     description:
-      "Green spaces conceived\nas ecosystems, not decor.",
+      "Green spaces conceived\nas ecosystems, not decor",
     logoSrc: "/acla.png",
     logoWidth: 376,
     logoHeight: 128,
@@ -35,7 +35,7 @@ const partners = [
   {
     name: "ARUTIN BUREAU",
     description:
-      "Interiors and finishes built\nto a premium standard.",
+      "Interiors and finishes built\nto a premium standard",
     logoSrc: "/abureau.png",
     logoWidth: 731,
     logoHeight: 68,
@@ -44,7 +44,7 @@ const partners = [
   {
     name: "Estate Invest Company",
     description:
-      "11 years, over 400,000 m² built\nacross 50 developments in Chișinău.",
+      "11 years, over 400,000 m² built\nacross 50 developments in Chișinău",
     logoSrc: "/eic.png",
     logoWidth: 500,
     logoHeight: 184,
@@ -114,9 +114,15 @@ export default function Partners() {
           OUR PARTNERS
         </h2>
         <p className={styles.subtitle} data-reveal style={revealDelay(100)}>
-          We build alongside teams with proven
-          <br />
-          reputations — each an expert in their field.
+          {/* the break falls before the dash, where the sentence divides
+              (2026-11-25 meeting); one sentence, so no full stop */}
+          <span className={styles.subtitleLine}>
+            We build alongside teams
+            <br className={styles.mobileBreak} /> with proven reputations
+          </span>
+          <span className={styles.subtitleLine}>
+            — each an expert in their field
+          </span>
         </p>
       </header>
 

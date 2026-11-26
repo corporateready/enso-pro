@@ -26,7 +26,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Lansarea <strong>TRIUMF Botanica</strong>, în sectorul Botanica din
-        Chișinău.
+        Chișinău
       </>
     ),
     width: 99,
@@ -38,7 +38,7 @@ const milestones: readonly Milestone[] = [
       <>
         A început dezvoltarea conceptului pentru{" "}
         <strong>unul dintre cele mai mari proiecte ale orașului</strong> — 18,5
-        ha în Ciocana.
+        ha în Ciocana
       </>
     ),
     width: 141,
@@ -49,7 +49,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Am semnat contracte pentru peste <strong>20 de hectare</strong> în
-        Chișinău și am început <strong>primul nostru proiect la Brașov.</strong>
+        Chișinău și am început <strong>primul nostru proiect la Brașov</strong>
       </>
     ),
     width: 124,
@@ -60,7 +60,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Am început să dezvoltăm proiecte care reflectă <strong>valorile noastre și standardul</strong>
-        {" "}pe care îl considerăm esențial.
+        {" "}pe care îl considerăm esențial
       </>
     ),
     width: 145,
@@ -71,7 +71,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         După <strong>20 de ani</strong> ca și co-investitori, am creat ENSŌ —
-        viziunea noastră despre un <strong>dezvoltator modern.</strong>
+        viziunea noastră despre un <strong>dezvoltator modern</strong>
       </>
     ),
     width: 113,
@@ -82,7 +82,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Activăm în investiții imobiliare <strong>din 1999</strong>, ca parteneri
-        și co-investitori în <strong>Moldova și România</strong>.
+        și co-investitori în <strong>Moldova și România</strong>
       </>
     ),
     width: 245,
@@ -295,7 +295,7 @@ export default function Since() {
           </h2>
           <p className={styles.intro} data-reveal style={revealDelay(100)}>
             După două decenii ca și co-investitori în Moldova și România, am
-            creat ENSŌ — propria noastră viziune despre un dezvoltator modern.
+            creat ENSŌ — propria noastră viziune despre un dezvoltator modern
           </p>
         </header>
 

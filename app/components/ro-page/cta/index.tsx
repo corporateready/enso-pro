@@ -59,7 +59,7 @@ export default function CTA() {
           <p className={styles.description} data-reveal style={revealDelay(100)}>
             Programează un apel de 5 minute cu un consultant ENSO —
             <br className={styles.desktopBreak} /> online sau la unul dintre
-            birourile noastre.
+            birourile noastre
           </p>
         </div>
 

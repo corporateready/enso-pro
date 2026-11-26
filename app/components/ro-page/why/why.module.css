@@ -155,10 +155,12 @@
    * the building starts 190 above the plate, the plate is 1920x825; text
    * offsets are from that plate. Figma lifts the building to 30 above the
    * bottom of the button over it; here its roof keeps the gap between
-   * blocks on desktops below the button (--block-gap, globals.css). The
-   * title is 29 lower and the award 29.5 higher than Figma has them, so
-   * the award starts 64 under the title as every block's content does
-   * (the client's call, 2026-11-23).
+   * blocks on desktops below the button (--block-gap, globals.css). Title
+   * and award stand where Figma has them: 80 under the plate's top edge,
+   * then 100 to the award, 68 from it to the figures. (2026-11-23 they had
+   * been moved to the site's usual 64 under a title, which left the title
+   * low, close to the award and far from the edge; the 2026-11-25 meeting
+   * put it back up.)
    */
   .section {
     position: relative;
@@ -210,7 +212,7 @@
 
   .title {
     position: absolute;
-    top: 299rem;
+    top: 270rem;
     left: 160rem;
     margin: 0;
     font-size: 64rem;
@@ -224,7 +226,7 @@
 
   .award {
     position: absolute;
-    top: 500.4rem;
+    top: 529.9rem;
     left: 160rem;
     width: 379.4rem;
     height: 166.1rem;

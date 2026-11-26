@@ -89,6 +89,7 @@
   pointer-events: none;
 }
 
+
 .soon::before,
 .building::before {
   animation: project-status-beat 2s cubic-bezier(0.25, 0.6, 0.4, 1) infinite;
@@ -410,5 +411,36 @@
 @media (max-width: 640px) {
   .title:lang(ru) {
     font-size: 30rem;
+  }
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+/* the label goes up to the pill's middle; the dot, laid out with it, is set
+   back there too, and the ring round it never left (until 2026-11-26 the
+   dot and ring went down to the label's small letters instead) */
+@media screen and (max-width: 640px) {
+  .status {
+    padding-bottom: 1.8rem;
+  }
+
+  .status::before {
+    translate: 0 0.9rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .status {
+    padding-bottom: 2rem;
+  }
+
+  .status::before {
+    translate: 0 1rem;
   }
 }

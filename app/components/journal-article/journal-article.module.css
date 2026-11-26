@@ -396,10 +396,8 @@
   content: "";
 }
 
-.moreCard:hover .moreLink,
-.moreLink:focus-visible {
-  color: #0e3477;
-}
+/* no colour change under the mouse, as on the journal's cards
+   (2026-11-25 meeting) */
 
 .moreLink:focus-visible {
   outline: none;

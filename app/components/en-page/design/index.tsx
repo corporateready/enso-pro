@@ -31,14 +31,14 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
       badge: "No surprises",
       title: "Feasibility checked before\nyou commit",
       description:
-        "Costs and returns are modelled before construction —\ncheck the numbers before\nyou commit.",
+        "Costs and returns are modelled before construction —\ncheck the numbers before\nyou commit",
     },
     {
       number: "03",
       badge: "Lifetime asset",
       title: "Lower operating\ncosts for life",
       description:
-        "The model stays live after handover, cutting maintenance and operating costs for years.",
+        "The model stays live after handover, cutting maintenance and operating costs for years",
     },
   ],
   buyers: [
@@ -47,21 +47,21 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
       badge: "Built right, once",
       title: "Errors caught before\nconstruction",
       description:
-        "All systems coordinated in one model — no clashes in your home.",
+        "All systems coordinated in one model — no clashes in your home",
     },
     {
       number: "05",
       badge: "See it first",
       title: "Faster project\ndelivery",
       description:
-        "No rework, no stoppages — your home is ready sooner.",
+        "No rework, no stoppages — your home is ready sooner",
     },
     {
       number: "06",
       badge: "Lower bills",
       title: "Plan your space\nto the centimetre",
       description:
-        "Exact dimensions from day one — plan furniture and finishes with no guesswork.",
+        "Exact dimensions from day one — plan furniture and finishes with no guesswork",
     },
   ],
 };
@@ -216,11 +216,16 @@ export default function Design() {
           <p className={styles.intro} data-reveal style={revealDelay(100)}>
             Most projects are still drawn in 2D, where{" "}
             <br />
-            problems surface on site. We model ours in 3D{" "}
+            problems surface on site.{" "}
             <br />
-            first — BIM, the international standard —{" "}
             <br />
-            so they&apos;re solved on screen, not in concrete
+            <span className={styles.introNext}>
+              We model ours in 3D first — BIM, the{" "}
+              <br />
+              international standard — so they&apos;re{" "}
+              <br />
+              solved on screen, not in concrete.
+            </span>
           </p>
         </header>
 

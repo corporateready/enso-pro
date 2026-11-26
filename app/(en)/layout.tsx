@@ -4,7 +4,7 @@ import RootDocument from "../root-document";
 
 export const metadata: Metadata = {
   title: "ENSO DEVELOPMENT",
-  description: "Premium project with Carpathian view",
+  description: "Premium project with Carpathian views",
 };
 
 export default function EnglishLayout({ children }: LayoutProps<"/">) {

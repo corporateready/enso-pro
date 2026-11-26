@@ -137,11 +137,15 @@
     object-fit: cover;
   }
 
+  /* The picture has a pixel of transparent edge at its foot and its right:
+     set 1 further out, so the building itself meets the footer and the
+     page's edge, with no strip of sky between (2026-11-25 meeting). The
+     page clips the overhang (overflow-x: clip). */
   .buildingImage {
     position: absolute;
     z-index: 1;
-    right: 0;
-    bottom: 0.5rem;
+    right: -1rem;
+    bottom: -1rem;
     display: block;
     width: 676rem;
     height: 969.5rem;
@@ -367,5 +371,25 @@
 @media (prefers-reduced-motion: reduce) {
   .directAction::after {
     display: none;
+  }
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  .action {
+    padding-bottom: 3rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .action {
+    padding-bottom: 5.9rem;
   }
 }

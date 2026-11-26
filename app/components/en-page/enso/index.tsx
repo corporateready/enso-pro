@@ -93,9 +93,12 @@ export default function Enso() {
         />
         <Image
           className={`${styles.background} ${styles.desktopImage}`}
-          src="/enso-desktop-bg.avif"
-          width={7680}
-          height={3332}
+          // the garden sharp since 2026-11-26: only the laptop's screen is
+          // blurred now (it was both, "a double blur", at the 2026-11-25
+          // meeting); composited from Figma's layers at 2x
+          src="/enso-desktop-bg-sharp.avif"
+          width={3840}
+          height={1666}
           sizes="(min-width: 641px) 100vw, 1px"
           alt=""
         />
@@ -129,7 +132,7 @@ export default function Enso() {
             Everything about your property,
             <br className={styles.desktopBreak} /> in one place
             <br className={styles.mobileBreak} /> — prices, documents,
-            <br className={styles.desktopBreak} /> and your ENSO team.
+            <br className={styles.desktopBreak} /> and your ENSO team
           </p>
 
           <ul className={styles.features}>

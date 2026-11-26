@@ -16,14 +16,12 @@ import styles from "./journal-page.module.css";
  * to a row on a desktop and one under another on a phone, with the home
  * block's categories to filter them. The articles are the home block's own
  * list (ro-page/journal and the others), so an article added there is here
- * too. Nine are shown at first and "more" brings the next nine, so the page
- * stays a reasonable length however many there come to be; a category with
- * nothing in it yet says so.
+ * too. All of them show at once, with no "more articles" button (the
+ * client's call of 2026-11-26; there had been nine at first and nine more
+ * a press); a category with nothing in it yet says so.
  */
 
 type Locale = "ro" | "ru" | "en";
-
-const PAGE_SIZE = 9;
 
 const content: Record<
   Locale,
@@ -33,7 +31,6 @@ const content: Record<
     // the home block's subtitle, which Figma words differently on phones
     subtitle: { desktop: string; phone: string };
     filters: string;
-    more: string;
     empty: string;
   }
 > = {
@@ -45,8 +42,7 @@ const content: Record<
       phone: "Despre cum construim și cum gândim",
     },
     filters: "Filtrează articolele",
-    more: "Mai multe articole",
-    empty: "În această categorie nu sunt încă articole.",
+    empty: "În această categorie nu sunt încă articole",
   },
   ru: {
     articles: ru.siteArticles,
@@ -56,8 +52,7 @@ const content: Record<
       phone: "О том, как мы строим и как думаем",
     },
     filters: "Фильтр статей журнала",
-    more: "Ещё статьи",
-    empty: "В этой категории статей пока нет.",
+    empty: "В этой категории статей пока нет",
   },
   en: {
     articles: en.siteArticles,
@@ -67,8 +62,7 @@ const content: Record<
       phone: "Notes on building and how we think",
     },
     filters: "Filter journal articles",
-    more: "More articles",
-    empty: "There are no articles in this category yet.",
+    empty: "There are no articles in this category yet",
   },
 };
 
@@ -134,7 +128,6 @@ function ArticleCard({
 export default function JournalPage({ locale }: { locale: Locale }) {
   const text = content[locale];
   const [category, setCategory] = useState<ro.JournalCategory>("all");
-  const [shown, setShown] = useState(PAGE_SIZE);
   // a choice of category brings its cards in; the first ones come with the
   // page's own reveal
   const [hasFiltered, setHasFiltered] = useState(false);
@@ -142,7 +135,6 @@ export default function JournalPage({ locale }: { locale: Locale }) {
   const matching = text.articles.filter(
     (article) => category === "all" || article.category === category,
   );
-  const visible = matching.slice(0, shown);
 
   return (
     <section
@@ -178,7 +170,6 @@ export default function JournalPage({ locale }: { locale: Locale }) {
             style={revealDelay(150 + index * 70)}
             onClick={(event) => {
               setCategory(item.id);
-              setShown(PAGE_SIZE);
               setHasFiltered(true);
               // on a phone the row is swiped: the chosen one comes into view
               event.currentTarget.scrollIntoView({
@@ -197,12 +188,12 @@ export default function JournalPage({ locale }: { locale: Locale }) {
       </div>
 
       <div id="journal-page-articles" aria-live="polite">
-        {visible.length > 0 ? (
+        {matching.length > 0 ? (
           <div
             className={`${styles.grid} ${hasFiltered ? styles.gridChanged : ""}`}
             key={category}
           >
-            {visible.map((article, index) => (
+            {matching.map((article, index) => (
               <ArticleCard
                 article={article}
                 index={index}
@@ -216,15 +207,6 @@ export default function JournalPage({ locale }: { locale: Locale }) {
         )}
       </div>
 
-      {matching.length > shown && (
-        <button
-          className={`${styles.more} motion-button`}
-          type="button"
-          onClick={() => setShown((count) => count + PAGE_SIZE)}
-        >
-          {text.more}
-        </button>
-      )}
     </section>
   );
 }

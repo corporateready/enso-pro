@@ -11,6 +11,9 @@
     flex: 0 0 558rem;
     margin-top: 61.8rem;
     overflow: hidden;
+    /* sideways only: the title sits on the block's top edge, and the
+       breve over its Ă stands above it (it was cut off until 2026-11-26) */
+    overflow: clip visible;
     color: #000;
     background: #fff;
   }
@@ -20,6 +23,7 @@
     width: 390rem;
     height: 558rem;
     overflow: hidden;
+    overflow: clip visible;
   }
 
   .header {
@@ -214,117 +218,76 @@
 
 @media screen and (min-width: 641px) {
   /*
-   * From the Figma frame (Desktop > OUR TEAM): title 160 down, intro and the
-   * member column 117 below it, dots 797 below it. The member column is the
-   * 800-wide viewport at x 960; each member's text is centred on its avatar,
-   * and members sit where Figma puts them (the pitch differs per slide).
+   * The six at once (asked at the 2026-11-25 meeting, chosen 2026-11-26):
+   * the title across, the first intro paragraph under it (the second is a
+   * phone's only, asked 2026-11-26), then the members in two columns at
+   * x 160 and 960 (where the old pages' member column stood), row by row
+   * in the team's order. The phone's two pages make one grid here, the
+   * pages giving up their own boxes. A seventh member starts a new row on
+   * the left; the block grows with its rows. (Until 2026-11-26 a desktop
+   * paged through three at a time, as a phone still does.)
    */
   .section,
   .inner {
     position: relative;
     width: 100%;
-    height: calc(990rem - var(--block-gap-cut));
     overflow: hidden;
     color: #000;
     background: #fff;
   }
 
+  .inner {
+    /* 29.5 under the last row: 140 from its photos to the next block, the gap between blocks everywhere */
+    padding: calc(160rem - var(--block-gap-cut)) 160rem 29.5rem;
+  }
+
   .header {
-    position: absolute;
-    top: calc(160rem - var(--block-gap-cut));
-    left: 160rem;
-    width: 753rem;
+    display: grid;
+    grid-template-columns: 800rem 800rem;
     font-family: var(--font-inter), sans-serif;
   }
 
   .title {
+    grid-column: 1 / -1;
     margin: 0;
     font-size: 64rem;
     font-weight: 600;
     line-height: 1.2;
   }
 
-  .intro,
-  .introSecondary {
+  .intro {
+    width: 753rem;
     margin: 40.2rem 0 0;
     font-size: 36rem;
     line-height: 1.2;
   }
 
-  /* the blank line between Figma's two paragraphs */
-  .introSecondary {
-    margin-top: 43.2rem;
+  .intro br {
+    display: none;
   }
 
-  .intro br,
-  .introSecondary br {
+  /* "One team, one standard…" stays on a phone only (asked 2026-11-26); the
+     first paragraph has as many lines, so the people below do not move */
+  .introSecondary {
     display: none;
   }
 
   .pagination {
-    position: absolute;
-    top: calc(955rem - var(--block-gap-cut));
-    left: 1393rem;
-    display: flex;
-    gap: 16rem;
-    transform: translateX(-50%);
-  }
-
-  .dot {
-    width: 20rem;
-    height: 20rem;
-    flex: 0 0 20rem;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: #d9d9d9;
-    cursor: pointer;
-    transition: background-color 180ms ease, transform 180ms ease;
-  }
-
-  .dotActive {
-    background: #000;
-  }
-
-  .dot:focus-visible {
-    outline: 2rem solid #2864d7;
-    outline-offset: 3rem;
-  }
-
-  .viewport {
-    position: absolute;
-    top: calc(277rem - var(--block-gap-cut));
-    left: 960rem;
-    width: 800rem;
-    height: 613rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .viewport::-webkit-scrollbar {
     display: none;
   }
 
-  .track {
-    display: flex;
-    height: 100%;
+  .viewport {
+    margin-top: 96rem;
   }
 
-  /* three members down a page, as on the phone: the photo, and the text
-     beside it centred on it */
+  .track {
+    display: grid;
+    grid-template-columns: 800rem 800rem;
+    gap: 56rem 0;
+  }
+
   .slide {
-    display: flex;
-    width: 800rem;
-    height: 613rem;
-    flex: 0 0 800rem;
-    flex-direction: column;
-    gap: 36rem;
-    padding-left: 34.9rem;
-    scroll-snap-align: start;
+    display: contents;
   }
 
   .member {

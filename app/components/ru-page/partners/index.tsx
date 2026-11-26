@@ -8,7 +8,7 @@ const partners = [
   {
     name: "Archimatika",
     description:
-      "Более 5\u00a0млн\u00a0м² проектов.\nЖильё с\u00a0международными\nнаградами.",
+      "Более 5\u00a0млн\u00a0м² спроектировано,\nпроекты с\u00a0мировыми наградами",
     logoSrc: "/arch 2.png",
     logoWidth: 760,
     logoHeight: 108,
@@ -17,7 +17,7 @@ const partners = [
   {
     name: "INAMSTRO",
     description:
-      "70 жилых домов сдано \nв\u00a05\u00a0странах за\u00a020\u00a0лет.",
+      "70 жилых домов сдано \nв\u00a05\u00a0странах за\u00a020\u00a0лет",
     logoSrc: "/inamstro.png",
     logoWidth: 666,
     logoHeight: 112,
@@ -26,7 +26,7 @@ const partners = [
   {
     name: "acla",
     description:
-      "Зелёные зоны как экосистемы,\nа не как декор.",
+      "Зелёные зоны как экосистемы,\nа не как декор",
     logoSrc: "/acla.png",
     logoWidth: 376,
     logoHeight: 128,
@@ -35,7 +35,7 @@ const partners = [
   {
     name: "ARUTIN BUREAU",
     description:
-      "Интерьеры и отделка \nпремиального уровня.",
+      "Интерьеры и отделка \nпремиального уровня",
     logoSrc: "/abureau.png",
     logoWidth: 731,
     logoHeight: 68,
@@ -44,7 +44,7 @@ const partners = [
   {
     name: "Estate Invest Company",
     description:
-      "11\u00a0лет и более 400\u00a0000\u00a0м²\u2028в\u00a050\u00a0проектах в\u00a0Кишинёве.",
+      "11\u00a0лет и более 400\u00a0000\u00a0м²\u2028в\u00a050\u00a0проектах в\u00a0Кишинёве",
     logoSrc: "/eic.png",
     logoWidth: 500,
     logoHeight: 184,
@@ -114,11 +114,14 @@ export default function Partners() {
           НАШИ ПАРТНЁРЫ
         </h2>
         <p className={styles.subtitle} data-reveal style={revealDelay(100)}>
+          {/* the break falls before the dash, where the sentence divides
+              (2026-11-25 meeting); one sentence, so no full stop */}
           <span className={styles.subtitleLine}>
-            Строим с командами с подтверждённой
+            Строим с командами
+            <br className={styles.mobileBreak} /> с подтверждённой репутацией
           </span>
           <span className={styles.subtitleLine}>
-            репутацией — экспертами в своём деле.
+            — экспертами в своём деле
           </span>
         </p>
       </header>

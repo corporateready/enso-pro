@@ -55,8 +55,7 @@
   background: #000;
 }
 
-.filter:focus-visible,
-.more:focus-visible {
+.filter:focus-visible {
   outline: 2rem solid #2864d7;
   outline-offset: 3rem;
 }
@@ -127,20 +126,6 @@
 .empty {
   margin: 0;
   color: #717171;
-}
-
-.more {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #000;
-  border-radius: 999rem;
-  color: #000;
-  background: #fff;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
-  line-height: 1;
 }
 
 /* A phone: one card under another; the pills a row to swipe, as on the
@@ -231,13 +216,6 @@
     font-size: 16rem;
     line-height: 19.2rem;
   }
-
-  .more {
-    width: 358rem;
-    height: 50rem;
-    margin: 24rem 16rem 0;
-    font-size: 20rem;
-  }
 }
 
 /* A desktop: three cards to a row on the 1600 grid, the title and pills as
@@ -313,20 +291,6 @@
     font-size: 24rem;
     line-height: 30rem;
   }
-
-  .more {
-    width: 500rem;
-    height: 80rem;
-    margin: 60rem auto 0;
-    font-size: 28rem;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .more:hover {
-    color: #fff;
-    background: #111;
-  }
 }
 
 @keyframes journal-page-cards {
@@ -361,12 +325,38 @@
   inset: 0;
 }
 
-.card:hover .cardLink,
-.cardLink:focus-visible {
-  color: #0e3477;
-}
+/* no colour change under the mouse: the title stays black, the hand
+   cursor is the sign (2026-11-25 meeting) */
 
 .cardLink:focus-visible {
   outline: 2rem solid #2864d7;
   outline-offset: 2rem;
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  .filter {
+    padding-bottom: 1.5rem;
+  }
+
+  .badge {
+    padding-bottom: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .filter {
+    padding-bottom: 1.25rem;
+  }
+
+  .badge {
+    padding-bottom: 1.3rem;
+  }
 }

@@ -415,3 +415,39 @@
     }
   }
 }
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  .feature {
+    padding-bottom: 1.5rem;
+  }
+
+  .featureIcon {
+    translate: 0 0.75rem;
+  }
+
+  .accountLink {
+    padding-bottom: 3rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .feature {
+    padding-bottom: 2rem;
+  }
+
+  .featureIcon {
+    translate: 0 1rem;
+  }
+
+  .accountLink {
+    padding-bottom: 5.9rem;
+  }
+}

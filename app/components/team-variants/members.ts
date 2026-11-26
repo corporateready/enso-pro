@@ -34,7 +34,7 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       years: "12 ani",
       about:
         "Strategii pentru proiecte însumând peste 3 000 de apartamente și 20 000 m² de birouri.",
-      imageSrc: "/team-denis-vasiliev-v2.webp",
+      imageSrc: "/team-denis-vasiliev-v3.webp",
     },
   ],
   [

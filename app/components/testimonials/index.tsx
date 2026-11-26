@@ -8,8 +8,9 @@ import styles from "./testimonials.module.css";
  * What clients say, one block for all the languages: Figma's cards, three to
  * a screen on a desktop and a swipe row on a phone (reviews-row.tsx), restyled
  * at the client's call. Figma had three; the investors' words from the
- * client's presentation (November 2026) were added to them, and the reviews
- * stand in the order of the year each has been with ENSO since. The cards are pale and flat in place of white with a shadow, the
+ * client's presentation (November 2026) were added to them. Figma's three
+ * come first, the investor and the two owners (the 2026-11-25 meeting), and
+ * the two added follow. The cards are pale and flat in place of white with a shadow, the
  * role badge (which only repeated the role) is gone, and the name sits by
  * its initials at the foot. Figma's five stars lead each card (for a while
  * a quote mark stood there; the client wanted the stars back), drawn here:
@@ -55,13 +56,6 @@ const content: Record<
       },
       {
         quote:
-          "Cei mai constructivi profesioniști cu care am avut ocazia să colaborez în domeniul investițiilor imobiliare.",
-        name: "Moti Frenkel",
-        role: "Antreprenor, investitor diversificat, Israel",
-        since: 2018,
-      },
-      {
-        quote:
           "Planul pe care l-am semnat este apartamentul pe care l-am primit. Fiecare centimetru a corespuns proiectului — nu a fost nimic de renegociat pe șantier.",
         name: "Mariana Anghel",
         role: "Proprietar de apartament",
@@ -69,17 +63,24 @@ const content: Record<
       },
       {
         quote:
-          "Am colaborat în trei proiecte. Am fost impresionat de profesionalismul lor.",
-        name: "Igor Corman",
-        role: "Fost ambasador al Republicii Moldova în Germania",
-        since: 2020,
-      },
-      {
-        quote:
           "Am ales graficul de plată înainte să alegem etajul. Doi ani mai târziu, nicio rată nu s-a schimbat.",
         name: "Denis Covalenco",
         role: "Proprietar de apartament",
         since: 2022,
+      },
+      {
+        quote:
+          "Cei mai constructivi profesioniști cu care am avut ocazia să colaborez în domeniul investițiilor imobiliare",
+        name: "Moti Frenkel",
+        role: "Antreprenor, investitor diversificat, Israel",
+        since: 2018,
+      },
+      {
+        quote:
+          "Am colaborat în trei proiecte. Am fost impresionat de profesionalismul lor.",
+        name: "Igor Corman",
+        role: "Fost ambasador al Republicii Moldova în Germania",
+        since: 2020,
       },
     ],
   },
@@ -100,13 +101,6 @@ const content: Record<
       },
       {
         quote:
-          "Самые конструктивные профессионалы, с которыми мне доводилось работать в сфере инвестиций в недвижимость.",
-        name: "Моти Френкель",
-        role: "Предприниматель и инвестор, Израиль",
-        since: 2018,
-      },
-      {
-        quote:
           "План, который я подписала, и есть квартира, которую я получила. Каждый сантиметр совпал с проектом, на стройке ничего не пришлось менять.",
         name: "Мариана Ангел",
         role: "Владелица квартиры",
@@ -114,17 +108,24 @@ const content: Record<
       },
       {
         quote:
-          "Мы сотрудничали в трёх проектах. Меня впечатлил их профессионализм.",
-        name: "Игорь Корман",
-        role: "Бывший посол Республики Молдова в Германии",
-        since: 2020,
-      },
-      {
-        quote:
           "График платежей мы выбрали раньше этажа. Два года спустя ни один платёж не изменился.",
         name: "Денис Коваленко",
         role: "Владелец квартиры",
         since: 2022,
+      },
+      {
+        quote:
+          "Самые конструктивные профессионалы, с которыми мне доводилось работать в сфере инвестиций в недвижимость",
+        name: "Моти Френкель",
+        role: "Предприниматель и инвестор, Израиль",
+        since: 2018,
+      },
+      {
+        quote:
+          "Мы сотрудничали в трёх проектах. Меня впечатлил их профессионализм.",
+        name: "Игорь Корман",
+        role: "Бывший посол Республики Молдова в Германии",
+        since: 2020,
       },
     ],
   },
@@ -145,13 +146,6 @@ const content: Record<
       },
       {
         quote:
-          "The most constructive professionals I have had the chance to work with in real estate investment.",
-        name: "Moti Frenkel",
-        role: "Entrepreneur, diversified investor, Israel",
-        since: 2018,
-      },
-      {
-        quote:
           "The plan I signed is the apartment I received. Every centimetre matched the drawings — nothing had to be renegotiated on site.",
         name: "Mariana Anghel",
         role: "Apartment owner",
@@ -159,17 +153,24 @@ const content: Record<
       },
       {
         quote:
-          "We have worked together on three projects. I was impressed by their professionalism.",
-        name: "Igor Corman",
-        role: "Former ambassador of the Republic of Moldova to Germany",
-        since: 2020,
-      },
-      {
-        quote:
           "We chose the payment schedule before we chose the floor. Two years later, not one instalment changed.",
         name: "Denis Covalenco",
         role: "Apartment owner",
         since: 2022,
+      },
+      {
+        quote:
+          "The most constructive professionals I have had the chance to work with in real estate investment",
+        name: "Moti Frenkel",
+        role: "Entrepreneur, diversified investor, Israel",
+        since: 2018,
+      },
+      {
+        quote:
+          "We have worked together on three projects. I was impressed by their professionalism.",
+        name: "Igor Corman",
+        role: "Former ambassador of the Republic of Moldova to Germany",
+        since: 2020,
       },
     ],
   },

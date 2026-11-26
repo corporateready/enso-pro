@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
+import { usePhoneLayout } from "../../use-phone-layout";
 import styles from "./team.module.css";
 
 type TeamMember = {
@@ -22,14 +23,14 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       name: "Viorel Benderschi, MBA",
       role: "Co-founder",
       years: "27 years in investment and finance",
-      about: "Developed projects for NCH Capital, ZORILE and ARTIMA.",
+      about: "Developed projects for NCH Capital, ZORILE and ARTIMA",
     },
     {
       name: "Maxim Dumbrava",
       role: "Managing partner",
       years: "16 years in real estate development",
       about:
-        "Led Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE and ENSO LIVING Brasov.",
+        "Led Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE and ENSO LIVING Brasov",
       imageSrc: "/team-maxim-dumbrava-v2.webp",
     },
     {
@@ -37,8 +38,8 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Marketing, sales and IT",
       years: "12 years",
       about:
-        "Strategies for projects totalling over 3,000 apartments and 20,000 m² of offices.",
-      imageSrc: "/team-denis-vasiliev-v2.webp",
+        "Strategies for projects totalling over 3,000 apartments and 20,000 m² of offices",
+      imageSrc: "/team-denis-vasiliev-v3.webp",
     },
   ],
   [
@@ -47,21 +48,21 @@ const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Architecture, project management",
       years: "18 years",
       about:
-        "Residential, commercial and cultural developments, including for the Presidential Administration of the Republic of Moldova.",
+        "Residential, commercial and cultural developments, including for the Presidential Administration of the Republic of Moldova",
       imageSrc: "/team-vladimir-ostrovoi-v2.webp",
     },
     {
       name: "Zinaida Dumbrava",
       role: "Client relations",
       years: "20 years",
-      about: "Two decades of experience in client relationship management.",
+      about: "Two decades of experience in client relationship management",
       imageSrc: "/team-zinaida-dumbrava-v2.webp",
     },
     {
       name: "Vitalie Șeremet",
       role: "Construction management, condominium administration",
       years: "20 years",
-      about: "Economist; has led teams of up to 800 people.",
+      about: "Economist; has led teams of up to 800 people",
       imageSrc: "/team-vitalie-seremet-v2.webp",
     },
   ],
@@ -107,7 +108,10 @@ function TeamPhoto({ member }: { member: TeamMember }) {
   );
 }
 
+// A phone pages through the team three at a time; a desktop shows the six at
+// once, so there no page is hidden from a screen reader.
 export default function Team() {
+  const phone = usePhoneLayout();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -149,12 +153,12 @@ export default function Team() {
             <br />
             land, design, construction, sales, asset{" "}
             <br />
-            management.
+            management
           </p>
           <p className={styles.introSecondary} data-reveal style={revealDelay(200)}>
             One team, one standard, full responsibility from{" "}
             <br />
-            first sketch to final handover.
+            first sketch to final handover
           </p>
         </header>
 
@@ -179,7 +183,7 @@ export default function Team() {
           data-reveal-group
           onScroll={updateActiveSlide}
           aria-label="Team members"
-          aria-roledescription="carousel"
+          aria-roledescription={phone ? "carousel" : undefined}
         >
           <div className={styles.track}>
             {teamSlides.map((members, slideIndex) => (
@@ -187,9 +191,11 @@ export default function Team() {
                 className={styles.slide}
                 key={slideIndex}
                 role="group"
-                aria-roledescription="slide"
-                aria-label={`${slideIndex + 1} of ${teamSlides.length}`}
-                aria-hidden={activeSlide !== slideIndex}
+                aria-roledescription={phone ? "slide" : undefined}
+                aria-label={
+                  phone ? `${slideIndex + 1} of ${teamSlides.length}` : undefined
+                }
+                aria-hidden={phone && activeSlide !== slideIndex ? true : undefined}
               >
                 {members.map((member, memberIndex) => (
                   <article

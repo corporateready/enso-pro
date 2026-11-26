@@ -62,11 +62,15 @@ export default function OfferModal({ onClose }: OfferModalProps) {
         />
 
         <h2 id="offer-modal-title" className={styles.title}>
+          {/* broken where the phrase divides ("ȘI O" had hung at a line's
+              end) */}
           PRIMEȘTE INSTANT
           <br />
-          PREZENTAREA PDF ȘI O
+          PREZENTAREA PDF
           <br />
-          OFERTĂ ÎN CÂTEVA MINUTE
+          ȘI O OFERTĂ
+          <br />
+          ÎN CÂTEVA MINUTE
         </h2>
 
         <form className={styles.form} onSubmit={handleSubmit}>

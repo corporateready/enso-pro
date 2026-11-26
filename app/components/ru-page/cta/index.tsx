@@ -60,7 +60,7 @@ export default function CTA() {
             Запишитесь на 5-минутный звонок с{"\u00a0"}консультантом ENSO
             {"\u00a0"}—
             <br className={styles.desktopBreak} /> онлайн или в{"\u00a0"}одном
-            из{"\u00a0"}наших офисов.
+            из{"\u00a0"}наших офисов
           </p>
         </div>
 

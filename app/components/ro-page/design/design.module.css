@@ -350,6 +350,14 @@
     display: none;
   }
 
+  /* the intro's second sentence starts a line of its own (2026-11-25
+     meeting: a subtitle of two sentences, one sentence a line); on phones
+     the <br>s already set it apart */
+  .introNext {
+    display: block;
+    margin-top: 18rem;
+  }
+
   /* The asset is Figma's own render of what shows of "image 33": its
      782x489 box starts 51 above the frame, which cuts it to 782x438 at the
      frame's top (160 here). Letterboxing it in the full box set it 25 high. */
@@ -671,5 +679,33 @@
      have to be wide enough. */
   .cards[data-tab="buyers"] .card:nth-child(n) h3:lang(ru) {
     width: 410rem;
+  }
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  .tabButton {
+    padding-bottom: 0.8rem;
+  }
+
+  .badge {
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .tabButton {
+    padding-bottom: 2.4rem;
+  }
+
+  .badge {
+    padding-bottom: 2.2rem;
   }
 }

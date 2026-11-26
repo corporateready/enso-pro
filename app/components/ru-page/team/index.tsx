@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
+import { usePhoneLayout } from "../../use-phone-layout";
 import { teamSlides, type TeamMember } from "./members";
 import styles from "../../ro-page/team/team.module.css";
 
@@ -47,7 +48,10 @@ function TeamPhoto({ member }: { member: TeamMember }) {
   );
 }
 
+// A phone pages through the team three at a time; a desktop shows the six at
+// once, so there no page is hidden from a screen reader.
 export default function Team() {
+  const phone = usePhoneLayout();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -89,14 +93,14 @@ export default function Team() {
             <br />
             проектирование, строительство, продажи,{" "}
             <br />
-            управление активами.
+            управление активами
           </p>
           <p className={styles.introSecondary} data-reveal style={revealDelay(200)}>
             Одна команда, один стандарт,{" "}
             <br />
             полная ответственность от первого эскиза{" "}
             <br />
-            до передачи ключей.
+            до передачи ключей
           </p>
         </header>
 
@@ -121,7 +125,7 @@ export default function Team() {
           data-reveal-group
           onScroll={updateActiveSlide}
           aria-label="Члены команды"
-          aria-roledescription="carousel"
+          aria-roledescription={phone ? "carousel" : undefined}
         >
           <div className={styles.track}>
             {teamSlides.map((members, slideIndex) => (
@@ -129,9 +133,11 @@ export default function Team() {
                 className={styles.slide}
                 key={slideIndex}
                 role="group"
-                aria-roledescription="slide"
-                aria-label={`${slideIndex + 1} из ${teamSlides.length}`}
-                aria-hidden={activeSlide !== slideIndex}
+                aria-roledescription={phone ? "slide" : undefined}
+                aria-label={
+                  phone ? `${slideIndex + 1} из ${teamSlides.length}` : undefined
+                }
+                aria-hidden={phone && activeSlide !== slideIndex ? true : undefined}
               >
                 {members.map((member, memberIndex) => (
                   <article

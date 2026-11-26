@@ -5,7 +5,6 @@ import Image from "next/image";
 import { createPortal } from "react-dom";
 
 import styles from "../../ro-page/hero/offer-modal.module.css";
-import localeStyles from "./offer-modal.module.css";
 import { lockPageScroll } from "../../scroll-lock";
 
 type OfferModalProps = {
@@ -37,13 +36,13 @@ export default function OfferModal({ onClose }: OfferModalProps) {
   return createPortal(
     <div className={styles.overlay}>
       <section
-        className={`${styles.dialog} ${localeStyles.dialog}`}
+        className={styles.dialog}
         role="dialog"
         aria-modal="true"
         aria-labelledby="offer-modal-title-en"
       >
         <button
-          className={`${styles.closeButton} ${localeStyles.closeButton}`}
+          className={styles.closeButton}
           type="button"
           onClick={onClose}
           aria-label="Close form"
@@ -63,11 +62,14 @@ export default function OfferModal({ onClose }: OfferModalProps) {
         />
 
         <h2 id="offer-modal-title-en" className={styles.title}>
+          {/* broken where the phrase divides */}
           GET YOUR INSTANT
           <br />
-          PDF PRESENTATION AND
+          PDF PRESENTATION
           <br />
-          AN OFFER IN MINUTES
+          AND AN OFFER
+          <br />
+          IN MINUTES
         </h2>
 
         <form className={styles.form} onSubmit={handleSubmit}>

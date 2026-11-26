@@ -678,9 +678,9 @@
   .content {
     position: absolute !important;
     z-index: 3;
-    /* 30 above Figma's 597: the eyebrow and button gaps below grew to the
-       title's own line gap, and the buttons stay where Figma has them */
-    top: min(567rem, max(140rem, calc(100svh - 483rem))) !important;
+    /* 47.8 above Figma's 597, so the buttons stay where Figma has them
+       with the gaps below (2026-11-25 meeting) */
+    top: min(549.2rem, max(140rem, calc(100svh - 500.8rem))) !important;
     right: auto !important;
     bottom: auto !important;
     left: 160rem !important;
@@ -691,10 +691,11 @@
   }
 
   .eyebrow {
-    /* the gap under the eyebrow is the title's line gap (45 to the ink;
-       8.4 with Mignon itself, 14.4 had been set for the Times it fell back
-       to while the font's files were missing, 2026-11-25) */
-    margin: 0 0 8.4rem !important;
+    /* never one gap throughout (2026-11-25 meeting): the eyebrow is the
+       project's name, so it stands apart from the title, 56 to the ink;
+       the title's two lines are one phrase, 31 apart; and the buttons are
+       further off still, 66 (measured with Mignon, audit-tools/hero_gaps) */
+    margin: 0 0 26.5rem !important;
     font-family: "Mignon", serif !important;
     font-size: 64rem !important;
     font-weight: 400 !important;
@@ -708,7 +709,7 @@
     font-family: var(--font-inter), sans-serif !important;
     font-size: 96rem !important;
     font-weight: 600 !important;
-    line-height: 1.21 !important;
+    line-height: 102rem !important;
     white-space: pre-line;
   }
 
@@ -724,8 +725,8 @@
     flex-direction: row !important;
     align-items: center !important;
     gap: 40rem !important;
-    /* and so is the gap above the buttons */
-    margin: 21.7rem 0 0 !important;
+    /* 66 to the ink above the buttons, see .eyebrow */
+    margin: 49.8rem 0 0 !important;
   }
 
   .primaryAction,
@@ -868,9 +869,9 @@
    * centre with its red dot, and the link 4 right of centre with a 20x9 down chevron.
    */
   .slide:nth-child(3) .content {
-    /* 12.1 below Figma, so the button stays where Figma has it once the gaps
-       below are evened out */
-    top: min(450.1rem, max(132.1rem, calc(100svh - 599.9rem))) !important;
+    /* Figma's own place and gaps (36, 66 and 25 to the ink): title and
+       subtitle a pair, the button apart, its link close under it */
+    top: min(438rem, max(120rem, calc(100svh - 612rem))) !important;
     right: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -887,9 +888,7 @@
 
   .slide:nth-child(3) .description {
     top: auto !important;
-    /* title, subtitle, button and link one gap apart, 45 to the ink, as on
-       slides 1-2 (Figma: 36, 66 and 25) */
-    margin: 9rem 0 0 !important;
+    margin: 0 !important;
     font-size: 62rem !important;
     line-height: 75rem !important;
   }
@@ -897,8 +896,8 @@
   .slide:nth-child(3) .actions {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 40.2rem !important;
-    margin-top: 29.8rem !important;
+    gap: 20rem !important;
+    margin-top: 50.9rem !important;
   }
 
   .slide:nth-child(3) .actions .primaryAction {
@@ -1000,5 +999,38 @@
   :global(html[data-motion]) .slideActive .image {
     scale: none;
     transition: none;
+  }
+}
+
+/*
+ * Labels on the middle of their lowercase letters (the client's rule of
+ * 2026-11-26: the middle of a button or of a framed label runs through the
+ * middle of its small letters, accents and capitals not counted). Inter
+ * centres its capitals, so the small letters sat lower. A padding under the
+ * label, twice what it sat low by (measured at 1920 and 390), lifts the
+ * centred line that much; an icon beside it is set back on the middle.
+ */
+@media screen and (max-width: 640px) {
+  /* !important: a phone's buttons are sized inline (hero/index.tsx); the
+     third slide's second action is a bare link, no frame */
+  .slide:nth-child(n) .primaryAction,
+  .slide:not(:nth-child(3)) .secondaryAction {
+    padding-bottom: 4.2rem !important;
+  }
+
+  .slide:not(:nth-child(3)) .actionIcon {
+    translate: 0 2.1rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .slide:nth-child(n) .actions .primaryAction,
+  .slide:not(:nth-child(3)) .secondaryAction {
+    padding-bottom: 2.9rem !important;
+  }
+
+  .slide:not(:nth-child(3)) .actionIconDesktop,
+  .slide:not(:nth-child(3)) .actionIconDownDesktop {
+    translate: 0 1.45rem;
   }
 }

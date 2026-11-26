@@ -174,7 +174,7 @@ export default function AccountModal({
             PERSONAL ACCOUNT
           </h2>
           <p className={styles.description}>
-            Payments, documents, and messages with the team — all in one place.
+            Payments, documents, and messages with the team — all in one place
           </p>
 
           <form className={styles.form} onSubmit={handleSubmit}>

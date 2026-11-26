@@ -229,8 +229,11 @@
   }
 
   .inner {
+    /* 160 from the left, as the blocks set by left: 160rem: centred, the
+       column moved by half a scrollbar where one takes room off the page
+       and the rem does not follow (2026-11-25, one line for every block) */
     width: 1600rem;
-    margin: 0 auto;
+    margin: 0 0 0 160rem;
   }
 
   .title {

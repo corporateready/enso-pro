@@ -24,21 +24,21 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
       badge: "~5% → aproape zero",
       title: "Milioane economisite înainte\nde construcție",
       description:
-        "Rezerva de ~5% pentru surprizele\nde pe șantier scade spre zero —\nla scara noastră, milioane\neconomisite.",
+        "Rezerva de ~5% pentru surprizele\nde pe șantier scade spre zero —\nla scara noastră, milioane\neconomisite",
     },
     {
       number: "02",
       badge: "Fără surprize",
       title: "Fezabilitate verificată înainte\nsă investești",
       description:
-        "Costuri și randamente modelate înainte de construcție —\nverifici cifrele înainte\nde decizie.",
+        "Costuri și randamente modelate înainte de construcție —\nverifici cifrele înainte\nde decizie",
     },
     {
       number: "03",
       badge: "Activ pe termen lung",
       title: "Costuri de operare mai mici,\npe viață",
       description:
-        "Modelul rămâne activ după predare — reduce costurile\nde mentenanță și operare ani la rând.",
+        "Modelul rămâne activ după predare — reduce costurile\nde mentenanță și operare ani la rând",
     },
   ],
   buyers: [
@@ -47,21 +47,21 @@ const benefits: Record<DesignTab, readonly DesignBenefit[]> = {
       badge: "Corect din prima",
       title: "Erori prinse înainte\nde construcție",
       description:
-        "Toate sistemele coordonate într-un singur model — fără conflicte în locuința ta.",
+        "Toate sistemele coordonate într-un singur model — fără conflicte în locuința ta",
     },
     {
       number: "05",
       badge: "Fără întârzieri",
       title: "Livrare mai rapidă",
       description:
-        "Fără refaceri, fără opriri — locuința ta e gata mai devreme.",
+        "Fără refaceri, fără opriri — locuința ta e gata mai devreme",
     },
     {
       number: "06",
       badge: "La centimetru",
       title: "Îți planifici spațiul\nla centimetru",
       description:
-        "Dimensiuni exacte din prima zi — alegi mobilierul și finisajele fără aproximări.",
+        "Dimensiuni exacte din prima zi — alegi mobilierul și finisajele fără aproximări",
     },
   ],
 };
@@ -219,11 +219,13 @@ export default function Design() {
             în 2D, unde problemele apar abia pe șantier.{" "}
             <br />
             <br />
-            Noi modelăm fiecare proiect ENSO{" "}
-            <br />
-            întâi în 3D — BIM, standardul internațional —{" "}
-            <br />
-            ca să fie rezolvate pe ecran, nu în beton.
+            <span className={styles.introNext}>
+              Noi modelăm fiecare proiect ENSO{" "}
+              <br />
+              întâi în 3D — BIM, standardul internațional —{" "}
+              <br />
+              ca să fie rezolvate pe ecran, nu în beton.
+            </span>
           </p>
         </header>
 

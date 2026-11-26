@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { revealDelay } from "../../motion/reveal";
+import { usePhoneLayout } from "../../use-phone-layout";
 import { teamSlides, type TeamMember } from "./members";
 import styles from "./team.module.css";
 
@@ -47,7 +48,12 @@ function TeamPhoto({ member }: { member: TeamMember }) {
   );
 }
 
+// A phone pages through the team three at a time; a desktop shows the six at
+// once (the 2026-11-25 meeting's ask, chosen 2026-11-26), so there no page
+// is hidden from a screen reader and the block is no carousel.
 export default function Team() {
+  const slides = teamSlides;
+  const phone = usePhoneLayout();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -71,7 +77,7 @@ export default function Team() {
     if (!viewport || viewport.clientWidth === 0) return;
 
     const nextSlide = Math.min(
-      teamSlides.length - 1,
+      slides.length - 1,
       Math.max(0, Math.round(viewport.scrollLeft / viewport.clientWidth)),
     );
     setActiveSlide((current) => (current === nextSlide ? current : nextSlide));
@@ -89,19 +95,19 @@ export default function Team() {
             <br />
              proiectare, construcție, vânzări, administrarea{" "}
             <br />
-             activelor.
+             activelor
           </p>
           <p className={styles.introSecondary} data-reveal style={revealDelay(200)}>
             O singură echipă, un singur standard,{" "}
             <br />
             responsabilitate completă de la prima schiță{" "}
             <br />
-            până la predarea finală.
+            până la predarea finală
           </p>
         </header>
 
         <div className={styles.pagination} data-reveal aria-label="Paginile echipei">
-          {teamSlides.map((_, index) => (
+          {slides.map((_, index) => (
             <button
               className={`${styles.dot} ${
                 activeSlide === index ? styles.dotActive : ""
@@ -121,17 +127,19 @@ export default function Team() {
           data-reveal-group
           onScroll={updateActiveSlide}
           aria-label="Membrii echipei"
-          aria-roledescription="carousel"
+          aria-roledescription={phone ? "carousel" : undefined}
         >
           <div className={styles.track}>
-            {teamSlides.map((members, slideIndex) => (
+            {slides.map((members, slideIndex) => (
               <div
                 className={styles.slide}
                 key={slideIndex}
                 role="group"
-                aria-roledescription="slide"
-                aria-label={`${slideIndex + 1} of ${teamSlides.length}`}
-                aria-hidden={activeSlide !== slideIndex}
+                aria-roledescription={phone ? "slide" : undefined}
+                aria-label={
+                  phone ? `${slideIndex + 1} of ${slides.length}` : undefined
+                }
+                aria-hidden={phone && activeSlide !== slideIndex ? true : undefined}
               >
                 {members.map((member, memberIndex) => (
                   <article

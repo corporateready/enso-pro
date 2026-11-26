@@ -18,14 +18,14 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       name: "Виорел Бендерский, MBA",
       role: "Сооснователь",
       years: "27 лет в инвестициях и финансах",
-      about: "Развивал проекты для NCH Capital, ZORILE и ARTIMA.",
+      about: "Развивал проекты для NCH Capital, ZORILE и ARTIMA",
     },
     {
       name: "Максим Думбрава",
       role: "Управляющий партнёр",
       years: "16 лет в девелопменте недвижимости",
       about:
-        "Руководил проектами Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE и ENSO LIVING Брашов.",
+        "Руководил проектами Diplomat Club, ARTIMA Business & Lifestyle, NEWTON HOUSE и ENSO LIVING Брашов",
       imageSrc: "/team-maxim-dumbrava-v2.webp",
     },
     {
@@ -33,8 +33,8 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Маркетинг, продажи и IT",
       years: "12 лет",
       about:
-        "Стратегии для проектов общим объёмом более 3 000 квартир и 20 000 м² офисов.",
-      imageSrc: "/team-denis-vasiliev-v2.webp",
+        "Стратегии для проектов общим объёмом более 3 000 квартир и 20 000 м² офисов",
+      imageSrc: "/team-denis-vasiliev-v3.webp",
     },
   ],
   [
@@ -43,21 +43,21 @@ export const teamSlides: readonly (readonly TeamMember[])[] = [
       role: "Архитектура, управление проектами",
       years: "18 лет",
       about:
-        "Жилые, коммерческие и культурные объекты, в том числе для Администрации Президента Республики Молдова.",
+        "Жилые, коммерческие и культурные объекты, в том числе для Администрации Президента Республики Молдова",
       imageSrc: "/team-vladimir-ostrovoi-v2.webp",
     },
     {
       name: "Зинаида Думбрава",
       role: "Работа с клиентами",
       years: "20 лет",
-      about: "Два десятилетия опыта в управлении отношениями с клиентами.",
+      about: "Два десятилетия опыта в управлении отношениями с клиентами",
       imageSrc: "/team-zinaida-dumbrava-v2.webp",
     },
     {
       name: "Виталий Шеремет",
       role: "Управление строительством и кондоминиумами",
       years: "20 лет",
-      about: "Экономист; руководил командами до 800 человек.",
+      about: "Экономист; руководил командами до 800 человек",
       imageSrc: "/team-vitalie-seremet-v2.webp",
     },
   ],

@@ -14,9 +14,9 @@ type BookCallModalProps = {
 
 const copy = {
   ro: {
-    title: "PROGRAMEAZĂ O DISCUȚIE",
+    title: "PROGRAMEAZĂ O\u00a0DISCUȚIE",
     close: "Închide formularul",
-    subtitle: "Lasă-ne câteva detalii și un consultant te contactează în scurt timp.",
+    subtitle: "Lasă-ne câteva detalii și un consultant te contactează în scurt timp",
     name: "Nume și prenume",
     email: "E-mail",
     phone: "Număr de telefon",
@@ -27,9 +27,9 @@ const copy = {
     submit: "Programează întâlnirea",
   },
   ru: {
-    title: "ЗАПИСАТЬСЯ НА ЗВОНОК",
+    title: "ЗАПИСАТЬСЯ НА\u00a0ЗВОНОК",
     close: "Закрыть форму",
-    subtitle: "Оставьте пару деталей, и консультант скоро свяжется с вами.",
+    subtitle: "Оставьте пару деталей, и консультант скоро свяжется с вами",
     name: "Имя и фамилия",
     email: "E-mail",
     phone: "Номер телефона",
@@ -42,7 +42,7 @@ const copy = {
   en: {
     title: "BOOK A CALL",
     close: "Close form",
-    subtitle: "Tell us a little, and an advisor will reach out.",
+    subtitle: "Tell us a little, and an advisor will reach out",
     name: "Full Name",
     email: "E-mail",
     phone: "Phone number",

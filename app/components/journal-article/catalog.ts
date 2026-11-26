@@ -136,7 +136,9 @@ const entries: readonly Entry[] = [
   },
   {
     id: "cucorilor-tender-chisinau",
-    category: "investments",
+    // ENSO's own development, not a stake in another's (2026-11-25
+    // meeting: check the categories)
+    category: "projects",
     published: "2026-05", // provisional
     minutes: 2,
     title: {
@@ -271,7 +273,9 @@ const entries: readonly Entry[] = [
   },
   {
     id: "brasov-mixed-use-acquisition",
-    category: "investments",
+    // ENSO's own development, not a stake in another's (2026-11-25
+    // meeting: check the categories)
+    category: "projects",
     published: "2024-12",
     minutes: 3,
     title: {

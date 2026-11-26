@@ -41,7 +41,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Concept development began for <strong>one of the city&apos;s largest projects</strong>
-        {" — "}18.5 ha in Ciocana.
+        {" — "}18.5 ha in Ciocana
       </>
     ),
     width: 121,
@@ -52,7 +52,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         Signed contracts for over <strong>20 hectares</strong> in Chisinau and
-        started our <strong>first project in Brasov.</strong>
+        started our <strong>first project in Brasov</strong>
       </>
     ),
     width: 124,
@@ -63,7 +63,7 @@ const milestones: readonly Milestone[] = [
     description: (
       <>
         We began developing projects that reflect <strong>our values and the standard</strong>
-        {" "}we consider essential.
+        {" "}we consider essential
       </>
     ),
     width: 145,
@@ -77,7 +77,7 @@ const milestones: readonly Milestone[] = [
         <br />
         we created ENSŌ — our own
         <br />
-        vision of a <strong>modern developer.</strong>
+        vision of a <strong>modern developer</strong>
       </>
     ),
     width: 133,
@@ -89,7 +89,7 @@ const milestones: readonly Milestone[] = [
       <>
         Operating in real estate investment <strong>since 1999</strong>,
         <br />
-        as partners and co-investors across <strong>Moldova and Romania</strong>.
+        as partners and co-investors across <strong>Moldova and Romania</strong>
       </>
     ),
     width: 245,
@@ -305,7 +305,7 @@ export default function Since() {
             <br className={styles.introBreak} /> Moldova and Romania, we built
             ENSO —
             <br className={styles.introBreak} /> our own vision of a modern
-            developer.
+            developer
           </p>
         </header>
 

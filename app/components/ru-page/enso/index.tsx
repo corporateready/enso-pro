@@ -95,9 +95,12 @@ export default function Enso() {
         />
         <Image
           className={`${styles.background} ${styles.desktopImage}`}
-          src="/enso-desktop-bg.avif"
-          width={7680}
-          height={3332}
+          // the garden sharp since 2026-11-26: only the laptop's screen is
+          // blurred now (it was both, "a double blur", at the 2026-11-25
+          // meeting); composited from Figma's layers at 2x
+          src="/enso-desktop-bg-sharp.avif"
+          width={3840}
+          height={1666}
           sizes="(min-width: 641px) 100vw, 1px"
           alt=""
         />
@@ -127,7 +130,7 @@ export default function Enso() {
           </h2>
           <p className={styles.intro} data-reveal style={revealDelay(100)}>
             Всё о вашей недвижимости в одном месте: <br />
-            цены, документы и ваша команда ENSO.
+            цены, документы и ваша команда ENSO
           </p>
 
           <ul className={styles.features}>

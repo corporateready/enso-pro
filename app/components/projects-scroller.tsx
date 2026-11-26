@@ -11,6 +11,9 @@ import {
 
 import { revealDelay } from "./motion/reveal";
 
+// how far (px) a mouse press may wander and still be a click on a card
+const DRAG_THRESHOLD = 6;
+
 type ProjectsScrollerProps = {
   children: ReactNode;
   itemCount: number;
@@ -103,12 +106,14 @@ export default function ProjectsScroller({
       return;
     }
 
+    // a row with nothing to scroll (the three cards side by side on a
+    // desktop) is not dragged at all
+    if (scroller.scrollWidth - scroller.clientWidth < 1) return;
+
     draggingPointerRef.current = event.pointerId;
     dragStartXRef.current = event.clientX;
     dragStartScrollRef.current = scroller.scrollLeft;
     dragDistanceRef.current = 0;
-    setIsDragging(true);
-    scroller.setPointerCapture(event.pointerId);
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -116,11 +121,28 @@ export default function ProjectsScroller({
 
     if (!scroller || draggingPointerRef.current !== event.pointerId) return;
 
+    // the button came up outside the row, where its pointerup never got here
+    if ((event.buttons & 1) === 0) {
+      draggingPointerRef.current = null;
+      return;
+    }
+
     const distance = event.clientX - dragStartXRef.current;
     dragDistanceRef.current = Math.max(
       dragDistanceRef.current,
       Math.abs(distance),
     );
+
+    // The row takes the pointer only once a press has become a drag. Taken
+    // at the press, the click that ended it went to the row instead of the
+    // card under the mouse (Chrome sends a click to the element holding the
+    // pointer), so a card's link never opened (ARTIMA, 2026-11-26).
+    if (!scroller.hasPointerCapture(event.pointerId)) {
+      if (dragDistanceRef.current <= DRAG_THRESHOLD) return;
+      scroller.setPointerCapture(event.pointerId);
+      setIsDragging(true);
+    }
+
     scroller.scrollLeft = dragStartScrollRef.current - distance;
   };
 
@@ -152,12 +174,15 @@ export default function ProjectsScroller({
         onPointerUp={stopDragging}
         onPointerCancel={stopDragging}
         onClickCapture={(event) => {
-          if (dragDistanceRef.current <= 6) return;
+          if (dragDistanceRef.current <= DRAG_THRESHOLD) return;
 
           event.preventDefault();
           event.stopPropagation();
           dragDistanceRef.current = 0;
         }}
+        // a card's photo or link would otherwise start the browser's own
+        // drag of it and cut the row's drag short
+        onDragStart={(event) => event.preventDefault()}
         role="region"
         aria-label="Projects slider"
         tabIndex={0}

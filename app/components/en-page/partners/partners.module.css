@@ -3,17 +3,19 @@
      the section leaves their blue glow 42 to fade out in, rather than cutting
      it off 22 down in a hard line, and the next title starts 64 below where
      it has faded (97 below the cards) */
+  /* 19 taller since 2026-11-25: the subtitle takes three lines here
+     (it breaks before the dash, and its first half needs two) */
   .section {
     width: 390rem;
-    height: 437.7rem;
-    flex: 0 0 437.7rem;
+    height: 456.7rem;
+    flex: 0 0 456.7rem;
     padding-top: 61.8rem;
     overflow: hidden;
     background: #fff;
   }
 
   .header {
-    height: 90rem;
+    height: 109rem;
     padding: 0 15rem;
   }
 
@@ -37,6 +39,11 @@
     font-size: 16rem;
     font-weight: 400;
     line-height: 19rem;
+  }
+
+  .subtitleLine {
+    display: block;
+    white-space: nowrap;
   }
 
   /* the cards' glow dies out before the strip's edges (29 above them, and
@@ -80,43 +87,38 @@
     overflow: hidden;
   }
 
+  /* the logo at the card's left, where its text starts (layout 2 of
+     2026-11-26, as on desktops), centred on its band's height */
   .sourceImage {
     position: absolute;
+    top: 50%;
+    left: 0;
     max-width: none;
     object-fit: contain;
+    transform: translateY(-50%);
   }
 
   .archimatikaImage {
-    top: 17rem;
-    left: 26rem;
     width: 190rem;
     height: 27rem;
   }
 
   .inamstroImage {
-    top: 21rem;
-    left: 40rem;
     width: 167rem;
     height: 28rem;
   }
 
   .aclaImage {
-    top: 18rem;
-    left: 73rem;
     width: 94rem;
     height: 32rem;
   }
 
   .arutinImage {
-    top: 28rem;
-    left: 28rem;
     width: 183rem;
     height: 17rem;
   }
 
   .estateImage {
-    top: 9rem;
-    left: 57rem;
     width: 125rem;
     height: 46rem;
   }
@@ -187,8 +189,11 @@
   }
 
   .header {
+    /* 160 from the left, as the blocks set by left: 160rem: centred, the
+       column moved by half a scrollbar where one takes room off the page
+       and the rem does not follow (2026-11-25, one line for every block) */
     width: 1600rem;
-    margin: 0 auto;
+    margin: 0 0 0 160rem;
   }
 
   .title {
@@ -205,6 +210,15 @@
     font-family: var(--font-inter), sans-serif;
     font-size: 36rem;
     line-height: 1.2;
+  }
+
+  .subtitleLine {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .mobileBreak {
+    display: none;
   }
 
   .viewport {
@@ -227,68 +241,65 @@
     padding-right: 41.6rem;
   }
 
+  /* Layout 2 of the 2026-11-25 meeting's variants, chosen 2026-11-26: the
+     logo at the card's left, the text left-aligned under it, the two
+     centred together on the card's height (until then the logo stood near
+     the top and the text sat on the bottom edge, with an empty band between
+     them). Each logo is centred on an 86 band, so a flat logo and a tall
+     one start the text at one height. */
   .card {
     position: relative;
+    display: flex;
     width: 464.3rem;
     height: 277.9rem;
     flex: 0 0 464.3rem;
-    padding: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 0 0 40rem;
     background: #fff;
     box-shadow: 0 16.64rem 66.56rem #36629b;
   }
 
   .logoVisual {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    height: auto;
+    position: relative;
+    width: 100%;
+    height: 86rem;
+    flex: none;
   }
 
   .sourceImage {
     position: absolute;
+    top: 50%;
+    left: 0;
     max-width: none;
     object-fit: contain;
-    transform: none;
+    transform: translateY(-50%);
   }
 
   .archimatikaImage {
-    top: 61.6rem !important;
-    left: 76.5rem !important;
     width: 322.8rem !important;
     height: 44.9rem !important;
   }
   .inamstroImage {
-    top: 68.2rem !important;
-    left: 99.7rem !important;
     width: 277rem !important;
     height: 46.6rem !important;
   }
   .aclaImage {
-    top: 63.2rem !important;
-    left: 153.8rem !important;
     width: 156.4rem !important;
     height: 53.3rem !important;
   }
   .arutinImage {
-    top: 79.9rem !important;
-    left: 80.3rem !important;
     width: 304.1rem !important;
     height: 28.3rem !important;
   }
   .estateImage {
-    top: 48.3rem !important;
-    left: 127.3rem !important;
     width: 207.6rem !important;
     height: 76.5rem !important;
   }
 
-  /* Figma bottom-aligns the 2- and 3-line texts 34.1 above the card edge. */
   .card p {
-    position: absolute;
-    bottom: 34.1rem;
-    left: 33.3rem;
-    width: 409rem;
-    margin: 0;
+    margin: 24rem 0 0;
     color: rgb(0 0 0 / 70%);
     font-family: var(--font-inter), sans-serif;
     font-size: 23.3rem;
@@ -296,8 +307,6 @@
     line-height: 28rem;
     white-space: pre-line;
   }
-
-  /* the two-line description sits on the same baseline as the others */
 
   .visuallyHidden {
     position: absolute;
