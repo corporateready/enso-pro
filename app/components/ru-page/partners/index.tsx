@@ -114,14 +114,16 @@ export default function Partners() {
           НАШИ ПАРТНЁРЫ
         </h2>
         <p className={styles.subtitle} data-reveal style={revealDelay(100)}>
-          {/* the break falls before the dash, where the sentence divides
-              (2026-11-25 meeting); one sentence, so no full stop */}
+          {/* the dash ends the first line, tied to its word, and the
+              second starts after it (the client's word of 2026-11-26; the
+              2026-11-25 meeting had the break before it); one sentence, so
+              no full stop */}
           <span className={styles.subtitleLine}>
             Строим с командами
-            <br className={styles.mobileBreak} /> с подтверждённой репутацией
+            <br className={styles.mobileBreak} /> с подтверждённой репутацией{"\u00a0"}—
           </span>
           <span className={styles.subtitleLine}>
-            — экспертами в своём деле
+            экспертами в своём деле
           </span>
         </p>
       </header>

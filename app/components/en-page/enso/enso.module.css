@@ -441,8 +441,11 @@
     translate: 0 0.75rem;
   }
 
+  /* measured by its pixels on 2026-11-26: the browser sets the label on
+     whole pixels, so 3 left the small letters 0.51 low and 4 leaves them
+     0.49 high; nothing between */
   .accountLink {
-    padding-bottom: 3rem;
+    padding-bottom: 4rem;
   }
 }
 

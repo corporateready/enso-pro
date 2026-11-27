@@ -176,7 +176,8 @@ function BlockView({ block }: { block: Block }) {
   }
 }
 
-/* three more: the article's own category first, then the newest */
+/* three more: the article's own category first, then in the journal's
+   order */
 function relatedTo(list: readonly Card[], id: string) {
   const card = list.find((article) => article.id === id);
   const others = list.filter((article) => article.id !== id);

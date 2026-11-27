@@ -87,15 +87,16 @@
     overflow: hidden;
   }
 
-  /* the logo at the card's left, where its text starts (layout 2 of
-     2026-11-26, as on desktops), centred on its band's height */
+  /* the logo on the card's middle over its centred text (layout 1 of
+     2026-11-26, as on desktops), its own letters on the band's middle
+     line: --logo-mid, at the end of this file */
   .sourceImage {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 50%;
     max-width: none;
     object-fit: contain;
-    transform: translateY(-50%);
+    transform: translate(-50%, calc(-1 * var(--logo-mid, 50%)));
   }
 
   .archimatikaImage {
@@ -125,6 +126,7 @@
 
   .card p {
     margin: 14rem 0 0;
+    text-align: center;
     color: #5d5d5d;
     font-family: var(--font-inter), sans-serif;
     font-size: 14rem;
@@ -241,12 +243,14 @@
     padding-right: 41.6rem;
   }
 
-  /* Layout 2 of the 2026-11-25 meeting's variants, chosen 2026-11-26: the
-     logo at the card's left, the text left-aligned under it, the two
-     centred together on the card's height (until then the logo stood near
-     the top and the text sat on the bottom edge, with an empty band between
-     them). Each logo is centred on an 86 band, so a flat logo and a tall
-     one start the text at one height. */
+  /* Layout 1 of the 2026-11-25 meeting's variants, chosen 2026-11-26 after
+     a day of layout 2 (the logo and the text at the card's left): the logo
+     and the text on the card's middle, the two centred together on its
+     height (until then the logo stood near the top and the text sat on the
+     bottom edge, with an empty band between them). Each logo stands on an
+     86 band with its own letters on the band's middle line (--logo-mid, at
+     the end of this file), so the five read as one line and every text
+     starts at one height. */
   .card {
     position: relative;
     display: flex;
@@ -254,9 +258,9 @@
     height: 277.9rem;
     flex: 0 0 464.3rem;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 0 0 0 40rem;
+    padding: 0 24rem;
     background: #fff;
     box-shadow: 0 16.64rem 66.56rem #36629b;
   }
@@ -271,10 +275,10 @@
   .sourceImage {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 50%;
     max-width: none;
     object-fit: contain;
-    transform: translateY(-50%);
+    transform: translate(-50%, calc(-1 * var(--logo-mid, 50%)));
   }
 
   .archimatikaImage {
@@ -300,6 +304,7 @@
 
   .card p {
     margin: 24rem 0 0;
+    text-align: center;
     color: rgb(0 0 0 / 70%);
     font-family: var(--font-inter), sans-serif;
     font-size: 23.3rem;
@@ -321,4 +326,33 @@
       transform: translateX(-50%);
     }
   }
+}
+
+/*
+ * Where each logo's own letters have their middle, as a share of its
+ * picture's height from the top (measured in the files on 2026-11-26): the
+ * small letters of archimatika and acla (their tall letters stand above),
+ * the capitals of INAMSTRO ("Construction Co." hangs under them) and of
+ * ARUTIN BUREAU, the whole mark of Estate Invest. That point stands on the
+ * logo band's middle line on both screens; centring the pictures instead
+ * had left INAMSTRO's letters 16 above archimatika's.
+ */
+.archimatikaImage {
+  --logo-mid: 68.1%;
+}
+
+.inamstroImage {
+  --logo-mid: 32.6%;
+}
+
+.aclaImage {
+  --logo-mid: 62.1%;
+}
+
+.arutinImage {
+  --logo-mid: 50%;
+}
+
+.estateImage {
+  --logo-mid: 50%;
 }

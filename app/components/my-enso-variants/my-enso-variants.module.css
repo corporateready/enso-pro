@@ -1,0 +1,122 @@
+/* The working page of MY ENSO's screen colours (index.tsx): the page's top
+   and the note over each variant, as on the other variants pages
+   (partners-variants). The block itself is ro-page/enso: it only takes
+   its screens' pictures from the page. */
+
+.page {
+  width: 100%;
+  overflow-x: clip;
+  background: #fff;
+}
+
+/* the page's top and the note over each variant: the client's working
+   notes, set plainly */
+.top,
+.tag {
+  color: #555;
+  font-family: system-ui, sans-serif;
+}
+
+.topTitle,
+.topNote {
+  margin: 0;
+}
+
+.topTitle {
+  color: #000;
+  font-weight: 700;
+}
+
+.topLinks {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.topLinks a {
+  color: #0e3477;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.tag {
+  display: flex;
+  flex-direction: column;
+  background: #f3f5f9;
+  border-top: 1px solid rgb(0 0 0 / 8%);
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+.tag strong {
+  color: #000;
+}
+
+/* each copy of the block in a box of its own: on a phone the block stands 4
+   past the screen's left edge, as on the home page */
+.block {
+  position: relative;
+  overflow-x: clip;
+}
+
+@media screen and (max-width: 640px) {
+  .top {
+    padding: 20rem 16rem;
+    font-size: 13rem;
+    line-height: 1.35;
+  }
+
+  .topTitle {
+    font-size: 20rem;
+  }
+
+  .topNote {
+    margin-top: 6rem;
+  }
+
+  .topLinks {
+    gap: 6rem 16rem;
+    margin-top: 10rem;
+  }
+
+  .tag {
+    gap: 3rem;
+    padding: 14rem 16rem;
+    font-size: 13rem;
+    line-height: 1.35;
+  }
+
+  .tag strong {
+    font-size: 15rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .top {
+    padding: 34rem 160rem;
+    font-size: 19rem;
+    line-height: 1.35;
+  }
+
+  .topTitle {
+    font-size: 30rem;
+  }
+
+  .topNote {
+    margin-top: 8rem;
+  }
+
+  .topLinks {
+    gap: 8rem 28rem;
+    margin-top: 14rem;
+  }
+
+  .tag {
+    gap: 5rem;
+    padding: 20rem 160rem;
+    font-size: 19rem;
+    line-height: 1.35;
+  }
+
+  .tag strong {
+    font-size: 23rem;
+  }
+}

@@ -83,6 +83,9 @@ export type HeroCarouselProps = {
   ariaLabel?: string;
   className?: string;
   mode?: "responsive" | "mobile" | "desktop";
+  // held while the offer dialog is open over the hero (asked 2026-11-27:
+  // the slides went on changing behind it); it resumes where it stopped
+  paused?: boolean;
 };
 
 const DEFAULT_OPTIONS: NonNullable<HeroCarouselOptions> = {
@@ -440,6 +443,7 @@ export function HeroCarousel({
   ariaLabel = "Hero images",
   className,
   mode = "responsive",
+  paused = false,
 }: HeroCarouselProps) {
   const [isViewportDesktop, setIsViewportDesktop] = useState(false);
   const isDesktop =
@@ -588,7 +592,8 @@ export function HeroCarousel({
       progressStartedAtRef.current = null;
     }
 
-    if (!emblaApi || scrollSnaps.length < 2 || isDragging || !isInView) return;
+    if (!emblaApi || scrollSnaps.length < 2 || isDragging || !isInView || paused)
+      return;
 
     progressStartedAtRef.current = performance.now();
 
@@ -614,12 +619,13 @@ export function HeroCarousel({
     isDesktop,
     isDragging,
     isInView,
+    paused,
     pauseProgressTimer,
     scrollSnaps.length,
     selectedIndex,
   ]);
 
-  const isProgressHeld = isDragging || !isInView;
+  const isProgressHeld = isDragging || !isInView || paused;
 
   if (slides.length === 0) return null;
 

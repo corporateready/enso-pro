@@ -1,12 +1,17 @@
 /*
- * Every article of the journal, newest first, and what its cards need: the
- * category, the month it is dated, the reading time, the pictures and the
- * card's title in each language. The home block (*-page/journal), the
- * journal's own page (journal-page) and the articles' pages all read this
- * list; the articles' own words are elsewhere (content.ts, articles/*.ts),
- * so a card does not carry a whole article into the home page's script.
+ * Every article of the journal, in the order the journal shows them, and
+ * what its cards need: the category, the month it is dated, the reading
+ * time, the pictures and the card's title in each language. The home block
+ * (*-page/journal), the journal's own page (journal-page) and the articles'
+ * pages all read this list; the articles' own words are elsewhere
+ * (content.ts, articles/*.ts), so a card does not carry a whole article
+ * into the home page's script.
  *
- * A new article: an entry here (where its date puts it) and its words in
+ * The order is the client's, not the dates': BIM, Archimatika, ARTIMA and
+ * Moldova first (2026-11-27), then the rest newest first. The home block
+ * shows the first three it may show (onHome), the journal's page all.
+ *
+ * A new article: an entry here (where it should stand) and its words in
  * articles/<id>.ts.
  *
  * Dates: the client's content team publishes its pieces "in the past"
@@ -26,6 +31,9 @@ export type Locale = "ro" | "ru" | "en";
 
 export const articleIds = [
   "bim-standard",
+  "archimatika-partnership",
+  "artima-business-lifestyle-opening",
+  "moldova-growth-leader",
   "cucorilor-tender-chisinau",
   "iasi-cicoarei-residential",
   "eminescu-offices",
@@ -33,11 +41,8 @@ export const articleIds = [
   "azimut-copou-exit",
   "diminetii-iasi-investment",
   "newton-house-sold-out",
-  "artima-business-lifestyle-opening",
-  "moldova-growth-leader",
   "enso-living-construction-start",
   "brasov-mixed-use-acquisition",
-  "archimatika-partnership",
 ] as const;
 
 export type ArticleId = (typeof articleIds)[number];
@@ -133,6 +138,45 @@ const entries: readonly Entry[] = [
     },
     picture: { src: "/journal-post-image.avif", width: 3200, height: 2520 },
     cover: { src: "/journal-post-image.avif", width: 3200, height: 2520 },
+  },
+  {
+    id: "archimatika-partnership",
+    category: "inside-enso",
+    published: "2024-09",
+    minutes: 3,
+    title: {
+      ro: "ENSŌ Development × Archimatika: parteneriat strategic în arhitectură și masterplanning urban",
+      ru: "ENSŌ Development × Archimatika: стратегическое партнёрство в\u00a0архитектуре и\u00a0градостроительстве",
+      en: "ENSŌ Development × Archimatika: a strategic partnership in architecture and urban masterplanning",
+    },
+    picture: squareOf("archimatika-partnership"),
+    cover: coverOf("archimatika-partnership"),
+  },
+  {
+    id: "artima-business-lifestyle-opening",
+    category: "projects",
+    published: "2025-09",
+    minutes: 2,
+    title: {
+      ro: "ARTIMA Business & Lifestyle\u00a0— finalizat și lansat oficial",
+      ru: "ARTIMA Business & Lifestyle\u00a0— построен и\u00a0официально открыт",
+      en: "ARTIMA Business & Lifestyle\u00a0— completed and officially launched",
+    },
+    picture: squareOf("artima-business-lifestyle-opening"),
+    cover: coverOf("artima-business-lifestyle-opening"),
+  },
+  {
+    id: "moldova-growth-leader",
+    category: "market",
+    published: "2025-05",
+    minutes: 3,
+    title: {
+      ro: "Moldova\u00a0— locul\u00a01 în Europa\nla creșterea pieței\nimobiliare în 2025",
+      ru: "Молдова\u00a0— №1 в\u00a0Европе\nпо\u00a0росту рынка жилья,\n2025",
+      en: "Moldova — #1 in Europe\nReal Estate Growth\nLeader 2025",
+    },
+    picture: { src: "/journal-moldova-square.avif", width: 588, height: 588 },
+    cover: { src: "/journal-moldova.avif", width: 746, height: 588 },
   },
   {
     id: "cucorilor-tender-chisinau",
@@ -233,32 +277,6 @@ const entries: readonly Entry[] = [
     cover: coverOf("newton-house-sold-out"),
   },
   {
-    id: "artima-business-lifestyle-opening",
-    category: "projects",
-    published: "2025-09",
-    minutes: 2,
-    title: {
-      ro: "ARTIMA Business & Lifestyle\u00a0— finalizat și lansat oficial",
-      ru: "ARTIMA Business & Lifestyle\u00a0— построен и\u00a0официально открыт",
-      en: "ARTIMA Business & Lifestyle\u00a0— completed and officially launched",
-    },
-    picture: squareOf("artima-business-lifestyle-opening"),
-    cover: coverOf("artima-business-lifestyle-opening"),
-  },
-  {
-    id: "moldova-growth-leader",
-    category: "market",
-    published: "2025-05",
-    minutes: 3,
-    title: {
-      ro: "Moldova\u00a0— locul\u00a01 în Europa\nla creșterea pieței\nimobiliare în 2025",
-      ru: "Молдова\u00a0— №1 в\u00a0Европе\nпо\u00a0росту рынка жилья,\n2025",
-      en: "Moldova — #1 in Europe\nReal Estate Growth\nLeader 2025",
-    },
-    picture: { src: "/journal-moldova-square.avif", width: 588, height: 588 },
-    cover: { src: "/journal-moldova.avif", width: 746, height: 588 },
-  },
-  {
     id: "enso-living-construction-start",
     category: "projects",
     published: "2025-03",
@@ -285,19 +303,6 @@ const entries: readonly Entry[] = [
     },
     picture: squareOf("brasov-mixed-use-acquisition"),
     cover: coverOf("brasov-mixed-use-acquisition"),
-  },
-  {
-    id: "archimatika-partnership",
-    category: "inside-enso",
-    published: "2024-09",
-    minutes: 3,
-    title: {
-      ro: "ENSŌ Development × Archimatika: parteneriat strategic în arhitectură și masterplanning urban",
-      ru: "ENSŌ Development × Archimatika: стратегическое партнёрство в\u00a0архитектуре и\u00a0градостроительстве",
-      en: "ENSŌ Development × Archimatika: a strategic partnership in architecture and urban masterplanning",
-    },
-    picture: squareOf("archimatika-partnership"),
-    cover: coverOf("archimatika-partnership"),
   },
 ];
 

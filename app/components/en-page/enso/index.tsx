@@ -85,7 +85,9 @@ export default function Enso() {
       <div className={styles.inner}>
         <Image
           className={`${styles.background} ${styles.mobileImage}`}
-          src="/enso-mobile-bg-en.webp"
+          // the phone shows a client's cabinet too (a mock, 2026-11-27; it
+          // showed the sign-in screen before)
+          src="/enso-mobile-my-enso-en.webp"
           width={1576}
           height={2591}
           sizes="(max-width: 639px) 100vw, 394px"
@@ -106,7 +108,10 @@ export default function Enso() {
             the right of RO's, so each page has its own export */}
         <Image
           className={styles.laptopImage}
-          src="/enso-laptop-desktop-en.avif"
+          // on its screen, blurred, a client's own cabinet: the flat in ENSO
+          // LIVING, the works, the next payment, documents (a mock drawn
+          // 2026-11-27; it showed the site's first screen before)
+          src="/enso-laptop-my-enso-en.avif"
           // slides in from the right edge it sits against
           data-reveal
           style={
@@ -130,8 +135,10 @@ export default function Enso() {
           </h2>
           <p className={styles.intro} data-reveal style={revealDelay(100)}>
             Everything about your property,
-            <br className={styles.desktopBreak} /> in one place
-            <br className={styles.mobileBreak} /> — prices, documents,
+            {/* on a phone the dash ends a line and does not start the next
+                (the client's word of 2026-11-26) */}
+            <br className={styles.desktopBreak} /> in one place{"\u00a0"}—
+            <br className={styles.mobileBreak} /> prices, documents,
             <br className={styles.desktopBreak} /> and your ENSO team
           </p>
 

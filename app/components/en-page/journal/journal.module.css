@@ -783,9 +783,9 @@
 }
 
 @media screen and (min-width: 641px) {
-  .filterButton {
-    padding-bottom: 1.6rem;
-  }
+  /* the filters keep their line: measured by their pixels on 2026-11-26,
+     the small letters sat 0.34 low as they were and 0.66 high when lifted
+     (the browser sets the text on whole pixels), so as they were is nearer */
 
   .featureCard .articleCategory {
     padding-bottom: 4rem;

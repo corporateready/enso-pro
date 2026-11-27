@@ -33,7 +33,18 @@ const features: readonly {
   },
 ];
 
-export default function Enso() {
+type EnsoProps = {
+  // the pictures of the laptop and of the phone, a client's cabinet on the
+  // screen of each: the site's own, unless the variants page
+  // (my-enso-variants) shows the cabinet in another colour
+  laptopSrc?: string;
+  phoneSrc?: string;
+};
+
+export default function Enso({
+  laptopSrc = "/enso-laptop-my-enso.avif",
+  phoneSrc = "/enso-mobile-my-enso-ro.webp",
+}: EnsoProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
   const [animatedPathname, setAnimatedPathname] = useState<string | null>(null);
@@ -85,7 +96,9 @@ export default function Enso() {
       <div className={styles.inner}>
         <Image
           className={`${styles.background} ${styles.mobileImage}`}
-          src="/enso-mobile-bg-ro.webp"
+          // the phone shows a client's cabinet too (a mock, 2026-11-27; it
+          // showed the sign-in screen before)
+          src={phoneSrc}
           width={1576}
           height={2591}
           sizes="(max-width: 639px) 100vw, 394px"
@@ -104,7 +117,10 @@ export default function Enso() {
         />
         <Image
           className={styles.laptopImage}
-          src="/enso-laptop-desktop.avif"
+          // on its screen, blurred, a client's own cabinet: the flat in ENSO
+          // LIVING, the works, the next payment, documents (a mock drawn
+          // 2026-11-27; it showed the site's first screen before)
+          src={laptopSrc}
           // slides in from the right edge it sits against
           data-reveal
           style={

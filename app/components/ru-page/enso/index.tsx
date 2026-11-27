@@ -87,7 +87,9 @@ export default function Enso() {
           className={`${styles.background} ${styles.mobileImage}`}
           // the phone in the picture shows the Romanian sign-in: there is no
           // Russian export of it
-          src="/enso-mobile-bg-ro.webp"
+          // the phone shows a client's cabinet too (a mock, 2026-11-27; it
+          // showed the sign-in screen before)
+          src="/enso-mobile-my-enso-ro.webp"
           width={1576}
           height={2591}
           sizes="(max-width: 639px) 100vw, 394px"
@@ -106,7 +108,10 @@ export default function Enso() {
         />
         <Image
           className={styles.laptopImage}
-          src="/enso-laptop-desktop.avif"
+          // on its screen, blurred, a client's own cabinet: the flat in ENSO
+          // LIVING, the works, the next payment, documents (a mock drawn
+          // 2026-11-27; it showed the site's first screen before)
+          src="/enso-laptop-my-enso.avif"
           // slides in from the right edge it sits against
           data-reveal
           style={

@@ -5,6 +5,7 @@ import HeroCarousel, { type HeroCarouselSlide } from "./carousel";
 import AccountModal from "./account-modal";
 import MobileMenu from "./mobile-menu";
 import OfferModal from "./offer-modal";
+import type { OfferPhoto } from "./offer-photos";
 import LanguageMenu, {
   type LanguageOption,
   siteLanguages,
@@ -69,7 +70,9 @@ const Index = ({ page }: HeroProps) => {
     }));
   }, []);
   const [isSticky, setIsSticky] = useState(false);
-  const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+  // the offer dialog, open with the photo of the slide whose button
+  // opened it (null: closed)
+  const [offerPhoto, setOfferPhoto] = useState<OfferPhoto | null>(null);
   // Once the page moves the bar turns frosted white with black type, the
   // client's pick over the hero's see-through, blurred bar.
   const isWhiteBar = isSticky || Boolean(page);
@@ -103,7 +106,7 @@ const Index = ({ page }: HeroProps) => {
       primaryAction: {
         label: "Solicită ofertă",
         href: "#request-offer",
-        onClick: () => setIsOfferModalOpen(true),
+        onClick: () => setOfferPhoto("city"),
       },
       secondaryAction: {
         label: "Află mai mult",
@@ -181,7 +184,7 @@ const Index = ({ page }: HeroProps) => {
       primaryAction: {
         label: "Solicită ofertă",
         href: "#request-offer",
-        onClick: () => setIsOfferModalOpen(true),
+        onClick: () => setOfferPhoto("living"),
       },
       secondaryAction: {
         label: "Află mai mult",
@@ -521,16 +524,24 @@ const Index = ({ page }: HeroProps) => {
       {!page && (
         <>
           <div className={styles.mobileCarousel}>
-            <HeroCarousel slides={slides} mode="mobile" />
+            <HeroCarousel
+              slides={slides}
+              mode="mobile"
+              paused={offerPhoto !== null}
+            />
           </div>
           <div className={styles.desktopCarousel}>
-            <HeroCarousel slides={slides} mode="desktop" />
+            <HeroCarousel
+              slides={slides}
+              mode="desktop"
+              paused={offerPhoto !== null}
+            />
           </div>
         </>
       )}
 
-      {isOfferModalOpen && (
-        <OfferModal onClose={() => setIsOfferModalOpen(false)} />
+      {offerPhoto && (
+        <OfferModal photo={offerPhoto} onClose={() => setOfferPhoto(null)} />
       )}
 
       <AccountModal
